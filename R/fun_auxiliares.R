@@ -1,5 +1,5 @@
 # Printar um certo vetor separado por ',' e espaço, com último termo separado por "e"
-printvetor=function(vetor){
+printvetor <- function(vetor){
 size=length(vetor)
 print=paste(paste(vetor[1:(size-1)],collapse=", ")," e ",vetor[size],collapse=NULL)
 return(print)}
