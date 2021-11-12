@@ -1,9 +1,7 @@
-
 printvetor <- function(vetor){
 size=length(vetor)
 print=paste(paste(vetor[1:(size-1)],collapse=", ")," e ",vetor[size],collapse=NULL)
 return(print)}
-
 
 format_real <- function(valor) {
    res=format(round(valor,2),nsmall = 2, decimal.mark = ",", big.mark = ".")
