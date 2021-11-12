@@ -1,2 +1,1 @@
-export(format_pvalor)
-export(get_auxiliar)
+exportPattern("^[[:alpha:]]+")
