@@ -1,5 +1,3 @@
-# @export
-
 pvalor <- function(p){
   if(is.numeric(p)==F) res="" else
     if(p>0.05) res = p=formatC(round(p,3), format='f', digits=3) else
