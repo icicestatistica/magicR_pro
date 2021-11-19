@@ -13,3 +13,14 @@ desc_uni_continua <- function(var,digitos){
                 p)
   d <- data.frame(Resultado=variavel,row.names=parametros)
   return(d)}
+
+desc_uni_categorica <- function(var,niveis,nas,label,ordenar,acumula,digitos){
+  if (niveis[1] != F) var <- factor(var, levels = niveis)
+  if (ordenar==TRUE) {d <- d[order(as.numeric(d[,1]),decreasing = T),]}
+  if (nas==FALSE) {d<-t(rbind(round(table(var),0),paste0(round(100*prop.table(table(var)),digitos),"%")))} else
+  {d<-t(rbind(round(table(var),0),paste0(round(100*table(var)/length(var),digitos),"%")))
+   d <- rbind(d, "N/A"=c(sum(is.na(var)),paste0(round(100*sum(is.na(var))/length(var),digitos),"%")))}
+  if (label==TRUE) {d <- data.frame(d, "Freq."=paste0(d[,1]," (",d[,2],")"))}
+  if (acumula==TRUE) {d <- data.frame(d,"Freq. Relativa Acumulada"= paste0(round(100*cumsum(d[,1])/(cumsum(d[,1])[nrow(d)]),digitos),"%"))}
+  colnames(d) <- c("Frequência","Freq. Relativa","Freq.","Freq. Relativa Acumulada")[c(T,T,label,acumula)]
+  return(d)}
