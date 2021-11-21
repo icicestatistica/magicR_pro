@@ -48,3 +48,11 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,testes,dig){
     result <- rbind(result,escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],dig))}}
 row.names(result) <- 1:dim(result)[1]
 return(list("result"=result,"testes"=testes))}
+
+get_summary <- function(dados,gr,auxiliar,testes,dig){
+x <- dados[,gr]
+nomesx <- auxiliar[gr,2]
+tipox <- auxiliar[gr,3]
+niveisx <- auxiliar[gr,4]
+resultados = get_summary_2(x,nomesx,tipox,niveisx,testes,dig)
+return(list("result"=resultados$result,"testes"=resultados$testes))}
