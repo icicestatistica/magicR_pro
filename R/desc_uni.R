@@ -1,4 +1,5 @@
 desc_uni_continua <- function(var,digitos){
+  var = unlist(var)
   if(length(summary(var))==6) {N=length(var); na=0} else {N=length(var);na=summary(var)[7]}
   if(length(var)-sum(is.na(var))<3 | length(var)-sum(is.na(var))>3000 | min(var,na.rm=T)==max(var,na.rm=T)) p = "N/A" else p=pvalor(shapiro.test(var)$p.value)
   parametros <- c("N (NA's)","Observações","Min-Máx","Q1-Q3","Mediana","Média","Desvio Padrão","CV", "Normalidade (Shapiro Wilk)")
@@ -15,6 +16,7 @@ desc_uni_continua <- function(var,digitos){
   return(d)}
 
 desc_uni_categorica <- function(var,niveis,nas,label,ordenar,acumula,digitos){
+  var=unlist(var)
   if (niveis[1] != F) var <- factor(var, levels = niveis)
   if (nas==FALSE) {d<-t(rbind(round(table(var),0),paste0(round(100*prop.table(table(var)),digitos),"%")))} else
   {d<-t(rbind(round(table(var),0),paste0(round(100*table(var)/length(var),digitos),"%")))
