@@ -24,5 +24,7 @@ desc_uni_categorica <- function(var,niveis,nas,label,ordenar,acumula,digitos){
   if (ordenar==TRUE) {d <- d[order(as.numeric(d[,1]),decreasing = T),]}
   if (label==TRUE) {d <- data.frame(d, "Freq."=paste0(d[,1]," (",d[,2],")"))}
   if (acumula==TRUE) {d <- data.frame(d,"Freq. Relativa Acumulada"= paste0(cumsum(d[,1])," (", round(100*cumsum(d[,1])/(cumsum(d[,1])[nrow(d)]),digitos),"%)"))}
-  colnames(d) <- c("Frequência","Freq. Relativa","Freq.","Freq. Relativa Acumulada")[c(T,T,label,acumula)]
+  d <- data.frame(row.names(d),d)
+  colnames(d) <- c("Característica","Frequência","Freq. Relativa","Freq.","Freq. Acumulada")[c(T,T,T,label,acumula)]
+  row.names(d)=NULL
   return(d)}
