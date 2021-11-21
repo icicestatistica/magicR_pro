@@ -56,3 +56,11 @@ tipox <- auxiliar[gr,3]
 niveisx <- auxiliar[gr,4]
 resultados = get_summary_2(x,nomesx,tipox,niveisx,testes,dig)
 return(list("result"=resultados$result,"testes"=resultados$testes))}
+
+cat_same_levels <- function(x,nomes,levels,nas,dig){
+df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(x[,1],levels,nas,T,F,F,dig)[,4]))
+for (i in 2:dim(x)[2])
+df = rbind(df, data.frame("Variável"=nomes[i],t(desc_uni_categorica(x[,i],levels,nas,T,F,F,dig)[,4])))
+if(nas==T) levels=c(levels,"N/A")
+names(df)=c("Variável",levels)
+return(df)}
