@@ -23,5 +23,5 @@ for (i in 1:(dim(df)[1]-1)){
 if(sum(df$ICmin[i]>df$ICmax)>1) texto = c(texto,paste(" * ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),". \n",sep="")) else
   if(sum(df$ICmin[i]>df$ICmax)==1) texto = c(texto,paste(" * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],". \n", sep="")) else
     texto = c(texto,paste(" * ",df$Variável[i]," não é maior que nenhum. \n",sep=""))}
-texto = paste(texto, sep="")
+texto = paste(texto, sep="",collapse="")
 return(list("result"=df_printar,"texto"=texto))}
