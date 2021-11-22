@@ -22,8 +22,8 @@ texto=list(paste0("Podemos avaliar esta tabela comparando os intervalos de confi
 for (i in 1:(dim(df)[1])){
 if(sum(df$ICmin[i]>df$ICmax)>1) texto = list.append(texto,paste0(" * ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),".","\n",collapse="")) else
   if(sum(df$ICmin[i]>df$ICmax)==1) texto = list.append(texto,paste0(" * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],".","\n",collapse="")) else
-    if(i==dim(df)[1]) texto = list.append(texto,paste0(" * ",df$Variável[i]," não é maior que nenhum.","\n",collapse="") else {
-      texto=list.append(texto, paste0(" * ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum.","\n"),collapse=""); break}}
+    if(i==dim(df)[1]) texto = list.append(texto,paste0(" * ",df$Variável[i]," não é maior que nenhum.","\n",collapse="")) else {
+      texto=list.append(texto, paste0(" * ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum.","\n",collapse="")); break}}
 texto=list.append(texto, paste0("É possível visualizar esses resultados no gráfico a seguir:","\n",collapse=""))
 
 df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
