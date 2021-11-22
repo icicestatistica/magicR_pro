@@ -20,11 +20,11 @@ names(df_printar)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Fre
 
 texto=c("Podemos avaliar esta tabela comparando os intervalos de confiança de cada ítem. Caso os intervalos de confiança de dois ítens se sobreponham, isso significa que não rejeitamos a diferença entre as proporções nesses dois ao nível de 5% de significância. Portanto, interpretamos da seguinte forma:","  \n")
 for (i in 1:(dim(df)[1])){
-if(sum(df$ICmin[i]>df$ICmax)>1) texto = c(texto," * ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),".","\n") else
-  if(sum(df$ICmin[i]>df$ICmax)==1) texto = c(texto," * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],".","\n") else
-    if(i==dim(df)[1]) texto = c(texto," * ",df$Variável[i]," não é maior que nenhum.","\n") else {
-      texto=c(texto, " * ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum.","\n"); break}}
-texto=c(texto, "É possível visualizar esses resultados no gráfico a seguir:","\n")
+if(sum(df$ICmin[i]>df$ICmax)>1) texto = c(texto," * ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),".","  \n") else
+  if(sum(df$ICmin[i]>df$ICmax)==1) texto = c(texto," * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],".","  \n") else
+    if(i==dim(df)[1]) texto = c(texto," * ",df$Variável[i]," não é maior que nenhum.","  \n") else {
+      texto=c(texto, " * ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum.","  \n"); break}}
+texto=c(texto, "É possível visualizar esses resultados no gráfico a seguir:","  \n")
 
 df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
 
