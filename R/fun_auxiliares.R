@@ -19,3 +19,18 @@ caixadeselecao <- function(vetor){
   colnames(m)<- opcoes
   m <- m[,names(m)!="NA"]
   return(m)}
+
+vetor_comsep <- function(vec,corte){
+mat = str_split(vec," ")
+res=c()
+for (i in 1:length(vec)){
+  if (length(mat[[i]]) <= corte) res <- c(res, paste(mat[[i]],collapse=" ",sep="")) else {
+    linhas=ceiling(length(mat[[i]])/corte)
+    if(length(mat[[i]])%%corte==0) ultima = corte else ultima=length(mat[[i]])%%corte
+    aux=c()
+    if (linhas==2) {aux <- c(aux,paste(mat[[i]][1:corte],collapse=" ",sep=""))}
+    if (linhas>2){
+      for (j in 0:(linhas-2)) aux <- c(aux,paste(mat[[i]][j*corte+(1:corte)],collapse=" ",sep=""))}
+    aux <- c(aux, paste(mat[[i]][((linhas-1)*corte)+(1:ultima)],collapse=" ",sep=""))
+  res=c(res, paste(aux, collapse=" \n "))}}
+return(res)}
