@@ -7,10 +7,10 @@ names(df)=c("Variável",levels)
 return(df)}
 
 cat_same_levels_2 <- function(x,nomes,levels,dig){
-prop=prop.test(table(factor(x[,1],levels=levels)))
+prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
 df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
 for (i in 2:dim(x)[2]){
-  prop=prop.test(table(factor(x[,i],levels=levels)))
+  prop=prop.test(table(factor(unlist(x[,i]),levels=levels)))
   df = rbind(df,data.frame("Variável"=nomes[i],desc_uni_categorica(x[,i],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2]))}
 df = df[order(as.numeric(df$Frequência), decreasing=T),]
 names(df)=c("Variável",'Frequência',"Freq. Relativa", "ICmin","ICmax")
