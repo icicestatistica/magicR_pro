@@ -25,7 +25,6 @@ if(sum(df$ICmin[i]>df$ICmax)>1) texto = c(texto,paste("* ",df$Variável[i]," é 
     if(i==dim(df)[1]) texto = c(texto,paste("* ",df$Variável[i]," não é maior que nenhum.","\n",sep="")) else {
       texto=c(texto, paste("* ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum.","\n",sep="")); break}}
 texto=c(texto, "É possível visualizar esses resultados no gráfico a seguir:","\n")
-texto = paste(texto, sep="",collapse=NULL)
 
 df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
 
