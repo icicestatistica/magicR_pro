@@ -8,12 +8,20 @@ return(df)}
 
 cat_same_levels_2 <- function(x,nomes,levels,dig){
 prop=prop.test(table(factor(x[,1],levels=levels)))
-IC=paste0("(",round(100*prop$conf.int[1],dig),"%, ",round(100*prop$conf.int[2],dig),"%)")
-df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],levels,F,F,F,F,dig)[1,c(2,3)],IC)
+df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
 for (i in 2:dim(x)[2]){
   prop=prop.test(table(factor(x[,i],levels=levels)))
-  IC=paste0("(",round(100*prop$conf.int[1],dig),"%, ",round(100*prop$conf.int[2],dig),"%)")
-  df = rbind(df, data.frame("Variável"=nomes[i],desc_uni_categorica(x[,i],levels,F,F,F,F,dig)[1,c(2,3)],IC))}
+  df = rbind(df,data.frame("Variável"=nomes[i],desc_uni_categorica(x[,i],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2]))}
 df = df[order(as.numeric(df$Frequência), decreasing=T),]
-names(df)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
-return(df)}
+names(df)=c("Variável",'Frequência',"Freq. Relativa", "ICmin","ICmax")
+
+df_printar=data.frame(df[,1:3],paste("(",round(100*df$ICmin,dig),"%, ",round(100*df$ICmax,dig),"%)",sep=""))
+names(df_printar)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
+
+texto=c("Podemos avaliar esta tabela comparando os intervalos de confiança de cada ítem. Caso os intervalos de confiança de dois ítens se sobreponham, isso significa que não rejeitamos a diferença entre as proporções nesses dois ao nível de 5% de significância. Portanto, interpretamos da seguinte forma: \n")
+for (i in 1:(dim(df)[1]-1)){
+if(sum(df$ICmin[i]>df$ICmax)>1) texto = c(texto,paste(" * ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),". \n",sep="")) else
+  if(sum(df$ICmin[i]>df$ICmax)==1) texto = c(texto,paste(" * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],". \n", sep="")) else
+    texto = c(texto,paste(" * ",df$Variável[i]," não é maior que nenhum. \n",sep=""))}
+
+return(list("result"=df_printar,"texto"=texto))}
