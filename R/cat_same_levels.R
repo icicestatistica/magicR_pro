@@ -18,13 +18,13 @@ names(df)=c("Variável",'Frequência',"Freq. Relativa", "ICmin","ICmax")
 df_printar=data.frame(df[,1:3],paste("(",round(100*df$ICmin,dig),"%, ",round(100*df$ICmax,dig),"%)",sep=""))
 names(df_printar)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
 
-texto=list(paste("Podemos avaliar esta tabela comparando os intervalos de confiança de cada ítem. Caso os intervalos de confiança de dois ítens se sobreponham, isso significa que não rejeitamos a diferença entre as proporções nesses dois ao nível de 5% de significância. Portanto, interpretamos da seguinte forma:","\n",collapse=""))
+texto=list(paste("Podemos avaliar esta tabela comparando os intervalos de confiança de cada ítem. Caso os intervalos de confiança de dois ítens se sobreponham, isso significa que não rejeitamos a diferença entre as proporções nesses dois ao nível de 5% de significância. Portanto, interpretamos da seguinte forma:","\n"))
 for (i in 1:(dim(df)[1])){
-if(sum(df$ICmin[i]>df$ICmax)>1) texto = list.append(texto,paste(" *  ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),".","\n",collapse="")) else
-  if(sum(df$ICmin[i]>df$ICmax)==1) texto = list.append(texto,paste(" * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],"."," \n",collapse="")) else
-    if(i==dim(df)[1]) texto = list.append(texto,paste(" * ",df$Variável[i]," não é maior que nenhum.","\n",collapse="")) else {
-      texto=list.append(texto, paste(" * ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum.","\n",collapse="")); break}}
-texto=list.append(texto, paste("É possível visualizar esses resultados no gráfico a seguir:","\n",collapse=""))
+if(sum(df$ICmin[i]>df$ICmax)>1) texto = list.append(texto,paste(" *  ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),".","\n")) else
+  if(sum(df$ICmin[i]>df$ICmax)==1) texto = list.append(texto,paste(" * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],"."," \n")) else
+    if(i==dim(df)[1]) texto = list.append(texto,paste(" * ",df$Variável[i]," não é maior que nenhum.","\n")) else {
+      texto=list.append(texto, paste(" * ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum.","\n")); break}}
+texto=list.append(texto, paste("É possível visualizar esses resultados no gráfico a seguir:","\n"))
 
 df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
 
