@@ -7,21 +7,22 @@ result=data.frame(result)
       names(result) = c("Variável","Característica","Estatística")
       return(result)}
 
-get_summary_2 <- function(x,nomesx,tipox,niveisx,testes,dig){
+get_summary_2 <- function(x,nomesx,tipox,niveisx,dig){
+  cont=0
   xdim <- dim(x)[2]
-  testes$desc = testes$desc+1
+  cont=cont+1
   result <- escolha_summary_para_juntar(x[,1],nomesx[1],tipox[1],niveisx[1],dig)
   if (xdim>1){
   for (i in 2:xdim){
-    testes$desc=testes$desc+1
+    cont=cont+1
     result <- rbind(result,escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],dig))}}
 row.names(result) <- 1:dim(result)[1]
-return(list("result"=result,"testes"=testes))}
+return(list("testes"=cont,"result"=result))}
 
-get_summary <- function(dados,gr,auxiliar,testes,dig){
+get_summary <- function(dados,gr,auxiliar,dig){
 x <- dados[,gr]
 nomesx <- auxiliar[gr,2]
 tipox <- auxiliar[gr,3]
 niveisx <- auxiliar[gr,4]
 resultados = get_summary_2(x,nomesx,tipox,niveisx,testes,dig)
-return(list("result"=resultados$result,"testes"=resultados$testes))}
+return(list("testes"=resultados$testes,"result"=resultados$result))}
