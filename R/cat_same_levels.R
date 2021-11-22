@@ -6,7 +6,7 @@ if(nas==T) levels=c(levels,"N/A")
 names(df)=c("Variável",levels)
 return(df)}
 
-cat_same_levels_2 <- function(x,nomes,nomey,levels,dig){
+cat_same_levels_2 <- function(x,nomes,nomey,levels,dig,cor,sepvetor){
 prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
 df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
 for (i in 2:dim(x)[2]){
@@ -25,6 +25,8 @@ if(sum(df$ICmin[i]>df$ICmax)>1) texto = c(texto,paste(" * ",df$Variável[i]," é
     texto = c(texto,paste(" * ",df$Variável[i]," não é maior que nenhum. \n",sep=""))}
 texto=c(texto, "É possível visualizar esses resultados no gráfico a seguir: \n")
 texto = paste(texto, sep="",collapse="")
+
+df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
 
 result <- mutate(df, Variável=fct_reorder(Variável, desc(-as.numeric(Frequência))))
 grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa`,end=-2))/100)) +
