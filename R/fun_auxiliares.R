@@ -34,3 +34,9 @@ for (i in 1:length(vec)){
     aux <- c(aux, paste(mat[[i]][((linhas-1)*corte)+(1:ultima)],collapse=" ",sep=""))
   res=c(res, paste(aux, collapse=" \n "))}}
 return(res)}
+
+relatorio <- function(a){
+for (i in 1:length(a)){
+if(class(a[[i]])=="data.frame") print(kable(a[[i]], row.names=F)) else
+  if(class(a[[i]])=="list") for (j in 1:length(a[[i]])) cat(a[[i]][[j]],sep="\n") else 
+    print(a[[i]])}}
