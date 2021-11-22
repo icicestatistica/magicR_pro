@@ -20,10 +20,10 @@ names(df_printar)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Fre
 
 texto=list(paste("Podemos avaliar esta tabela comparando os intervalos de confiança de cada ítem. Caso os intervalos de confiança de dois ítens se sobreponham, isso significa que não rejeitamos a diferença entre as proporções nesses dois ao nível de 5% de significância. Portanto, interpretamos da seguinte forma:"," \n",sep=""))
 for (i in 1:(dim(df)[1])){
-if(sum(df$ICmin[i]>df$ICmax)>1) texto = list.append(texto,paste0(" *  ",df$Variável[i]," é maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),"."," \n",sep="")) else
-  if(sum(df$ICmin[i]>df$ICmax)==1) texto = list.append(texto,paste(" * ",df$Variável[i]," é maior que ",df$Variável[df$ICmin[i]>df$ICmax],"."," \n", sep="")) else
-    if(i==dim(df)[1]) texto = list.append(texto,paste(" * ",df$Variável[i]," não é maior que nenhum."," \n",sep="")) else {
-      texto=list.append(texto, paste(" * ",printvetor(df$Variável[i:dim(df)[1]])," não são maiores que nenhum."," \n", sep="")); break}}
+if(sum(df$ICmin[i]>df$ICmax)>1) texto = list.append(texto,paste0(" *  ",df$Variável[i]," possui frequência maior que ",printvetor(df$Variável[df$ICmin[i]>df$ICmax]),"."," \n",sep="")) else
+  if(sum(df$ICmin[i]>df$ICmax)==1) texto = list.append(texto,paste(" * ",df$Variável[i]," possui frequência maior que ",df$Variável[df$ICmin[i]>df$ICmax],"."," \n", sep="")) else
+    if(i==dim(df)[1]) texto = list.append(texto,paste(" * ",df$Variável[i]," não possui frequência maior que nenhum."," \n",sep="")) else {
+      texto=list.append(texto, paste(" * ",printvetor(df$Variável[i:dim(df)[1]])," não possuem frequências maiores que nenhum."," \n", sep="")); break}}
 texto=list.append(texto, paste("É possível visualizar esses resultados no gráfico a seguir:"," \n"))
 
 df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
