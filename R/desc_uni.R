@@ -29,34 +29,6 @@ desc_uni_categorica <- function(var,niveis,nas,label,ordenar,acumula,digitos){
   row.names(d)=NULL
   return(d)}
 
-escolha_summary_para_juntar <- function(x,nomesx,tipox,niveisx,dig){
-if (tipox=="factor") result=desc_uni_categorica(x,eval(parse(text=niveisx)),T,T,T,F,dig)[,c(1,4)] else
-  if (tipox=="ordinal") result=desc_uni_categorica(x,eval(parse(text=niveisx)),T,T,F,F,dig)[,c(1,4)] else
-    result=desc_uni_continua(x,dig)
-result=data.frame(result)
-      result = cbind(c(nomesx,rep("",dim(result)[1]-1)),result)
-      names(result) = c("Variável","Característica","Estatística")
-      return(result)}
-
-get_summary_2 <- function(x,nomesx,tipox,niveisx,testes,dig){
-  xdim <- dim(x)[2]
-  testes$desc = testes$desc+1
-  result <- escolha_summary_para_juntar(x[,1],nomesx[1],tipox[1],niveisx[1],dig)
-  if (xdim>1){
-  for (i in 2:xdim){
-    testes$desc=testes$desc+1
-    result <- rbind(result,escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],dig))}}
-row.names(result) <- 1:dim(result)[1]
-return(list("result"=result,"testes"=testes))}
-
-get_summary <- function(dados,gr,auxiliar,testes,dig){
-x <- dados[,gr]
-nomesx <- auxiliar[gr,2]
-tipox <- auxiliar[gr,3]
-niveisx <- auxiliar[gr,4]
-resultados = get_summary_2(x,nomesx,tipox,niveisx,testes,dig)
-return(list("result"=resultados$result,"testes"=resultados$testes))}
-
 cat_same_levels <- function(x,nomes,levels,nas,dig){
 df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(x[,1],levels,nas,T,F,F,dig)[,4]))
 if(dim(x)[2]>1){
