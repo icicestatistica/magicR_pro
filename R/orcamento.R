@@ -76,4 +76,4 @@ A nota fiscal será enviada até 3 dias após o pagamento.
 Proposta válida até ",dataprop,".
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
-* O trabalho que desenvolvemos é único e exclusivamente para a realização da analise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.", sep="")}
+* O trabalho que desenvolvemos é único e exclusivamente para a realização da analise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.", sep="\n")}
