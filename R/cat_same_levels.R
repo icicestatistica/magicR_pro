@@ -1,10 +1,12 @@
 cat_same_levels <- function(x,nomes,levels,nas,dig){
+cont=1
 df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(x[,1],levels,nas,T,F,F,dig)[,4]))
 if(dim(x)[2]>1){
+  cont=cont+1
   for (i in 2:dim(x)[2]) df = rbind(df, data.frame("Variável"=nomes[i],t(desc_uni_categorica(x[,i],levels,nas,T,F,F,dig)[,4])))}
 if(nas==T) levels=c(levels,"N/A")
 names(df)=c("Variável",levels)
-return(df)}
+return(list("testes"=c(cont,0,0,0,0), "result"=df)}
 
 cat_same_levels_2 <- function(x,nomes,nomey,levels,dig,cor,sepvetor){
 prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
