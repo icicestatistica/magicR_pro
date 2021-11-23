@@ -40,3 +40,8 @@ for (i in 2:length(a)){
 if(class(a[[i]])=="data.frame") print(kable(a[[i]], row.names=F)) else
   if(class(a[[i]])=="list") for (j in 1:length(a[[i]])) cat(a[[i]][[j]],sep="\n") else 
     print(a[[i]])}}
+
+   
+cont_analises <- function(nome,vetortestes){
+df = data.frame("Nome"=nome,"analises"=paste("list('desc'=",vetortestes[1],", 'diffreq'=",vetortestes[2],", 't'=",vetortestes[3],", 'mw'=",vetortestes[4],", 'cc'=",vetortestes[5],")"))
+return(df)}
