@@ -1,4 +1,4 @@
-orçamento <- function(dataenviobancobruto,bancobruto,auxiliar,prazoprop,parcelas,prazorelat){
+orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,prazoprop,parcelas,prazorelat){
 
 n_analises = dim(analises)[1]
 matanalises = c()
