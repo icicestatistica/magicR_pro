@@ -50,3 +50,4 @@ Exemplo: Se eu quero provar que há diferença entre dois grupos, a hipótese nu
 O p-valor é a probabilidade de se obter os dados que você obteve considerando que a hipótese NULA é verdadeira. Se essa probabilidade for pequena (menor que o nível de significância adotado), rejeitaremos a hipótese nula em favor da hipótese alternativa.
 
 Adotaremos neste trabalho a significância de 5%. P-valores menores significantes serão destacados com um "\*"."
+export(metodologia_summary)
