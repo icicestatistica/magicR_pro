@@ -46,6 +46,6 @@ if (teste$p.value > 0.05) texto=c(" * **",ref,":** Realizando o teste-t bicaudal
 
 
 res = desc_bi_cont(dados[,8],dados[,5],F,respcol,F,dig)
-res <- cbind(res,"p"=c(p,rep("",dim(res)[1]-1)))
+res <- cbind(res,"p-valor"=c(p,rep("",dim(res)[1]-1)))
 
 return(list("testes"=c(0,0,1,0,0),"result"=res,"texto"=list(paste(texto,collapse=""))))}
