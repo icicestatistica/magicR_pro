@@ -24,16 +24,16 @@ names(result)=c("Característica",niveiscol,"N/A")} else {
 
 return(result)}
 
-desc_bi_cont <- function(cont,cat,niveiscat,respcol,nas){
+desc_bi_cont <- function(cont,cat,niveiscat,respcol,nas,dig){
 
 d=data.frame(cont,cat)
 names(d)=c("cont","cat")
 
 if(niveiscat[1]==F) niveiscat = names(table(cat))
 
-result=desc_uni_continua(d[d$cat==niveiscat[1] & is.na(d$cat)==F,]$cont,3)
-if(length(niveiscat)>1) for (i in 2:length(niveiscat)) result = cbind(result, desc_uni_continua(d[d$cat==niveiscat[i] & is.na(d$cat)==F,]$cont,3)[,2])
-if(nas==T) {result = cbind(result, desc_uni_continua(d[is.na(d$cat)==T,]$cont,3)[,2])
+result=desc_uni_continua(d[d$cat==niveiscat[1] & is.na(d$cat)==F,]$cont,dig)
+if(length(niveiscat)>1) for (i in 2:length(niveiscat)) result = cbind(result, desc_uni_continua(d[d$cat==niveiscat[i] & is.na(d$cat)==F,]$cont,dig)[,2])
+if(nas==T) {result = cbind(result, desc_uni_continua(d[is.na(d$cat)==T,]$cont,dig)[,2])
 names(result)=c("Característica",niveiscat,"N/A")} else names(result)=c("Característica",niveiscat)
 
 if(respcol==T){
