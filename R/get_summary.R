@@ -17,7 +17,7 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,dig){
     cont=cont+1
     result <- rbind(result,escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],dig))}}
 row.names(result) <- 1:dim(result)[1]
-return(list("testes"=cont,"result"=result))}
+return(list("testes"=c(cont,0,0,0,0),"result"=result))}
 
 get_summary <- function(dados,gr,auxiliar,dig){
 x <- dados[,gr]
