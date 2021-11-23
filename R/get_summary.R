@@ -24,5 +24,5 @@ x <- dados[,gr]
 nomesx <- auxiliar[gr,2]
 tipox <- auxiliar[gr,3]
 niveisx <- auxiliar[gr,4]
-resultados = get_summary_2(x,nomesx,tipox,niveisx,testes,dig)
+resultados = get_summary_2(x,nomesx,tipox,niveisx,dig)
 return(list("testes"=resultados$testes,"result"=resultados$result))}
