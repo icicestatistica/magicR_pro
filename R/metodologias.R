@@ -34,4 +34,4 @@ Adotaremos neste trabalho a significância de 5%. P-valores menores significante
 
 **Testes Estatísticos:**
 
-* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n"
+* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n")}
