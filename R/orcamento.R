@@ -49,31 +49,38 @@ A base de dados foi enviada por email na data ",dataenviobancobruto,", com ",dim
 As variáveis presentes no banco são:
 ", descricaobanco,"
 Qualquer alteração no banco após o aceite da proposta poderá gerar retrabalho por parte da estatística e, portanto, poderá ser cobrado. Por este motivo, pedimos que tenha certeza sobre o presente banco de dados.
+
 ## OBJETIVOS DA CONSULTORIA
 O objetivo da presente consultoria é a entrega dos seguintes resultados:
 ", descricaoanalises,"
+
 ## CRONOGRAMA
 Entrega do relatório no dia ",format(Sys.Date()+prazorelat, "%d/%m/%Y"),".
+
 ## FORMA DE ENTREGA
 A consultoria proposta inclui:
+
 * Definição dos métodos de análise
 * Aplicação da metodologia apropriada
 * Relatório de análise estatística com análises, tabelas, interpretação dos resultados, detalhes da metodologia e bibliografia utilizadas;
 * Construção de gráficos sob demanda por 6 meses a partir da entrega deste relatório;
 * Uma reunião de 30 minutos para esclarecimento de dúvidas metodológicas.
+
 ## INVESTIMENTO
   
-O investimento para consultoria é de **R$ ",format_real(preço),"**, pago via pix nas seguintes ocasiões:
+O investimento para consultoria é de **R$ ",format_real(preço),"**, pago via pix nas seguintes ocasiões: \n
 ",pagamento,"
-**Dados bancários:**
+**Dados bancários:** \n
 + Banco BS2 S.A. - 218
 + Agência: 0001-9
 + Conta: 9085203
 + Razão Social - ISABELLE CRISTINA IDALGO LTDA
 + CNPJ - 41.986.330/0001-85
+
 A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatística@gmail.com.
 A nota fiscal será enviada até 3 dias após o pagamento.
 Proposta válida até ",dataprop,".
+
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
 * O trabalho que desenvolvemos é único e exclusivamente para a realização da analise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.", sep="\n")}
