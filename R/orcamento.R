@@ -24,7 +24,6 @@ for (i in 1:n_analises){
 
 dataprop=format(Sys.Date()+prazoprop, "%d/%m/%Y")
 
-gs4_deauth()
 aumentoprazo=read_sheet("https://docs.google.com/spreadsheets/d/1Adw20p6zDahYIx3a-L_LBZj0bAQZZliO5tYNh6SVFBY/edit?usp=sharing")
 preçotestes=read_sheet("https://docs.google.com/spreadsheets/d/1VAuR_iQHx-pazZvWJCR_2qHhXPNI6pB3IlGl4Qo4WSU/edit?usp=sharing")
 
