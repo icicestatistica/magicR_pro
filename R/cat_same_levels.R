@@ -8,9 +8,11 @@ names(df)=c("Variável",levels)
 return(list("testes"=c(cont,0,0,0,0), "result"=df))}
 
 cat_same_levels_2 <- function(x,nomes,nomey,levels,dig,cor,sepvetor){
+cont=1
 prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
 df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
 for (i in 2:dim(x)[2]){
+  cont=cont+1
   prop=prop.test(table(factor(unlist(x[,i]),levels=levels)))
   df = rbind(df,data.frame("Variável"=nomes[i],desc_uni_categorica(x[,i],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2]))}
 df = df[order(as.numeric(df$Frequência), decreasing=T),]
@@ -34,4 +36,4 @@ grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa
   geom_bar(stat="identity", fill=cor) +
   geom_errorbar(aes(xmax = ICmax, xmin = ICmin)) + xlab("Proporção em %") + ylab(nomey) + theme_minimal() + scale_x_continuous(labels = scales::percent)
 
-return(list("result"=df_printar,"texto"=texto,"gráfico"=grafico))}
+return(list("testes"=c(0,cont,0,0,0),"result"=df_printar,"texto"=texto,"gráfico"=grafico))}
