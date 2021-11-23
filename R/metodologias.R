@@ -9,7 +9,7 @@ matanalises <- data.frame("Nome"=analises$Nome,matanalises)
 totaltab = apply(matanalises[,2:6],2,sum)
   
 if(totaltab[1]>0) { ref1=ref("desc",cont,bibliografia);
-cat("**Estatísticas Descritivas:**
+texto=c("**Estatísticas Descritivas:**
 
 *	N: Número de indivíduos em cada categoria
 *	NA’s: Número de não respostas, também chamados missings ou informações faltantes
@@ -34,5 +34,5 @@ Adotaremos neste trabalho a significância de 5%. P-valores menores que 5% serã
 
 **Testes Estatísticos:**
 
-* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n", sep="")}
-return(list(cont=ref1$cont , bibliografia=ref1$bibliografia))}
+* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n")}
+return(list(texto=texto,cont=ref1$cont , bibliografia=ref1$bibliografia))}
