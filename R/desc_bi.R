@@ -37,8 +37,8 @@ if(nas==T) {result = cbind(result, desc_uni_continua(d[is.na(d$cat)==T,]$cont,di
 names(result)=c("Característica",niveiscat,"N/A")} else names(result)=c("Característica",niveiscat)
 
 if(respcol==T){
-t=data.frame(t(result[,-1]))
-colnames(t)=result[,1]
+t=data.frame(names(result)[-1],t(result[,-1]))
+colnames(t)=c("Característica",result[,1])
 result=t}
 
 return(result)}
