@@ -27,7 +27,7 @@ niveisx <- auxiliar[gr,4]
 resultados = get_summary_2(x,nomesx,tipox,niveisx,dig)
 return(list("testes"=resultados$testes,"result"=resultados$result))}
 
-metodologiashapiro = "* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n"
+metodologia_shapiro = "* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n"
 metodologia_summary = "**Estatísticas Descritivas:**
 
 *	N: Número de indivíduos em cada categoria
