@@ -14,7 +14,7 @@ cat("**Estatísticas Descritivas:**
 *	N: Número de indivíduos em cada categoria
 *	NA’s: Número de não respostas, também chamados missings ou informações faltantes
 *	Min – Máx: Valores mínimo e máximo encontrados
-*	1Q – 3Q: Desprezando os 25% menores valores e os 25% maiores valores, encontramos este intervalo de dados. Ou seja, a metade "central" dos dados estão neste intervalo.
+*	1Q – 3Q: Desprezando os 25% menores valores e os 25% maiores valores, encontramos este intervalo de dados. Ou seja, a metade 'central' dos dados estão neste intervalo.
 * Média: Soma de todos os valores dividido pelo número de indivíduos avaliados
 *	Mediana: Valor central do conjunto de valores ordenados, ou seja, metade dos dados estão acima deste valor e a outra metade, abaixo.
 *	DP: Desvio padrão. Medida de variabilidade dos dados: quanto maior, mais longe os dados estão da média.
@@ -30,7 +30,7 @@ Exemplo: Se eu quero provar que há diferença entre dois grupos, a hipótese nu
 
 O p-valor é a probabilidade de se obter os dados que você obteve considerando que a hipótese NULA é verdadeira. Se essa probabilidade for pequena (menor que o nível de significância adotado), rejeitaremos a hipótese nula em favor da hipótese alternativa.
 
-Adotaremos neste trabalho a significância de 5%. P-valores menores significantes serão destacados com um "\*".
+Adotaremos neste trabalho a significância de 5%. P-valores menores significantes serão destacados com um '\*'.
 
 **Testes Estatísticos:**
 
