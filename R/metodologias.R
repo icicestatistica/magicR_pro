@@ -1,5 +1,15 @@
-metodologia_shapiro = "* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n"
-metodologia_summary = "**Estatísticas Descritivas:**
+metodologias <- function(analises){
+
+n_analises = dim(analises)[1]
+matanalises = c()
+for (i in 1:n_analises)
+matanalises= rbind(matanalises, unlist(eval(parse(text=analises$analises[i]))))
+matanalises <- data.frame("Nome"=analises$Nome,matanalises)
+
+totaltab = apply(matanalises[,2:6],2,sum)
+  
+if(totaltab[1]>0) {
+cat("**Estatísticas Descritivas:**
 
 *	N: Número de indivíduos em cada categoria
 *	NA’s: Número de não respostas, também chamados missings ou informações faltantes
@@ -20,4 +30,8 @@ Exemplo: Se eu quero provar que há diferença entre dois grupos, a hipótese nu
 
 O p-valor é a probabilidade de se obter os dados que você obteve considerando que a hipótese NULA é verdadeira. Se essa probabilidade for pequena (menor que o nível de significância adotado), rejeitaremos a hipótese nula em favor da hipótese alternativa.
 
-Adotaremos neste trabalho a significância de 5%. P-valores menores significantes serão destacados com um "\*"."
+Adotaremos neste trabalho a significância de 5%. P-valores menores significantes serão destacados com um "\*".
+
+**Testes Estatísticos:**
+
+* **Shapiro-Wilk (SW):** Teste de normalidade realizado nos dados. A hipótese nula é que os dados apresentam distribuição normal e a hipótese alternativa, que não apresentam. Ao nível de significância de 5%, rejeita-se a hipótese de normalidade se o p-valor encontrado for menor que 0,05. Este teste é utilizado para determinar qual o teste estatístico adequado para ser utilizado nos dados. \n"
