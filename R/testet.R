@@ -1,4 +1,6 @@
-testet <- function(continua,categorica,nomecont,nomecat,ref,dig,respcol){
+testet <- function(continua,categorica,nomecont,nomecat,dig,respcont){
+  
+if(respcont==T) ref=nomecat else ref=nomecont
 
 d <- data.frame("resp"=continua,"fator"=categorica)
 names(d) <- c("resp","fator")
