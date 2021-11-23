@@ -1,4 +1,4 @@
-gs4_deauth()
+googlesheets4::gs4_deauth()
 bib=read_sheet("https://docs.google.com/spreadsheets/d/1LIjyLRj2Yr-wD8rwUQzgpA8PhQsLz2KyLEC9mLC9kKU/edit#gid=0")
 
 ref <- function(chave,cont,bibliografia){
