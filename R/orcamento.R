@@ -48,7 +48,7 @@ if (parcelas>1) for (i in 2:parcelas) pagamento = c(pagamento,"+ **R$",format_re
 cat("
 \\newpage
 ## BASE DE DADOS
-A base de dados foi enviada por email na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
+A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
 As variáveis presentes no banco são:
 ", descricaobanco,"
 Qualquer alteração no banco após o aceite da proposta poderá gerar retrabalho por parte da estatística e, portanto, poderá ser cobrado. Por este motivo, pedimos que tenha certeza sobre o presente banco de dados.
