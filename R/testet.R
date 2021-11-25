@@ -49,4 +49,5 @@ res = desc_bi_cont(dados[,8],dados[,5],F,respcol,F,dig)
 res <- cbind(res,"p-valor"=c(p,rep("",dim(res)[1]-1)))
 
 return(list("testes"=c("desc"=0,"catsame"=0,"t"=1,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
-            "result"=res,"texto"=list(paste(texto,collapse=""))))}
+            "result"=res,
+            "texto"=list(paste(texto,collapse=""))))}
