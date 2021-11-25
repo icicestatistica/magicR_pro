@@ -8,6 +8,7 @@ format_real <- function(valor) {
 return(res)}
 
 caixadeselecao <- function(vetor){
+  vetor=unlist(vetor)
   opcoes = unique(trim(unlist(str_split(vetor,","))))
   matrix <- matrix(c(rep("",length(opcoes)*length(vetor))),ncol=length(opcoes))
   for (i in 1:length(opcoes))
