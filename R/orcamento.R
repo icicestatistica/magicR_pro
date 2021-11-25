@@ -22,7 +22,9 @@ for (i in 1:n_analises){
   if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" * **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
   if(sum(matanalises[i,4:6])>0) {descricaoanalises <- c(descricaoanalises,paste(" * **", matanalises[i,1],"**, com ",sum(matanalises[i,4:6])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
 
-dataprop=format(Sys.Date()+prazoprop, "%d/%m/%Y")
+datapropdesform = Sys.Date()+prazoprop
+  
+dataprop=format(datapropdesform, "%d/%m/%Y")
 
 gs4_deauth()
 aumentoprazo=read_sheet("https://docs.google.com/spreadsheets/d/1Adw20p6zDahYIx3a-L_LBZj0bAQZZliO5tYNh6SVFBY/edit?usp=sharing")
