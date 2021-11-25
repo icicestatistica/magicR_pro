@@ -36,9 +36,8 @@ for (i in 1:length(vec)){
   res=c(res, paste(aux, collapse=" \n "))}}
 return(res)}
 
-relatorio <- function(a,pularprimeiro){
-if(pularprimeiro==T) comeco=2 else comeco=1
-for (i in comeco:length(a)){
+relatorio <- function(a){
+for (i in 2:length(a)){
 if(class(a[[i]])=="data.frame") print(kable(a[[i]], row.names=F)) else
   if(class(a[[i]])=="list") for (j in 1:length(a[[i]])) cat(a[[i]][[j]],sep="\n") else 
     print(a[[i]])}}
