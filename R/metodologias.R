@@ -17,10 +17,12 @@ Medidas-resumo ou estatísticas descritivas são usadas para resumir um conjunto
 *	NA’s: Número de não respostas, também chamados missings ou informações faltantes
 
 ***Medidas de tendência central:*** Nos fornecem um valor que busca representar toda a distribuição.
+
 * Média: Soma de todos os valores dividido pelo número de indivíduos avaliados
 *	Mediana: Valor central do conjunto de valores ordenados, ou seja, metade dos dados estão acima deste valor e a outra metade, abaixo.
 
-***Medidas de dispersão:*** Medidas de dispersão é outra medida usada para mostrar como se espalhou (variação) em um conjunto de dados
+***Medidas de dispersão:*** Medidas de dispersão é outra medida usada para mostrar como se espalhou (variação) em um conjunto de dados.
+
 *	Min – Máx: Valores mínimo e máximo encontrados
 *	1Q – 3Q: Desprezando os 25% menores valores e os 25% maiores valores, encontramos este intervalo de dados. Ou seja, a metade 'central' dos dados está neste intervalo.
 *	DP: Desvio padrão. Medida de variabilidade dos dados: quanto maior, mais longe os dados estão da média.
