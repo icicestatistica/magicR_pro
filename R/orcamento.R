@@ -1,4 +1,5 @@
 orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,prazoprop,parcelas,prazorelat){
+mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
 
 n_analises = dim(analises)[1]
 matanalises = c()
@@ -85,4 +86,8 @@ Proposta válida até ",dataprop,".
 
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
-* O trabalho que desenvolvemos é único e exclusivamente para a realização da analise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.", sep="\n")}
+* O trabalho que desenvolvemos é único e exclusivamente para a realização da analise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.
+
+Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform),"
+
+\\newpage", sep="\n")}
