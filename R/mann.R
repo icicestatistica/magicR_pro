@@ -1,10 +1,8 @@
-mann <- function(x,y,nomex,nomey,respcol){
+mann <- function(x,y,nomex,nomey,niveis,dig,respcol,excluirtotal){
 
 if(respcol=T) ref=nomex else ref=nomey  
   
 d=data.frame("x"=x,"y"=y)
-
-niveis=names(table(d$x))
 
 y1=as.numeric(d$y[d$x==niveis[1]])
 y2=as.numeric(d$y[d$x==niveis[2]])
