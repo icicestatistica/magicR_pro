@@ -1,6 +1,6 @@
 mann <- function(x,y,nomex,nomey,niveis,dig,respcol,excluirtotal){
 
-if(respcol=T) ref=nomex else ref=nomey  
+if(respcol==T) ref=nomex else ref=nomey  
   
 d=data.frame("x"=x,"y"=y)
 
