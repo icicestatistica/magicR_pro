@@ -5,7 +5,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
     if(tipoy=="factor") {
       if(length(niveisy)==2) {
          res = testet(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
-         if(res$sup==F) {res=mann(x,y,nomex,nomey,niveisy,dig,F,excluirtotal) ; mw=1} else {t=1}
+         if(res$sup==F) {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal) ; mw=1} else {t=1}
          result=res$resul
          tex=res$texto}
   }} else {
@@ -13,7 +13,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
     if(tipoy=="numeric") {
       if(length(niveisx)==2) {
         res = testet(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
-        if(res$sup==F) {res=mann(y,x,nomey,nomex,niveisx,dig,T,excluirtotal) ; mw=1} else {t=1}
+        if(res$sup==F) {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal) ; mw=1} else {t=1}
                         result=res$resul
                         tex=res$texto}}
   }}
