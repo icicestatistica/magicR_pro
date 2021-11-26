@@ -5,15 +5,16 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
     if(tipoy=="factor") {
       if(length(niveisy)==2)
         {res = testet(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
-        result=res$resul
-        tex=res$texto}
+         if(res$sup==T) { result=res$resul
+                          tex=res$texto}}
     }} else
   {if(tipox=="factor")
     if(tipoy=="numeric"){
       if(length(niveisx)==2)
         {res = testet(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
-        result=res$resul
-        tex=res$texto}
+         if(res$sup==T) { result=res$resul
+                          tex=res$texto}}
+                        }
     }
   }
   return(list("result"=result,
