@@ -46,8 +46,7 @@ if (teste$p.value > 0.05) texto=c(" * **",ref,":** Realizando o teste-t bicaudal
 
 res = desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
   
- if(respcol==T & excluirtotal==T) res=res[-1,]
- if(respcol==F & excluirtotal==T) res=res[,-2]
+ if(excluirtotal==T) res=res[-1,]
   
  res <- cbind(res,"p-valor"=c(p,rep("",dim(res)[1]-1)))
 
