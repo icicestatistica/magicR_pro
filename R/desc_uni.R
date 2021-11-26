@@ -12,7 +12,7 @@ desc_uni_continua <- function(var,digitos){
                 round(summary(var)[3],digitos),
                 round(summary(var)[4],digitos),
                 round(sd(var,na.rm=T),digitos),
-                paste0(round(sd(var,na.rm=T)/summary(var)[4]*100,0),"%"),
+                paste0(round(sd(var,na.rm=T)/summary(var)[4]*100,digitos),"%"),
                 p)}
   d <- data.frame("Característica"=parametros,"Estatística"=unlist(variavel))
   return(d)}
