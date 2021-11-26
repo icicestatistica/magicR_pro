@@ -36,9 +36,9 @@ if(length(niveiscat)>1) for (i in 2:length(niveiscat)) result = cbind(result, de
 if(nas==T) {result = cbind(result, desc_uni_continua(d[is.na(d$cat)==T,]$cont,dig)[,2])
 names(result)=c("Característica",niveiscat,"N/A")} else names(result)=c("Característica",niveiscat)
 
+result <- cbind(desc_uni_continua(d$cont,dig),result[,-1])
+
 if(respcol==T){
-t=data.frame(names(result)[-1],t(result[,-1]))
-colnames(t)=c("Característica",result[,1])
-result=t}
+result=transpordf(result)}
 
 return(result)}
