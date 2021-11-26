@@ -1,5 +1,7 @@
-mann <- function(x,y,nomex,nomey,ref){
+mann <- function(x,y,nomex,nomey,respcol){
 
+if(respcol=T) ref=nomex else ref=nomey  
+  
 d=data.frame("x"=x,"y"=y)
 
 niveis=names(table(d$x))
@@ -34,5 +36,13 @@ round(quantile(y2,0.25,na.rm=T),2),",",round(quantile(y2,0.75,na.rm=T),2),"]).",
 
 p=paste0(pvalor(a$p.value,3),"d (r=",round(r,2),")")
 
+res=desc_bi_cont(d$y,d$x,F,respcol,F,dig)
+tot=res[1,2]
+  
+if(excluirtotal==T) res=res[-1,]
+  
+res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
-return(list("p"=,"texto"=texto))}
+return(list("testes"=c("desc"=0,"catsame"=0,"t"=1,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
+            "result"=res,
+            "texto"=list(paste(texto,collapse=""))))}
