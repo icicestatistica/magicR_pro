@@ -1,6 +1,7 @@
 escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal){
   result<-data.frame()
   tex=""
+  t=0
   if(tipox=="numeric") {
     if(tipoy=="factor") {
       if(length(niveisy)==2)
