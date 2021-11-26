@@ -39,7 +39,5 @@ if(nas==T) names(result)=c("Característica","Geral",niveiscat,"N/A") else names
             
 if(respcol==T){
 result=transpordf(result)}
-
-prop=result[1,2]  
   
-return(list("prop"=prop,"result"=result))}
+return(result)}
