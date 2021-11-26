@@ -43,8 +43,7 @@ if (teste$p.value > 0.05) texto=c(" * **",ref,":** Realizando o teste-t bicaudal
                                   round(teste$estimate[1]-teste$estimate[2],dig)," e IC95%=(",round(teste$conf.int[1],dig),", ",round(teste$conf.int[2],2),
                                  " ).",mag," Apesar disso, cabe considerar a relevância clínica ou prática da diferença. ",sup,"\n")
 
-
-res = desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
+res=desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
   
  if(excluirtotal==T) res=res[-1,]
   
