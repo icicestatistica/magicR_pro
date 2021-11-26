@@ -50,3 +50,13 @@ df = data.frame("Nome"=nome,"analises"=paste("list(c('desc'=",vetortestes[1],",'
 ",'mw'=",vetortestes[4],",'aov1'=",vetortestes[5],",'kw'=",vetortestes[6],",'correl'=",vetortestes[7],",'cc'=",vetortestes[8],
 ",'t_par'=",vetortestes[9],",'wilc'=",vetortestes[10],",'aovmr'=",vetortestes[11],",'fried'=",vetortestes[12],",'mcnem'=",vetortestes[13],",'qcoch'=",vetortestes[14],"))"))
 return(df)}
+   
+transpordf <- function(tab){
+
+nova=data.frame(t(tab))
+nova <- cbind(names(tab),nova)
+names(nova)=c(names(tab)[1],tab[,1])
+nova <- nova[-1,]
+row.names(nova)<-NULL
+
+return(nova)}
