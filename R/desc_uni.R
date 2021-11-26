@@ -5,7 +5,7 @@ desc_uni_continua <- function(var,digitos){
   parametros <- c("N","N/A","Observações","Min-Máx","Q1-Q3","Mediana","Média","Desvio Padrão","CV", "Normalidade (Shapiro Wilk)")
   if(sum(is.na(var))==length(var)) variavel=c(N,paste0(na," (100%)"),0,"-","-","-","-","-","-","-") else {
   variavel <- c(N,
-                paste0(na," (",100*round(na/N,digitos),"%)"),
+                paste0(na," (",round(100*na/N,digitos),"%)"),
                 N-na,
                 paste0(round(summary(var)[1],digitos),"-",round(summary(var)[6],digitos)),
                 paste0(round(summary(var)[2],digitos),"-",round(summary(var)[5],digitos)),
