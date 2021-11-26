@@ -33,10 +33,9 @@ if(niveiscat[1]==F) niveiscat = names(table(cat))
 
 result=desc_uni_continua(d[d$cat==niveiscat[1] & is.na(d$cat)==F,]$cont,dig)
 if(length(niveiscat)>1) for (i in 2:length(niveiscat)) result = cbind(result, desc_uni_continua(d[d$cat==niveiscat[i] & is.na(d$cat)==F,]$cont,dig)[,2])
-if(nas==T) {result = cbind(result, desc_uni_continua(d[is.na(d$cat)==T,]$cont,dig)[,2])
-
+if(nas==T) {result = cbind(result, desc_uni_continua(d[is.na(d$cat)==T,]$cont,dig)[,2])}
 if (nas==F) result <- cbind(desc_uni_continua(d[is.na(d$cat)==F,]$cont,dig),result[,-1]) else result <- cbind(desc_uni_continua(d$cont,dig),result[,-1])
-names(result)=c("Característica","Geral",niveiscat,"N/A")} else names(result)=c("Característica","Geral",niveiscat)
+if(nas==T) names(result)=c("Característica","Geral",niveiscat,"N/A")} else names(result)=c("Característica","Geral",niveiscat)
             
 if(respcol==T){
 result=transpordf(result)}
