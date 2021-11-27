@@ -1,6 +1,7 @@
+anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal){
 
-anovac <- function(continua,categorica,nome){
-  
+categorica <- factor(categorica,levels=niveis)
+
 d <- data.frame(continua,categorica)
 names(d) <- c("resp","fator")
 
