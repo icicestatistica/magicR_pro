@@ -1,5 +1,11 @@
 anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal){
+  
+supos=T
+  
+if(respcol==T) ref=nomecat else ref=nomecont
 
+continua=unlist(continua)
+categorica=unlist(categorica)
 categorica <- factor(categorica,levels=niveis)
 
 d <- data.frame(continua,categorica)
@@ -8,12 +14,12 @@ names(d) <- c("resp","fator")
 fit <- aov(resp ~ fator, data=d)
 eta=round(eta_squared(fit),2)
 
-p=paste0(pvalor(summary(fit)[[1]][[1,"Pr(>F)"]],3),"e (eta=",eta,")")
+p=paste0(pvalor(summary(fit)[[1]][[1,"Pr(>F)"]]),"e (eta=",eta,")")
 
 if (summary(fit)[[1]][[1,"Pr(>F)"]] > 0.05) {tabela=NULL 
-texto=c("* ",nome,": Não encontramos evidência estatística pela anova one-way para rejeitar a hipótese de igualdade entre as médias dos grupos. \n")}
+texto=c("* **",ref,"**: Não encontramos evidência estatística pela anova one-way para rejeitar a hipótese de igualdade entre as médias dos grupos. \n")}
 else {
-  texto=c("* ",nome,": O teste one-way anova encontrou evidências para rejeitar a igualdade entre as médias dos grupos. As médias, em ordem crescente foram:")
+  texto=c("* **",ref,"**: O teste one-way anova encontrou evidências para rejeitar a igualdade entre as médias dos grupos. As médias, em ordem crescente foram:")
 
   
 ordem <- d %>% group_by(fator) %>% 
@@ -57,4 +63,13 @@ for (i in ord){
 texto <- c(texto,print,tex,"\n")
 }
 
-return(list("pvalor"=p,"tabela"=tabela,"texto"=texto))}
+res=desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
+tot=res[1,2]
+  
+if(excluirtotal==T) res=res[-1,]
+  
+res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
+
+return(list("sup"=supos,
+            "result"=res,
+            "texto"=paste(texto,collapse="")))}
