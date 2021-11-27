@@ -1,5 +1,7 @@
 mann <- function(x,y,nomex,nomey,niveis,dig,respcol,excluirtotal){
 
+ x=unlist(x)
+ y=unlist(y)
 if(respcol==T) ref=nomex else ref=nomey  
   
 d=data.frame("x"=x,"y"=y)
