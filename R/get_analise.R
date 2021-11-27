@@ -15,11 +15,16 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
   }} else {
   if(tipox=="factor") {
     if(tipoy=="numeric") {
-      if(length(niveisx)==2) {
-        res = testet(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
+      if(length(niveisx)==2)
+        {res = testet(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
         if(res$sup==F) {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal) ; mw=1} else {t=1}
                         result=res$resul
-                        tex=res$texto}}
+                        tex=res$texto} else
+                                          {res = anovac(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
+                                           aov1=1
+                                           result=res$resul
+                                           tex=res$texto}
+        
   }}
   return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
