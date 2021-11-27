@@ -3,11 +3,15 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
   t=0 ; mw=0
   if(tipox=="numeric") {
     if(tipoy=="factor") {
-      if(length(niveisy)==2) {
-         res = testet(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
-         if(res$sup==F) {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal) ; mw=1} else {t=1}
-         result=res$resul
-         tex=res$texto}
+      if(length(niveisy)==2) 
+           {res = testet(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
+           if(res$sup==F) {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal) ; mw=1} else {t=1}
+           result=res$resul
+           tex=res$texto} else
+                        {res = anovac(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
+                        aov1=1
+                        result=res$resul
+                        tex=res$texto}
   }} else {
   if(tipox=="factor") {
     if(tipoy=="numeric") {
@@ -17,7 +21,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                         result=res$resul
                         tex=res$texto}}
   }}
-  return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
+  return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
               "texto"=tex))}
 
