@@ -51,8 +51,8 @@ if(prop.table(table(resumo))[3]==1) tex=c(tex,"Apesar de termos encontrado difer
   if(sum(prop.table(table(resumo))[1:2])==1) tex=c(tex,"O teste de comparações múltiplas de tukey apontou diferenças entre todos os grupos estudados") else {
     tex=c(tex," O teste de comparações múltiplas de tukey apontou as seguintes diferenças:  \n")
       for (j in which(resumo!="Não")){
-        if(r[j]=="Menor") tex=c(tex,c("  + ",difs[j,2], " é maior que ",difs[j,1],"  \n"))
-        if(r[j]=="Maior") tex=c(tex,c("  + ",difs[j,1], " é maior que ",difs[j,2],"  \n"))}
+        if(r[j]=="Menor") tex=c(tex,c("  + \"",difs[j,2], "\" é maior que \"",difs[j,1],"\";"),"\n")
+        if(r[j]=="Maior") tex=c(tex,c("  + \"",difs[j,1], "\" é maior que \"",difs[j,2],"\";"),"\n")}
     tex=c(tex, "Podemos verificar esses resultados na seguinte tabela:")}
 
 print <- c()
