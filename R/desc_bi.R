@@ -4,8 +4,8 @@ d <- data.frame(col,linha)
 if(nas==F) d <- na.omit(d)
 names(d) <- c("col","linha")
 
-if(niveiscol==F) niveiscol = names(table(col))
-if(niveislinha==F) niveislinha = names(table(linha))
+if(niveiscol[1]==F) niveiscol = names(table(col))
+if(niveislinha[1]==F) niveislinha = names(table(linha))
 
 if(margem==2){
 result = desc_uni_categorica(d[d$col==niveiscol[1] & is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,c(1,4)]
