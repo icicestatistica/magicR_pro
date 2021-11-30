@@ -45,7 +45,7 @@ if (teste$p.value > 0.05) texto=c(" * **",ref,":** Realizando o teste-t bicaudal
                                  " ).",mag," Apesar disso, cabe considerar a relevância clínica ou prática da diferença. ",sup,"\n")
 
 res=desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
-tot=res[2,2]
+tot=res[3,2]
   
 if(excluirtotal==T) res=res[-1,]
   
