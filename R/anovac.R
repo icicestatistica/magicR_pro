@@ -31,10 +31,10 @@ ord = c(ordem[order(ordem$mean),1])$fator
   
 t=TukeyHSD(fit)$fator
 
-tabela<- data.frame("Diferença"=round(t[,1],1), 
+tabela<- data.frame("Comparação"=row.names(t),"Diferença"=round(t[,1],1), 
                "IC 95%"=paste0("(",round(t[,2],1),", ",round(t[,3],1),")"),
-               "P-valor"=t[,4])
-difs = matrix(unlist(str_split(row.names(tabela),"-")),ncol=2,byrow=T)
+               "P-valor"=pvetor(t[,4]))
+difs = matrix(unlist(str_split(row.names(t),"-")),ncol=2,byrow=T)
 
 ncomps=dim(tabela)[1]
 
