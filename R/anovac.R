@@ -64,7 +64,7 @@ texto <- c(texto,print,tex,"\n")
 }
 
 res=desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
-tot=dim(na.omit(d$resp,d$fator))[1]
+tot=dim(na.omit(d))[1]
   
 if(excluirtotal==T) res=res[-1,]
   
