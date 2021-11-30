@@ -70,6 +70,8 @@ if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
+  if(tabela==NULL) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
+  
 return(list("sup"=supos,
             "result"=res,
-            "texto"=list(paste(texto,collapse=""),tabela)))}
+            "texto"=texto))}
