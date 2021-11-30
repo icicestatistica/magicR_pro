@@ -37,7 +37,7 @@ round(quantile(y2,0.25,na.rm=T),dig),",",round(quantile(y2,0.75,na.rm=T),dig),"]
 p=paste0(pvalor(a$p.value),"d (r=",round(r,dig),")")
 
 res=desc_bi_cont(d$y,d$x,F,respcol,F,dig)
-tot=res[3,2]
+tot=dim(na.omit(d$y,d$x)[1]
   
 if(excluirtotal==T) res=res[-1,]
   
