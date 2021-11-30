@@ -14,7 +14,7 @@ names(d) <- c("resp","fator")
 fit <- aov(resp ~ fator, data=d)
 eta=round(eta_squared(fit),2)
 
-p=paste0(pvalor(summary(fit)[[1]][[1,"Pr(>F)"]]),"e ($\eta^2$=",eta,")")
+p=paste0(pvalor(summary(fit)[[1]][[1,"Pr(>F)"]]),"e ($\\eta^2$=",eta,")")
 
 if (summary(fit)[[1]][[1,"Pr(>F)"]] > 0.05) {tabela=NULL 
 texto=c("* **",ref,"**: Não encontramos evidência estatística pela anova one-way para rejeitar a hipótese de igualdade entre as médias dos grupos. \n")}
