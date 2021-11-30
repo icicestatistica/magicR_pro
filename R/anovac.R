@@ -72,4 +72,4 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
 
 return(list("sup"=supos,
             "result"=res,
-            "texto"=paste(texto,collapse="")))}
+            "texto"=list(paste(texto,collapse=""),tabela)))}
