@@ -5,7 +5,7 @@ if(dim(x)[2]>1){
   for (i in 2:dim(x)[2]) {cont=cont+1 ; df = rbind(df, data.frame("Variável"=nomes[i],t(desc_uni_categorica(x[,i],levels,nas,T,F,F,dig)[,4])))}}
 if(nas==T) levels=c(levels,"N/A")
 names(df)=c("Variável",levels)
-return(list("testes"=c("desc"=cont,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
+return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
             "result"=df))}
 
 cat_same_levels_2 <- function(x,nomes,nomey,levels,dig,cor,sepvetor){
@@ -37,7 +37,7 @@ grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa
   geom_bar(stat="identity", fill=cor) +
   geom_errorbar(aes(xmax = ICmax, xmin = ICmin)) + xlab("Proporção em %") + ylab(nomey) + theme_minimal() + scale_x_continuous(labels = scales::percent)
 
-return(list("testes"=c("desc"=cont,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
+return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
             "result"=df_printar,
             "texto"=texto,
             "gráfico"=grafico))}
