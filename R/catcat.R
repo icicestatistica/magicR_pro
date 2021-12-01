@@ -6,6 +6,9 @@ if(respcol==T) linhacol=1 else linhacol=2
 if(niveisx[1]==F) niveisx=names(table(x))
 if(niveisy[1]==F) niveisy=names(table(y))
   
+x=factor(x,levels=niveisx)
+y=factor(y,levels=niveisy)
+  
 help=data.frame(x,y)
 names(help)=c("x","y")
 signif=F
