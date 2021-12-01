@@ -1,4 +1,4 @@
-escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal){
+escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol){
   result<-data.frame() ; tex=""
   t=0 ; mw=0; aov1=0
   if(tipox=="numeric") {
@@ -23,9 +23,12 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                                           {res = anovac(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
                                            aov1=1
                                            result=res$resul
-                                           tex=res$texto}
-        
-  }}}
+                                           tex=res$texto}} else
+     if(tipoy=="factor") {res=catcat(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal)
+                          cc=1
+                          result=res$result
+                          tex=res$texto}   
+  }}
   return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
               "texto"=tex))}
