@@ -1,6 +1,6 @@
 printvetor <- function(vetor){
 size=length(vetor)
-print=paste(paste(vetor[1:(size-1)],collapse=", ")," e ",vetor[size],collapse=NULL)
+if(size==1) print=paste(vetor[1]) else print=paste(paste(vetor[1:(size-1)],collapse=", ")," e ",vetor[size],collapse=NULL)
 return(print)}
 
 format_real <- function(valor) {
