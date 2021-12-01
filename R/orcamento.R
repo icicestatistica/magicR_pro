@@ -21,7 +21,7 @@ descricaoanalises <- c()
 for (i in 1:n_analises){
   if(matanalises[i,2]>0) {descricaoanalises <- c(descricaoanalises,paste(" * **",matanalises[i,1],"**, com ",matanalises[i,2]," descrições das variáveis categóricas em termos de frequência e frequência relativa e das variáveis numéricas com medidas de centralidade e dispersão; \n",sep=""))}
   if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" * **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
-  if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" * **", matanalises[i,1],"**, com ",sum(matanalises[i,4:6])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
+  if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" * **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
 
 datapropdesform = Sys.Date()+prazoprop
   
