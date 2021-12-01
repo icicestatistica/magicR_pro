@@ -6,7 +6,7 @@ for (i in 1:n_analises)
 matanalises= rbind(matanalises, unlist(eval(parse(text=analises$analises[i]))))
 matanalises <- data.frame("Nome"=analises$Nome,matanalises)
 
-totaltab = apply(matanalises[,2:6],2,sum)
+totaltab = apply(matanalises[,-1],2,sum)
   
 if(totaltab[1]>0) {
 texto=c("**Estatísticas Descritivas:**
