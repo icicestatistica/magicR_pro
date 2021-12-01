@@ -3,6 +3,9 @@ catcat <- function(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal){
 ref=nomex
 if(respcol==T) linhacol=1 else linhacol=2
   
+if(niveisx[1]==F) niveisx=names(table(x))
+if(niveisy[1]==F) niveisy=names(table(y))
+  
 help=data.frame(x,y)
 names(help)=c("x","y")
 signif=F
