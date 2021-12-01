@@ -1,26 +1,25 @@
-desc_bi_cat <- function(linha,niveislinha,col,niveiscol,margem,nas,dig){
+desc_bi_cat <- function(linha,niveislinha,col,niveiscol,nas,dig,respcol){
 
 d <- data.frame(col,linha)
-if(nas==F) d <- na.omit(d)
 names(d) <- c("col","linha")
 
 if(niveiscol[1]==F) niveiscol = names(table(col))
 if(niveislinha[1]==F) niveislinha = names(table(linha))
 
-if(margem==2){
-result = desc_uni_categorica(d[d$col==niveiscol[1] & is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,c(1,4)]
-if(length(niveiscol)>1) for (i in 2:length(niveiscol)) result <- cbind(result,desc_uni_categorica(d[d$col==niveiscol[i] & is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,4])
-if(nas==T) {result <- cbind(result, desc_uni_categorica(d[is.na(d$col)==T,]$linha,niveislinha,nas,T,F,F,dig)[,4])
-names(result)=c("Característica",niveiscol,"N/A")} else names(result)=c("Característica",niveiscol)}
+if(respcol==T) {
+  d$linha=col;d$col=linha
+  aux=niveislinha
+  niveislinha=niveiscol
+  niveiscol=aux}
 
-if(margem==1){
-result = t(desc_uni_categorica(d[d$linha==niveislinha[1] & is.na(d$linha)==F,]$col,niveiscol,nas,T,F,F,dig)[,c(4)])
-if(length(niveislinha)>1) for (i in 2:length(niveislinha)) result <- rbind(result,t(desc_uni_categorica(d[d$linha==niveislinha[i] & is.na(d$linha)==F,]$col,niveiscol,nas,T,F,F,dig)[,4]))
-if(nas==T) {result <- rbind(result,t(desc_uni_categorica(d[is.na(d$linha)==T,]$col,niveiscol,nas,T,F,F,dig)[,4]))
-result = data.frame(c(niveislinha,"N/A"),result)
-names(result)=c("Característica",niveiscol,"N/A")} else {
-  result = data.frame(niveislinha,result)
-  names(result)=c("Característica",niveiscol)}}
+result = desc_uni_categorica(d[d$col==niveiscol[1] & is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,4]
+if(length(niveiscol)>1) for (i in 2:length(niveiscol)) result <- cbind(result,desc_uni_categorica(d[d$col==niveiscol[i] & is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,4])
+if(nas==T) result = cbind(desc_uni_categorica(d$linha,niveislinha,nas,T,F,F,dig)[,c(1,4)],result) else result = cbind(desc_uni_categorica(d[is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,c(1,4)],result)
+if(nas==T) {result <- cbind(result, desc_uni_categorica(d[is.na(d$col)==T,]$linha,niveislinha,nas,T,F,F,dig)[,4])
+names(result)=c("Característica","Geral",niveiscol,"N/A")} else names(result)=c("Característica","Geral",niveiscol)
+if(nas==T) result <- rbind(c("Geral",dim(d)[1],desc_uni_categorica(d$col,niveiscol,nas,T,F,F,dig)[,2]),result) else result <- rbind(c("Geral",dim(na.omit(d))[1],desc_uni_categorica(d[is.na(d$linha)==F,]$col,niveiscol,nas,T,F,F,dig)[,2]),result)
+
+if(respcol==T) result = transpordf(result)
 
 return(result)}
 
