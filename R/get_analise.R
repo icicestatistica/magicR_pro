@@ -1,6 +1,6 @@
 escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol){
   result<-data.frame() ; tex=""
-  t=0 ; mw=0; aov1=0
+  t=0 ; mw=0; aov1=0;cc=0
   if(tipox=="numeric") {
     if(tipoy=="factor") {
       if(length(niveisy)==2) 
@@ -29,7 +29,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                           result=res$result
                           tex=res$texto}   
   }}
-  return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
+  return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=0,"correl"=0,"cc"=cc,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
               "texto"=tex))}
 
