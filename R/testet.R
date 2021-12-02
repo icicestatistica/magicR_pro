@@ -22,7 +22,7 @@ ef= round(cohens_d(resp ~ fator, var.equal=F,data=d)$effsize,dig)
 if (ef<0) dif="menor que" else dif="maior que"
 
 if (abs(ef)<0.2) mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias menor que 0.2 DP, o que Cohen (1988) considerou desprezível, mesmo que seja estatisticamente significativa.") else
-  if(abs(ef)<0.3) mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias entre 0.2 e 0.3 DP's, o que Cohen (1988) considerou uma magnitude pequena.") else
+  if(abs(ef)<0.4) mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias entre 0.2 e 0.4 DP's, o que Cohen (1988) considerou uma magnitude pequena.") else
     if(abs(ef)<0.8) mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias entre 0.3 e 0.8 DP's, o que Cohen (1988) considerou uma magnitude média.") else
       mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias maior que 0.8 DP's, o que Cohen (1988) considerou uma magnitude grande.")
 
