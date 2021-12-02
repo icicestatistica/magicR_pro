@@ -38,9 +38,9 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     det="as duas variáveis."}
     p=paste0(pvalor(a$p.value), letra)
     rho=round(a$estimate,dig)
-    rho2=round(a$estimate^2,dig)
+    rho2=round(a$estimate^2,(2*dig))
     
-    coefdet=paste(" Calculamos também o coeficiente de determinação, dado pelo quadrado da correlação ",greg,"^2=$(",round(rho,dig),")^2$=",rho2,", que indica ",100*rho2,"% de variância compartilhada entre ",det,sep="")
+    coefdet=paste(" Calculamos também o coeficiente de determinação, dado pelo quadrado da correlação $ ",greg,"^2$=$(",round(rho,dig),")^2$=",rho2,", que indica ",100*rho2,"% de variância compartilhada entre ",det,sep="")
 
     if(a$estimate<0) direcao="inversa entre as variáveis (nos indivíduos em que uma é maior, a outra é menor)." else direcao="direta entre as variáveis (nos indivíduos em que uma é maior, a outra é também é)."
     
