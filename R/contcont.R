@@ -29,7 +29,7 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     ac=boot.ci(bootc, type='bca')
     IC=paste0("(",round(ac$bca[4],dig)," ,",round(ac$bca[5],dig),"$)^{[a]}$")
     if(ac$bca[4]*ac$bca[5]<=0) avalic=" inclui o valor '0', indicando ausência de correlação." else avalic=" não inclui o valor '0', indicando que esta é considerada significativa."
-    det="os postos (também chamados 'ranks' das duas variáveis."}
+    det="os postos (também chamados 'ranks') das duas variáveis."}
     else {letra="h"
     greg="r"
     calcIC=""
