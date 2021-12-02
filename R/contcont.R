@@ -48,9 +48,9 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     
     ictexto=paste0(" O intervalo de confiança ",IC,calcIC,avalic," Reiteramos a importância de avaliar o significado deste resultado na prática.",collapse="")
     
-    if(a$estimate>=0.1 & a$estimate<0.3) mag="Cohen(1992) propõe esta magnitude de correlação como fraca." else
-      if(a$estimate>=0.3 & a$estimate<0.5) mag="Cohen(1992) propõe esta magnitude de correlação como moderada." else
-        if(a$estimate>=0.5) mag="Cohen(1992) propõe esta magnitude de correlação como forte." else
+    if(abs(a$estimate)>=0.1 & abs(a$estimate)<0.3) mag="Cohen(1992) propõe esta magnitude de correlação como fraca." else
+      if(abs(a$estimate)>=0.3 & abs(a$estimate)<0.5) mag="Cohen(1992) propõe esta magnitude de correlação como moderada." else
+        if(abs(a$estimate)>=0.5) mag="Cohen(1992) propõe esta magnitude de correlação como forte." else
           mag="Cohen(1992) propõe esta magnitude de correlação como insignificante ou irrisória."
     
     if(a$p.value<0.05) texto=c("* **",nomex,"**: O teste de correlação de ",method, " rejeitou a hipótese de nulidade de correlação (",greg,"=",
