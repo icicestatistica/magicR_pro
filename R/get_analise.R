@@ -34,7 +34,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                           result=res$result
                           tex=res$texto}   
   }}
-  return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=0,"correl"=0,"cc"=cc,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
+  return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=0,"correl"=correl,"cc"=cc,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
               "texto"=tex))}
 
@@ -51,12 +51,13 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,exc
         temcont=T
         res=escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol)
         resultcont=rbind(resultcont,res$result)
-        textocont=res$texto} else
+        textocont=res$texto
+        testes <- testes+res$testes} else
           {res = escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol)
           result= rbind(result, res$result)
           texto <- c(texto,res$texto)
           testes <- testes+res$testes}}
-  if(tencont) lista=list("testes"=testes,"result"=result,"texto"=texto,paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"result"=result,"texto"=texto)
+  if(temcont) lista=list("testes"=testes,"result"=result,"texto"=texto,paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"result"=result,"texto"=texto)
 return(lista)}
 
 
