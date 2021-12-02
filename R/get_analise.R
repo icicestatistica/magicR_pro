@@ -57,7 +57,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,exc
           result= rbind(result, res$result)
           texto <- c(texto,res$texto)
           testes <- testes+res$testes}}
-  if(temcont) lista=list("testes"=testes,"result"=result,"texto"=texto,paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"result"=result,"texto"=texto)
+  if(temcont) lista=list("testes"=testes,"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"result"=result,"texto"=texto)
 return(lista)}
 
 
@@ -67,4 +67,5 @@ get_analise <- function(dados,col,auxiliar,y,nomey,niveisy,dig,excluirtotal,resp
   nomex=auxiliar$nomes[col]
   niveisx=auxiliar$niveis[col]
   res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol)
-return(list("testes"=res$testes,"result"=res$result,"texto"=res$texto))}
+  if(length(res)==6) lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto)
+return(lista)}
