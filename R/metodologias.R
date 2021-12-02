@@ -9,7 +9,8 @@ matanalises <- data.frame("Nome"=analises$Nome,matanalises)
 totaltab = apply(matanalises[,-1],2,sum)
   
 if(totaltab[1]>0) {
-texto=c("**Estatísticas Descritivas:**
+texto=c(texto,"
+**Estatísticas Descritivas:**
 
 Medidas-resumo ou estatísticas descritivas são usadas para resumir um conjunto de observações, a fim de comunicar a maior quantidade de informações da forma mais simples possível [@estatdesc]. Para variáveis numéricas, usaremos as seguintes medidas:
 
