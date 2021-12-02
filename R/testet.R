@@ -26,7 +26,7 @@ if (abs(ef)<0.2) mag=paste0(" Através da estatística d de cohen (",ef,"), veri
     if(abs(ef)<0.8) mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias entre 0.3 e 0.8 DP's, o que Cohen (1988) considerou uma magnitude média.") else
       mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias maior que 0.8 DP's, o que Cohen (1988) considerou uma magnitude grande.")
 
-teste=t.test(resp ~ fator,data=d,var.equal=vareq)
+teste=t.test(resp ~ fator,data=d,var.equal=F)
 
 p = paste0(pvalor(teste$p.value),"c (d=",ef,")")
 
