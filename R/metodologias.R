@@ -51,10 +51,14 @@ Teste representado pela letra “d” ao lado do p-valor. Neste teste não param
   
 if(totaltab[7]>0) {texto <- c(texto,"
 * **Correlação:**
+
 Teste representado de duas formas: 
-+ pela letra ‘h’ ao lado do p-valor e pela letra r, se correlação de Pearson; \n
-+ pela letra ‘g’ e a letra grega $\\rho$ (pronuncia=se ‘rô”) se correlação de spearman. \n
+
+  +   pela letra ‘h’ ao lado do p-valor e pela letra r, se correlação de Pearson; \n
+  +   pela letra ‘g’ e a letra grega $\\rho$ (pronuncia=se ‘rô”) se correlação de spearman. \n
+
 Estas estatísticas medem o grau da correlação (e a direção dessa correlação - se positiva ou negativa) entre duas variáveis de escala métrica (intervalar ou de razão). Elas assumem apenas valores entre -1 e 1, em que se o sinal da correlação for negativa, isso indica uma associação indireta entre as variáveis (Os indivíduos com maiores valores em uma variável possuem menores valores na outra) enquanto um sinal positivo indica uma relação direta (Os indivíduos com maiores valores em uma variável possuem também maiores valores na outra). Quanto mais distante de 0, mais forte é a correlação. A hipótese nula do teste é que a correlação é igual a 0 (Não existe nenhum tipo de correlação), testado contra a hipótese de que ela é diferente de 0. P-valores menores que 0,05 indicam que a correlação encontrada é de fato distante o suficiente do 0. A diferença entre esses dois tipos de correlação é que a correlação de Spearman é um teste não paramétrico, que não depende da magnitude dos números, e sim somente da ordem (rank) em que elas ocorrem. Por ser não paramétrico, não depende da suposição de normalidade, enquanto a correlação de Pearson depende desta suposição [@field] (capítulo 6.5). A normalidade das variáveis foi testada com Shapiro-wilk [@norm].
+
 A magnitude do efeito foi classificada com @cohen92, sendo uma das medidas mais usuais na literatura, que os separa em ‘grande’ (de 0,50 a 1,00); ‘moderada’ (de 0,30 a 0,49), ‘pequena’ (de 0,10 a 0,29) e ‘irrisória’ (menor que 0,1). @field também sugere o cálculo do coeficiente de determinação, que consiste no quadrado da correlação e indica a proporção de variabilidade compartilhada entre as variáveis, no caso da correlação de Pearson e entre os ranks, no caso da correlação de Spearman. O mesmo autor também indica o cálculo de Intervalos de confiança, em que *bootstrap* (BCa) com 1000 reamostragens foi utilizado para o cômputo do IC da correlação de Spearman, uma vez que não há uma fórmula fechada para esta estatística. \n")}
 
 return(texto)}
