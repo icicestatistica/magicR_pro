@@ -51,7 +51,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,exc
         temcont=T
         res=escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol)
         resultcont=rbind(resultcont,res$result)
-        textocont=res$texto
+        textocont=c(textocont,res$texto)
         testes <- testes+res$testes} else
           {res = escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol)
           result= rbind(result, res$result)
