@@ -9,8 +9,8 @@ names(d) <- c("resp","fator")
 resp1=as.numeric(d$resp[d$fator==niveis[1]])
 resp2=as.numeric(d$resp[d$fator==niveis[2]])
 
-if(length(resp1)>3 & length(resp1)<5000) str1=shapiro.test(resp1) else str1="Não"
-if(length(resp2)>3 & length(resp2)<5000) str2=shapiro.test(resp2) else str2="Não"
+if(length(na.omit(resp1))>3 & length(na.omit(resp1))<5000) str1=shapiro.test(resp1) else str1="Não"
+if(length(na.omit(resp2))>3 & length(na.omit(resp2))<5000) str2=shapiro.test(resp2) else str2="Não"
 
 if(str1=="Não" || str2=="Não") sup=c(" A suposição de normalidade das amostras não pode ser verificada pelo teste de Shapiro-Wilk, uma vez que o tamanho de pelo menos uma das amostras foi menor que 3 ou maior que 5000. Por este motivo, recomendamos a utilização do teste não paramétrico de Mann-Whitney ao invés do tradicional teste-t") else{
 if(str1$p.value>=0.05 & str2$p.value>=0.05) {sup=c(" A suposição de normalidade das amostras foi verificada através do teste de Shapiro-Wilk, que com p-valor maior que 0.05 para as duas amostras não rejeitou a normalidade das distribuições (",niveis[1]," - W=",round(str1$statistic,2),", p-valor=",pvalor(str1$p.value),", ",niveis[2]," - W=",round(str2$statistic,dig),", p-valor=",pvalor(str2$p.value),"), atendendo a suposição do teste.") ; supos=T}
