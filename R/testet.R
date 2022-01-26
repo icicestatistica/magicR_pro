@@ -21,7 +21,7 @@ if(str1$p.value<0.05 & str2$p.value>=0.05) sup=c(" A suposição de normalidade 
 if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade das amostras foi verificada através do teste de Shapiro-Wilk, que com p-valor menor que 0.05 rejeitou a normalidade da distribuição dos dois grupos (",niveis[1]," - W=",round(str1$statistic,dig),", p-valor=",pvalor(str1$p.value),",  ",niveis[2]," - W=",round(str2$statistic,dig),", p-valor=",pvalor(str2$p.value),"). Com a suposição de normalidade violada, sugerimos a realização do teste não paramétrico Mann-Whitney ao invés do teste-t.")}
 
 ef= round(cohens_d(resp ~ fator, var.equal=F,data=d)$effsize,dig)
-if(is.na(ef)==T) {ef="-" ; mag="Não é possível calcular a estatística d de cohen com este tamanho de amostra." else {
+if(is.na(ef)==T) {ef="-" ; mag="Não é possível calcular a estatística d de cohen com este tamanho de amostra."} else {
 if (ef<0) dif="menor que" else dif="maior que"
 
 if (abs(ef)<0.2) mag=paste0(" Através da estatística d de cohen (",ef,"), verificamos a magnitude da diferença entre as médias menor que 0.2 DP, o que Cohen (1988) considerou desprezível, mesmo que seja estatisticamente significativa.") else
