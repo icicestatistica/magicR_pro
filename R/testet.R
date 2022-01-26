@@ -9,6 +9,8 @@ names(d) <- c("resp","fator")
 resp1=as.numeric(d$resp[d$fator==niveis[1]])
 resp2=as.numeric(d$resp[d$fator==niveis[2]])
 
+ if(length(na.omit(resp1))==0 | length(na.omit(resp2))==0) {supos=T; texto=c(" * **",ref,":**Não é possível fazer a análise. \n")} else {
+ 
 if(length(na.omit(resp1))>3 & length(na.omit(resp1))<5000) str1=shapiro.test(resp1) else str1="Não"
 if(length(na.omit(resp2))>3 & length(na.omit(resp2))<5000) str2=shapiro.test(resp2) else str2="Não"
 
@@ -40,7 +42,7 @@ if (teste$p.value > 0.05) texto=c(" * **",ref,":** Realizando o teste-t bicaudal
 ", DP=",round(sd(resp1, na.rm=T),dig), ") apresenta média ",dif," o grupo '",niveis[2],"' (Média=",round(mean(resp2, na.rm=T),dig),", DP=",round(sd(resp2, na.rm=T),dig),"). A estimativa de diferença entre as médias foi ",
                                   round(teste$estimate[1]-teste$estimate[2],dig)," e IC95%=(",round(teste$conf.int[1],dig),", ",round(teste$conf.int[2],2),
                                  " ).",mag," Apesar disso, cabe considerar a relevância clínica ou prática da diferença. ",sup,"\n")
-
+}
 res=desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
 tot=dim(na.omit(d))[1]
   
