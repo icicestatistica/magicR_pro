@@ -61,7 +61,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,exc
 return(lista)}
 
 
-get_analise <- function(dados,col,auxiliar,y,nomey,niveisy,dig,excluirtotal,respcol){
+get_analise <- function(dados,col,auxiliar,y,tipoy,nomey,niveisy,dig,excluirtotal,respcol){
   xmat=dados[,col]
   tipox=auxiliar$tipo[col]
   nomex=auxiliar$nomes[col]
