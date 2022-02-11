@@ -7,9 +7,9 @@ format_real <- function(valor) {
    res=format(round(valor,2),nsmall = 2, decimal.mark = ",", big.mark = ".")
 return(res)}
 
-caixadeselecao <- function(vetor){
+caixadeselecao <- function(vetor,sep){
   vetor=unlist(vetor)
-  opcoes = unique(trim(unlist(str_split(vetor,","))))
+  opcoes = unique(trim(unlist(str_split(vetor,sep))))
   matrix <- matrix(c(rep("",length(opcoes)*length(vetor))),ncol=length(opcoes))
   for (i in 1:length(opcoes))
     for (j in 1:length(vetor))
