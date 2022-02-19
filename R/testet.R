@@ -5,6 +5,7 @@ if(respcol==T) ref=nomecat else ref=nomecont
 
 d <- data.frame("resp"=continua,"fator"=categorica)
 names(d) <- c("resp","fator")
+d$fator <- factor(d$fator, levels=niveis)
 
 resp1=as.numeric(d$resp[d$fator==niveis[1]])
 resp2=as.numeric(d$resp[d$fator==niveis[2]])
