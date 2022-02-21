@@ -37,12 +37,12 @@ p = paste0(pvalor(teste$p.value),"c (d=",ef,")")
 
 if (teste$p.value > 0.05) texto=c(" * **",ref,":** Realizando o teste-t bicaudal com correção de Welch para duas amostras independentes t(",round(teste$parameter,0),
                                   ") = ",round(teste$statistic,2),"; p=",pvalor(teste$p.value),
-                                  "), não encontramos evidências para rejeitar a igualdade de médias de ",nomecont," por ",nomecat,". De fato, os grupos '",niveis[1],"' (Média=",round(mean(resp1, na.rm=T),dig),", DP=",round(sd(resp1, na.rm=T),dig), ") e '",niveis[2],"' (Média=",
+                                  "), não encontramos evidências para rejeitar a igualdade de médias de ",nomecont," por ",nomecat,". De fato, os grupos '",niveis[1],"' (n=",length(resp1),", Média=",round(mean(resp1, na.rm=T),dig),", DP=",round(sd(resp1, na.rm=T),dig), ") e '",niveis[2]," (n=",length(resp2),", Média=",
                                   round(mean(resp2, na.rm=T),dig),", DP=",round(sd(resp2, na.rm=T),dig),") tiveram estatísticas semelhantes. A estimativa de diferença entre as médias foi ", round(teste$estimate[1]-teste$estimate[2],dig)," e IC95%=(",round(teste$conf.int[1],dig),", ",round(teste$conf.int[2],dig),
                                  " ). Este intervalo inclui a estimativa de diferença igual a 0 (igualdade de médias).",sup,"\n") else
   texto=c(" * **",ref,":** Realizando o teste-t bicaudal com correção de Welch para duas amostras independentes  (t(",
-          round(teste$parameter,0),") = ",round(teste$statistic,dig),"; p=",pvalor(teste$p.value),"), rejeitamos a hipótese de igualdade de médias de ",nomecont," por ",nomecat,". Podemos ver que o grupo '",niveis[1],"' (Média=",round(mean(resp1, na.rm=T),dig),
-", DP=",round(sd(resp1, na.rm=T),dig), ") apresenta média ",dif," o grupo '",niveis[2],"' (Média=",round(mean(resp2, na.rm=T),dig),", DP=",round(sd(resp2, na.rm=T),dig),"). A estimativa de diferença entre as médias foi ",
+          round(teste$parameter,0),") = ",round(teste$statistic,dig),"; p=",pvalor(teste$p.value),"), rejeitamos a hipótese de igualdade de médias de ",nomecont," por ",nomecat,". Podemos ver que o grupo '",niveis[1]," (n=",length(resp1),", Média=",round(mean(resp1, na.rm=T),dig),
+", DP=",round(sd(resp1, na.rm=T),dig), ") apresenta média ",dif," o grupo '",niveis[2]," (n=",length(resp2),", Média=",round(mean(resp2, na.rm=T),dig),", DP=",round(sd(resp2, na.rm=T),dig),"). A estimativa de diferença entre as médias foi ",
                                   round(teste$estimate[1]-teste$estimate[2],dig)," e IC95%=(",round(teste$conf.int[1],dig),", ",round(teste$conf.int[2],2),
                                  " ).",mag," Apesar disso, cabe considerar a relevância clínica ou prática da diferença. ",sup,"\n")
 }}
