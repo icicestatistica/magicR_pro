@@ -1,6 +1,7 @@
 escolha_summary_para_juntar <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig){
 if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=niveisx)),nas,T,T,F,teste,grafico,cor,dig)
-                      result=resulta[,c(1,4)]} else
+                      result=resulta[,c(1,4)]
+                     if(teste==T) textoc=resulta$texto} else
   if (tipox=="ordinal") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=niveisx)),nas,T,F,F,teste,grafico,cor,dig)
                         result=resulta[,c(1,4)]} else
     result=desc_uni_continua(x,dig)
