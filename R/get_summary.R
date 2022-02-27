@@ -42,4 +42,4 @@ nomesx <- auxiliar[gr,2]
 tipox <- auxiliar[gr,3]
 niveisx <- auxiliar[gr,4]
 resultados = get_summary_2(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig)
-return(list("testes"=resultados$testes,"result"=resultados$result,"complem"=complem))}
+return(list("testes"=resultados$testes,"result"=resultados$result,"complem"=resultados$complem))}
