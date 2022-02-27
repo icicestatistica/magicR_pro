@@ -1,9 +1,9 @@
-desc_uni_categorica <- function(var,nome,niveis,nas,label,ordenar,acumula,teste,grafico,cor,digitos){
-  var=unlist(var)
-  if (niveis[1] != F) var <- factor(var, levels = niveis)
-  if (nas==FALSE) {d<-data.frame(t(rbind(round(table(var),0),paste0(round(100*prop.table(table(var)),digitos),"%"))))} else
-  {d<-t(rbind(round(table(var),0),paste0(round(100*table(var)/length(var),digitos),"%")))
-   d <- rbind(d, "N/A"=c(sum(is.na(var)),paste0(round(100*sum(is.na(var))/length(var),digitos),"%")))}
+desc_uni_categorica <- function(variavel,nome,niveis,nas,label,ordenar,acumula,teste,grafico,cor,digitos){
+  variavel=unlist(variavel)
+  if (niveis[1] != F) variavel <- factor(variavel, levels = niveis)
+  if (nas==FALSE) {d<-data.frame(t(rbind(round(table(variavel),0),paste0(round(100*prop.table(table(variavel)),digitos),"%"))))} else
+  {d<-t(rbind(round(table(variavel),0),paste0(round(100*table(variavel)/length(variavel),digitos),"%")))
+   d <- rbind(d, "N/A"=c(sum(is.na(variavel)),paste0(round(100*sum(is.na(variavel))/length(variavel),digitos),"%")))}
   if (ordenar==TRUE) {d <- d[order(as.numeric(d[,1]),decreasing = T),]}
   if (label==TRUE) {d <- data.frame(d, "Freq."=paste0(d[,1]," (",d[,2],")"))}
   if (acumula==TRUE) {d <- data.frame(d,"Freq. Relativa Acumulada"= paste0(cumsum(d[,1])," (", round(100*cumsum(d[,1])/(cumsum(d[,1])[nrow(d)]),digitos),"%)"))}
@@ -11,9 +11,9 @@ desc_uni_categorica <- function(var,nome,niveis,nas,label,ordenar,acumula,teste,
   colnames(d) <- c("Característica","Frequência","Freq. Relativa","Freq.","Freq. Acumulada")[c(T,T,T,label,acumula)]
   row.names(d)=NULL
   if(teste==F){testectexto=NULL;testectabela=NULL} else {
-    testec=quiqua_aderencia(var,nome,niveis,ordenar,digitos)
+    testec=quiqua_aderencia(variavel,nome,niveis,ordenar,digitos)
     if(length(testec)==1) {testectexto=testec$texto ; testectabela=NULL} else  {testectexto=testec$texto ; testectabela=testec$tabela}}
-  if(grafico==T) graficoc=grafico_categorica(var,nome,niveis,cor,ordenar) else graficoc=NULL
+  if(grafico==T) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc=NULL
   
   resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
