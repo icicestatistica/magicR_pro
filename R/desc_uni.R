@@ -16,17 +16,3 @@ desc_uni_continua <- function(var,digitos){
                 p)}
   d <- data.frame("Característica"=parametros,"Estatística"=unlist(variavel))
   return(d)}
-
-desc_uni_categorica <- function(var,niveis,nas,label,ordenar,acumula,digitos){
-  var=unlist(var)
-  if (niveis[1] != F) var <- factor(var, levels = niveis)
-  if (nas==FALSE) {d<-data.frame(t(rbind(round(table(var),0),paste0(round(100*prop.table(table(var)),digitos),"%"))))} else
-  {d<-t(rbind(round(table(var),0),paste0(round(100*table(var)/length(var),digitos),"%")))
-   d <- rbind(d, "N/A"=c(sum(is.na(var)),paste0(round(100*sum(is.na(var))/length(var),digitos),"%")))}
-  if (ordenar==TRUE) {d <- d[order(as.numeric(d[,1]),decreasing = T),]}
-  if (label==TRUE) {d <- data.frame(d, "Freq."=paste0(d[,1]," (",d[,2],")"))}
-  if (acumula==TRUE) {d <- data.frame(d,"Freq. Relativa Acumulada"= paste0(cumsum(d[,1])," (", round(100*cumsum(d[,1])/(cumsum(d[,1])[nrow(d)]),digitos),"%)"))}
-  d <- data.frame(row.names(d),d)
-  colnames(d) <- c("Característica","Frequência","Freq. Relativa","Freq.","Freq. Acumulada")[c(T,T,T,label,acumula)]
-  row.names(d)=NULL
-  return(d)}
