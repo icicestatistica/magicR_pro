@@ -16,7 +16,7 @@ if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=nivei
 result=data.frame(result)
 result = cbind(c(nomesx,rep("",dim(result)[1]-1)),result)
 names(result) = c("Variável","Característica","Estatística")
-return(list("result"=result,"complem"=list("texto"=texto,"tabela"=tabela,"grafico"=grafico))}
+return(list("result"=result,"complem"=list("texto"=texto,"tabela"=tabela,"grafico"=grafico)))}
 
 get_summary_2 <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig){
   cont=0
