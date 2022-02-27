@@ -11,8 +11,6 @@ if(respcol==T) {
   aux=niveislinha
   niveislinha=niveiscol
   niveiscol=aux}
-  
-var,nome,niveis,nas,label,ordenar,acumula,teste,grafico,cor,digitos
 
 result = desc_uni_categorica(d[d$col==niveiscol[1] & is.na(d$col)==F,]$linha,"",niveislinha,nas,T,F,F,F,F,F,dig)[,4]
 if(length(niveiscol)>1) for (i in 2:length(niveiscol)) result <- cbind(result,desc_uni_categorica(d[d$col==niveiscol[i] & is.na(d$col)==F,]$linha,"",niveislinha,nas,T,F,F,F,F,F,dig)[,4])
