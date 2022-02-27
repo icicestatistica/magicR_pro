@@ -18,7 +18,6 @@ desc_uni_categorica <- function(var,nome,niveis,nas,label,ordenar,acumula,teste,
   resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
 
-desc_uni_categorica(var,nome,niveis,nas=F,label=T,ordenar=F,acumula=F,teste=T,grafico=T,cor="lightblue",digitos=3)
 
 grafico_categorica <- function(var,nome, niveis, cor, ordenar){
   var = factor(var, levels=niveis)
