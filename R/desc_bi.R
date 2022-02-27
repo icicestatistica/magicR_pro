@@ -11,13 +11,15 @@ if(respcol==T) {
   aux=niveislinha
   niveislinha=niveiscol
   niveiscol=aux}
+  
+var,nome,niveis,nas,label,ordenar,acumula,teste,grafico,cor,digitos
 
-result = desc_uni_categorica(d[d$col==niveiscol[1] & is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,4]
-if(length(niveiscol)>1) for (i in 2:length(niveiscol)) result <- cbind(result,desc_uni_categorica(d[d$col==niveiscol[i] & is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,4])
-if(nas==T) result = cbind(desc_uni_categorica(d$linha,niveislinha,nas,T,F,F,dig)[,c(1,4)],result) else result = cbind(desc_uni_categorica(d[is.na(d$col)==F,]$linha,niveislinha,nas,T,F,F,dig)[,c(1,4)],result)
-if(nas==T) {result <- cbind(result, desc_uni_categorica(d[is.na(d$col)==T,]$linha,niveislinha,nas,T,F,F,dig)[,4])
+result = desc_uni_categorica(d[d$col==niveiscol[1] & is.na(d$col)==F,]$linha,"",niveislinha,nas,T,F,F,F,F,F,dig)[,4]
+if(length(niveiscol)>1) for (i in 2:length(niveiscol)) result <- cbind(result,desc_uni_categorica(d[d$col==niveiscol[i] & is.na(d$col)==F,]$linha,"",niveislinha,nas,T,F,F,F,F,F,dig)[,4])
+if(nas==T) result = cbind(desc_uni_categorica(d$linha,"",niveislinha,nas,T,F,F,F,F,F,dig)[,c(1,4)],result) else result = cbind(desc_uni_categorica(d[is.na(d$col)==F,]$linha,"",niveislinha,nas,T,F,F,F,F,F,dig)[,c(1,4)],result)
+if(nas==T) {result <- cbind(result, desc_uni_categorica(d[is.na(d$col)==T,]$linha,"",niveislinha,nas,T,F,F,F,F,F,dig)[,4])
 names(result)=c("Característica","Geral",niveiscol,"N/A")} else names(result)=c("Característica","Geral",niveiscol)
-if(nas==T) result <- rbind(c("Geral",dim(d)[1],desc_uni_categorica(d$col,niveiscol,nas,T,F,F,dig)[,2]),result) else result <- rbind(c("Geral",dim(na.omit(d))[1],desc_uni_categorica(d[is.na(d$linha)==F,]$col,niveiscol,nas,T,F,F,dig)[,2]),result)
+if(nas==T) result <- rbind(c("Geral",dim(d)[1],desc_uni_categorica(d$col,"",niveiscol,nas,T,F,F,F,F,F,dig)[,2]),result) else result <- rbind(c("Geral",dim(na.omit(d))[1],desc_uni_categorica(d[is.na(d$linha)==F,]$col,"",niveiscol,nas,T,F,F,F,F,F,dig)[,2]),result)
 
 if(respcol==T) result = transpordf(result)
 
