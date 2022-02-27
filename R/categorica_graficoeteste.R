@@ -99,6 +99,6 @@ if(length(nula)==(dim(a)[1])) texto2 <- c(texto2,c("  + Apesar do teste ser sign
 if(length(nula)>1) texto2 <- c(texto2,c("  + As categorias ",printvetor(nula)," **não diferem** estatisticamente da frequência esperada sob hipótese de igualdade de proporções."),"\n")}}
 texto2 <- c(texto2,"\n Podemos verificar o valor dos resíduos na tabela a seguir: \n")
 }
-if(is.null(a)) resultado = list("texto"=texto) else resultado=list("texto"=paste(c(texto,texto2,"\n"),collapse=" "),"tabela"=a)
+resultado=list("texto"=paste(c(texto,texto2,"\n"),collapse=" "),"tabela"=a)
 
 return(resultado)}
