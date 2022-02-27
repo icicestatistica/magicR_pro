@@ -1,6 +1,6 @@
 escolha_summary_para_juntar <- function(x,nomesx,tipox,niveisx,nas,dig){
-if (tipox=="factor") result=desc_uni_categorica(x,eval(parse(text=niveisx)),nas,T,T,F,dig)[,c(1,4)] else
-  if (tipox=="ordinal") result=desc_uni_categorica(x,eval(parse(text=niveisx)),nas,T,F,F,dig)[,c(1,4)] else
+if (tipox=="factor") result=desc_uni_categorica(x,"",eval(parse(text=niveisx)),nas,T,T,F,F,F,F,dig)[,c(1,4)] else
+  if (tipox=="ordinal") result=desc_uni_categorica(x,"",eval(parse(text=niveisx)),nas,T,F,F,F,F,F,dig)[,c(1,4)] else
     result=desc_uni_continua(x,dig)
 result=data.frame(result)
       result = cbind(c(nomesx,rep("",dim(result)[1]-1)),result)
