@@ -10,11 +10,12 @@ desc_uni_categorica <- function(var,nome,niveis,nas,label,ordenar,acumula,teste,
   d <- data.frame(row.names(d),d)
   colnames(d) <- c("Característica","Frequência","Freq. Relativa","Freq.","Freq. Acumulada")[c(T,T,T,label,acumula)]
   row.names(d)=NULL
-  if(teste==T) testec=quiqua_aderencia(var,nome,niveis,ordenar,digitos)
-  resultados=list("result"=d)
-  if(teste==T){
-    if(length(testec)==1) resultados <- list.append(resultados,"texto"=testec$texto) else  resultados=list.append(resultados,"texto"=testec$texto,"tabela"=testec$tabela)}
-  if(grafico==T) resultados=list.append(resultados,"grafico"=grafico_categorica(var,nome,niveis,cor,ordenar))
+  if(teste==F){testectexto=NULL;testectabela=NULL} else {
+    testec=quiqua_aderencia(var,nome,niveis,ordenar,digitos)
+    if(length(testec)==1) {testectexto=testec$texto ; testectabela=NULL} else  {testectexto=testec$texto ; testectabela=testec$tabela}}
+  if(grafico==T) graficoc=grafico_categorica(var,nome,niveis,cor,ordenar) else graficoc=NULL
+  
+  resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
 
 desc_uni_categorica(var,nome,niveis,nas=F,label=T,ordenar=F,acumula=F,teste=T,grafico=T,cor="lightblue",digitos=3)
