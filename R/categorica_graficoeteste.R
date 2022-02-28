@@ -77,7 +77,7 @@ if (quiqua$p.value<0.05){
 a=data.frame(names(tabela),paste0(round(100*prop.table(tabela),dig),"%"),"IC 95%"=ic,"`Resíduos padronizados ajustados`"=round(quiqua$stdres,dig),
                  "p-valor"=round(2*(1-pnorm(abs(quiqua$stdres))),3))[,-c(4,6)]
 names(a)=c("Categoria","Frequência observada","IC 95%","Resíduos padronizados","p-valor")
-a=a[order(a$`Resíduos padronizados`,decreasing=T),]
+if(ordenar==T) a=a[order(a$`Resíduos padronizados`,decreasing=T),]
 
 a$`p-valor`[a$`p-valor`<0.001] <- "<0.001*"
 a$`p-valor`[a$`p-valor`<(0.05/length(tabela))] <- paste0(a$`p-valor`[a$`p-valor`<(0.05/length(tabela))],"*")
