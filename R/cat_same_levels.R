@@ -1,8 +1,8 @@
 cat_same_levels <- function(x,nomes,levels,nas,dig){
 cont=1
-df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(x[,1],levels,nas,T,F,F,dig)[,4]))
+df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(x[,1],"",levels,nas,T,F,F,F,F,F,dig)[,4]))
 if(dim(x)[2]>1){
-  for (i in 2:dim(x)[2]) {cont=cont+1 ; df = rbind(df, data.frame("Variável"=nomes[i],t(desc_uni_categorica(x[,i],levels,nas,T,F,F,dig)[,4])))}}
+  for (i in 2:dim(x)[2]) {cont=cont+1 ; df = rbind(df, data.frame("Variável"=nomes[i],t(desc_uni_categorica(x[,i],"",levels,nas,T,F,F,F,F,F,dig)[,4])))}}
 if(nas==T) levels=c(levels,"N/A")
 names(df)=c("Variável",levels)
 return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
@@ -11,11 +11,11 @@ return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"cor
 cat_same_levels_2 <- function(x,nomes,nomey,levels,dig,cor,sepvetor){
 cont=1
 prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
-df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
+df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],"",levels,F,F,F,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
 for (i in 2:dim(x)[2]){
   cont=cont+1
   prop=prop.test(table(factor(unlist(x[,i]),levels=levels)))
-  df = rbind(df,data.frame("Variável"=nomes[i],desc_uni_categorica(x[,i],levels,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2]))}
+  df = rbind(df,data.frame("Variável"=nomes[i],desc_uni_categorica(x[,i],"",levels,F,F,F,F,F,F,F,dig)[1,c(2,3)],prop$conf.int[1],prop$conf.int[2]))}
 df = df[order(as.numeric(df$Frequência), decreasing=T),]
 names(df)=c("Variável",'Frequência',"Freq. Relativa", "ICmin","ICmax")
 
