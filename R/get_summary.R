@@ -30,7 +30,7 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig){
     cont=cont+1
     resulta=escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],nas,teste,grafico,cor,dig)
     result <- rbind(result,resulta$result)
-    complem <- list.append(complem,"texto"=resulta$texto,"tabela"=resulta$tabela,"grafico"=resulta$grafico)}}
+    complem <- list.append(complem,resulta$texto,resulta$tabela,resulta$grafico)}}
 row.names(result) <- 1:dim(result)[1]
 return(list("testes"=c("desc"=cont,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
             "result"=result,
