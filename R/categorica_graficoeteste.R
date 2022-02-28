@@ -18,7 +18,6 @@ desc_uni_categorica <- function(variavel,nome,niveis,nas,label,ordenar,acumula,t
   resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
 
-
 grafico_categorica <- function(var,nome, niveis, cor, ordenar){
   var = factor(var, levels=niveis)
   niveisnovo=vetor_comsep(niveis,2)
