@@ -1,11 +1,11 @@
 escolha_summary_para_juntar <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig){
 if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=niveisx)),nas,T,T,F,teste,grafico,cor,dig)
-                      result=resulta[,c(1,4)]
+                      result=resulta$result[,c(1,4)]
                       texto=resulta$texto
                       tabela=resulta$tabela
                       grafico=resulta$grafico} else
   if (tipox=="ordinal") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=niveisx)),nas,T,F,F,teste,grafico,cor,dig)
-                        result=resulta[,c(1,4)]
+                        result=resulta$result[,c(1,4)]
                         texto=resulta$texto
                         tabela=resulta$tabela
                         grafico=resulta$grafico} else
