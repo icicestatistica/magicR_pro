@@ -25,13 +25,13 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
   tab <- data.frame(table(var),perc=paste0(table(var),paste0(" (",100*round(prop.table(table(var)),3),"%)")))
   if(ordenar==T) {result <- na.omit(tab) %>% mutate(var=fct_reorder(var, desc(Freq))) %>%
   ggplot() + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + 
-    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(vetor_comsep(nome,7))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(vetor_comsep(nome,12))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
         plot.title = element_text(hjust = 0.5),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
-  if(ordenar==F) {result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(vetor_comsep(nome,7))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+  if(ordenar==F) {result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(vetor_comsep(nome,12))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
@@ -76,6 +76,7 @@ if(quiqua$p.value>0.05) texto = paste0("* **",nomecat,":** O teste qui-quadrado 
 if (quiqua$p.value<0.05){
 a=data.frame(names(tabela),paste0(round(100*prop.table(tabela),dig),"%"),"IC 95%"=ic,"`Resíduos padronizados ajustados`"=round(quiqua$stdres,dig),
                  "p-valor"=round(2*(1-pnorm(abs(quiqua$stdres))),3))[,-c(4,6)]
+a=a[order(a$`Resíduos padronizados ajustados`),]
 names(a)=c("Categoria","Frequência observada","IC 95%","Resíduos padronizados","p-valor")
 
 a$`p-valor`[a$`p-valor`<0.001] <- "<0.001*"
