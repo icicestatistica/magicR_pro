@@ -16,7 +16,7 @@ if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=nivei
 result=data.frame(result)
 result = cbind(c(nomesx,rep("",dim(result)[1]-1)),result)
 names(result) = c("Variável","Característica","Estatística")
-return(list("result"=result,"complem"=list("texto"=texto,"tabela"=tabela,"grafico"=grafico)))}
+return(list("result"=result,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
 get_summary_2 <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig){
   cont=0
@@ -24,13 +24,13 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig){
   cont=cont+1
   resulta <- escolha_summary_para_juntar(x[,1],nomesx[1],tipox[1],niveisx[1],nas,teste,grafico,cor,dig)
   result=resulta$result
-  complem=resulta$complem
+  complem=list("texto"=resulta$texto,"tabela"=resulta$tabela,"grafico"=resulta$grafico)
   if (xdim>1){
   for (i in 2:xdim){
     cont=cont+1
     resulta=escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],nas,teste,grafico,cor,dig)
     result <- rbind(result,resulta$result)
-    complem <- list.append(complem,resulta$complem)}}
+    complem <- list.append(complem,"texto"=resulta$texto,"tabela"=resulta$tabela,"grafico"=resulta$grafico)}}
 row.names(result) <- 1:dim(result)[1]
 return(list("testes"=c("desc"=cont,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
             "result"=result,
