@@ -24,7 +24,7 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,dig){
   cont=cont+1
   resulta <- escolha_summary_para_juntar(x[,1],nomesx[1],tipox[1],niveisx[1],nas,teste,grafico,cor,dig)
   result=resulta$result
-  complem=list("texto"=resulta$texto,"tabela"=resulta$tabela,"grafico"=resulta$grafico)
+  complem=list("texto"=resulta$texto,"tabela"=resulta$tabela,"grafico"=resulta$grafico,"\n")
   if (xdim>1){
   for (i in 2:xdim){
     cont=cont+1
