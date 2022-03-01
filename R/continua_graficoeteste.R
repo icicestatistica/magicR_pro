@@ -2,7 +2,7 @@ desc_uni_continua <- function(vari,nome,bins,texto,grafico,cor,digitos){
   nf=""
   vari=unlist(vari)
   if(length(summary(vari))==6) {N=length(vari); na=0} else {N=length(vari);na=summary(vari)[7]}
-  if(length(vari)-sum(is.na(vari))<3 | length(vari)-sum(is.na(vari))>3000 | min(vari,na.rm=T)==max(vari,na.rm=T)) {p = "N/A";nf="Não foi possível realizar o teste shapiro-wilk para normalidade, uma vez que não há observações suficientes para fazê-lo."} else {shap = shapiro.test(vari) ; p=pvalor(shap$p.value); if(shap$p.value <0.05) rej <- "menor que 0.05, rejeitou" else rej="maior ou igual a 0.05, não rejeitou"}
+  if(length(vari)-sum(is.na(vari))<3 | length(vari)-sum(is.na(vari))>3000 | min(vari,na.rm=T)==max(vari,na.rm=T)) {p = "N/A";nf="Não foi possível realizar o teste shapiro-wilk para normalidade, uma vez que não há observações suficientes para fazê-lo.  \n"} else {shap = shapiro.test(vari) ; p=pvalor(shap$p.value); if(shap$p.value <0.05) rej <- "menor que 0.05, rejeitou" else rej="maior ou igual a 0.05, não rejeitou"}
   cv=round(sd(vari,na.rm=T)/summary(vari)[4]*100,digitos)
   parametros <- c("N","N/A","Observações","Min-Máx","Q1-Q3","Mediana","Média","Desvio Padrão","CV", "Normalidade (Shapiro Wilk)")
   if(sum(is.na(vari))==length(vari)) variavel=c(N,paste0(na," (100%)"),0,"-","-","-","-","-","-","-") else {
@@ -19,6 +19,7 @@ desc_uni_continua <- function(vari,nome,bins,texto,grafico,cor,digitos){
   d <- data.frame("Característica"=parametros,"Estatística"=unlist(variavel))
   tex=NULL
 if(texto==T){
+  if(nf=="") shaptexto=c("  + O teste de shapiro wilk, com p-valor ",rej," a hipótese de normalidade dos dados (W=",round(shap$statistic,digitos),", p-valor=",pvalor(shap$p.value),"). \n") else shaptexto=nf
     if(cv>50) cvtexto = " Como isso não ocorreu, valores próximos à média podem não ter sido tão frequentes nos dados. \n" else cvtexto = " Como isso ocorreu, os dados tendem a se concentrar perto da média. \n"
   dif=as.numeric(d$Estatística[7])-as.numeric(d$Estatística[6])
   simetria = 5*(dif)/as.numeric(d$Estatística[8])
@@ -33,7 +34,7 @@ if(texto==T){
                "  + A diferença entre a média (",d$Estatística[7],") e a mediana (",d$Estatística[6],") ",qt," \n",
                "  + A variabilidade é medida pelo desvio padrão (",d$Estatística[7],"), e indica quanto os dados variam da média obtida. \n",
                "  + O CV - Coeficiente de Variação - (",d$Estatística[9],") compara o desvio padrão com a média. O ideal é que este índice seja o mais baixo possível (idealmente menor que 50%).",cvtexto,
-                "  + O teste de shapiro wilk, com p-valor ",rej," a hipótese de normalidade dos dados (W=",round(shap$statistic,digitos),", p-valor=",pvalor(shap$p.value),"). \n")
+                nf)
       tex=paste(tex,collapse="")} else tex=NULL
   
   if(grafico==T) grafico=graficos_continua(vari,nome,20,cor) else grafico=NULL
