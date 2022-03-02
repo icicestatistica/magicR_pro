@@ -85,4 +85,4 @@ graficos_continua <- function(var,nome,bins,cor,digitos){
       panel.grid.major.y=element_blank()) +
       geom_label(x=summary(var)[4], y=0, label=paste0("Média=",round(summary(var)[4],digitos)),color="black")
   
-  box / histo}
+  return(box / histo)}
