@@ -42,8 +42,6 @@ if(texto==T){
   
 return(list("result"=d,"texto"=tex,"grafico"=grafico))}
 
-library(colorspace)
-library(patchwork)
 
 graficos_continua <- function(var,nome,bins,cor){
   d <- data.frame(var=as.numeric(unlist(var)))
