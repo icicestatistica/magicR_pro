@@ -37,13 +37,13 @@ if(texto==T){
                 nf)
       tex=paste(tex,collapse="")} else tex=NULL
   
-  if(grafico==T) grafico=graficos_continua(vari,nome,20,cor) else grafico=NULL
+  if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos) else grafico=NULL
 
   
 return(list("result"=d,"texto"=tex,"grafico"=grafico))}
 
 
-graficos_continua <- function(var,nome,bins,cor){
+graficos_continua <- function(var,nome,bins,cor,digitos){
   d <- data.frame(var=as.numeric(unlist(var)))
   excess <- round((max(d$var, na.rm=T)-min(d$var, na.rm=T))/8,0)
   min <- min(d$var, na.rm=T)-excess; max <- max(d$var, na.rm=T)+excess
