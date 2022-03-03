@@ -9,7 +9,7 @@ if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=nivei
                         texto=resulta$texto
                         tabela=resulta$tabela
                         grafico=resulta$grafico} else
-    {resulta=desc_uni_continua(x,nomesx,bins,teste,grafico,cor,digitos)
+    {resulta=desc_uni_continua(x,nomesx,bins,teste,grafico,cor,dig)
      texto=resulta$texto
      tabela=NULL
      grafico=resulta$grafico}
