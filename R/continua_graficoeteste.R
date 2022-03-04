@@ -71,7 +71,7 @@ graficos_continua <- function(var,nome,bins,cor,digitos){
   histo <- ggplot(d,aes(x=var)) + 
     geom_histogram(aes(y=..density..),bins = bins, fill=cor) +
     geom_density(alpha=0.5,colour=NA,fill=cor,alpha=0.9) +
-    geom_errorbarh(aes(xmax = media+dp, xmin = media-dp,y=0),inherit.aes = F,height=max(density(d$var)$y)/5) +
+    geom_errorbarh(aes(xmax = media+dp, xmin = media-dp,y=0),inherit.aes = F,height=max(density(d$var, na.rm=T)$y)/5) +
     theme_clean() + xlab(nome) + xlim(min,max) +
     ylab("") + geom_vline(xintercept = mean(var,na.rm=T),color="black",size=1) + theme(
       axis.text.y = element_blank(),
