@@ -19,7 +19,7 @@ desc_uni_continua <- function(vari,nome,bins,texto,grafico,cor,digitos){
   d <- data.frame("Característica"=parametros,"Estatística"=unlist(variavel))
   tex=NULL
 if(texto==T){
-  if(nf=="") shaptexto=c("  + O teste de shapiro wilk, com p-valor ",rej," a hipótese de normalidade dos dados (W=",round(shap$statistic,digitos),", p-valor=",pvalor(shap$p.value),"). \n") else shaptexto=nf
+  if(nf=="") nf=c("  + O teste de shapiro wilk, com p-valor ",rej," a hipótese de normalidade dos dados (W=",round(shap$statistic,digitos),", p-valor=",pvalor(shap$p.value),"). \n") else shaptexto=nf
     if(cv>50) cvtexto = " Como isso não ocorreu, valores próximos à média podem não ter sido tão frequentes nos dados. \n" else cvtexto = " Como isso ocorreu, os dados tendem a se concentrar perto da média. \n"
   dif=as.numeric(d$Estatística[7])-as.numeric(d$Estatística[6])
   simetria = 5*(dif)/as.numeric(d$Estatística[8])
