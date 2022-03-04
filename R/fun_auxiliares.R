@@ -63,5 +63,5 @@ row.names(nova)<-NULL
 return(nova)}
 
 vec_to_string <- function(vec){
-   str = paste0("c(",paste(paste("'",str,"'",sep=""),collapse=","),")",collapse="")
+   str = paste0("c(",paste(paste("'",vec,"'",sep=""),collapse=","),")",collapse="")
    return(str)}
