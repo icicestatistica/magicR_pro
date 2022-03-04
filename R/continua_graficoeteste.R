@@ -32,7 +32,7 @@ if(texto==T){
       tex <- c(tex, "  + Os dados variaram no intervalo (",d$Estatística[4] ,"), portanto sua amplitude (diferença entre o maior e o menor) foi ",-eval(parse(text=d$Estatística[4])),"; \n",
                 "  + Olhando para os quartis, percebemos que 25% dos valores foram menores que ",str_split(d$Estatística[5],"-")[[1]][1]," e 25% foram maiores que ",str_split(d$Estatística[5],"-")[[1]][2],". Assim, a metade \"central\"  dos dados se distribuiu ao longo de ", -eval(parse(text=d$Estatística[5]))," unidades. Esta quantia também é chamada \"Intervalo Interquartil\"; \n",     
                "  + A diferença entre a média (",d$Estatística[7],") e a mediana (",d$Estatística[6],") ",qt," \n",
-               "  + A variabilidade é medida pelo desvio padrão (",d$Estatística[7],"), e indica quanto os dados variam da média obtida. \n",
+               "  + A variabilidade é medida pelo desvio padrão (",d$Estatística[8],"), e indica quanto os dados variam da média obtida. \n",
                "  + O CV - Coeficiente de Variação - (",d$Estatística[9],") compara o desvio padrão com a média. O ideal é que este índice seja o mais baixo possível (idealmente menor que 50%).",cvtexto,
                 nf)
       tex=paste(tex,collapse="")} else tex=NULL
