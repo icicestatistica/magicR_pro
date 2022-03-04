@@ -64,4 +64,4 @@ return(nova)}
 
 vec_to_string <- function(vec){
    str = paste0("c(",paste(paste("'",str,"'",sep=""),collapse=","),")",collapse="")
-   return(str}
+   return(str)}
