@@ -39,10 +39,11 @@ return(res)}
 relatorio <- function(a,pularprimeiro){
 if (pularprimeiro==T) comeco=2 else comeco=1
 for (i in comeco:length(a)){
+   if(is.null(a[[i]])==T) tantofaz=0 else {
 if(class(a[[i]])=="data.frame") print(kable(a[[i]], row.names=F)) else
   if(class(a[[i]])=="list") relatorio(a[[i]],F) else
       if(class(a[[i]])=="character") cat(a[[i]], sep="\n") else
-        print(a[[i]])}}
+        print(a[[i]])}}}
 
    
 cont_analises <- function(nome,vetortestes){
