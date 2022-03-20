@@ -26,7 +26,7 @@ res = residuals((aov(lm(data=d,resp~fator))))
 pv=a$p
 sig=ifelse(pv>0.05," NÃO"," ")
 if(is.null(a$ges)) eta = "-" else {eta=round(a$ges,(dig+1));
-tamanef = ifelse(eta<0.01,"insignificante. ",ifelse(eta<0.06,"pequena. ",ifelse(eta<0.14,"média. ","grande. ")))
+tamanef = ifelse(eta<0.01,"insignificante. ",ifelse(eta<0.06,"pequeno. ",ifelse(eta<0.14,"médio. ","grande. ")))
 etatext=c("O tamanho de efeito $\\eta^2$ = ",eta," indica ",100*eta,"% de variabilidade de ",nomecont," explicada por ",nomecat,", o que Cohen(1988) classificou como um efeito ",tamanef)}
 
 i=niveis[1]
