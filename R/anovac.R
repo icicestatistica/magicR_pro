@@ -38,7 +38,7 @@ for (i in niveis){
   obs=d$resp[d$fator==i]
   if(length(obs)<3) dassump=c(dassump,i,"","") else {shap=shapiro.test(obs); dassump=c(dassump,i,shap$statistic,shap$p.value)}}
 dassump <- data.frame(matrix(dassump,ncol=3,byrow=T))
-dassump <- rbind(dassump,c("Resíduos",round(shapresid$statistic,dig),pvalor(shapresid$p.value)))
+dassump <- rbind(dassump,c("Resíduos",shapresid$statistic,shapresid$p.value))
 
 supos= ifelse(min(dassump$X3[dassump$X3!=""])>0.05,T,F)
 
