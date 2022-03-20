@@ -60,7 +60,7 @@ textotipo=data.frame(c(", com p-valor maior que 0.05 no teste de shapiro-wilk, c
 
 anasup=paste(" Quanto às suposições dos testes, temos o seguinte cenário: ",printsup(tcumpre,textotipo[,1]),printsup(tnaocumpre,textotipo[,2]),printsup(tnaocalc,textotipo[,3])," ",paste("(",paste(supg[-length(supg)],collapse="; "),")",sep=""),". Verificamos também a normalidade dos resíduos do ajuste, que ",textosupres,paste("(",paste(supg[length(supg)],collapse="; "),").",sep=""),vali,sep="")
 
-texto=paste(c(" * **",ref,":** No total, ",dim(na.omit(d))[1]," linhas apresentaram dados completos sobre ",nomecat," e ",nomecont,". A análise foi feita a partir de uma ANOVA de uma via",corr,", que ",sig,"rejeitou o efeito de ",nomecat," em ",nomecont," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),", $\\eta^2$ = ",eta,"). ",etatext,homogtext,anasup), collapse="")
+texto=paste(c(" * **",ref,":** No total, ",dim(na.omit(d))[1]," linhas apresentaram dados completos sobre ",nomecat," e ",nomecont,". A análise foi feita a partir de uma ANOVA de uma via",corr,", que ",sig,"rejeitou a ausência de efeito de ",nomecat," em ",nomecont," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),", $\\eta^2$ = ",eta,"). ",etatext,homogtext,anasup), collapse="")
 
 p=paste0(pvalor(pv),"e ($\\eta^2$=",eta,")")
 
