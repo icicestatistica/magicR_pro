@@ -29,14 +29,21 @@ if(is.null(a$ges)) eta = "-" else {eta=round(a$ges,(dig+1));
 tamanef = ifelse(eta<0.01,"insignificante. ",ifelse(eta<0.06,"pequena. ",ifelse(eta<0.14,"média. ","grande. ")))
 etatext=c("O tamanho de efeito $\\eta^2$ = ",eta," indica ",100*eta,"% de variabilidade de ",nomecont," explicada por ",nomecat,", o que Cohen(1988) classificou como um efeito ",tamanef)}
 
-dassump = d %>% group_by(fator) %>% shapiro_test(resp)
-supos= ifelse(min(dassump$p)>0.05 & shapiro.test(res)$p.value>0.05,T,F)
+i=niveis[1]
+
+dassump=c()
+for (i in niveis){
+  obs=d$resp[d$fator==i]
+  if(length(obs)<3) dassump=c(dassump,i,"","") else {shap=shapiro.test(obs); dassump=c(dassump,i,shap$statistic,shap$p.value)}}
+dassump <- data.frame(matrix(dassump,ncol=3,byrow=T))
+
+supos= ifelse(min(dassump$X3)>0.05 & shapiro.test(res)$p.value>0.05,T,F)
 
 texto=paste(c("No total, ",dim(na.omit(d))[1]," linhas apresentaram dados completos sobre ",nomecat," e ",nomecont,". A análise foi feita a partir de uma ANOVA de uma via",corr,", que ",sig,"rejeitou o efeito de ",nomecat," em ",nomecont," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),", $\\eta^2$ = ",eta,"). ",etatext,homogtext), collapse="")
 
 p=paste0(pvalor(pv),"e ($\\eta^2$=",eta,")")
 
-if(pv<0.05) {
+if(pv<0.05) {tex=c("As médias, em ordem crescente foram:")
 
 ordem <- d %>% group_by(fator) %>% 
   get_summary_stats(resp, type = "mean_sd")
