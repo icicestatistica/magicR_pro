@@ -40,7 +40,7 @@ for (i in niveis){
 dassump <- data.frame(matrix(dassump,ncol=3,byrow=T))
 dassump <- rbind(dassump,c("Resíduos",round(shapresid$statistic,dig),pvalor(shapresid$p.value)))
 
-supos= ifelse(min(dassump$X3)>0.05,T,F)
+supos= ifelse(min(dassump$X3[dassump$X3!=""])>0.05,T,F)
 
 dassumpc=dassump[-dim(dassump)[1],]
 tnaocalc=dassumpc$X3==""
