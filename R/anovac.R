@@ -1,7 +1,6 @@
 anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal){
-  
-supos=T
-  
+
+supos=F
 if(respcol==T) ref=nomecat else ref=nomecont
 
 continua=unlist(continua)
@@ -11,23 +10,42 @@ categorica <- factor(categorica,levels=niveis)
 d <- data.frame(continua,categorica)
 names(d) <- c("resp","fator")
 
-fit <- aov(resp ~ fator, data=d)
-eta=round(eta_squared(fit),2)
+homog = leveneTest(resp ~ fator, data=d)
 
-p=paste0(pvalor(summary(fit)[[1]][[1,"Pr(>F)"]]),"e ($\\eta^2$=",eta,")")
+if(homog$`Pr(>F)`[1]<0.05) {
+  corr=" com correção de Welch para variâncias diferentes"
+  homogtext=c(" A correção de Welch foi utilizada em decorrência do teste de Levene, que com p-valor menor que 0.05 (p=",pvalor(homog$`Pr(>F)`[1]),") rejeitou a hipótese de igualdade de variâncias. ");
+  whiteadj=T;
+  etatext="Por causa da correção, não computa-se a estatística de tamanho de efeito $\\eta^2$."} else {
+    corr="";
+    homogtext=c("Não foi necessário utilizar a correção de Welch, uma vez que o teste de Levene, com p-valor maior que 0.05 (p=",pvalor(homog$`Pr(>F)`[1]),") não rejeitou a hipótese de igualdade de variâncias.");
+    whiteadj=F}
 
-if (summary(fit)[[1]][[1,"Pr(>F)"]] > 0.05) {tabela=NULL 
-texto=c("* **",ref,"**: Não encontramos evidência estatística pela anova one-way para rejeitar a hipótese de igualdade entre as médias dos grupos. \n")}
-else {
-  texto=c("* **",ref,"**: O teste one-way anova encontrou evidências para rejeitar a igualdade entre as médias dos grupos. As médias, em ordem crescente foram:")
+a=anova_test(d,resp~fator,white.adjust = whiteadj,type=3)
+res = residuals((aov(lm(data=d,resp~fator))))
+pv=a$p
+sig=ifelse(pv>0.05," NÃO"," ")
+if(is.null(a$ges)) eta = "-" else {eta=round(a$ges,(dig+1));
+tamanef = ifelse(eta<0.01,"insignificante. ",ifelse(eta<0.06,"pequena. ",ifelse(eta<0.14,"média. ","grande. ")))
+etatext=c("O tamanho de efeito $\\eta^2$ = ",eta," indica ",100*eta,"% de variabilidade de ",nomecont," explicada por ",nomecat,", o que Cohen(1988) classificou como um efeito ",tamanef)}
 
-  
+dassump = d %>% group_by(fator) %>% shapiro_test(resp)
+supos= ifelse(min(dassump$p)>0.05 & shapiro.test(res)$p.value>0.05,T,F)
+
+texto=paste(c("No total, ",dim(na.omit(d))[1]," linhas apresentaram dados completos sobre ",nomecat," e ",nomecont,". A análise foi feita a partir de uma ANOVA de uma via",corr,", que ",sig,"rejeitou o efeito de ",nomecat," em ",nomecont," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),", $\\eta^2$ = ",eta,"). ",etatext,homogtext), collapse="")
+
+p=paste0(pvalor(pv),"e ($\\eta^2$=",eta,")")
+
+if(pv<0.05) {
+
 ordem <- d %>% group_by(fator) %>% 
   get_summary_stats(resp, type = "mean_sd")
 
 if(is.na(ordem[dim(ordem)[1],1])) ordem = ordem[-dim(ordem)[1],]
 
 ord = c(ordem[order(ordem$mean),1])$fator
+
+fit <- aov(data=d,resp ~ fator)
   
 t=TukeyHSD(fit)$fator
 
@@ -71,7 +89,8 @@ if(excluirtotal==T) res=res[-1,]
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
   if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
-  
+
+
 return(list("sup"=supos,
             "result"=res,
             "texto"=texto))}
