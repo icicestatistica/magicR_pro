@@ -9,8 +9,8 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
            result=res$resul
            tex=res$texto} else
                         {res = anovac(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
-                        aov1=1
-                        result=res$resul
+                        if(res$supos==F) {res=kruskall(x,y,nomex,nomey,niveisy,dig,F,excluirtotal);kw=1} else {aov1=1}
+                        result=res$result
                         tex=res$texto}
   } else
     if(tipoy=="numeric") {res=contcont(y,x,nomey,nomex,dig)
