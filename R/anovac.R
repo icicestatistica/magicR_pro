@@ -1,7 +1,8 @@
 anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal){
 
-supos=F
 if(respcol==T) ref=nomecat else ref=nomecont
+
+if(length(niveis)<3) texto=
 
 continua=unlist(continua)
 categorica=unlist(categorica)
@@ -29,19 +30,41 @@ if(is.null(a$ges)) eta = "-" else {eta=round(a$ges,(dig+1));
 tamanef = ifelse(eta<0.01,"insignificante. ",ifelse(eta<0.06,"pequeno. ",ifelse(eta<0.14,"médio. ","grande. ")))
 etatext=c("O tamanho de efeito $\\eta^2$ = ",eta," indica ",100*eta,"% de variabilidade de ",nomecont," explicada por ",nomecat,", o que Cohen(1988) classificou como um efeito ",tamanef)}
 
-i=niveis[1]
+#suposições
 
+shapresid=shapiro.test(res)
 dassump=c()
 for (i in niveis){
   obs=d$resp[d$fator==i]
   if(length(obs)<3) dassump=c(dassump,i,"","") else {shap=shapiro.test(obs); dassump=c(dassump,i,shap$statistic,shap$p.value)}}
 dassump <- data.frame(matrix(dassump,ncol=3,byrow=T))
+dassump <- rbind(dassump,c("Resíduos",round(shapresid$statistic,dig),pvalor(shapresid$p.value)))
 
-supos= ifelse(min(dassump$X3)>0.05 & shapiro.test(res)$p.value>0.05,T,F)
+supos= ifelse(min(dassump$X3)>0.05,T,F)
 
-texto=paste(c("No total, ",dim(na.omit(d))[1]," linhas apresentaram dados completos sobre ",nomecat," e ",nomecont,". A análise foi feita a partir de uma ANOVA de uma via",corr,", que ",sig,"rejeitou o efeito de ",nomecat," em ",nomecont," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),", $\\eta^2$ = ",eta,"). ",etatext,homogtext), collapse="")
+dassumpc=dassump[-dim(dassump)[1],]
+tnaocalc=dassumpc$X3==""
+tcumpre=tnaocalc==F & dassumpc$X3>0.05
+tnaocumpre=tnaocalc==F & tcumpre==F
+supg=c(paste0(dassump$X1[dassumpc$X2!=""]," - W=",round(as.numeric(dassump$X2[dassumpc$X2!=""]),dig),", \\*p\\*=",pvetor(as.numeric(dassump$X3[dassumpc$X2!=""]))))
+
+
+printsup <- function(tipo,textotipo){
+  return(ifelse(sum(tipo)==1,paste0("O grupo ",printvetor(dassumpc$X1[tipo]),textotipo[1]),ifelse(sum(tipo)>1,paste0("os grupos ",printvetor(dassumpc$X1[tipo]),textotipo[2]),"")))
+}
+
+textosupres = ifelse(as.numeric(dassump[dim(dassump)[1],3])>0.05, "não foi rejeitada pelo mesmo teste ","foi rejeitada pelo mesmo teste ")
+vali = ifelse(supos," Consideramos, então, o teste válido e bem aplicado, conferindo confiança aos resultados."," Com este cenário, concluímos que a ANOVA não é o melhor teste a ser aplicado. Sugerimos a realização do teste não paramétrico de Kruskall-Wallis.")
+
+textotipo=data.frame(c(", com p-valor maior que 0.05 no teste de shapiro-wilk, cumpre a suposição de normalidade. ",", com p-valor maior que 0.05 no teste de shapiro-wilk, cumprem a suposição de normalidade. "),c(", com p-valor menor que 0.05 no teste de shapiro-wilk, NÃO cumpre a suposição de normalidade. ",", com p-valor menor que 0.05 no teste de shapiro-wilk, NÃO cumprem a suposição de normalidade. "),c(" não apresentou dados suficientes para realização do teste. "," não apresentaram dados suficientes para realização do teste. "))
+
+anasup=paste(" Quanto às suposições dos testes, temos o seguinte cenário: ",printsup(tcumpre,textotipo[,1]),printsup(tnaocumpre,textotipo[,2]),printsup(tnaocalc,textotipo[,3])," ",paste("(",paste(supg[-length(supg)],collapse="; "),")",sep=""),". Verificamos também a normalidade dos resíduos do ajuste, que ",textosupres,paste("(",paste(supg[length(supg)],collapse="; "),").",sep=""),vali,sep="")
+
+texto=paste(c(" * **",ref,":** No total, ",dim(na.omit(d))[1]," linhas apresentaram dados completos sobre ",nomecat," e ",nomecont,". A análise foi feita a partir de uma ANOVA de uma via",corr,", que ",sig,"rejeitou o efeito de ",nomecat," em ",nomecont," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),", $\\eta^2$ = ",eta,"). ",etatext,homogtext,anasup), collapse="")
 
 p=paste0(pvalor(pv),"e ($\\eta^2$=",eta,")")
+
+#post hoc
 
 if(pv<0.05) {tex=c("As médias, em ordem crescente foram:")
 
