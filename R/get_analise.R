@@ -1,6 +1,6 @@
 escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol){
   result<-data.frame() ; tex=""
-  t=0 ; mw=0; aov1=0;cc=0 ; correl=0
+  t=0 ; mw=0; kw=0; aov1=0;cc=0 ; correl=0
   if(tipox=="numeric") {
     if(tipoy=="factor") {
       if(length(niveisy)==2) 
