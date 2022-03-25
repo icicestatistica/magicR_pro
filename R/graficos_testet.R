@@ -26,12 +26,11 @@ grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
   levels(dadosd$cat) = paste(niveis,"\n n=",n, sep="")
   df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75),"n"=n())
   plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
-    #scale_x_discrete(label=paste(cat,"\n n=",df.summary$n[order(df.summary$mean)], sep="")) +
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     geom_jitter(width=0.2) +
     ylab(nomecont) + xlab(nomecat) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
-    ggtitle(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\'",collapse=""),subtitle = teste)
+    ggtitle(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),subtitle = teste)
 return(plot)}
 
 grafico_teste_t_3 <- function(cont,nomecont,cores,cat,nomecat,niveis){
