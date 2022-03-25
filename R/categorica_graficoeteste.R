@@ -31,7 +31,7 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
         axis.text.x=element_text(size=12),
         plot.title = element_text(hjust = 0.5),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
-  if(ordenar==F) {result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(vetor_comsep(nome,12))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+  if(ordenar==F) {result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,12)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
