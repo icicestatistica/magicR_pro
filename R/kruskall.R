@@ -3,6 +3,10 @@ kruskall <- function(resp,fator,nomeresp,nomefator,niveis,dig,respcol,excluirtot
 supos=T
   
 if(respcol==T) ref=nomefator else ref=nomeresp
+  
+resp=unlist(resp)
+fator=unlist(fator)
+fator <- factor(fator,levels=niveis)
 
 dad <- data.frame("continua"=resp,"categorica"=fator)
 a <- kruskal.test(dad$continua, dad$categorica)
