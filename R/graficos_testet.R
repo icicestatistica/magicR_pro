@@ -1,24 +1,35 @@
-grafico_teste_t_1 <- function(cont,nomecont,cor,cat,nomecat){
-  dados=data.frame(cont=cont,cat=cat)
-  df.summary <- summarise(group_by(dados,cat),sd = sd(cont, na.rm = TRUE),mean = mean(cont))
-  p=t.test(cont~cat)$p.value
-  ggplot(df.summary, aes(cat, mean)) + theme_clean() +
-    geom_bar(na.rm = TRUE, stat = "identity", fill=cor,color="black",width=0.8) +
-    geom_point(aes(x=cat,y=mean),size=3)+
-    geom_label(aes(x=cat,y=mean-2*sd,label=round(mean,dig))) +
-    geom_errorbar(aes(x=cat, ymin=mean-sd, ymax=mean+sd), width=0.1, size=1) +
-    geom_text(aes(y=max(cont),x=1.5,label=ifelse(p>=0.001,paste0("Teste-t, p-valor=",round(p,3)),"Teste-t, p-valor<0.001")),size=6) +
-    ylab(nomecont) + xlab(nomecat)}
+grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste) 
+{niveis=names(table(cat))
+  tam = table(cat)
+  dados = data.frame(cont = cont, cat = cat)
+    df.summary <- data.frame("cat"=niveis,dados %>% group_by(factor(cat)) %>% dplyr::summarise(sd = sd(cont, 
+        na.rm = TRUE), mean = mean(cont)))
+    df.summary$cat <- factor(df.summary$cat, levels=df.summary$cat[order(df.summary$mean)])
+    ggplot(df.summary, aes(cat, mean)) + theme_clean() + geom_bar(na.rm = TRUE, 
+        stat = "identity", fill = cor, color = "black", 
+        width = 0.8)  + 
+        scale_x_discrete(label=paste(niveis,"\n n=",tam, sep="")) +
+        ggtitle(paste0("Comparação de médias de \'",nomecont,"\' por \'",nomecat,"\'",collapse=""),subtitle=teste) +
+        geom_errorbar(aes(x = cat, ymin = mean - 
+        sd, ymax = mean + sd), width = 0.1, size = 1) +
+        geom_label(aes(x = cat, y = mean, label = round(mean, 
+            dig))) +
+        ylab(nomecont) + xlab(nomecat)
+return(plot)}
 
-grafico_teste_t_2 <- function(cont,nomecont,cor,cat,nomecat){
-  p=t.test(cont~cat)$p.value
+grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste){
   dadosd <- data.frame(cont=cont,cat=cat)
-  ggplot(dadosd  %>% filter(!is.na(cat))) + 
-    geom_boxplot(aes(y=cont,x=reorder(cat,cont,FUN=median)),fill=cor) +
+  tam=table(cat)
+  niveis=names(table(cat))
+  df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75))
+  plot=ggplot() + 
+    scale_x_discrete(label=paste(niveis,"\n n=",tam, sep="")) +
+    geom_boxplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median)),fill=cor) +
     geom_jitter(aes(y=cont,x=reorder(cat,cont,FUN=median)),width=0.2) +
     ylab(nomecont) + xlab(nomecat) + theme_clean() +
-    geom_text(aes(y=max(cont),x=1.5,label=ifelse(p>=0.001,paste0("Teste-t, p-valor=",round(p,3)),"Teste-t, p-valor<0.001")),size=6)
-}
+    #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
+    ggtitle(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\'",collapse=""),subtitle = teste)
+return(plot)}
 
 grafico_teste_t_3 <- function(cont,nomecont,cores,cat,nomecat,niveis){
   
