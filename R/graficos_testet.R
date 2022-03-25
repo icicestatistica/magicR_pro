@@ -18,7 +18,7 @@ grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig)
         ylab(nomecont) + xlab(nomecat)
 return(plot)}
 
-grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste){
+grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
   dadosd <- data.frame(cont=cont,cat=cat)
   niveis=names(table(cat))
   n=table(dadosd$cat)
