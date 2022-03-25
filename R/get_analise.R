@@ -26,8 +26,8 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                         result=res$resul
                         tex=res$texto} else
                                           {res = anovac(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
-                                           aov1=1
-                                           result=res$resul
+                                           if(res$sup==F) {res=kruskall(x,y,nomex,nomey,niveisy,dig,F,excluirtotal);kw=1} else {aov1=1}
+                                           result=res$result
                                            tex=res$texto}} else
      if(tipoy=="factor") {res=catcat(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal)
                           cc=1
