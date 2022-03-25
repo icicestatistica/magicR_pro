@@ -10,7 +10,7 @@ grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig)
     plot=ggplot() + theme_clean() + geom_bar(df.summary,mapping=aes(cat, mean), 
         stat = "identity", fill = cor, color = "black", 
         width = 0.8)  + 
-        ggtitle(paste0("Comparação de médias de \'",nomecont,"\' por \'",nomecat,"\'",collapse=""),subtitle=teste) +
+        ggtitle(paste0("Comparação de médias de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),subtitle=teste) +
         geom_errorbar(df.summary, mapping=aes(x = cat, ymin = mean - 
         sd, ymax = mean + sd), width = 0.1, size = 1) +
         geom_label(df.summary, mapping=aes(x = cat, y = mean, label = round(mean, 
