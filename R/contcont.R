@@ -56,10 +56,12 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     if(a$p.value<0.05) {texto=c("* **",nomex,"**: O teste de correlação de ",method, " rejeitou a hipótese de nulidade de correlação (",greg,"=",
     round(a$estimate,dig),", p-valor=",pvalor(a$p.value),"), indicando uma relação ",direcao," ",mag,coefdet,ictexto,sup,"\n"); significativo=T} else {texto=c("* **",nomex,"**: Não encontramos evidências através do teste de correlação de ",method, " para rejeitar a hipótese de nulidade de correlação (",greg,"=",round(a$estimate,dig),", p-valor=",pvalor(a$p.value),"). De fato, ",mag,coefdet,ictexto,sup," \n"); significativo=F}
     
-    resumo=c(nomex,significativo,paste0(greg,"=", round(a$estimate,dig),", p-valor=",pvalor(a$p.value),collapse=""))
+    resumo=c("nome"=nomex,"significativo"=significativo,"textograf=paste0(greg,"=", round(a$estimate,dig),", p-valor=",pvalor(a$p.value),collapse=""))
         
     result <- data.frame("Variável"=nomex,"p-valor"=p,"rho"=rho,"rho2"=rho2,"IC"=IC)
     names(result)=c("Variável","p-valor","Estatística","Variância compartilhada","IC (95%)")
+  
+    grafico = (y,nomey,cor,x,nomex,resumo[3])
 
-    return(list("result"=result,"texto"=paste0(texto,sep="",collapse=""),"resumo"=resumo))
+    return(list("result"=result,"texto"=paste0(texto,sep="",collapse=""),"grafico"=grafico,"resumo"=resumo))
 }
