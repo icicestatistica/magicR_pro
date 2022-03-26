@@ -1,4 +1,4 @@
-escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol){
+escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor){
   result<-data.frame() ; tex=""
   t=0 ; mw=0; kw=0; aov1=0;cc=0 ; correl=0
   if(tipox=="numeric") {
@@ -13,10 +13,12 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                         result=res$result
                         tex=res$texto}
   } else
-    if(tipoy=="numeric") {res=contcont(y,x,nomey,nomex,dig)
+    if(tipoy=="numeric") {res=contcont(y,x,nomey,nomex,dig,cor)
                           correl=1
                           result=res$resul
-                          tex=res$texto}
+                          tex=res$texto
+                          grafico=res$grafico
+                          resumo=res$resumo}
   } else {
   if(tipox=="factor") {
     if(tipoy=="numeric") {
@@ -40,7 +42,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
 
 
 
-get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol){
+get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor){
   xdim=dim(xmat)[2]
   texto=c() ; textocont=c()
   testes=c("desc"=0,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0)
@@ -49,15 +51,16 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,exc
   for (i in 1:xdim)
     {if(tipox[i]=="numeric" & tipoy=="numeric") {
         temcont=T
-        res=escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol)
+        res=escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol,cor)
         resultcont=rbind(resultcont,res$result)
-        textocont=c(textocont,res$texto)
+        textocont=list("texto"=c(textocont,res$texto),grafico=res$grafico)
+        resumo=res$resumo
         testes <- testes+res$testes} else
-          {res = escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol)
+          {res = escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol,cor)
           result= rbind(result, res$result)
           texto <- c(texto,res$texto)
           testes <- testes+res$testes}}
-  if(temcont) lista=list("testes"=testes,"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"result"=result,"texto"=texto)
+  if(temcont) lista=list("testes"=testes,"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont, "grafico=grafico) else lista=list("testes"=testes,"result"=result,"texto"=texto)
 return(lista)}
 
 
