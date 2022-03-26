@@ -1,3 +1,9 @@
+grafico_correl <- function(conty,nomey,cor,contx,nomex,text){
+dadosd <- data.frame(conty,contx)
+plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geom_smooth(color=cor,method="gam", fullrange=T, span=1) + xlab(nomex) + ylab(nomey) +
+  ggtitle(paste0("Correlação entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""), subtitle=text)
+return(plot)}
+
 grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig) 
 {niveis=names(table(cat))
   dadosd = data.frame(cont = cont, cat = cat)
