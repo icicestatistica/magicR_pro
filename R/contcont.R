@@ -1,4 +1,4 @@
-contcont <- function(y,x,nomey,nomex,dig){
+contcont <- function(y,x,nomey,nomex,dig,cor){
   
     method="spearman"
     
