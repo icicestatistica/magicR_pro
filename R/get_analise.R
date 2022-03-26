@@ -38,7 +38,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
   }}
   return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=kw,"correl"=correl,"cc"=cc,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
-              "texto"=tex))}
+              "texto"=list("tex"=tex,"grafico"=grafico))}
 
 
 
@@ -53,22 +53,22 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,exc
         temcont=T
         res=escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol,cor)
         resultcont=rbind(resultcont,res$result)
-        textocont=list("texto"=c(textocont,res$texto),grafico=res$grafico)
+        textocont=list.append(textocont,res$texto,res$tabela)
         resumo=res$resumo
         testes <- testes+res$testes} else
           {res = escolhateste(xmat[,i],y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol,cor)
           result= rbind(result, res$result)
-          texto <- c(texto,res$texto)
+          texto <- list.append(texto,res$texto)
           testes <- testes+res$testes}}
-  if(temcont) lista=list("testes"=testes,"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont, "grafico=grafico) else lista=list("testes"=testes,"result"=result,"texto"=texto)
+  if(temcont) lista=list("testes"=testes,"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"result"=result,"texto"=texto)
 return(lista)}
 
 
-get_analise <- function(dados,col,auxiliar,y,tipoy,nomey,niveisy,dig,excluirtotal,respcol){
+get_analise <- function(dados,col,auxiliar,y,tipoy,nomey,niveisy,dig,excluirtotal,respcol,cor){
   xmat=dados[,col]
   tipox=auxiliar$tipo[col]
   nomex=auxiliar$nomes[col]
   niveisx=auxiliar$niveis[col]
-  res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol)
-  if(length(res)==6) lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto)
+  res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor)
+  if(length(res)==6) lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont,"grafico"=grafico) else lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto)
 return(lista)}
