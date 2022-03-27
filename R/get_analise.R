@@ -1,5 +1,5 @@
 escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor){
-  result<-data.frame() ; tex=""
+  result<-data.frame() ; tex="" ; grafico=NULL
   t=0 ; mw=0; kw=0; aov1=0;cc=0 ; correl=0
   if(tipox=="numeric") {
     if(tipoy=="factor") {
@@ -17,8 +17,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                           correl=1
                           result=res$resul
                           tex=res$texto
-                          grafico=res$grafico
-                          resumo=res$resumo}
+                          grafico=res$grafico}
   } else {
   if(tipox=="factor") {
     if(tipoy=="numeric") {
@@ -34,11 +33,11 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
      if(tipoy=="factor") {res=catcat(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal)
                           cc=1
                           result=res$result
-                          tex=res$texto}   
+                          tex=res$texto}
   }}
   return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=kw,"correl"=correl,"cc"=cc,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
-              "texto"=list("tex"=tex,"grafico"=grafico))}
+              "texto"=list("tex"=tex,"grafico"=grafico)))}
 
 
 
@@ -70,5 +69,5 @@ get_analise <- function(dados,col,auxiliar,y,tipoy,nomey,niveisy,dig,excluirtota
   nomex=auxiliar$nomes[col]
   niveisx=auxiliar$niveis[col]
   res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor)
-  if(length(res)==6) lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont,"grafico"=grafico) else lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto)
+  if(length(res)==6) lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto)
 return(lista)}
