@@ -29,8 +29,7 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     ac=boot.ci(bootc, type='bca')
     IC=paste0("(",round(ac$bca[4],dig)," ,",round(ac$bca[5],dig),"$)^{[a]}$")
     if(ac$bca[4]*ac$bca[5]<=0) avalic=" inclui o valor '0', indicando ausência de correlação." else avalic=" não inclui o valor '0', indicando que esta é considerada significativa."
-    det="os postos (também chamados 'ranks') das duas variáveis."}
-    else {letra="h"
+    det="os postos (também chamados 'ranks') das duas variáveis."} else {letra="h"
     greg="r"
     calcIC=""
     IC=paste0("(",round(a$conf.int[1],dig)," ,",round(a$conf.int[2],dig),")")
@@ -56,12 +55,11 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     if(a$p.value<0.05) {texto=c("* **",nomex,"**: O teste de correlação de ",method, " rejeitou a hipótese de nulidade de correlação (",greg,"=",
     round(a$estimate,dig),", p-valor=",pvalor(a$p.value),"), indicando uma relação ",direcao," ",mag,coefdet,ictexto,sup,"\n"); significativo=T} else {texto=c("* **",nomex,"**: Não encontramos evidências através do teste de correlação de ",method, " para rejeitar a hipótese de nulidade de correlação (",greg,"=",round(a$estimate,dig),", p-valor=",pvalor(a$p.value),"). De fato, ",mag,coefdet,ictexto,sup," \n"); significativo=F}
     
-    resumo=c("nome"=nomex,"significativo"=significativo,"textograf=paste0(greg,"=", round(a$estimate,dig),", p-valor=",pvalor(a$p.value),collapse=""))
-        
+    textograf=paste0(greg,"=", round(a$estimate,dig),", p-valor=",pvalor(a$p.value),collapse="")
+    
     result <- data.frame("Variável"=nomex,"p-valor"=p,"rho"=rho,"rho2"=rho2,"IC"=IC)
     names(result)=c("Variável","p-valor","Estatística","Variância compartilhada","IC (95%)")
   
-    grafico = (y,nomey,cor,x,nomex,resumo[3])
-
-    return(list("result"=result,"texto"=paste0(texto,sep="",collapse=""),"grafico"=grafico,"resumo"=resumo))
+    grafico = grafico_correl(y,nomey,cor,x,nomex,textograf)
+    return(list("result"=result,"texto"=paste0(texto,sep="",collapse=""),"grafico"=grafico))
 }
