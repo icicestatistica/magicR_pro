@@ -41,7 +41,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
   }}
   return(list("testes"=c("desc"=0,"catsame"=0,"t"=t,"mw"=mw,"aov1"=aov1,"kw"=kw,"correl"=correl,"cc"=cc,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
               "result"=result,
-              "texto"=list("tex"=tex,"grafico"=grafico)))}
+              "texto"=list("grafico"=grafico,"tex"=tex)))}
 
 
 
