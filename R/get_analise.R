@@ -5,9 +5,10 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
     if(tipoy=="factor") {
       if(length(niveisy)==2) 
            {res = testet(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
-           if(res$sup==F) {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal) ; mw=1} else {t=1}
+           if(res$sup==F) {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor) ; mw=1} else {t=1}
            result=res$resul
-           tex=res$texto} else
+           tex=res$texto
+           grafico=res$grafico} else
                         {res = anovac(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
                         if(res$sup==F) {res=kruskall(x,y,nomex,nomey,niveisy,dig,T,excluirtotal);kw=1} else {aov1=1}
                         result=res$result
