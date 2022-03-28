@@ -10,9 +10,10 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
            tex=res$texto
            grafico=res$grafico} else
                         {res = anovac(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
-                        if(res$sup==F) {res=kruskall(x,y,nomex,nomey,niveisy,dig,T,excluirtotal);kw=1} else {aov1=1}
+                        if(res$sup==F) {res=kruskall(x,y,nomex,nomey,niveisy,dig,T,excluirtotal,cor);kw=1} else {aov1=1}
                         result=res$result
-                        tex=res$texto}
+                        tex=res$texto
+                        grafico=res$grafico}
   } else
     if(tipoy=="numeric") {res=contcont(y,x,nomey,nomex,dig,cor)
                           correl=1
@@ -29,9 +30,10 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                         tex=res$texto
                         grafico=res$grafico} else
                                           {res = anovac(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
-                                           if(res$sup==F) {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal);kw=1} else {aov1=1}
+                                           if(res$sup==F) {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor);kw=1} else {aov1=1}
                                            result=res$result
-                                           tex=res$texto}} else
+                                           tex=res$texto
+                                           grafico=res$grafico}} else
      if(tipoy=="factor") {res=catcat(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal)
                           cc=1
                           result=res$result
