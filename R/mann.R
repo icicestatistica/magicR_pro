@@ -1,4 +1,4 @@
-mann <- function(x,y,nomex,nomey,niveis,dig,respcol,excluirtotal){
+mann <- function(x,y,nomex,nomey,niveis,dig,respcol,excluirtotal,cor){
 
  x=unlist(x)
  y=unlist(y)
@@ -44,5 +44,8 @@ if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
+textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p=",pvalor(a$p.value),")",collapse="")
+grafico=grafico_comp_box(d$y,nomey,cor,d$x,nomex,textograf,dig)
+
 return(list("result"=res,
-            "texto"=list(paste(texto,collapse=""))))}
+            "texto"=list("tex"=paste(texto,collapse=""),"grafico"=grafico)))}
