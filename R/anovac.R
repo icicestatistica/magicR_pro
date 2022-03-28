@@ -1,5 +1,5 @@
 anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal){
-
+grafico=NULL
 if(respcol==T) ref=nomecat else ref=nomecont
 
 if(length(niveis)<3) texto=
@@ -120,7 +120,7 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
 
   if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
 
-
 return(list("sup"=supos,
             "result"=res,
-            "texto"=texto))}
+            "texto"=texto,
+            "grafico"=grafico))}
