@@ -1,4 +1,4 @@
-kruskall <- function(resp,fator,nomeresp,nomefator,niveis,dig,respcol,excluirtotal){
+kruskall <- function(resp,fator,nomeresp,nomefator,niveis,dig,respcol,excluirtotal,cor){
   
 supos=T
   
@@ -55,6 +55,10 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
 
 if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
   
+textograf <- paste0("Kruskall-Wallis (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),")",collapse="")
+grafico=grafico_comp_box(dad$resp,nomeresp,cor,dad$fator,nomefator,textograf,dig)
+  
 return(list("sup"=supos,
             "result"=res,
-            "texto"=texto))}
+            "texto"=texto,
+             "grafico"=grafico))}
