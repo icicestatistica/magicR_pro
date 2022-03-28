@@ -22,7 +22,8 @@ grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig)
         sd, ymax = mean + sd), width = 0.1, size = 1) +
         geom_label(df.summary, mapping=aes(x = cat, y = mean, label = round(mean, 
             dig))) +
-        ylab(nomecont) + xlab(nomecat)
+        ylab(nomecont) + xlab(nomecat)  +
+        theme(plot.background = element_rect(colour="white"))
 return(plot)}
 
 grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
@@ -37,7 +38,8 @@ grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
     geom_jitter(width=0.2) +
     ylab(nomecont) + xlab(nomecat) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
-    ggtitle(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),subtitle = teste)
+    ggtitle(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),subtitle = teste) +
+    theme(plot.background = element_rect(colour="white"))
 return(plot)}
 
 grafico_teste_t_3 <- function(cont,nomecont,cores,cat,nomecat,niveis){
