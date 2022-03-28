@@ -48,4 +48,5 @@ textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p=",pvalor(
 grafico=grafico_comp_box(d$y,nomey,cor,d$x,nomex,textograf,dig)
 
 return(list("result"=res,
-            "texto"=list("tex"=paste(texto,collapse=""),"grafico"=grafico)))}
+            "texto"=list("tex"=paste(texto,collapse="")),
+            "grafico"=grafico))}
