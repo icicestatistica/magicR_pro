@@ -55,7 +55,7 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
 
 if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
   
-textograf <- paste0("Kruskall-Wallis (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),")",collapse="")
+textograf <- paste0("Kruskall-Wallis (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3)),")",collapse="")
 grafico=grafico_comp_box(dad$continua,nomeresp,cor,dad$categorica,nomefator,textograf,dig)
   
 return(list("sup"=supos,
