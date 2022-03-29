@@ -54,8 +54,9 @@ if(excluirtotal==T) res=res[-1,]
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
 if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
-  
-textograf <- paste0("Kruskall-Wallis (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3)),")",collapse="")
+ 
+a1=a$parameter  ; a2=round(a$statistic,dig) ; a3=ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3))
+textograf <- substitute(paste0("Kruskall-Wallis (",chi^2,"(",a1,") =",a2,",p-valor=",a3,")",collapse=""),list(a1=a1,a2=a2,a3=a3))
 grafico=grafico_comp_box(dad$continua,nomeresp,cor,dad$categorica,nomefator,textograf,dig)
   
 return(list("sup"=supos,
