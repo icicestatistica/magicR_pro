@@ -9,7 +9,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
            result=res$resul
            tex=res$texto
            grafico=res$grafico} else
-                        {res = anovac(x,y,nomex,nomey,niveisy,dig,T,excluirtotal)
+                        {res = anovac(x,y,nomex,nomey,niveisy,dig,F,excluirtotal)
                         if(res$sup==F) {res=kruskall(x,y,nomex,nomey,niveisy,dig,T,excluirtotal,cor);kw=1} else {aov1=1}
                         result=res$result
                         tex=res$texto
@@ -29,7 +29,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                         result=res$resul
                         tex=res$texto
                         grafico=res$grafico} else
-                                          {res = anovac(y,x,nomey,nomex,niveisx,dig,F,excluirtotal)
+                                          {res = anovac(y,x,nomey,nomex,niveisx,dig,T,excluirtotal)
                                            if(res$sup==F) {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor);kw=1} else {aov1=1}
                                            result=res$result
                                            tex=res$texto
