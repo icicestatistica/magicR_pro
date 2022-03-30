@@ -1,8 +1,7 @@
 anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal){
 if(respcol==T) ref=nomecat else ref=nomecont
-
-if(length(niveis)<3) texto=
-
+tabela=NULL
+  
 continua=unlist(continua)
 categorica=unlist(categorica)
 categorica <- factor(categorica,levels=niveis)
