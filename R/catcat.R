@@ -36,7 +36,7 @@ if(fisher.test(help$x, help$y,simulate.p.value = T)$p.value>0.05) {result=NULL
   texto=c(" * **",ref,":** A associação entre as variáveis foi testada através do teste Exato de Fisher, que encontrou evidências para rejeitar a hipótese de ausência de associação. As categorias que apresentaram diferenças estatisticamente significativas foram.","\n")
   }}   else{
     metodograf="Qui-quadrado "
-    para=para ; stat=round(quiqua2$statistic,dig) ; pvalorgraf=ifelse(quiqua2$p.value < 0.001, "<0.001", round(quiqua2$p.value,3))
+    para=round(quiqua2$parameter,dig) ; stat=round(quiqua2$statistic,dig) ; pvalorgraf=ifelse(quiqua2$p.value < 0.001, "<0.001", round(quiqua2$p.value,3))
     textograf=substitute(paste(metodograf," (",chi^2,"(",para,") = ",stat ," p=", pvalorgraf,")"), list(metodograf=metodograf,para=para,stat=stat,pvalorgraf=pvalorgraf))
                          
     method="wald"
