@@ -25,7 +25,7 @@ if(sum(quiqua2$expected<5)/(nrow(tabela)*ncol(tabela))>0.2 | sum(quiqua2$expecte
   {pvalorc=fisher.test(help$x, help$y,simulate.p.value = T)$p.value
   method="fisher"; metodograf="Exato de Fisher " ; pvalorgraf=ifelse(pvalorc < 0.001, "<0.001", round(pvalorc,3))
     textograf=substitute(paste(metodograf," (p=", pvalorgraf,")"), list(metodograf=metodograf,pvalorgraf=pvalorgraf))
-  p=paste0(pvalorc),"b")
+  p=paste0(pvalor(pvalorc),"b")
 
 
 if(fisher.test(help$x, help$y,simulate.p.value = T)$p.value>0.05) {result=NULL
