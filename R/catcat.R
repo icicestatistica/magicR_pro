@@ -1,4 +1,4 @@
-catcat <- function(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal){
+catcat <- function(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal,cor){
 
 ref=nomex
 if(respcol==T) linhacol=1 else linhacol=2
@@ -22,8 +22,10 @@ quiqua2 <- chisq.test(tabela)
 if(dim(tabela)[1]==2 & dim(tabela)[2]==2) doispordois=TRUE else doispordois=FALSE
 
 if(sum(quiqua2$expected<5)/(nrow(tabela)*ncol(tabela))>0.2 | sum(quiqua2$expected<1)>0)
-  {method="fisher"
-  p=paste0(pvalor(fisher.test(help$x, help$y,simulate.p.value = T)$p.value),"b")
+  {pvalorc=pvalor(fisher.test(help$x, help$y,simulate.p.value = T)$p.value
+  method="fisher"; metodograf="Exato de Fisher " ; pvalorgraf=ifelse(pvalorc < 0.001, "<0.001", round(pvalorc,3))
+    textograf=substitute(paste(metodograf," (p=", pvalorgraf,")", list=c(metodograf=metodograf,pvalorgraf=pvalorgraf))
+  p=paste0(pvalorc),"b")
 
 
 if(fisher.test(help$x, help$y,simulate.p.value = T)$p.value>0.05) {result=NULL
@@ -33,7 +35,10 @@ if(fisher.test(help$x, help$y,simulate.p.value = T)$p.value>0.05) {result=NULL
   result=pairwiseNominalIndependence(tabela,fisher=T,chisq=F, gtest=F,digits=3,simulate.p.value = T)
   texto=c(" * **",ref,":** A associação entre as variáveis foi testada através do teste Exato de Fisher, que encontrou evidências para rejeitar a hipótese de ausência de associação. As categorias que apresentaram diferenças estatisticamente significativas foram.","\n")
   }}   else{
-
+    metodograf="Qui-quadrado "
+    para=para ; stat=round(quiqua2$statistic,dig) ; pvalorgraf=ifelse(quiqua2$p.value < 0.001, "<0.001", round(quiqua2$p.value,3))
+    textograf=substitute(paste(metodograf," (",chi^2,"(",para,") = ",stat ," p=", pvalorgraf,")", list=c(metodograf=metodograf,para=para,stat=stat,pvalorgraf=pvalorgraf))
+                         
     method="wald"
 p=paste0(pvalor(quiqua2$p.value),"a (v=",round(rcompanion::cramerV(help$x,help$y),dig),")")
 
@@ -107,6 +112,9 @@ tot=dim(na.omit(help))[1]
 if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
+ 
+if(respcol==T) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomeindep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomeindep=nomey}
 
+grafico = grafico_catcat(indep,nomeindep,cor,dep,nomeindep,textograf)
 return(list("result"=res,
             "texto"=texto))}
