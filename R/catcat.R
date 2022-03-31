@@ -117,5 +117,5 @@ if(respcol==T) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomeindep=nomex} 
 
 grafico = grafico_catcat(indep,nomeindep,cor,dep,nomeindep,textograf)
 return(list("result"=res,
-            "tabela"=tabela,
+            "grafico"=grafico,
             "texto"=texto))}
