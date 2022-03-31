@@ -42,6 +42,19 @@ grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
     theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
+grafico_catcat <- function(x,nomex,cor,y,nomey,texto){
+help=data.frame(x,y)
+names(help) = c("x","y")
+tabela <- table(help$x, help$y)
+d_completo <- data.frame(tabela,prop.table(tabela,1))
+d_completo$lab = paste0(d_completo$Freq," (",round(100*d_completo$Freq.1,1),"%)")
+d_completo$Var1 <- factor(d_completo$Var1)
+levels(d_completo$Var1) = paste0(levels(d_completo$Var1),"\n n=",table(help$x))
+
+plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity") + theme_clean() + scale_y_continuous(labels = scales::percent) +
+  geom_text(label=d_completo$lab, position = position_stack(vjust = 0.5)) + labs(title=paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(is.na(help))[1],")"),subtitle=texto,y="Frequência", x=nomex, fill=nomey) + scale_fill_manual(values=lighten(cor,seq(0.1,0.8,(0.7/(length(table(help$y))-1))))) + theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), legend.background = element_rect(color = NA))
+return(plot)}
+
 grafico_teste_t_3 <- function(cont,nomecont,cores,cat,nomecat,niveis){
   
   d=data.frame(cont=cont,cat=factor(cat,levels=niveis,ordered=T))
