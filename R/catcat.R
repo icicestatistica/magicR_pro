@@ -22,7 +22,7 @@ quiqua2 <- chisq.test(tabela)
 if(dim(tabela)[1]==2 & dim(tabela)[2]==2) doispordois=TRUE else doispordois=FALSE
 
 if(sum(quiqua2$expected<5)/(nrow(tabela)*ncol(tabela))>0.2 | sum(quiqua2$expected<1)>0)
-  {pvalorc=pvalor(fisher.test(help$x, help$y,simulate.p.value = T)$p.value
+  {pvalorc=fisher.test(help$x, help$y,simulate.p.value = T)$p.value
   method="fisher"; metodograf="Exato de Fisher " ; pvalorgraf=ifelse(pvalorc < 0.001, "<0.001", round(pvalorc,3))
     textograf=substitute(paste(metodograf," (p=", pvalorgraf,")", list=c(metodograf=metodograf,pvalorgraf=pvalorgraf))
   p=paste0(pvalorc),"b")
