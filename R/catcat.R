@@ -24,7 +24,7 @@ if(dim(tabela)[1]==2 & dim(tabela)[2]==2) doispordois=TRUE else doispordois=FALS
 if(sum(quiqua2$expected<5)/(nrow(tabela)*ncol(tabela))>0.2 | sum(quiqua2$expected<1)>0)
   {pvalorc=fisher.test(help$x, help$y,simulate.p.value = T)$p.value
   method="fisher"; metodograf="Exato de Fisher " ; pvalorgraf=ifelse(pvalorc < 0.001, "<0.001", round(pvalorc,3))
-    textograf=substitute(paste(metodograf," (p=", pvalorgraf,")", list=c(metodograf=metodograf,pvalorgraf=pvalorgraf))
+    textograf=substitute(paste(metodograf," (p=", pvalorgraf,")"), list(metodograf=metodograf,pvalorgraf=pvalorgraf))
   p=paste0(pvalorc),"b")
 
 
@@ -37,7 +37,7 @@ if(fisher.test(help$x, help$y,simulate.p.value = T)$p.value>0.05) {result=NULL
   }}   else{
     metodograf="Qui-quadrado "
     para=para ; stat=round(quiqua2$statistic,dig) ; pvalorgraf=ifelse(quiqua2$p.value < 0.001, "<0.001", round(quiqua2$p.value,3))
-    textograf=substitute(paste(metodograf," (",chi^2,"(",para,") = ",stat ," p=", pvalorgraf,")", list=c(metodograf=metodograf,para=para,stat=stat,pvalorgraf=pvalorgraf))
+    textograf=substitute(paste(metodograf," (",chi^2,"(",para,") = ",stat ," p=", pvalorgraf,")"), list(metodograf=metodograf,para=para,stat=stat,pvalorgraf=pvalorgraf))
                          
     method="wald"
 p=paste0(pvalor(quiqua2$p.value),"a (v=",round(rcompanion::cramerV(help$x,help$y),dig),")")
