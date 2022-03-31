@@ -113,9 +113,9 @@ if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
  
-if(respcol==T) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomeindep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomeindep=nomey}
+if(respcol==T) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomedep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomedep=nomey}
 
-grafico = grafico_catcat(indep,nomeindep,cor,dep,nomeindep,textograf)
+grafico = grafico_catcat(indep,nomeindep,cor,dep,nomedep,textograf)
 return(list("result"=res,
             "grafico"=grafico,
             "texto"=texto))}
