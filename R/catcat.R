@@ -14,7 +14,7 @@ names(help)=c("x","y")
 signif=F
 tex=NULL; contor=NULL
 
-if(dim(table(help))[1]==1 | dim(table(help))[2]==1) {tabela=NULL ; p="N/A" ; result=NULL ; texto=c(" * **",ref,":** Não é possível realizar testes de comparações com variáveis com apenas uma categoria.","\n")} else {
+if(dim(table(help))[1]==1 | dim(table(help))[2]==1) {tabela=NULL ; p="N/A" ; result=NULL ; grafico=NULL ; texto=c(" * **",ref,":** Não é possível realizar testes de comparações com variáveis com apenas uma categoria.","\n")} else {
   
 tabela <- table(help$x, help$y)
 quiqua2 <- chisq.test(tabela)
