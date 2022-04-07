@@ -1,4 +1,4 @@
-anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal){
+anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal,cor){
 if(respcol==T) ref=nomecat else ref=nomecont
 tabela=NULL
   
@@ -117,7 +117,12 @@ if(excluirtotal==T) res=res[-1,]
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
   if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
+    
+a1=a$DFn  ; a2=round(a$DFd,dig) ; a3=ifelse(pv<0.001,"<0.001",round(pv,3)) ; a4=round(a$F,dig)
+textograf <- substitute(paste("One-Way anova F(",a1,",",a2,") = ",a4,", p = ",a3,")",collapse=""),list(a1=a1,a2=a2,a3=a3,a4=a4))
+grafico=grafico_comp_box(dad$continua,nomeresp,cor,dad$categorica,nomefator,textograf,dig)
 
 return(list("sup"=supos,
             "result"=res,
-            "texto"=texto))}
+            "texto"=texto,
+             "grafico"=grafico))}
