@@ -102,6 +102,11 @@ if(doispordois==T & signif==T){
     tex=c("Calculamos a OR (odds ratio ou razão de chances),  que compara a chance do desfecho '",names(table(help$x))[1],"' na variável ",nomex," no grupo ",names(table(help$y))[1]," da variável ",nomey," (",tabela[1,1],"/",tabela[2,1]," = ",round(tabela[1,1]/tabela[2,1],2) ,") e a chance do mesmo desfecho no grupo ",names(table(help$y))[2]," da variável ",nomey," (",tabela[1,2],"/",tabela[2,2]," = ",round(tabela[1,2]/tabela[2,2],dig),"). Assim, a OR=",OR," IC95%=(",round(oddsratio(tabela,method=method)$measure[2,][2],dig),",",round(oddsratio(tabela,method=method)$measure[2,][3],dig),")")
       
     if(OR>1) contor= c(" indica ",OR," vezes mais chance do desfecho ",names(table(help$x))[1]," na variável ",nomex," no grupo ",names(table(help$y))[1]," da variável ",nomey," que no grupo ",names(table(help$y))[2],". OBS: Não podemos dizer que uma coisa CAUSE a outra, apenas que estão associadas. \n") else contor= c(" indica que a chance do desfecho ",names(table(help$x))[1]," na variável ",nomex," no grupo ",names(table(help$y))[1]," da ",nomey," é igual a ",OR," vezes a chance do mesmo desfecho no grupo ",names(table(help$y))[2],", representando uma diminuição de ",100*(1-OR),"%. OBS: Não podemos dizer que uma coisa CAUSE a outra, apenas que estão associadas.","\n")}}
+
+if(respcol==F) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomedep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomedep=nomey}
+
+grafico = grafico_catcat(indep,nomeindep,cor,dep,nomedep,textograf)
+
 }
 
 if(is.null(result)==T) texto = paste(c(texto,tex,contor),collapse="") else texto = list(paste(c(texto,tex,contor),collapse=""),result)
@@ -112,10 +117,7 @@ tot=dim(na.omit(help))[1]
 if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
- 
-if(respcol==F) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomedep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomedep=nomey}
 
-grafico = grafico_catcat(indep,nomeindep,cor,dep,nomedep,textograf)
 return(list("result"=res,
             "grafico"=grafico,
             "texto"=texto))}
