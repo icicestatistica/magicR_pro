@@ -56,7 +56,7 @@ plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identi
 theme_clean() + scale_y_continuous(labels = scales::percent) +
   geom_text(label=d_completo$lab, position = position_stack(vjust = 0.5)) +
 labs(title=vetor_comsep(paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(is.na(help))[1],")"),8),subtitle=texto,y="Frequência", x=vetor_comsep(nomex,8), fill="") +
-scale_fill_discrete(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0.1,0.8,(0.7/(length(table(help$y))-1))))) +
+scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0.1,0.8,(0.7/(length(table(help$y))-1))))) +
 theme(plot.title = element_text(hjust = 0.5),
   plot.subtitle = element_text(hjust = 0.5),
   legend.background = element_rect(color = NA))
