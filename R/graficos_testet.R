@@ -59,7 +59,8 @@ labs(title=vetor_comsep(paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' 
 scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0.1,0.8,(0.7/(length(table(help$y))-1))))) +
 theme(plot.title = element_text(hjust = 0.5),
   plot.subtitle = element_text(hjust = 0.5),
-  legend.background = element_rect(color = NA))
+  legend.background = element_rect(color = NA),
+  plot.background = element_rect(colour = "white"))
 return(plot)}
 
 grafico_teste_t_3 <- function(cont,nomecont,cores,cat,nomecat,niveis){
