@@ -4,18 +4,18 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
   if(tipox=="numeric" | tipox=="ordinal") {
     if(tipoy=="factor") {
       if(length(niveisy)==2) 
-           {res = testet(as.numeric(x),y,nomex,nomey,niveisy,dig,F,excluirtotal)
-           if(res$sup==F) {res=mann(y,as.numeric(x),nomey,nomex,niveisy,dig,F,excluirtotal,cor) ; mw=1} else {t=1}
+           {res = testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal)
+           if(res$sup==F) {res=mann(y,as.numeric(unlist(x)),nomey,nomex,niveisy,dig,F,excluirtotal,cor) ; mw=1} else {t=1}
            result=res$resul
            tex=res$texto
            grafico=res$grafico} else
-                        {res = anovac(as.numeric(x),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
-                        if(res$sup==F) {res=kruskall(as.numeric(x),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor);kw=1} else {aov1=1}
+                        {res = anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
+                        if(res$sup==F) {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor);kw=1} else {aov1=1}
                         result=res$result
                         tex=res$texto
                         grafico=res$grafico}
   } else
-    if(tipoy=="numeric" | tipoy=="ordinal") {res=contcont(as.numeric(y),x,nomey,nomex,dig,cor)
+    if(tipoy=="numeric" | tipoy=="ordinal") {res=contcont(as.numeric(unlist(y)),x,nomey,nomex,dig,cor)
                           correl=1
                           result=res$resul
                           tex=res$texto
@@ -24,13 +24,13 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
   if(tipox=="factor") {
     if(tipoy=="numeric" | tipoy=="ordinal") {
       if(length(niveisx)==2)
-        {res = testet(as.numeric(y),x,nomey,nomex,niveisx,dig,T,excluirtotal)
-        if(res$sup==F) {res=mann(x,as.numeric(y),nomex,nomey,niveisx,dig,T,excluirtotal,cor) ; mw=1} else {t=1}
+        {res = testet(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal)
+        if(res$sup==F) {res=mann(x,as.numeric(unlist(y)),nomex,nomey,niveisx,dig,T,excluirtotal,cor) ; mw=1} else {t=1}
                         result=res$resul
                         tex=res$texto
                         grafico=res$grafico} else
-                                          {res = anovac(as.numeric(y),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor)
-                                           if(res$sup==F) {res=kruskall(as.numeric(y),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor);kw=1} else {aov1=1}
+                                          {res = anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor)
+                                           if(res$sup==F) {res=kruskall(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor);kw=1} else {aov1=1}
                                            result=res$result
                                            tex=res$texto
                                            grafico=res$grafico}} else
