@@ -22,7 +22,7 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
   var = factor(var, levels=niveis)
   niveisnovo=vetor_comsep(niveis,2)
   levels(var)=niveisnovo
-  tab <- data.frame(table(var),perc=paste0(table(var),paste0(" (",100*round(prop.table(table(var)),3),"%)")),prop=paste0(round(100*data.frame(prop.table(table(var)))[,2],1),"%"))
+  tab <- data.frame(table(var),perc=paste0(table(var),paste0(" (",100*round(prop.table(table(var)),3),"%)")),prop=paste0(table(var),paste0("\n  (",100*round(prop.table(table(var)),3),"%)")))
   if(ordenar==T) {
     if(length(niveis) > 2) {
     result <- na.omit(tab) %>% mutate(var=fct_reorder(var, desc(Freq))) %>%
@@ -38,8 +38,8 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
               coord_polar("y", start=0) + theme_void() +
               labs(fill="",title=paste0(vetor_comsep(nome,6)," (n=",length(var),")")) +
               theme(plot.title = element_text(hjust = 0.5)) + 
-              geom_text(aes(label = prop), color = "black", size=6, position = position_stack(vjust = 0.5)) +
-              scale_fill_manual(labels = vetor_comsep(niveis,3),values=lighten(cor,seq(0.1,0.5,(0.4/(length(tab$var)-1)))))}}
+              geom_text(aes(label = prop), color = "black", position = position_stack(vjust = 0.5)) +
+              scale_fill_manual(labels = vetor_comsep(niveis,3),values=lighten(cor,seq(0,0.5,(0.5/(length(d$var)-1)))))}}
   if(ordenar==F) {
     result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
