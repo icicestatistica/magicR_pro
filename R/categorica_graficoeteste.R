@@ -38,8 +38,8 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
               coord_polar("y", start=0) + theme_void() +
               labs(fill="",title=paste0(vetor_comsep(nome,6)," (n=",length(var),")")) +
               theme(plot.title = element_text(hjust = 0.5)) + 
-              geom_text(aes(label = prop), color = "black", position = position_stack(vjust = 0.5)) +
-              scale_fill_manual(labels = vetor_comsep(niveis,3),values=lighten(cor,seq(0,0.5,(0.5/(length(tab$var)-1)))))}}
+              geom_text(aes(label = prop), color = "white", position = position_stack(vjust = 0.5)) +
+              scale_fill_manual(labels = vetor_comsep(niveis,3),values=lighten(cor,seq(0,0.3,(0.3/(length(tab$var)-1)))))}}
   if(ordenar==F) {
     result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
