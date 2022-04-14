@@ -20,14 +20,14 @@ desc_uni_categorica <- function(variavel,nome,niveis,nas,label,ordenar,acumula,t
 
 grafico_categorica <- function(var,nome, niveis, cor, ordenar){
   var = factor(var, levels=niveis)
-  niveisnovo=vetor_comsep(niveis,2)
+  niveisnovo=vetor_comsep_c(niveis,11)
   levels(var)=niveisnovo
   tab <- data.frame(table(var),perc=paste0(table(var),paste0(" (",100*round(prop.table(table(var)),3),"%)")),prop=paste0(table(var),paste0("\n  (",100*round(prop.table(table(var)),3),"%)")))
   if(ordenar==T) {
     if(length(niveis) > 2) {
     result <- na.omit(tab) %>% mutate(var=fct_reorder(var, desc(Freq))) %>%
   ggplot() + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + 
-    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+            geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep_c(nome,35)," (n=",length(na.omit(var)),")",collapse=""))+            geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
         theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
@@ -36,12 +36,12 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
               {result = ggplot(tab, aes(x="",y=Freq,fill=var)) +
               geom_bar(stat="identity", width=1) +
               coord_polar("y", start=0) + theme_void() +
-              labs(fill="",title=paste0(vetor_comsep(nome,6)," (n=",length(var),")")) +
+              labs(fill="",title=paste0(vetor_comsep_c(nome,35)," (n=",length(var),")")) +
               theme(plot.title = element_text(hjust = 0.5)) + 
               geom_text(aes(label = prop), color = "white", position = position_stack(vjust = 0.5)) +
-              scale_fill_manual(labels = vetor_comsep(niveis,3),values=lighten(cor,seq(0,0.3,(0.3/(length(tab$var)-1)))))}}
+              scale_fill_manual(labels = vetor_comsep_c(niveis,11),values=lighten(cor,seq(0,0.3,(0.3/(length(tab$var)-1)))))}}
   if(ordenar==F) {
-    result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+    result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep_c(nome,35)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
