@@ -23,30 +23,30 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
   niveisnovo=vetor_comsep(niveis,2)
   levels(var)=niveisnovo
   tab <- data.frame(table(var),perc=paste0(table(var),paste0(" (",100*round(prop.table(table(var)),3),"%)")),prop=paste0(round(100*data.frame(prop.table(table(var)))[,2],1),"%"))
-  if(ordenar==T) {result <- na.omit(tab) %>% mutate(var=fct_reorder(var, desc(Freq))) %>%
+  if(ordenar==T) {
+    if(length(niveis) > 2) {
+    result <- na.omit(tab) %>% mutate(var=fct_reorder(var, desc(Freq))) %>%
   ggplot() + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + 
-    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+            geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+        theme(
+        plot.background = element_rect(colour="white"),
+        axis.text.x=element_text(size=12),
+        plot.title = element_text(hjust = 0.5),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank())} else
+              {result = ggplot(tab, aes(x="",y=Freq,fill=var)) +
+              geom_bar(stat="identity", width=1) +
+              coord_polar("y", start=0) + theme_void() +
+              labs(fill="",title=paste0(vetor_comsep(nome,6)," (n=",length(var),")")) +
+              theme(plot.title = element_text(hjust = 0.5)) + 
+              geom_text(aes(label = prop), color = "black", size=6, position = position_stack(vjust = 0.5)) +
+              scale_fill_manual(labels = vetor_comsep(niveis,3),values=lighten(cor,seq(0.1,0.5,(0.4/(length(d$var)-1)))))}}
+  if(ordenar==F) {
+    result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
         plot.title = element_text(hjust = 0.5),
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
-  if(ordenar==F) {
-    if(length(niveis) > 2) {result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep(nome,6)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
-    theme(
-        plot.background = element_rect(colour="white"),
-        axis.text.x=element_text(size=12),
-        plot.title = element_text(hjust = 0.5),
-        panel.grid.major = element_blank(), panel.grid.minor = element_blank())} 
-    else {
-  result = ggplot(tab, aes(x="",y=Freq,fill=var)) +
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) + theme_void() +
-  labs(fill="",title=paste0(vetor_comsep(nome,6)," (n=",length(var),")")) +
-  theme(plot.title = element_text(hjust = 0.5)) + 
-  geom_text(aes(label = prop), color = "black", size=6, position = position_stack(vjust = 0.5)) +
-  scale_fill_manual(labels = vetor_comsep(niveis,3),values=lighten(cor,seq(0.1,0.5,(0.4/(length(d$var)-1)))))
-        }}
 return(result)}
 
 quiqua_aderencia <- function(vetor,nomecat,niveis,ordenar,dig){
