@@ -39,8 +39,7 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
               labs(fill="",title=paste0(vetor_comsep_c(nome,50)," (n=",length(var),")")) +
               theme(plot.title = element_text(hjust = 0.5, size = ceiling(12 * 1.1), face = "bold"),
                        plot.subtitle = element_text(size = ceiling(12 * 1.05)),
-              plot.background = element_rect(colour="white"),
-              axis.text.x=element_text(size=12)) + 
+              plot.background = element_rect(colour="white")) + 
               geom_text(aes(label = prop), color = "white", position = position_stack(vjust = 0.5)) +
               scale_fill_manual(labels = vetor_comsep_c(niveis,11),values=lighten(cor,seq(0,0.3,(0.3/(length(tab$var)-1)))))}}
   if(ordenar==F) {
