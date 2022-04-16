@@ -37,7 +37,7 @@ grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
   plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     geom_jitter(width=0.2) +
-    ylab(nomecont) + xlab(nomecat) + theme_clean() +
+    ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep(nomecat,50)) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),9),subtitle = teste) +
     theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
