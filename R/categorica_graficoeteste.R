@@ -36,7 +36,7 @@ grafico_categorica <- function(var,nome, niveis, cor, ordenar){
               {result = ggplot(tab, aes(x="",y=Freq,fill=var)) +
               geom_bar(stat="identity", width=1) +
               coord_polar("y", start=0) + theme_void(base_size=12) +
-              labs(fill="",title=paste0(vetor_comsep_c(nome,50)," (n=",length(var),")")) +
+              labs(fill="",title=paste0(vetor_comsep_c(nome,50)," (n=",length(na.omit(var)),")")) +
               theme(plot.title = element_text(hjust = 0.5, size = ceiling(12 * 1.1), face = "bold"),
                        plot.subtitle = element_text(size = ceiling(12 * 1.05)),
               plot.background = element_rect(colour="white")) + 
