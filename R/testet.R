@@ -12,7 +12,7 @@ d$fator <- factor(d$fator, levels=niveis)
 resp1=as.numeric(d$resp[d$fator==niveis[1]])
 resp2=as.numeric(d$resp[d$fator==niveis[2]])
 
-if(length(na.omit(resp1))==0 | length(na.omit(resp2))==0) {supos=T; texto=c(" * **",ref,":**Não é possível fazer a análise. \n");p="-"; textograf=""} else {
+if(length(na.omit(resp1))<2 | length(na.omit(resp2))<2) {supos=T; texto=c(" * **",ref,":**Não é possível fazer a análise. \n");p="-"; textograf=""} else {
  
 if(length(na.omit(resp1))>3 & length(na.omit(resp1))<5000) str1=shapiro.test(resp1) else str1="Não"
 if(length(na.omit(resp2))>3 & length(na.omit(resp2))<5000) str2=shapiro.test(resp2) else str2="Não"
