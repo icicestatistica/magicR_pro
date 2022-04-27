@@ -1,4 +1,6 @@
-testet <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal, cor){
+testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,respcol=T,excluirtotal=T, cor="darkblue"){
+ 
+ if(niveis[1]=="auto") niveis = names(table(categorica))
  
 supos=F
 if(respcol==T) ref=nomecat else ref=nomecont
