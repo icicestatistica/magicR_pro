@@ -12,7 +12,7 @@ d$fator <- factor(d$fator, levels=niveis)
 resp1=as.numeric(d$resp[d$fator==niveis[1]])
 resp2=as.numeric(d$resp[d$fator==niveis[2]])
 
-if(length(na.omit(resp1))==0 | length(na.omit(resp2))==0) {supos=T; texto=c(" * **",ref,":**Não é possível fazer a análise. \n");p="-"} else {
+if(length(na.omit(resp1))==0 | length(na.omit(resp2))==0) {supos=T; texto=c(" * **",ref,":**Não é possível fazer a análise. \n");p="-"; textograf=""} else {
  
 if(length(na.omit(resp1))>3 & length(na.omit(resp1))<5000) str1=shapiro.test(resp1) else str1="Não"
 if(length(na.omit(resp2))>3 & length(na.omit(resp2))<5000) str2=shapiro.test(resp2) else str2="Não"
@@ -35,6 +35,8 @@ if (abs(ef)<0.2) mag=paste0(" Através da estatística d de cohen (",ef,"), veri
    
 teste=t.test(resp ~ fator,data=d,var.equal=F)
 
+textograf <- paste0("Teste-t (t(",round(teste$parameter,0),") = ",round(teste$statistic,2),"; p=",ifelse(teste$p.value<0.001,"<0.001",round(teste$p.value,3)),")",collapse="")
+
 p = paste0(pvalor(teste$p.value),"c (d=",ef,")")
 
 if (teste$p.value > 0.05) texto=c(" * **",ref,":** Realizando o teste-t bicaudal com correção de Welch para duas amostras independentes t(",round(teste$parameter,0),
@@ -55,7 +57,6 @@ if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
  
-textograf <- paste0("Teste-t (t(",round(teste$parameter,0),") = ",round(teste$statistic,2),"; p=",ifelse(teste$p.value<0.001,"<0.001",round(teste$p.value,3)),")",collapse="")
 grafico=grafico_comp_box(d$resp,nomecont,cor,d$fator,nomecat,textograf,dig)
 
 return(list("sup"=supos,
