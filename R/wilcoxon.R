@@ -6,7 +6,7 @@ d= data.frame("ID"=rep(1:length(vec1_emordem),times=2),"Tempo"=rep(niveisemordem
 d$Tempo = factor(d$Tempo, levels = niveisemordem)
 
 grafico = ggplot(d, aes(y=Escore, x=Tempo)) +  geom_point() + geom_line(aes(group=ID)) + theme_clean() + 
-labs(title=vetor_comsep_c(paste0("Comparação de ",printvetor(niveisemordem)," (n=",length(unique(d$ID)),")"),65), 
+labs(title=vetor_comsep_c(paste0("Comparação de ",printvetor(niveisemordem)," (n=",length(unique(d$ID)),")"),50), 
 subtitle=paste0("Teste de Wilcoxon (V=",t3$statistic,", p-valor=",ifelse(t3$p.value<0.001,"<0.001",round(t3$p.value,3)),")"), y=nomey) +
  theme(plot.title=element_text(hjust=0.5), plot.subtitle = element_text(hjust=0.5), axis.title.x=element_blank(), plot.background = element_rect(colour = "white")) +
  scale_y_continuous(limits=c(0,max(d$Escore)))
