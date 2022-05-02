@@ -5,8 +5,8 @@ t3 = wilcox.test(vec1_emordem,vec2_emordem, paired=T)
 d= data.frame("ID"=rep(1:length(vec1_emordem),times=2),"Tempo"=rep(niveisemordem, each=length(vec1_emordem)),"Escore"=c(vec1_emordem,vec2_emordem))
 d$Tempo = factor(d$Tempo, levels = niveisemordem)
 
-if(idioma=="PT") textos = c("Comparação de", "Teste de Wilcoxon (V=", " p-valor=") else 
-if(idioma=="EN") textos= c("Comparison of","Wilcoxon's Test (V="," p-value=")
+if(idioma=="PT") textos = c("Comparação de ", "Teste de Wilcoxon (V=", " p-valor=") else 
+if(idioma=="EN") textos= c("Comparison of ","Wilcoxon's Test (V="," p-value=")
  
 grafico = ggplot(d, aes(y=Escore, x=Tempo)) +  geom_point() + geom_line(aes(group=ID)) + theme_clean() + 
 labs(title=vetor_comsep_c(paste0(textos[1],printvetor(niveisemordem)," (n=",length(unique(d$ID)),")"),50), 
