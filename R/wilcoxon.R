@@ -9,7 +9,7 @@ if(idioma=="PT") textos = c("Comparação de ", "Teste de Wilcoxon (V=", " p-val
 if(idioma=="EN") textos= c("Comparison of ","Wilcoxon's Test (V="," p-value=")
  
 grafico = ggplot(d, aes(y=Escore, x=Tempo)) +  geom_point() + geom_line(aes(group=ID)) + theme_clean() + 
-labs(title=vetor_comsep_c(paste0(textos[1],printvetor(niveisemordem)," (n=",length(unique(d$ID)),")"),50), 
+labs(title=vetor_comsep_c(paste0(textos[1],printvetor(niveisemordem, idioma)," (n=",length(unique(d$ID)),")"),50), 
 subtitle=paste0(textos[2],t3$statistic,textos[3],ifelse(t3$p.value<0.001,"<0.001",round(t3$p.value,3)),")"), y=nomey) +
  theme(plot.title=element_text(hjust=0.5), plot.subtitle = element_text(hjust=0.5), axis.title.x=element_blank(), plot.background = element_rect(colour = "white")) +
  scale_y_continuous(limits=c(0,max(d$Escore)))
