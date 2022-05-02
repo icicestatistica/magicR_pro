@@ -1,5 +1,6 @@
-printvetor <- function(vetor){
+printvetor <- function(vetor, idioma="PT"){
 size=length(vetor)
+conec = ifelse(idioma=="PT","' e '","' and '")
 if(size==1) print=paste0("'",vetor[1],"'") else print=paste(paste("'",vetor[1:(size-1)],collapse="', ",sep=""),"' e '",vetor[size],"'",collapse=NULL,sep="")
 return(print)}
 
