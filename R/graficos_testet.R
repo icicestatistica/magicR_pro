@@ -1,7 +1,7 @@
 grafico_correl <- function(conty,nomey,cor,contx,nomex,text){
 dadosd <- data.frame(conty,contx)
 plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geom_smooth(color=cor,method="gam", fullrange=T, span=1) + xlab(nomex) + ylab(nomey) +
-  ggtitle(paste0("Correlação entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""), subtitle=text) +
+  ggtitle(vetor_comsep_c(paste0("Correlação entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40), subtitle=text) +
   theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
@@ -17,7 +17,7 @@ grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig)
             na.rm = TRUE), mean = mean(cont)))
     df.summary$cat <- factor(df.summary$cat, levels = df.summary$cat[order(df.summary$mean)])
     plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, mean), stat = "identity", fill = cor, color = "black", width = 0.8) + 
-        ggtitle(vetor_comsep(paste0("Comparação de médias de '", nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""),9), subtitle = teste) + 
+        ggtitle(vetor_comsep_c(paste0("Comparação de médias de '", nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""),40), subtitle = teste) + 
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - sd, ymax = mean + sd), width = 0.1, size = 1) +
         geom_label(df.summary,  mapping = aes(x = cat, y = mean, label = round(mean, dig))) +
         ylab(nomecont) + xlab(nomecat) + theme(
@@ -37,7 +37,7 @@ grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
   plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     geom_jitter(width=0.2) +
-    ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep(nomecat,50)) + theme_clean() +
+    ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep_c(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),50),subtitle = teste) +
     theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
@@ -55,7 +55,7 @@ levels(d_completo$Var1) = paste0(levels(d_completo$Var1),"\n n=",table(help$x))
 plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity") +
 theme_clean() + scale_y_continuous(labels = scales::percent) +
   geom_text(label=d_completo$lab, position = position_stack(vjust = 0.5)) +
-labs(title=vetor_comsep(paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(is.na(help))[1],")"),8),subtitle=texto,y="Frequência", x=vetor_comsep(nomex,8), fill="") +
+labs(title=vetor_comsep_c(paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(is.na(help))[1],")"),40),subtitle=texto,y="Frequência", x=vetor_comsep(nomex,8), fill="") +
 scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0.1,0.8,(0.7/(length(table(help$y))-1))))) +
 theme(plot.title = element_text(hjust = 0.5),
   plot.subtitle = element_text(hjust = 0.5),
