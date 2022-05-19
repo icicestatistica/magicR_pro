@@ -33,7 +33,7 @@ grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
   n=table(dadosd$cat)
   dadosd$cat <- factor(dadosd$cat)
   levels(dadosd$cat) = paste(niveis,"\n n=",n, sep="")
-  df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75))
+  df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75, na.rm=T))
   plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     geom_jitter(width=0.2) +
