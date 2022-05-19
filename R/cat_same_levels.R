@@ -16,8 +16,9 @@ for (i in 2:dim(x)[2]){
   cont=cont+1
   prop=prop.test(table(factor(unlist(x[,i]),levels=levels)))
   df = rbind(df,data.frame("Variável"=nomes[i],desc_uni_categorica(x[,i],"",levels,F,F,F,F,F,F,F,dig)$result[1,c(2,3)],prop$conf.int[1],prop$conf.int[2]))}
-df = df[order(as.numeric(df$Frequência), decreasing=T),]
+
 names(df)=c("Variável",'Frequência',"Freq. Relativa", "ICmin","ICmax")
+df = df[order(as.numeric(df$`Freq. Relativa`), decreasing=T),]
 
 df_printar=data.frame(df[,1:3],paste("(",round(100*df$ICmin,dig),"%, ",round(100*df$ICmax,dig),"%)",sep=""))
 names(df_printar)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
@@ -32,7 +33,7 @@ texto=list.append(texto, paste("É possível visualizar esses resultados no grá
 
 df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
 
-result <- mutate(df, Variável=fct_reorder(Variável, desc(-as.numeric(Frequência))))
+result <- mutate(df, Variável=fct_reorder(Variável, desc(-as.numeric(`Freq. Relativa`))))
 grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa`,end=-2))/100)) +
   geom_bar(stat="identity", fill=cor) +
   geom_errorbar(aes(xmax = ICmax, xmin = ICmin)) + xlab("Proporção em %") + ylab(nomey) + theme_minimal() + scale_x_continuous(labels = scales::percent)
