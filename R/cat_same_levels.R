@@ -8,7 +8,7 @@ names(df)=c("Variável",levels)
 return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
             "result"=df))}
 
-cat_same_levels_2 <- function(x,nomes,nomey,levels,dig=2,cor=darkblue,sepvetor=7){
+cat_same_levels_2 <- function(x,nomes,nomey,levels,dig=2,cor="darkblue",sepvetor=7){
 cont=1
 prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
 df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],"",levels,F,F,F,F,F,F,F,dig)$result[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
