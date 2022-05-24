@@ -27,7 +27,7 @@ grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig)
     return(plot)
 }
 
-grafico_comp_box <- function(cont,nomecont,cor="cyan4",cat,nomecat,teste="",dig=2,ordenar=F){
+grafico_comp_box <- function(cont,nomecont,cor="cyan4",cat,nomecat,teste="",dig=2,ordenar=T){
   dadosd <- data.frame(cont=cont,cat=cat)
   niveis=names(table(cat))
   n=table(dadosd$cat)
