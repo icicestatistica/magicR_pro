@@ -41,13 +41,13 @@ grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep_c(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40),subtitle = teste) +
     theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))} else
-   plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
+   {plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     geom_jitter(width=0.2) +
     ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep_c(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40),subtitle = teste) +
-    theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
+    theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))}
 return(plot)}
 
 grafico_catcat <- function(x,nomex,cor,y,nomey,texto){
