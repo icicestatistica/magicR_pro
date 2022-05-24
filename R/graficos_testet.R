@@ -55,7 +55,7 @@ levels(d_completo$Var1) = paste0(levels(d_completo$Var1),"\n n=",table(help$x))
 plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity") +
 theme_clean() + scale_y_continuous(labels = scales::percent) +
   geom_text(label=d_completo$lab, position = position_stack(vjust = 0.5)) +
-labs(title=vetor_comsep_c(paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(is.na(help))[1],")"),40),subtitle=texto,y="Frequência", x=vetor_comsep(nomex,8), fill="") +
+labs(title=vetor_comsep_c(paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(help))[1],")"),40),subtitle=texto,y="Frequência", x=vetor_comsep(nomex,8), fill="") +
 scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0.1,0.5,(0.4/(length(table(help$y))-1))))) +
 theme(plot.title = element_text(hjust = 0.5),
   plot.subtitle = element_text(hjust = 0.5),
