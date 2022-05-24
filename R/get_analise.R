@@ -10,7 +10,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
            tex=res$texto
            grafico=res$grafico} else
                         {res = anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
-                        if(res$sup==F) {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor);kw=1} else {aov1=1}
+                        if(res$sup==F) {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F);kw=1} else {aov1=1}
                         result=res$result
                         tex=res$texto
                         grafico=res$grafico}
@@ -30,7 +30,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
                         tex=res$texto
                         grafico=res$grafico} else
                                           {res = anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor)
-                                           if(res$sup==F) {res=kruskall(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor);kw=1} else {aov1=1}
+                                           if(res$sup==F) {res=kruskall(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T);kw=1} else {aov1=1}
                                            result=res$result
                                            tex=res$texto
                                            grafico=res$grafico}} else
