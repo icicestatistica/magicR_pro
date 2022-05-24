@@ -37,7 +37,8 @@ df$Variável <- vetor_comsep(unlist(df$Variável),sepvetor)
 result <- mutate(df, Variável=fct_reorder(Variável, desc(-as.numeric(str_sub(`Freq. Relativa`,end=-2)))))
 grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa`,end=-2))/100)) +
   geom_bar(stat="identity", fill=cor) +
-  geom_errorbar(aes(xmax = ICmax, xmin = ICmin)) + xlab("Proporção em %") + ggtitle(nomey) + ylab("") + theme_minimal() + scale_x_continuous(labels = scales::percent)
+  geom_errorbar(aes(xmax = ICmax, xmin = ICmin)) + xlab("Proporção em %") + ggtitle(nomey) + ylab("") + theme_minimal() + 
+  scale_x_continuous(labels = scales::percent) + theme(plot.title = element_text(hjust = 0.5))
 
 return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
             "result"=df_printar,
