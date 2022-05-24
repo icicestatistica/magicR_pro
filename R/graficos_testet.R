@@ -27,21 +27,22 @@ grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig)
     return(plot)
 }
 
-grafico_comp_box <- function(cont,nomecont,cor,cat,nomecat,teste,dig){
+grafico_comp_box <- function(cont,nomecont,cor="cyan4",cat,nomecat,teste="",dig=2,ordenar=F){
   dadosd <- data.frame(cont=cont,cat=cat)
   niveis=names(table(cat))
   n=table(dadosd$cat)
   dadosd$cat <- factor(dadosd$cat)
   levels(dadosd$cat) = paste(niveis,"\n n=",n, sep="")
   df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75, na.rm=T))
+  if(ordenar==F) x_c="cat" else x_c="reorder(cat,cont,FUN=median)"
   if(n>200) {
-  plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
+  plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep_c(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40),subtitle = teste) +
     theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))} else
-   {plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=reorder(cat,cont,FUN=median))) + 
+   {plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     geom_jitter(width=0.2) +
     ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
