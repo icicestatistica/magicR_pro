@@ -25,7 +25,7 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     if (method=="spearman") {letra="g"
     greg="$\\rho$"
     calcIC=" (calculado via bootstrap (BCa - adjusted bootstrap percentile, com 1000 reamostragens) "
-    bootc = boot(d,bootcor,R=1000,met="spearman")
+    bootc = boot(d,bootcor,R=2000,met="spearman")
     ac=boot.ci(bootc, type='bca')
     IC=paste0("(",round(ac$bca[4],dig)," ,",round(ac$bca[5],dig),"$)^{[a]}$")
     if(ac$bca[4]*ac$bca[5]<=0) avalic=" inclui o valor '0', indicando ausência de correlação." else avalic=" não inclui o valor '0', indicando que esta é considerada significativa."
