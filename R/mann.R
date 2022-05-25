@@ -45,7 +45,7 @@ if(excluirtotal==T) res=res[-1,]
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
 textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p=",ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3)),")",collapse="")
-grafico=grafico_comp_box(d$y,nomey,d$x,nomex,cor,textograf,dig)
+grafico=grafico_comp_box(d$y,nomey,d$x,nomex,cor=cor,textograf,dig)
 
 return(list("result"=res,
             "texto"=list("tex"=paste(texto,collapse="")),
