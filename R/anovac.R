@@ -120,7 +120,7 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
     
 a1=a$DFn  ; a2=round(a$DFd,dig) ; a3=ifelse(pv<0.001,"<0.001",round(pv,3)) ; a4=round(a$F,dig)
 textograf <- substitute(paste("ANOVA one-way F(",a1,",",a2,") = ",a4,", p = ",a3,collapse=""),list(a1=a1,a2=a2,a3=a3,a4=a4))
-grafico=grafico_comp_bar(d$resp,nomecont,cor,d$fator,nomecat,textograf,dig)
+grafico=grafico_comp_bar(d$resp,nomecont,d$fator,nomecat,cor,textograf,dig)
 
 return(list("sup"=supos,
             "result"=res,
