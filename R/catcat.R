@@ -105,7 +105,7 @@ if(doispordois==T & signif==T){
 
 if(respcol==F) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomedep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomedep=nomey}
 
-grafico = grafico_catcat(indep,nomeindep,cor,dep,nomedep,textograf)
+grafico = grafico_catcat(indep,nomeindep,dep,nomedep,cor=cor,textograf)
 
 }
 
