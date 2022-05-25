@@ -5,25 +5,28 @@ plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geo
   theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
-grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste="",dig=2) 
+grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste="",dig=2, ordenar=T) 
 {
-    niveis = names(table(cat))
+niveis = names(table(cat))
     dadosd = data.frame(cont = cont, cat = cat)
     n = table(dadosd$cat)
     dadosd$cat <- factor(dadosd$cat)
     levels(dadosd$cat) = paste(niveis, "\n n=", n, sep = "")
-    df.summary <- data.frame(cat = names(table(dadosd$cat)), 
-        dadosd %>% group_by(factor(cat)) %>% dplyr::summarise(sd = sd(cont, 
-            na.rm = TRUE), mean = mean(cont)))
-    df.summary$cat <- factor(df.summary$cat, levels = df.summary$cat[order(df.summary$mean)])
-    plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, mean), stat = "identity", fill = cor, color = "black", width = 0.8) + 
-        ggtitle(vetor_comsep_c(paste0("Comparação de médias de '", nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""),40), subtitle = teste) + 
-        geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - sd, ymax = mean + sd), width = 0.1, size = 1) +
-        geom_label(df.summary,  mapping = aes(x = cat, y = mean, label = round(mean, dig))) +
-        ylab(nomecont) + xlab(nomecat) + theme(
-            plot.background = element_rect(colour = "white"), 
-            plot.title = element_text(hjust = 0.5),
-            plot.subtitle = element_text(hjust = 0.5))
+    df.summary <-  
+        na.omit(dadosd) %>% group_by(factor(cat)) %>% dplyr::summarise(sd = sd(cont, 
+            na.rm = TRUE), mean = mean(cont))
+    names(df.summary)= c("cat","sd","mean")
+   if(ordenar==T) {df.summary$cat <- factor(df.summary$cat, levels = df.summary$cat[order(df.summary$mean)])}
+    plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, 
+        mean), stat = "identity", fill = cor, color = "black", 
+        width = 0.8) + ggtitle(vetor_comsep_c(paste0("Comparação de médias de '", 
+        nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], 
+        ")", collapse = ""), 40), subtitle = teste) + 
+        geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
+            sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
+        mapping = aes(x = cat, y = mean, label = round(mean, 
+            dig))) + ylab(nomecont) + xlab(nomecat) + theme(plot.background = element_rect(colour = "white"), 
+        plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
     return(plot)
 }
 
