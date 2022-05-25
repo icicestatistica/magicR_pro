@@ -55,7 +55,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
 return(plot)}
 
 
-grafico_catcat <- function(x,nomex,cor="cyan4",y,nomey,texto=""){
+grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto=""){
 help=data.frame(x,y)
 names(help) = c("x","y")
 tabela <- table(help$x, help$y)
