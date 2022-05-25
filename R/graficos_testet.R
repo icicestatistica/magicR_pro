@@ -5,7 +5,7 @@ plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geo
   theme(plot.background = element_rect(colour="white"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
-grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig) 
+grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste="",dig=2) 
 {
     niveis = names(table(cat))
     dadosd = data.frame(cont = cont, cat = cat)
@@ -27,7 +27,7 @@ grafico_comp_bar <- function (cont, nomecont, cor, cat, nomecat,teste,dig)
     return(plot)
 }
 
-grafico_comp_box <- function(cont,nomecont,cor="cyan4",cat,nomecat,teste="",dig=2,ordenar=T){
+grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=2,ordenar=T){
   dadosd <- data.frame(cont=cont,cat=cat)
   niveis=names(table(cat))
   n=table(dadosd$cat)
