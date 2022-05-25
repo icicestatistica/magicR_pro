@@ -57,7 +57,7 @@ if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(t
  
 a1=a$parameter  ; a2=round(a$statistic,dig) ; a3=ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3))
 textograf <- substitute(paste("Kruskall-Wallis (",chi^2,"(",a1,") =",a2,",p-valor=",a3,")",collapse=""),list(a1=a1,a2=a2,a3=a3))
-grafico=grafico_comp_box(dad$continua,nomeresp,cor,dad$categorica,nomefator,textograf,dig,ordenar)
+grafico=grafico_comp_box(dad$continua,nomeresp,dad$categorica,nomefator,cor=cor,textograf,dig,ordenar)
   
 return(list("sup"=supos,
             "result"=res,
