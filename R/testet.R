@@ -57,7 +57,7 @@ if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
  
-grafico=grafico_comp_box(d$resp,nomecont,cor,d$fator,nomecat,textograf,dig)
+grafico=grafico_comp_box(d$resp,nomecont,d$fator,nomecat,cor=cor,textograf,dig)
 
 return(list("sup"=supos,
             "result"=res,
