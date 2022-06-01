@@ -21,6 +21,12 @@ caixadeselecao <- function(vetor,sep){
   colnames(m)<- opcoes
   m <- m[,names(m)!="NA"]
   return(m)}
+   
+nivcatsame = function(niveisoriginal){
+   possi = unique(unlist(str_split(paste0(eval(parse(text=auxiliar$niveis[25])),sep=", ",collapse=""),", ")))
+   possi = possi[which(possi!="")]
+   niveiscerto = paste("c('",paste(possi,collapse="', '"),"')", collapse="",sep="")
+   return(niveiscerto)}
 
 vetor_comsep <- function(vec,corte){
 mat = str_split(vec," ")
