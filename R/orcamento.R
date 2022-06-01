@@ -7,7 +7,7 @@ for (i in 1:n_analises)
 matanalises= rbind(matanalises, unlist(eval(parse(text=analises$analises[i]))))
 matanalises <- data.frame("Nome"=analises$Nome,matanalises, "Variáveis"=analises$Variáveis)
 
-totaltab = apply(matanalises[,c(-1,-15)],2,sum)
+totaltab = apply(matanalises[,c(-1,-16)],2,sum)
 
 descricaobanco <- c()
 for (i in 1:dim(auxiliar)[1]){
