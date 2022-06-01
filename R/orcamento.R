@@ -52,13 +52,14 @@ OU \n
  - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",sep="",collapse="")
 
 invest2 =  paste("Proposta válida até ",datavalido,".",sep="",collapse="")
+  
+descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
+As variáveis presentes no banco são: \n",sep="",collapse="")
 
 cat("
 \\newpage
 ## BASE DE DADOS
-A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
-As variáveis presentes no banco são:
-", descricaobanco,"
+", descbase, descricaobanco,"
 Qualquer alteração no banco após o aceite da proposta poderá gerar retrabalho por parte da estatística e, portanto, poderá ser cobrado. Por este motivo, pedimos que tenha certeza sobre o presente banco de dados.
 
 ## OBJETIVOS DA CONSULTORIA
