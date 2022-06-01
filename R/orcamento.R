@@ -1,4 +1,4 @@
-orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,prazoprop,parcelas,prazorelat){
+orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,prazoprop,prazorelat){
 mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
 
 n_analises = dim(analises)[1]
@@ -23,9 +23,10 @@ for (i in 1:n_analises){
   if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" * **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
   if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" * **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
 
-datapropdesform = Sys.Date()+prazoprop
+datapropdesform = Sys.Date()
   
 dataprop=format(datapropdesform, "%d/%m/%Y")
+dataparcela2 = format(datapropdesform+30, "%d/%m/%Y")
 
 gs4_deauth()
 aumentoprazo=read_sheet("https://docs.google.com/spreadsheets/d/1Adw20p6zDahYIx3a-L_LBZj0bAQZZliO5tYNh6SVFBY/edit?usp=sharing")
@@ -39,11 +40,10 @@ p1=sum(preçotestes[,col]*unlist(totaltab))
 preço=unlist(aumentoprazo[which(aumentoprazo$Prazo==prazorelat),2])*p1
 preço=preço/(1-0.17)
 
-preçoparcelas=round(preço/parcelas,2)
-parcela1=preço-(parcelas-1)*preçoparcelas
-
-pagamento = c("+ **R$",format_real(parcela1),"**, no ato do aceite da proposta; \n", sep="")
-if (parcelas>1) for (i in 2:parcelas) pagamento = c(pagamento,"+ **R$",format_real(preçoparcelas),"**, ",30*(i-1)," dias após o aceite da proposta; \n")
+parcela2=round(preço/2,2)
+parcela1=preço-preçoparcela2
+  
+precocheio = preço/0.95
 
 cat("
 \\newpage
@@ -71,9 +71,15 @@ A consultoria proposta inclui:
 
 ## INVESTIMENTO
   
-O investimento para consultoria é de **R$ ",format_real(preço),"**, pago via pix nas seguintes ocasiões: \n
-",pagamento,"
-**Dados bancários:** \n
+O investimento para consultoria é de:
+
+ - **R$ ",format_real(preço),"**, pago em 2x, sendo ",format_real(parcela1)," no dia ", dataprop," e ", format_real(parcela2)," no dia ",dataparcela2,". ; \n
+
+OU \n
+
+ - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",
+
+"**Dados bancários:** \n
 + Banco BS2 S.A. - 218
 + Agência: 0001-9
 + Conta: 9085203
@@ -90,4 +96,4 @@ Proposta válida até ",dataprop,".
 
 <br>
 
-Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform), sep="\n")}
+Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform), sep="\n", collapse="")}
