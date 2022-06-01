@@ -18,7 +18,7 @@ for (i in 1:dim(auxiliar)[1]){
             if(auxiliar$tipo[i]=="ID"){
               descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise. \n", sep=""))} else
               if(auxiliar$tipo[i]=="catsame"){
-              descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em x, sendo uma coluna para cada resposta possível (respostas possíveis). \n", sep=""))} else
+              descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n", sep=""))} else
                 {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))}}
 descricaobanco = paste(descricaobanco, sep="",collapse="")
   
