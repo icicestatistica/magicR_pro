@@ -91,4 +91,4 @@ Proposta válida até ",datavalido,".
 * O trabalho que desenvolvemos é único e exclusivamente para a realização da análise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.
 
 \\newpage
-Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform), sep="\n", collapse="")}
+Campinas, ",mday(Sys.Date())," de ",mês[month(Sys.Date())]," de ",year(Sys.Date()), sep="\n", collapse="")}
