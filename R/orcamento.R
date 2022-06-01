@@ -24,6 +24,25 @@ for (i in 1:n_analises){
   if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
   if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
 
+  
+crono = paste("Entrega do relatório no dia ",format(Sys.Date()+prazorelat, "%d/%m/%Y"),".",sep="",collapse="")
+  
+invest = paste("O investimento para consultoria é de: \n
+ - **R$ ",format_real(preço),"**, pago em 2x, sendo **R$",format_real(parcela1),"** no dia ", dataprop," e **R$", format_real(parcela2),"** no dia ",dataparcela2,"; \n
+OU \n
+ - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",
+
+"**Dados bancários:** \n
+* Banco BS2 S.A. - 218
+* Agência: 0001-9
+* Conta: 9085203
+* Razão Social - ISABELLE CRISTINA IDALGO LTDA
+* CNPJ - 41.986.330/0001-85
+
+A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatistica@gmail.com.
+A nota fiscal será enviada até 3 dias após o pagamento.
+Proposta válida até ",datavalido,".",sep="",collapse="")
+  
 datavalido = format(Sys.Date()+prazoprop, "%d/%m/%Y")
 dataprop=format(Sys.Date(), "%d/%m/%Y")
 dataparcela2 = format(Sys.Date()+30, "%d/%m/%Y")
@@ -58,7 +77,7 @@ O objetivo da presente consultoria é a entrega dos seguintes resultados:
 ", descricaoanalises,"
 
 ## CRONOGRAMA
-Entrega do relatório no dia ",format(Sys.Date()+prazorelat, "%d/%m/%Y"),".
+",crono,"
 
 ## FORMA DE ENTREGA
 A consultoria proposta inclui:
@@ -70,22 +89,7 @@ A consultoria proposta inclui:
 * Uma reunião de 30 minutos para esclarecimento de dúvidas metodológicas.
 
 ## INVESTIMENTO
-  
-O investimento para consultoria é de: \n
- - **R$ ",format_real(preço),"**, pago em 2x, sendo **R$",format_real(parcela1),"** no dia ", dataprop," e **R$", format_real(parcela2),"** no dia ",dataparcela2,"; \n
-OU \n
- - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",
-
-"**Dados bancários:** \n
-* Banco BS2 S.A. - 218
-* Agência: 0001-9
-* Conta: 9085203
-* Razão Social - ISABELLE CRISTINA IDALGO LTDA
-* CNPJ - 41.986.330/0001-85
-
-A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatistica@gmail.com.
-A nota fiscal será enviada até 3 dias após o pagamento.
-Proposta válida até ",datavalido,".
+",invest,"
 
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
