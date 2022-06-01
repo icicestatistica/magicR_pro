@@ -1,4 +1,4 @@
-orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,prazoprop,prazorelat){
+orcamento <- function(dataenviobancobruto,bancobruto=dados,auxiliar=auxiliar,analises=analises,prazoprop=3,prazorelat=7){
 mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
 
 n_analises = dim(analises)[1]
