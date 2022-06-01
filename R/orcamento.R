@@ -15,7 +15,9 @@ for (i in 1:dim(auxiliar)[1]){
     descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else 
         if(auxiliar$tipo[i]=="ordinal"){
            descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
-            {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))}}
+            if(auxiliar$tipo[i]=="ID"){
+              descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise. \n"))} else
+                {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))}}
 descricaobanco = paste(descricaobanco, sep="",collapse="")
   
 descricaoanalises <- c()
@@ -47,9 +49,9 @@ parcela1=preço-parcela2
 precocheio = preço/0.95
   
 invest1 = paste("O investimento para consultoria é de: \n
- - **R$ ",format_real(preço),"**, pago em 2x, sendo **R$",format_real(parcela1),"** no dia ", dataprop," e **R$", format_real(parcela2),"** no dia ",dataparcela2,"; \n
+ OPÇÃO 1: **R$ ",format_real(preço),"**, pago em 2x, sendo R$",format_real(parcela1)," no dia ", dataprop," e R$", format_real(parcela2)," no dia ",dataparcela2,"; \n
 OU \n
- - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",sep="",collapse="")
+ OPÇÃO 2: **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",sep="",collapse="")
 
 invest2 =  paste("Proposta válida até ",datavalido,".",sep="",collapse="")
   
