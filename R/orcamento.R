@@ -12,16 +12,16 @@ totaltab = apply(matanalises[,-1],2,sum)
 descricaobanco <- c()
 for (i in 1:dim(auxiliar)[1]){
   if(auxiliar$tipo[i]=="factor"){
-    descricaobanco=c(descricaobanco,paste(" * **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else 
+    descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else 
         if(auxiliar$tipo[i]=="ordinal"){
-           descricaobanco=c(descricaobanco,paste(" * **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
-            {descricaobanco <- c(descricaobanco,paste(" * **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))}}
+           descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
+            {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))}}
 
 descricaoanalises <- c()
 for (i in 1:n_analises){
-  if(matanalises[i,2]>0) {descricaoanalises <- c(descricaoanalises,paste(" * **",matanalises[i,1],"**, com ",matanalises[i,2]," descrições das variáveis categóricas em termos de frequência e frequência relativa e das variáveis numéricas com medidas de centralidade e dispersão; \n",sep=""))}
-  if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" * **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
-  if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" * **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
+  if(matanalises[i,2]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,2]," descrições das variáveis categóricas em termos de frequência e frequência relativa e das variáveis numéricas com medidas de centralidade e dispersão; \n",sep=""))}
+  if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
+  if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
 
 datapropdesform = Sys.Date()
   
@@ -72,11 +72,8 @@ A consultoria proposta inclui:
 ## INVESTIMENTO
   
 O investimento para consultoria é de:
-
- - **R$ ",format_real(preço),"**, pago em 2x, sendo ",format_real(parcela1)," no dia ", dataprop," e ", format_real(parcela2)," no dia ",dataparcela2,". ; \n
-
+ - **R$ ",format_real(preço),"**, pago em 2x, sendo **R$",format_real(parcela1),"** no dia ", dataprop," e **R$", format_real(parcela2),"** no dia ",dataparcela2,"; \n
 OU \n
-
  - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",
 
 "**Dados bancários:** \n
@@ -86,14 +83,13 @@ OU \n
 + Razão Social - ISABELLE CRISTINA IDALGO LTDA
 + CNPJ - 41.986.330/0001-85
 
-A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatística@gmail.com.
+A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatistica@gmail.com.
 A nota fiscal será enviada até 3 dias após o pagamento.
 Proposta válida até ",dataprop,".
 
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
-* O trabalho que desenvolvemos é único e exclusivamente para a realização da analise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.
+* O trabalho que desenvolvemos é único e exclusivamente para a realização da análise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.
 
-<br>
-
-Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform), sep="\n", collapse="")}
+\\newpage
+Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform), sep="", collapse="")}
