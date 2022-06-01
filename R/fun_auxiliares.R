@@ -79,7 +79,7 @@ if(class(a[[i]])=="data.frame") print(kable(a[[i]], row.names=F)) else
 cont_analises <- function(nome,vetortestes,vars){
 df = data.frame("Nome"=nome,"analises"=paste("list(c('desc'=",vetortestes[1],",'catsame'=",vetortestes[2],",'t'=",vetortestes[3],
 ",'mw'=",vetortestes[4],",'aov1'=",vetortestes[5],",'kw'=",vetortestes[6],",'correl'=",vetortestes[7],",'cc'=",vetortestes[8],
-",'t_par'=",vetortestes[9],",'wilc'=",vetortestes[10],",'aovmr'=",vetortestes[11],",'fried'=",vetortestes[12],",'mcnem'=",vetortestes[13],",'qcoch'=",vetortestes[14],"))"),Variáveis = vars)
+",'t_par'=",vetortestes[9],",'wilc'=",vetortestes[10],",'aovmr'=",vetortestes[11],",'fried'=",vetortestes[12],",'mcnem'=",vetortestes[13],",'qcoch'=",vetortestes[14],"))"),Variáveis = printvetor(vars))
 return(df)}
    
 transpordf <- function(tab){
