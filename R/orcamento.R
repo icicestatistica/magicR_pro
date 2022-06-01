@@ -41,7 +41,7 @@ preço=unlist(aumentoprazo[which(aumentoprazo$Prazo==prazorelat),2])*p1
 preço=preço/(1-0.17)
 
 parcela2=round(preço/2,2)
-parcela1=preço-preçoparcela2
+parcela1=preço-parcela2
   
 precocheio = preço/0.95
 
