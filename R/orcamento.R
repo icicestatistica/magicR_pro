@@ -5,7 +5,7 @@ n_analises = dim(analises)[1]
 matanalises = c()
 for (i in 1:n_analises)
 matanalises= rbind(matanalises, unlist(eval(parse(text=analises$analises[i]))))
-matanalises <- data.frame("Nome"=analises$Nome,matanalises)
+matanalises <- data.frame("Nome"=analises$Nome,matanalises, "Variáveis"=analises$Variáveis)
 
 totaltab = apply(matanalises[,-1],2,sum)
 
@@ -24,9 +24,9 @@ descricaobanco = paste(descricaobanco, sep="",collapse="")
   
 descricaoanalises <- c()
 for (i in 1:n_analises){
-  if(matanalises[i,2]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,2]," descrições das variáveis categóricas em termos de frequência e frequência relativa e das variáveis numéricas com medidas de centralidade e dispersão; \n",sep=""))}
-  if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
-  if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
+  if(matanalises[i,2]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,2]," cálculos das frequências absoluta (n) e relativa (%) para as variáveis categóricas ou análise descritiva (N, Mínimo, Máximo, Quartis, Média, Mediana, Desvio Padrão, Coeficiente de variação e teste de Normalidade de Shapiro-Wilk) para variáveis numéricas. As variáveis utilizadas na análise serão: ",matanalises$Variáveis,"; \n",sep=""))}
+  if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis. As variáveis utilizadas na análise serão: ",matanalises$Variáveis,"; \n",sep=""))}  
+  if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação (podendo ser Qui-quadrado, Exato de Fisher, Teste de correlação, Teste-t, Mann-Whitney, Anova ou Kruskall Wallis, a depender da natureza e características dos dados) e suas devidas análises post-hoc e, quando necessário, tamanho de efeito. As variáveis utilizadas na análise serão: ",matanalises$Variáveis,"; \n",sep=""))}}
 
   
 crono = paste("Entrega do relatório no dia ",format(Sys.Date()+prazorelat, "%d/%m/%Y"),".",sep="",collapse="")
