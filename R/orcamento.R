@@ -46,21 +46,12 @@ parcela2=round(preço/2,2)
 parcela1=preço-parcela2
 precocheio = preço/0.95
   
-invest = paste("O investimento para consultoria é de: \n
+invest1 = paste("O investimento para consultoria é de: \n
  - **R$ ",format_real(preço),"**, pago em 2x, sendo **R$",format_real(parcela1),"** no dia ", dataprop," e **R$", format_real(parcela2),"** no dia ",dataparcela2,"; \n
 OU \n
- - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",
+ - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",sep="",collapse="")
 
-"**Dados bancários:** \n
-* Banco BS2 S.A. - 218
-* Agência: 0001-9
-* Conta: 9085203
-* Razão Social - ISABELLE CRISTINA IDALGO LTDA
-* CNPJ - 41.986.330/0001-85
-
-A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatistica@gmail.com.
-A nota fiscal será enviada até 3 dias após o pagamento.
-Proposta válida até ",datavalido,".",sep="",collapse="")
+invest2 =  paste("Proposta válida até ",datavalido,".",sep="",collapse="")
 
 cat("
 \\newpage
@@ -87,7 +78,16 @@ A consultoria proposta inclui:
 * Uma reunião de 30 minutos para esclarecimento de dúvidas metodológicas.
 
 ## INVESTIMENTO
-",invest,"
+",invest1,"
+**Dados bancários:** \n
+* Banco BS2 S.A. - 218
+* Agência: 0001-9
+* Conta: 9085203
+* Razão Social - ISABELLE CRISTINA IDALGO LTDA
+* CNPJ - 41.986.330/0001-85
+
+A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatistica@gmail.com.
+A nota fiscal será enviada até 3 dias após o pagamento. \n", invest2,"
 
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
