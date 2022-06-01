@@ -51,7 +51,7 @@ parcela1=preço-parcela2
 precocheio = preço/0.95
   
 invest1 = paste("O investimento para consultoria é de: \n
- * **R$ ",format_real(precocheio),"**, pago em 2x, sendo R$",format_real(parcela1)," no dia ", dataprop," e R$", format_real(parcela2)," no dia ",dataparcela2,"; \n
+ * **R$ ",format_real(precocheio),"**, pago em 2x, sendo R$ ",format_real(parcela1)," no dia ", dataprop," e R$ ", format_real(parcela2)," no dia ",dataparcela2,"; \n
 OU \n
  * **R$ ",format_real(preço),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",sep="",collapse="")
 
