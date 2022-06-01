@@ -3,7 +3,7 @@ dadosd <- data.frame(conty,contx)
 plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geom_smooth(color=cor,method="gam", fullrange=T, span=1) + xlab(nomex) + ylab(nomey) +
   ggtitle(vetor_comsep_c(paste0("Correlação entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40), subtitle=text) +
   theme(plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent"),
+  panel.background = element_rect(fill = "transparent", color=NA),
   plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
@@ -28,7 +28,7 @@ niveis = names(table(cat))
             sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
             dig))) + ylab(nomecont) + xlab(nomecat) + theme(plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent"), 
+  panel.background = element_rect(fill = "transparent", color=NA), 
         plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
     return(plot)
 }
@@ -48,7 +48,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep_c(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40),subtitle = teste) +
     theme(plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))} else
+  panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))} else
    {plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
     geom_jitter(width=0.2) +
@@ -56,7 +56,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep_c(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40),subtitle = teste) +
     theme(plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent"), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))}
+  panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))}
 return(plot)}
 
 
@@ -78,7 +78,7 @@ theme(plot.title = element_text(hjust = 0.5),
   plot.subtitle = element_text(hjust = 0.5),
   legend.background = element_rect(color = NA, fill = "transparent"),
   plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent"))
+  panel.background = element_rect(fill = "transparent", color=NA))
 return(plot)}
 
 grafico_teste_t_3 <- function(cont,nomecont,cores,cat,nomecat,niveis){
