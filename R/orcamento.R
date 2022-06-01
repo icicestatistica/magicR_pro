@@ -16,7 +16,8 @@ for (i in 1:dim(auxiliar)[1]){
         if(auxiliar$tipo[i]=="ordinal"){
            descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
             {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))}}
-
+descricaobanco = paste(descricaobanco, sep="",collapse="")
+  
 descricaoanalises <- c()
 for (i in 1:n_analises){
   if(matanalises[i,2]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,2]," descrições das variáveis categóricas em termos de frequência e frequência relativa e das variáveis numéricas com medidas de centralidade e dispersão; \n",sep=""))}
@@ -70,7 +71,7 @@ A consultoria proposta inclui:
 
 ## INVESTIMENTO
   
-O investimento para consultoria é de:
+O investimento para consultoria é de: \n
  - **R$ ",format_real(preço),"**, pago em 2x, sendo **R$",format_real(parcela1),"** no dia ", dataprop," e **R$", format_real(parcela2),"** no dia ",dataparcela2,"; \n
 OU \n
  - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",
