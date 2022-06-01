@@ -23,10 +23,9 @@ for (i in 1:n_analises){
   if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com ",matanalises[i,3]," descrições das variáveis categóricas dicotômicas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis; \n",sep=""))}  
   if(sum(matanalises[i,-c(1:3)])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com ",sum(matanalises[i,-c(1:3)])," testes de comparação e suas devidas análises post-hoc e, quando necessário, tamanho de efeito; \n",sep=""))}}
 
-datapropdesform = Sys.Date()
-  
-dataprop=format(datapropdesform, "%d/%m/%Y")
-dataparcela2 = format(datapropdesform+30, "%d/%m/%Y")
+datavalido = format(Sys.Date()+prazoprop, "%d/%m/%Y")
+dataprop=format(Sys.Date(), "%d/%m/%Y")
+dataparcela2 = format(Sys.Date()+30, "%d/%m/%Y")
 
 gs4_deauth()
 aumentoprazo=read_sheet("https://docs.google.com/spreadsheets/d/1Adw20p6zDahYIx3a-L_LBZj0bAQZZliO5tYNh6SVFBY/edit?usp=sharing")
@@ -77,19 +76,19 @@ OU \n
  - **R$ ",format_real(precocheio),"** (5% de desconto) à vista via pix, no ato do aceite da proposta. \n",
 
 "**Dados bancários:** \n
-+ Banco BS2 S.A. - 218
-+ Agência: 0001-9
-+ Conta: 9085203
-+ Razão Social - ISABELLE CRISTINA IDALGO LTDA
-+ CNPJ - 41.986.330/0001-85
+* Banco BS2 S.A. - 218
+* Agência: 0001-9
+* Conta: 9085203
+* Razão Social - ISABELLE CRISTINA IDALGO LTDA
+* CNPJ - 41.986.330/0001-85
 
 A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatistica@gmail.com.
 A nota fiscal será enviada até 3 dias após o pagamento.
-Proposta válida até ",dataprop,".
+Proposta válida até ",datavalido,".
 
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
 * O trabalho que desenvolvemos é único e exclusivamente para a realização da análise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.
 
 \\newpage
-Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform), sep="", collapse="")}
+Campinas, ",mday(datapropdesform)," de ",mês[month(datapropdesform)]," de ",year(datapropdesform), sep="\n", collapse="")}
