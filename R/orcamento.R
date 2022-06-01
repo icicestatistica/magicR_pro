@@ -61,7 +61,7 @@ As variáveis presentes no banco são: \n",sep="",collapse="")
 cat("
 \\newpage
 ## BASE DE DADOS
-", descbase, descricaobanco,"
+", descbase, "", descricaobanco,"
 Qualquer alteração no banco após o aceite da proposta poderá gerar retrabalho por parte da estatística e, portanto, poderá ser cobrado. Por este motivo, pedimos que tenha certeza sobre o presente banco de dados.
 
 ## OBJETIVOS DA CONSULTORIA
