@@ -35,6 +35,7 @@ niveis = names(table(cat))
 
 grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=2,ordenar=T){
   dadosd <- data.frame(cont=cont,cat=cat)
+  dadosd <- na.omit(dadosd)
   niveis=names(table(cat))
   n=table(dadosd$cat)
   dadosd$cat <- factor(dadosd$cat)
