@@ -4,7 +4,7 @@ desc_uni_continua <- function(vari,nome,bins,texto,grafico,cor,digitos){
   if(length(summary(vari))==6) {N=length(vari); na=0} else {N=length(vari);na=summary(vari)[7]}
   if(length(vari)-sum(is.na(vari))<3 | length(vari)-sum(is.na(vari))>3000 | min(vari,na.rm=T)==max(vari,na.rm=T)) {p = "N/A";nf="Não foi possível realizar o teste shapiro-wilk para normalidade, uma vez que não há observações suficientes para fazê-lo.  \n"} else {shap = shapiro.test(vari) ; p=pvalor(shap$p.value); if(shap$p.value <0.05) rej <- "menor que 0.05, rejeitou" else rej="maior ou igual a 0.05, não rejeitou"}
   cv=round(sd(vari,na.rm=T)/summary(vari)[4]*100,digitos)
-  parametros <- c("N","N/A","Observações","Min-Máx","Q1-Q3","Mediana","Média","Desvio Padrão","CV", "Normalidade (Shapiro Wilk)")
+  parametros <- c("Total","N/A","N","Min-Máx","Q1-Q3","Mediana","Média","DP","CV", "SW")
   if(sum(is.na(vari))==length(vari)) variavel=c(N,paste0(na," (100%)"),0,"-","-","-","-","-","-","-") else {
     variavel <- c(N,
                   paste0(na," (",round(100*na/N,digitos),"%)"),
