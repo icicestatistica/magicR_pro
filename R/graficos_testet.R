@@ -52,7 +52,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
   panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))} else
    {plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
     geom_boxplot(fill=cor, outlier.alpha = 0) +
-    geom_jitter(width=0.2) +
+    geom_dotplot(binaxis='y', stackdir='center') +
     ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
     ggtitle(vetor_comsep_c(paste0("Comparação de distribuições de \'",nomecont,"\' por \'",nomecat,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40),subtitle = teste) +
