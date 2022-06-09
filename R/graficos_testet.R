@@ -42,7 +42,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
   levels(dadosd$cat) = paste(niveis,"\n n=",n, sep="")
   df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75, na.rm=T))
   if(ordenar==F) x_c="cat" else x_c="reorder(cat,cont,FUN=median)"
-  if(n>200) {
+  if(sum(n)>200) {
   plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
     geom_boxplot(fill=cor) +
     ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
