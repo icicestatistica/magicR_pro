@@ -1,4 +1,4 @@
-anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal,cor){
+anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal,cor, idioma="PT"){
 if(respcol==T) ref=nomecat else ref=nomecont
 tabela=NULL
   
@@ -119,8 +119,8 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
   if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(texto,collapse=""),tabela)
     
 a1=a$DFn  ; a2=round(a$DFd,dig) ; a3=ifelse(pv<0.001,"<0.001",round(pv,3)) ; a4=round(a$F,dig)
-textograf <- substitute(paste("ANOVA one-way F(",a1,",",a2,") = ",a4,", p = ",a3,collapse=""),list(a1=a1,a2=a2,a3=a3,a4=a4))
-grafico=grafico_comp_bar(d$resp,nomecont,d$fator,nomecat,cor=cor,teste=textograf,dig=dig)
+textograf <- substitute(paste("ANOVA one-way F(",a1,",",a2,") = ",a4,", p=",a3,collapse=""),list(a1=a1,a2=a2,a3=a3,a4=a4))
+grafico=grafico_comp_bar(d$resp,nomecont,d$fator,nomecat,cor=cor,teste=textograf,dig=dig, idioma)
 
 return(list("sup"=supos,
             "result"=res,
