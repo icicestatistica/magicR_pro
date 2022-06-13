@@ -1,4 +1,4 @@
-anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal,cor,idioma){
+anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal,cor,idioma="PT"){
 if(respcol==T) ref=nomecat else ref=nomecont
 tabela=NULL
   
