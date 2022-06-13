@@ -70,14 +70,14 @@ d_completo$lab = paste0(d_completo$Freq," (",round(100*d_completo$Freq.1,1),"%)"
 d_completo$Var1 <- factor(d_completo$Var1)
 levels(d_completo$Var1) = paste0(levels(d_completo$Var1),"\n n=",table(help$x))
   
-titulo = ifelse(idioma=="PT",paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(help))[1],")"),40),
-paste0("Comparative between \'",nomex,"\' and \'",nomey,"\' (n=",dim(na.omit(help))[1],")"),40))
+titulo = ifelse(idioma=="PT",paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(help))[1],")"),
+paste0("Comparative between \'",nomex,"\' and \'",nomey,"\' (n=",dim(na.omit(help))[1],")"))
 nome_eixo_y=ifelse(idioma=="PT,"Frequência","Frequency")
 
 plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity") +
 theme_clean() + scale_y_continuous(labels = scales::percent) +
   geom_text(label=d_completo$lab, position = position_stack(vjust = 0.5)) +
-labs(title=vetor_comsep_c(titulo,subtitle=texto,y=nome_eixo_y, x=vetor_comsep(nomex,8), fill="") +
+labs(title=vetor_comsep_c(titulo,40),subtitle=texto,y=nome_eixo_y, x=vetor_comsep(nomex,8), fill="") +
 scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0,(1-1/(length(table(help$y)))),1/(length(table(help$y)))))) +
 theme(plot.title = element_text(hjust = 0.5),
   plot.subtitle = element_text(hjust = 0.5),
