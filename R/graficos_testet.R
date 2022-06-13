@@ -72,7 +72,7 @@ levels(d_completo$Var1) = paste0(levels(d_completo$Var1),"\n n=",table(help$x))
   
 titulo = ifelse(idioma=="PT",paste0("Comparativo entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(help))[1],")"),
 paste0("Comparative between \'",nomex,"\' and \'",nomey,"\' (n=",dim(na.omit(help))[1],")"))
-nome_eixo_y=ifelse(idioma=="PT,"Frequência","Frequency")
+nome_eixo_y=ifelse(idioma=="PT","Frequência","Frequency")
 
 plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity") +
 theme_clean() + scale_y_continuous(labels = scales::percent) +
