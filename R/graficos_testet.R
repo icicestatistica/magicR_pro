@@ -19,11 +19,13 @@ niveis = names(table(cat))
             na.rm = TRUE), mean = mean(cont))
     names(df.summary)= c("cat","sd","mean")
    if(ordenar==T) {df.summary$cat <- factor(df.summary$cat, levels = df.summary$cat[order(df.summary$mean)])}
+  
+ titulo = ifelse(idioma=="PT",paste0("Comparação de médias de '", nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""),
+ paste0("comparison of means '", nomecont, "' by '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""))
+  
     plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, 
         mean), stat = "identity", fill = cor, color = "black", 
-        width = 0.8) + ggtitle(vetor_comsep_c(paste0("Comparação de médias de '", 
-        nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], 
-        ")", collapse = ""), 40), subtitle = teste) + 
+        width = 0.8) + ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
             sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
