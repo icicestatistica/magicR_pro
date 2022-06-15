@@ -74,7 +74,7 @@ get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy=""
 
   if(is.numeric(y)==T & length(y)==1) {
     tipoy=auxiliar$tipo[y]
-    nomey=auxiliar$nome[y]
+    nomey=auxiliar$nomes[y]
     niveisy=auxiliar$niveis[y]
     y=unlist(dados[,y])}
 
