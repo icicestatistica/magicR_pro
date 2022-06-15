@@ -1,4 +1,6 @@
-escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor,idioma){
+escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=F,respcol=T,cor="cyan4",idioma="PT"){
+  if(niveisx=='auto') niveisx = names(table(x))
+  if(niveisy=='auto') niveisy = names(table(y)) 
   result<-data.frame() ; tex="" ; grafico=NULL
   t=0 ; mw=0; kw=0; aov1=0;cc=0 ; correl=0
   if(tipox=="numeric" | tipox=="ordinal") {
@@ -46,7 +48,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluir
 
 
 
-get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor,idioma="PT"){
+get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=F,respcol=T,cor="cyan4",idioma="PT"){
   xdim=dim(xmat)[2]
   texto=c() ; textocont=c()
   testes=c("desc"=0,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0)
@@ -68,7 +70,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,exc
 return(lista)}
 
 
-get_analise <- function(dados,col,auxiliar,y,tipoy,nomey,niveisy,dig,excluirtotal,respcol,cor, idioma="PT"){
+get_analise <- function(dados,col,auxiliar,y,tipoy,nomey,niveisy,dig=2,excluirtotal=F,respcol=T,cor='cyan4', idioma="PT"){
   xmat=dados[,col]
   tipox=auxiliar$tipo[col]
   nomex=auxiliar$nomes[col]
