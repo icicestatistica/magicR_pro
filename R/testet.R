@@ -1,4 +1,4 @@
-testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,respcol=T,excluirtotal=T, cor="darkblue"){
+testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,respcol=T,excluirtotal=T, cor="cyan4"){
  
  if(niveis[1]=="auto") niveis = names(table(categorica))
  
