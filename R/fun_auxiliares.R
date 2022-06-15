@@ -8,7 +8,7 @@ format_real <- function(valor) {
    res=format(round(valor,2),nsmall = 2, decimal.mark = ",", big.mark = ".")
 return(res)}
 
-caixadeselecao <- function(vetor,sep){
+caixadeselecao <- function(vetor,sep=","){
   vetor=unlist(vetor)
   opcoes = unique(trim(unlist(str_split(vetor,sep))))
   matrix <- matrix(c(rep("",length(opcoes)*length(vetor))),ncol=length(opcoes))
@@ -66,7 +66,7 @@ return(res)}
 
 #vetor_comsep_c(names(dados),50)
 
-relatorio <- function(a,pularprimeiro){
+relatorio <- function(a,pularprimeiro=T){
 if (pularprimeiro==T) comeco=2 else comeco=1
 for (i in comeco:length(a)){
    if(is.null(a[[i]])==T) tantofaz=0 else {
