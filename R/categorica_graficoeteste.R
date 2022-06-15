@@ -1,5 +1,6 @@
-desc_uni_categorica <- function(variavel,nome,niveis,nas,label,ordenar,acumula,teste,grafico,cor,digitos){
+desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=T,label=T,ordenar=T,acumula=T,teste=T,grafico=T,cor="cyan4",digitos=2){
   variavel=unlist(variavel)
+  if (niveis=='auto') niveis = names(table(variavel))
   if (niveis[1] != F) variavel <- factor(variavel, levels = niveis)
   if (nas==FALSE) {d<-data.frame(t(rbind(round(table(variavel),0),paste0(round(100*prop.table(table(variavel)),digitos),"%"))))} else
   {d<-t(rbind(round(table(variavel),0),paste0(round(100*table(variavel)/length(variavel),digitos),"%")))
