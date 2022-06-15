@@ -49,7 +49,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
 
 
 get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=F,respcol=T,cor="cyan4",idioma="PT"){
-  xdim=dim(xmat)[2]
+  xdim = ifelse(dim(mat)==NULL,1,dim(xmat)[2])
   texto=c() ; textocont=c()
   testes=c("desc"=0,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0)
   result=data.frame() ; resultcont=data.frame()
