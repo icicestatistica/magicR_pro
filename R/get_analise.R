@@ -1,6 +1,4 @@
 escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=F,respcol=T,cor="cyan4",idioma="PT"){
-  if(niveisx=='auto') niveisx = names(table(x))
-  if(niveisy=='auto') niveisy = names(table(y)) 
   result<-data.frame() ; tex="" ; grafico=NULL
   t=0 ; mw=0; kw=0; aov1=0;cc=0 ; correl=0
   if(tipox=="numeric" | tipox=="ordinal") {
