@@ -1,4 +1,4 @@
-desc_uni_continua <- function(vari,nome,bins,texto,grafico,cor,digitos){
+desc_uni_continua <- function(vari,nome,bins=20,texto=T,grafico=T,cor='cyan4',digitos=2){
   nf=""
   vari=unlist(vari)
   if(length(summary(vari))==6) {N=length(vari); na=0} else {N=length(vari);na=summary(vari)[7]}
