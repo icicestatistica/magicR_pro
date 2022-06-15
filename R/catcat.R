@@ -1,5 +1,5 @@
-catcat <- function(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal,cor,idioma){
-
+catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirtotal=T,cor="cyan4",idioma="PT"){
+  
 ref=nomex
 if(respcol==T) linhacol=1 else linhacol=2
   
