@@ -1,4 +1,4 @@
-kruskall <- function(resp,fator,nomeresp,nomefator,niveis,dig=2,respcol=T,excluirtotal=T,cor="cyan4",ordenar=T, idioma="PT"){
+kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T,excluirtotal=T,cor="cyan4",ordenar=T, idioma="PT"){
   
 supos=T
   
