@@ -54,7 +54,9 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
 return(result)}
 
-quiqua_aderencia <- function(vetor,nomecat,niveis,ordenar,dig){
+quiqua_aderencia <- function(vetor,nomecat,niveis='auto',ordenar=T,dig=2){
+vetor = unlist(vetor)
+if(niveis=='auto') niveis = names(table(vetor))
 vetor <- factor(vetor,levels=niveis)
 
 a=NULL
