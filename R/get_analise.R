@@ -55,7 +55,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
   result=data.frame() ; resultcont=data.frame()
   temcont=F
   for (i in 1:xdim)
-    {xmat_c = ifelse(is.null(dim(xmat)),xmat,xmat[,i])
+    {xmat_c = ifelse(is.null(dim(xmat)),data.frame(xmat),xmat[,i])
     if(tipox[i]=="numeric" & tipoy=="numeric") {
         temcont=T
         res=escolhateste(xmat_c,y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol,cor,idioma)
