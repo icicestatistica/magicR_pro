@@ -1,4 +1,4 @@
-kruskall <- function(resp,fator,nomeresp,nomefator,niveis,dig,respcol,excluirtotal,cor,ordenar=T, idioma="PT"){
+kruskall <- function(resp,fator,nomeresp,nomefator,niveis,dig=2,respcol=T,excluirtotal=T,cor="cyan4",ordenar=T, idioma="PT"){
   
 supos=T
   
@@ -6,6 +6,7 @@ if(respcol==T) ref=nomefator else ref=nomeresp
   
 resp=unlist(resp)
 fator=unlist(fator)
+if(niveis=="auto") niveis = names(table(fator))
 fator <- factor(fator,levels=niveis)
 
 dad <- data.frame("continua"=resp,"categorica"=fator)
