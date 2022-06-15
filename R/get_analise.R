@@ -70,7 +70,14 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
 return(lista)}
 
 
-get_analise <- function(dados,col,auxiliar,y,tipoy,nomey,niveisy,dig=2,excluirtotal=F,respcol=T,cor='cyan4', idioma="PT"){
+get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy="",dig=2,excluirtotal=F,respcol=T,cor='cyan4', idioma="PT){
+
+  if(is.numeric(y)==T & length(y)==1 {
+    tipoy=auxiliar$tipo[y]
+    nomey=auxiliar$nome[y]
+    niveisy=auxiliar$niveis[y]
+    y=unlist(dados[,y])}
+
   xmat=dados[,col]
   tipox=auxiliar$tipo[col]
   nomex=auxiliar$nomes[col]
