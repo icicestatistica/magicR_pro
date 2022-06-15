@@ -1,4 +1,4 @@
-desc_bi_cat <- function(linha,niveislinha,col,niveiscol,nas,dig,respcol){
+desc_bi_cat <- function(linha,niveislinha=F,col,niveiscol=F,nas=F,dig=2,respcol=T){
 
 d <- data.frame(col,linha)
 names(d) <- c("col","linha")
@@ -23,7 +23,7 @@ if(respcol==T) result = transpordf(result)
 
 return(result)}
 
-desc_bi_cont <- function(cont,cat,niveiscat,respcol,nas,dig){
+desc_bi_cont <- function(cont,cat,niveiscat=F,respcol=T,nas=F,dig=2){
 
 d=data.frame(cont,cat)
 names(d)=c("cont","cat")
