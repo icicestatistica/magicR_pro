@@ -1,7 +1,7 @@
 cat_same_levels <- function(x,nomes='auto',levels='auto',nas=F,dig=2){
   
 if (nomes=='auto') nomes = names(x)
-if (levels=='auto') levels = names(table(x[,1])
+if (levels=='auto') levels = names(table(x[,1]))
 cont=1
 df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(x[,1],"",levels,nas,T,F,F,F,F,F,dig)$result[,4]))
 if(dim(x)[2]>1){
