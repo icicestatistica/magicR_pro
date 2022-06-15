@@ -11,7 +11,7 @@ names(df)=c("Variável",levels)
 return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
             "result"=df))}
 
-cat_same_levels_2 <- function(x,nomes="auto",nomey,levels="auto",dig=2,cor="darkblue",sepvetor=7){
+cat_same_levels_2 <- function(x,nomes="auto",nomey,levels="auto",dig=2,cor="cyan4",sepvetor=7){
 cont=1
 if(nomes=="auto") nomes = names(x)
 if (levels=='auto') levels = c("Sim","Não")
