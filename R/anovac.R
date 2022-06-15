@@ -1,9 +1,11 @@
-anovac <- function(continua,categorica,nomecont,nomecat,niveis,dig,respcol,excluirtotal,cor,idioma="PT"){
+anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,respcol=T,excluirtotal=F,cor="cyan4",idioma="PT"){
+
 if(respcol==T) ref=nomecat else ref=nomecont
 tabela=NULL
   
 continua=unlist(continua)
 categorica=unlist(categorica)
+if(niveis=="auto") niveis = names(table(categorica))
 categorica <- factor(categorica,levels=niveis)
 
 d <- data.frame(continua,categorica)
