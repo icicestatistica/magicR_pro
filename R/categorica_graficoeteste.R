@@ -19,7 +19,9 @@ desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=T,label=T,ordena
   resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
 
-grafico_categorica <- function(var,nome, niveis, cor, ordenar){
+grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
+  var = unlist(var)
+  if (niveis=='auto') niveis = names(table(var))
   var = factor(var, levels=niveis)
   niveisnovo=vetor_comsep_c(niveis,11)
   levels(var)=niveisnovo
