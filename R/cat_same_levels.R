@@ -14,7 +14,7 @@ return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"cor
 cat_same_levels_2 <- function(x,nomes="auto",nomey,levels="auto",dig=2,cor="darkblue",sepvetor=7){
 cont=1
 if(nomes=="auto") nomes = names(x)
-if (levels=='auto') levels = names(table(x[,1]))
+if (levels=='auto') levels = c("Sim","Não")
 prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
 df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],"",levels,F,F,F,F,F,F,F,dig)$result[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
 for (i in 2:dim(x)[2]){
