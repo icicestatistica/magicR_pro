@@ -43,7 +43,7 @@ if(texto==T){
 return(list("result"=d,"texto"=tex,"grafico"=grafico))}
 
 
-graficos_continua <- function(var,nome,bins,cor,digitos){
+graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2){
   d <- data.frame(var=as.numeric(unlist(var)))
   excess <- round((max(d$var, na.rm=T)-min(d$var, na.rm=T))/8,0)
   min <- min(d$var, na.rm=T)-excess; max <- max(d$var, na.rm=T)+excess
