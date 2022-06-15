@@ -1,11 +1,12 @@
-mann <- function(x,y,nomex,nomey,niveis,dig,respcol,excluirtotal,cor){
+mann <- function(x,y,nomex,nomey,niveis='auto',dig=2,respcol=T,excluirtotal=F,cor="cyan4"){
 
  x=unlist(x)
  y=unlist(y)
 if(respcol==T) ref=nomex else ref=nomey  
   
 d=data.frame("x"=x,"y"=y)
-
+if(niveis=='auto') niveis = names(table(d$x))
+ 
 y1=as.numeric(d$y[d$x==niveis[1]])
 y2=as.numeric(d$y[d$x==niveis[2]])
   
