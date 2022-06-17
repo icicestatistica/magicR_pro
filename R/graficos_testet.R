@@ -80,9 +80,9 @@ titulo = ifelse(idioma=="PT",paste0("Associação entre \'",nomex,"\' e \'",nome
 paste0("Association between \'",nomex,"\' and \'",nomey,"\' (n=",dim(na.omit(help))[1],")"))
 nome_eixo_y=ifelse(idioma=="PT","Frequência","Frequency")
 
-plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity") +
+plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity", position = position_stack(reverse=T)) +
 theme_clean() + scale_y_continuous(labels = scales::percent) +
-  geom_text(label=d_completo$lab, position = position_stack(vjust = 0.5)) +
+  geom_text(label=d_completo$lab, position = position_stack(vjust = 0.5, reverse=T)) +
 labs(title=vetor_comsep_c(titulo,40),subtitle=texto,y=nome_eixo_y, x=vetor_comsep(nomex,8), fill="") +
 scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0,(1-1/(length(table(help$y)))),1/(length(table(help$y)))))) +
 theme(plot.title = element_text(hjust = 0.5),
