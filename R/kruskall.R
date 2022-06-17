@@ -59,7 +59,7 @@ if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(t
 a1=a$parameter  ; a2=round(a$statistic,dig) ; a3=ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3))
 textograf <- substitute(paste("Kruskall-Wallis (",chi^2,"(",a1,") =",a2,",p=",a3,")",collapse=""),list(a1=a1,a2=a2,a3=a3))
 if(ordinal==F) grafico = grafico_comp_box(dad$continua,nomeresp,dad$categorica,nomefator,cor=cor,textograf,dig,ordenar, idioma) else
-grafico = grafico_catcat(dad$categorica,nomefator,dad$continua,nomeresp) + coord_flip()
+grafico = grafico_catcat(dad$categorica,nomefator,dad$continua,nomeresp, cor=cor, textograf,idioma) + coord_flip()
   
 return(list("sup"=supos,
             "result"=res,
