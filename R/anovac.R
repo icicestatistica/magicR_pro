@@ -36,7 +36,7 @@ shapresid=shapiro.test(res)
 dassump=c()
 for (i in niveis){
   obs=d$resp[d$fator==i]
-  if(length(obs)<3) dassump=c(dassump,i,"","") else {shap=shapiro.test(obs); dassump=c(dassump,i,shap$statistic,shap$p.value)}}
+  if(length(obs)<3 | min(obs)==max(obs)) dassump=c(dassump,i,"","") else {shap=shapiro.test(obs); dassump=c(dassump,i,shap$statistic,shap$p.value)}}
 dassump <- data.frame(matrix(dassump,ncol=3,byrow=T))
 dassump <- rbind(dassump,c("Resíduos",shapresid$statistic,shapresid$p.value))
 
@@ -56,7 +56,7 @@ printsup <- function(tipo,textotipo){
 textosupres = ifelse(as.numeric(dassump[dim(dassump)[1],3])>0.05, "não foi rejeitada pelo mesmo teste ","foi rejeitada pelo mesmo teste ")
 vali = ifelse(supos," Consideramos, então, o teste válido e bem aplicado, conferindo confiança aos resultados."," Com este cenário, concluímos que a ANOVA não é o melhor teste a ser aplicado. Sugerimos a realização do teste não paramétrico de Kruskall-Wallis.")
 
-textotipo=data.frame(c(", com p-valor maior que 0.05 no teste de shapiro-wilk, cumpre a suposição de normalidade. ",", com p-valor maior que 0.05 no teste de shapiro-wilk, cumprem a suposição de normalidade. "),c(", com p-valor menor que 0.05 no teste de shapiro-wilk, NÃO cumpre a suposição de normalidade. ",", com p-valor menor que 0.05 no teste de shapiro-wilk, NÃO cumprem a suposição de normalidade. "),c(" não apresentou dados suficientes para realização do teste. "," não apresentaram dados suficientes para realização do teste. "))
+textotipo=data.frame(c(", com p-valor maior que 0.05 no teste de shapiro-wilk, cumpre a suposição de normalidade. ",", com p-valor maior que 0.05 no teste de shapiro-wilk, cumprem a suposição de normalidade. "),c(", com p-valor menor que 0.05 no teste de shapiro-wilk, NÃO cumpre a suposição de normalidade. ",", com p-valor menor que 0.05 no teste de shapiro-wilk, NÃO cumprem a suposição de normalidade. "),c(" não apresentou dados suficientes para realização do teste ou não possui variabilidade. "," não apresentaram dados suficientes para realização do teste ou não possuem variabilidade. "))
 
 anasup=paste(" Quanto às suposições dos testes, temos o seguinte cenário: ",printsup(tcumpre,textotipo[,1]),printsup(tnaocumpre,textotipo[,2]),printsup(tnaocalc,textotipo[,3])," ",paste("(",paste(supg[-length(supg)],collapse="; "),")",sep=""),". Verificamos também a normalidade dos resíduos do ajuste, que ",textosupres,paste("(",paste(supg[length(supg)],collapse="; "),").",sep=""),vali,sep="")
 
