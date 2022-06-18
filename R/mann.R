@@ -39,7 +39,8 @@ round(quantile(y2,0.25,na.rm=T),dig),",",round(quantile(y2,0.75,na.rm=T),dig),"]
 p=paste0(pvalor(a$p.value),"d (r=",round(r,dig),")")
 tot=dim(na.omit(d))[1]
  
-if(ordinal==F) res=desc_bi_cont(d$y,d$x,F,respcol,F,dig) else res=desc_bi_cat(d$x, col=d$y, nas = F, dig=dig, respcol = respcol)
+if(ordinal==F) res=desc_bi_cont(d$y,d$x,F,respcol,F,dig) else 
+   {if(respcol==F) desc_bi_cat(linha=d$y,col=d$x,respcol=F) else desc_bi_cat(linha=d$x,col=d$y,respcol=T)}
 if(excluirtotal==T) res=res[-1,]
 textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")
   
