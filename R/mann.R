@@ -47,7 +47,7 @@ textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p",ifelse(a
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
  if (ordinal == F) grafico = grafico_comp_box(d$y,nomey,d$x,nomex,cor=cor,textograf,dig, idioma=idioma) else 
-  grafico = grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf,dig, idioma=idioma) + coord_flip()
+  grafico = grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf, idioma=idioma) + coord_flip()
 
 return(list("result"=res,
             "texto"=list("tex"=paste(texto,collapse="")),
