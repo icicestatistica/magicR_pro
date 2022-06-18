@@ -2,10 +2,11 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
   result<-data.frame() ; tex="" ; grafico=NULL
   t=0 ; mw=0; kw=0; aov1=0;cc=0 ; correl=0
   if(tipox=="numeric" | tipox=="ordinal") {
+    transform_ord = ifelse(tipox=="ordinal",T,F)
     if(tipoy=="factor") {
       if(length(niveisy)==2) 
            {res = testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
-           if(res$sup==F) {res=mann(y,as.numeric(unlist(x)),nomey,nomex,niveisy,dig,F,excluirtotal,cor) ; mw=1} else {t=1}
+           if(res$sup==F | tipox=="ordinal") {res=mann(y,as.numeric(unlist(x)),nomey,nomex,niveisy,dig,F,excluirtotal,cor,transform_ord) ; mw=1} else {t=1}
            result=res$resul
            tex=res$texto
            grafico=res$grafico} else
@@ -23,9 +24,10 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
   } else {
   if(tipox=="factor") {
     if(tipoy=="numeric" | tipoy=="ordinal") {
+      transform_ord = ifelse(tipox=="ordinal",T,F)
       if(length(niveisx)==2)
         {res = testet(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor)
-        if(res$sup==F) {res=mann(x,as.numeric(unlist(y)),nomex,nomey,niveisx,dig,T,excluirtotal,cor) ; mw=1} else {t=1}
+        if(res$sup==F | tipoy=="ordinal") {res=mann(x,as.numeric(unlist(y)),nomex,nomey,niveisx,dig,T,excluirtotal,cor,transform_ord) ; mw=1} else {t=1}
                         result=res$resul
                         tex=res$texto
                         grafico=res$grafico} else
