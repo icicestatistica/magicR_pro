@@ -37,16 +37,14 @@ round(quantile(y2,0.25,na.rm=T),dig),",",round(quantile(y2,0.75,na.rm=T),dig),"]
   texto= c(" * **",ref,":** Não encontramos evidência estatística através do teste de Mann Whitney para rejeitar diferenças entre as distribuições de ",nomey," dos grupos (W=",as.numeric(c(a$statistic)),", p=",pvalor(a$p.value),").",sup,"\n")
 
 p=paste0(pvalor(a$p.value),"d (r=",round(r,dig),")")
-
-res=desc_bi_cont(d$y,d$x,F,respcol,F,dig)
 tot=dim(na.omit(d))[1]
-  
+ 
+res=desc_bi_cont(d$y,d$x,F,respcol,F,dig)
 if(excluirtotal==T) res=res[-1,]
+textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
-textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p=",ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3)),")",collapse="")
-grafico=grafico_comp_box(d$y,nomey,d$x,nomex,cor=cor,textograf,dig)
  if (ordinal == F) grafico = grafico_comp_box(d$y,nomey,d$x,nomex,cor=cor,textograf,dig) else 
   grafico = grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf,dig) + coord_flip()
 
