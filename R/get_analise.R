@@ -11,7 +11,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
            tex=res$texto
            grafico=res$grafico} else
                         {res = anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,idioma)
-                        if(res$sup==F) {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma);kw=1} else {aov1=1}
+                        if(res$sup==F | tipox=="ordinal") {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord);kw=1} else {aov1=1}
                         result=res$result
                         tex=res$texto
                         grafico=res$grafico}
@@ -32,7 +32,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
                         tex=res$texto
                         grafico=res$grafico} else
                                           {res = anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,idioma)
-                                           if(res$sup==F) {res=kruskall(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma);kw=1} else {aov1=1}
+                                           if(res$sup==F | tipoy=="ordinal") {res=kruskall(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma,transform_ord);kw=1} else {aov1=1}
                                            result=res$result
                                            tex=res$texto
                                            grafico=res$grafico}} else
