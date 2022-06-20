@@ -46,10 +46,12 @@ texto <- c(texto,print,"\n")
 
 tabela=data.frame("Comparações"=dunn$comparisons,"Estatística"=round(dunn$Z,dig),"p-valor"=pvetor(dunn$P),"p-valor ajustado"=pvetor(dunn$P.adjusted))
 }
-
-res=desc_bi_cont(dad$continua,dad$categorica,F,respcol,F,dig)
-tot=dim(na.omit(dad))[1]
   
+if(ordinal==F) res=desc_bi_cont(dad$continua,dad$categorica,F,respcol,F,dig) else 
+   {if(respcol==F) res=desc_bi_cat(linha=dad$continua,col=dad$categorica,respcol=F) else res=desc_bi_cat(linha=d$x,col=dad$categorica,respcol=T)}
+
+
+tot=dim(na.omit(dad))[1]
 if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
