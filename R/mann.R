@@ -10,7 +10,7 @@ if(niveis=='auto') niveis = names(table(d$x))
 y1=as.numeric(d$y[d$x==niveis[1]])
 y2=as.numeric(d$y[d$x==niveis[2]])
   
-a=wilcox.test(y ~ x ,data=d, paired=F)
+a=wilcox.test(as.numeric(d$y) ~ d$x , paired=F)
  
 if(length(na.omit(y1))>3 & length(na.omit(y1))<5000) str1=shapiro.test(y1) else str1="Não"
 if(length(na.omit(y2))>3 & length(na.omit(y2))<5000) str2=shapiro.test(y2) else str2="Não"
