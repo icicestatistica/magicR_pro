@@ -48,7 +48,7 @@ tabela=data.frame("Comparações"=dunn$comparisons,"Estatística"=round(dunn$Z,d
 }
   
 if(ordinal==F) res=desc_bi_cont(dad$continua,dad$categorica,F,respcol,F,dig) else 
-   {if(respcol==F) res=desc_bi_cat(linha=dad$continua,col=dad$categorica,respcol=F) else res=desc_bi_cat(linha=d$x,col=dad$categorica,respcol=T)}
+   {if(respcol==F) res=desc_bi_cat(linha=dad$continua,col=dad$categorica,respcol=F) else res=desc_bi_cat(linha=dad$categorica,col=dad$continua,respcol=T)}
 
 
 tot=dim(na.omit(dad))[1]
