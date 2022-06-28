@@ -36,7 +36,7 @@ shapresid=shapiro.test(res)
 dassump=c()
 for (i in niveis){
   obs=d$resp[d$fator==i]
-  if(length(obs)<3 | min(obs)==max(obs)) dassump=c(dassump,i,"","") else {shap=shapiro.test(obs); dassump=c(dassump,i,shap$statistic,shap$p.value)}}
+  if(length(obs)<3 | min(obs, na.rm=T)==max(obs, na.rm=T)) dassump=c(dassump,i,"","") else {shap=shapiro.test(obs); dassump=c(dassump,i,shap$statistic,shap$p.value)}}
 dassump <- data.frame(matrix(dassump,ncol=3,byrow=T))
 dassump <- rbind(dassump,c("Resíduos",shapresid$statistic,shapresid$p.value))
 
