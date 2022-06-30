@@ -1,4 +1,4 @@
-mann <- function(x,y,nomex,nomey,niveis='auto',dig=2,respcol=T,excluirtotal=F,cor="cyan4", idioma="PT",ordinal=F){
+mann <- function(x,y,nomex,nomey,niveis='auto',dig=2,respcol=T,excluirtotal=F,cor="cyan4", idioma="PT",ordinal=F, niveis_ord='auto'){
 
  x=unlist(x)
  y=unlist(y)
@@ -6,11 +6,12 @@ if(respcol==T) ref=nomex else ref=nomey
   
 d=data.frame("x"=x,"y"=y)
 if(niveis=='auto') niveis = names(table(d$x))
+if(niveis_ord=='auto') niveis_ord = names(table(d$y))
  
 y1=as.numeric(d$y[d$x==niveis[1]])
 y2=as.numeric(d$y[d$x==niveis[2]])
   
-if(ordinal==F) a=wilcox.test(as.numeric(d$y) ~ d$x , paired=F) else a=wilcox.test(as.numeric(factor(d$y, levels=niveis)) ~ d$x , paired=F)
+if(ordinal==F) a=wilcox.test(as.numeric(d$y) ~ d$x , paired=F) else a=wilcox.test(as.numeric(factor(d$y, levels=niveis_ord)) ~ d$x , paired=F)
  
 if(length(na.omit(y1))>3 & length(na.omit(y1))<5000) str1=shapiro.test(y1) else str1="Não"
 if(length(na.omit(y2))>3 & length(na.omit(y2))<5000) str2=shapiro.test(y2) else str2="Não"
