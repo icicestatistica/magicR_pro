@@ -6,7 +6,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
     if(tipoy=="factor") {
       if(length(niveisy)==2) 
            {res = testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
-           if(res$sup==F | tipox=="ordinal") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveisy) ; mw=1} else {t=1}
+           if(res$sup==F | tipox=="ordinal") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveisx) ; mw=1} else {t=1}
            result=res$resul
            tex=res$texto
            grafico=res$grafico} else
