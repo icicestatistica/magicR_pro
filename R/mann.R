@@ -6,7 +6,7 @@ if(respcol==T) ref=nomex else ref=nomey
   
 d=data.frame("x"=x,"y"=y)
 if(niveis=='auto') niveis = names(table(d$x))
-if(ordinal==T) niveis_ord = names(table(d$y))
+if(ordinal==T & niveis_ord=='auto') niveis_ord = names(table(d$y))
  
 y1=as.numeric(d$y[d$x==niveis[1]])
 y2=as.numeric(d$y[d$x==niveis[2]])
