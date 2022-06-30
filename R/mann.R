@@ -15,7 +15,7 @@ if(ordinal==T) a=wilcox.test(as.numeric(d$y) ~ d$x , paired=F) else a=wilcox.tes
 if(length(na.omit(y1))>3 & length(na.omit(y1))<5000) str1=shapiro.test(y1) else str1="Não"
 if(length(na.omit(y2))>3 & length(na.omit(y2))<5000) str2=shapiro.test(y2) else str2="Não"
 
-if (ordinal==T) r=rcompanion::wilcoxonR(as.numeric(d$y), g = d$x, ci = F) else r=rcompanion::wilcoxonR(as.numeric(factor(d$y, levels=niveis)), g = d$x, ci = F)
+if (ordinal==F) r=rcompanion::wilcoxonR(as.numeric(d$y), g = d$x, ci = F) else r=rcompanion::wilcoxonR(as.numeric(factor(d$y, levels=niveis)), g = d$x, ci = F)
 
 if(r<0) dif="menor que" else dif="maior que"
 
