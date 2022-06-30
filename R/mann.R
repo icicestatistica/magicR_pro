@@ -10,12 +10,12 @@ if(niveis=='auto') niveis = names(table(d$x))
 y1=as.numeric(d$y[d$x==niveis[1]])
 y2=as.numeric(d$y[d$x==niveis[2]])
   
-a=wilcox.test(as.numeric(d$y) ~ d$x , paired=F)
+if(ordinal==T) a=wilcox.test(as.numeric(d$y) ~ d$x , paired=F) else a=wilcox.test(as.numeric(factor(d$y, levels=niveis)) ~ d$x , paired=F)
  
 if(length(na.omit(y1))>3 & length(na.omit(y1))<5000) str1=shapiro.test(y1) else str1="Não"
 if(length(na.omit(y2))>3 & length(na.omit(y2))<5000) str2=shapiro.test(y2) else str2="Não"
 
-r=rcompanion::wilcoxonR(as.numeric(d$y), g = d$x, ci = F)
+if (ordinal==T) r=rcompanion::wilcoxonR(as.numeric(d$y), g = d$x, ci = F) else r=rcompanion::wilcoxonR(as.numeric(factor(d$y, levels=niveis)), g = d$x, ci = F)
 
 if(r<0) dif="menor que" else dif="maior que"
 
@@ -31,7 +31,8 @@ if(str1$p.value>=0.05 & str2$p.value<0.05) sup=paste0(" Através do teste de Sha
 if(str1$p.value<0.05 & str2$p.value>=0.05) sup=paste0(" Através do teste de Shapiro-Wilk, com p-valor menor que 0.05 rejeitamos a normalidade da distribuição de ",niveis[1]," - W=",round(str1$statistic,dig),", p-valor=",pvalor(str1$p.value),", mas não de ",niveis[2]," - W=",round(str2$statistic,dig),", p-valor=",pvalor(str2$p.value),", o que justifica a realização do teste Mann-Whitney ao invés do tradicional teste-t.")
 if(str1$p.value<0.05 & str2$p.value<0.05) sup=paste0(" Através do teste de Shapiro-Wilk, com p-valor menor que 0.05 rejeitamos a normalidade da distribuição dos dois grupos (",niveis[1]," - W=",round(str1$statistic,dig),", p-valor=",pvalor(str1$p.value),",  ",niveis[2]," - W=",round(str2$statistic,dig),", p-valor=",pvalor(str2$p.value),"), o que justifica a realização do teste Mann-Whitney ao invés do tradicional teste-t.")}}
 
-if(a$p.value < 0.05) {texto=c(" * **",ref,":** Realizando o teste de Mann Whitney (W=",as.numeric(c(a$statistic)),", p=",pvalor(a$p.value),"), rejeitamos a hipótese de igualdade de distribuições de ",nomey," entre os grupos. ",
+if(a$p.value < 0.05) {texto=c(" * **",ref,":** Realizando o teste de Mann Whitney (W=",as.numeric(c(a$statistic)),", p=",pvalor(a$p.value),"), rejeitamos a hipótese de igualdade de distribuições de ",nomey," entre os grupos. ")
+if(ordinal==F) texto = c(texto,
 "O grupo ",niveis[1]," (mediana=",round(median(y1, na.rm=T),dig)," e intervalo interquartil = [",
 round(quantile(y1,0.25,na.rm=T),dig),",",round(quantile(y1,0.75,na.rm=T),dig),"]) é ",dif," o grupo ",niveis[2]," (mediana=",round(median(y2, na.rm=T),dig)," e intervalo interquartil = [",
 round(quantile(y2,0.25,na.rm=T),dig),",",round(quantile(y2,0.75,na.rm=T),dig),"]).",mag,sup,"\n")} else
