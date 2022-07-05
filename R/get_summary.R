@@ -23,7 +23,7 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,bins,dig)
   cont=0
   xdim <- dim(x)[2]
   cont=cont+1
-  resulta <- escolha_summary_para_juntar(x[,1],nomesx[1],tipox[1],niveisx[1],nas,teste,grafico,cor,bins,dig)
+  resulta <- escolha_summary_para_juntar(data.frame(x[,1]),nomesx[1],tipox[1],niveisx[1],nas,teste,grafico,cor,bins,dig)
   result=resulta$result
   complem=list("grafico"=resulta$grafico,"\n","texto"=resulta$texto,"tabela"=resulta$tabela,"\n")
   if (xdim>1){
