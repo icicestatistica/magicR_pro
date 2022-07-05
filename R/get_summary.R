@@ -38,7 +38,7 @@ return(list("testes"=c("desc"=cont,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"cor
             "complem"=complem))}
 
 get_summary <- function(dados,gr,auxiliar,nas=T,teste=F,grafico=T,cor="cyan4",bins=20,dig=2){
-x <- dados[,gr]
+x <- data.frame(dados[,gr])
 nomesx <- auxiliar[gr,2]
 tipox <- auxiliar[gr,3]
 niveisx <- auxiliar[gr,4]
