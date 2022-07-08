@@ -1,15 +1,35 @@
-cat_same_levels <- function(x,nomes='auto',levels='auto',nas=F,dig=2){
+cat_same_levels <- function(dad,nomes='auto',niveis='auto',nas=F,dig=2,cor="cyan4",invertercores=F){
   
-if (nomes=='auto') nomes = names(x)
-if (levels=='auto') levels = names(table(x[,1]))
+if(nomes[1]=='auto') nomes=names(dad)
+if(niveis=="auto") niveis=names(table(matrix(unlist(dad))))
 cont=1
-df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(x[,1],"",levels,nas,T,F,F,F,F,F,dig)$result[,4]))
-if(dim(x)[2]>1){
-  for (i in 2:dim(x)[2]) {cont=cont+1 ; df = rbind(df, data.frame("Variável"=nomes[i],t(desc_uni_categorica(x[,i],"",levels,nas,T,F,F,F,F,F,dig)$result[,4])))}}
-if(nas==T) levels=c(levels,"N/A")
-names(df)=c("Variável",levels)
+df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(dad[,1],"",niveis,nas,T,F,F,F,F,F,dig)$result[,4]))
+if(dim(dad)[2]>1){
+  for (i in 2:dim(dad)[2]) {cont=cont+1 ; df = rbind(df, data.frame("Variável"=nomes[i],t(desc_uni_categorica(dad[,i],"",niveis,nas,T,F,F,F,F,F,dig)$result[,4])))}}
+if(nas==T) niveis=c(niveis,"N/A")
+names(df)=c("Variável",niveis)
+  
+for (i in 1:dim(dad)[2]) dad[,i] = factor(unlist(dad[,i]), levels=niveis)
+
+cores=ifelse(invertercores==T,"lighten(cor, seq(0, (1 - 1/(length(table(newmat$Resultado)))), 
+            1/(length(table(newmat$Resultado)))))","rev(lighten(cor, seq(0, (1 - 1/(length(table(newmat$Resultado)))), 1/(length(table(newmat$Resultado))))))")
+
+mat=data.frame("Coluna"=rep(names(dad),each=dim(dad)[1]),"Resultado"=matrix(unlist(dad)))
+mat$Coluna = factor(mat$Coluna, levels=names(dad))
+levels(mat$Coluna)= paste0(nomes," (n=",table(na.omit(mat)$Coluna),")")
+
+ordem = mat %>% group_by(Coluna) %>% dplyr::summarise(mean=mean(as.numeric(Resultado), na.rm=T))
+oc=as.character(ordem$Coluna[order(ordem$mean)])
+
+newmat = data.frame(table(mat),"n"=data.frame(table(na.omit(mat)$Coluna))[,2])
+newmat$label = paste(newmat$Freq," (",round(100*newmat$Freq/newmat$n,dig),"%)",sep="",collapse=NULL)
+newmat$Coluna = factor(newmat$Coluna, levels=oc)
+
+plot=ggplot(newmat, aes(y=Coluna, x=Freq/n, fill=Resultado)) + geom_bar(stat="identity", position = position_stack(reverse = T)) + labs(title = "Frequência e Frequência Relativa por resultado", y=NULL,x=NULL) + theme_minimal() + theme(plot.title=element_text(hjust=0.5)) + scale_x_continuous(labels = scales::percent) +
+  geom_text(label=ifelse(newmat$label=="0 (0%)","",newmat$label), position = position_stack(reverse = T, vjust=0.5), check_overlap = T, hjust=0.5) + scale_fill_manual(values  = eval(parse(text=cores)))
+
 return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
-            "result"=df))}
+            "result"=df,"grafico"=plot))}
 
 cat_same_levels_2 <- function(x,nomes="auto",nomey,levels="auto",dig=2,cor="cyan4",sepvetor=7){
 cont=1
