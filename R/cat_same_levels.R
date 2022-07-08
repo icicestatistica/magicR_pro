@@ -29,7 +29,7 @@ plot=ggplot(newmat, aes(y=Coluna, x=Freq/n, fill=Resultado)) + geom_bar(stat="id
   geom_text(label=ifelse(newmat$label=="0 (0%)","",newmat$label), position = position_stack(reverse = T, vjust=0.5), check_overlap = T, hjust=0.5) + scale_fill_manual(values  = eval(parse(text=cores)))
 
 return(list("testes"=c("desc"=0,"catsame"=cont,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
-            "result"=df,"grafico"=plot))}
+            "t1"="A análise detalhada das variáveis está na tabela a seguir: \n","result"=df,"t2"="\n Podemos visualizar esses resultados no seguinte gráfico: \n","grafico"=plot))}
 
 cat_same_levels_2 <- function(x,nomes="auto",nomey,levels="auto",dig=2,cor="cyan4",sepvetor=7){
 cont=1
