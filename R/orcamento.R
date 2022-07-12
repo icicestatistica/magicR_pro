@@ -45,10 +45,12 @@ if(total<30) col=2 else
 
 p1=sum(preçotestes[,col]*unlist(totaltab))
 preço=unlist(aumentoprazo[which(aumentoprazo$Prazo==prazorelat),2])*p1
+preço = preço + 0.5*297
 preço=preço/(1-0.17)
-parcela2=round(preço/2,2)
-parcela1=preço-parcela2
 precocheio = preço/0.95
+parcela2=round(precocheio/2,2)
+parcela1=precocheio-parcela2
+
   
 invest1 = paste("O investimento para consultoria é de: \n
  * **R$ ",format_real(precocheio),"**, pago em 2x, sendo R$ ",format_real(parcela1)," no dia ", dataprop," e R$ ", format_real(parcela2)," no dia ",dataparcela2,"; \n
@@ -79,7 +81,7 @@ A consultoria proposta inclui:
 * Definição dos métodos de análise
 * Aplicação da metodologia apropriada
 * Relatório de análise estatística com análises, tabelas, interpretação dos resultados, detalhes da metodologia e bibliografia utilizadas;
-* Construção de gráficos sob demanda por 6 meses a partir da entrega deste relatório;
+* Construção de gráficos sob demanda por 6 meses a partir da entrega do relatório;
 * Uma reunião de 30 minutos para esclarecimento de dúvidas metodológicas.
 
 ## INVESTIMENTO
