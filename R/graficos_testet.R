@@ -7,13 +7,13 @@ plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geo
   plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
-grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste="",dig=2, ordenar=T, idioma="PT", plotn=T) 
+grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste="",dig=2, ordenar=T, idioma="PT", printn=T) 
 {
 niveis = names(table(cat))
     dadosd = data.frame(cont = cont, cat = cat)
     n = table(dadosd$cat)
     dadosd$cat <- factor(dadosd$cat)
-    if(plotn==T) levels(dadosd$cat) = paste(niveis, "\n n=", n, sep = "") else levels(dadosd$cat)=niveis
+    if(printn==T) {levels(dadosd$cat) = paste(niveis, "\n n=", n, sep = "") else levels(dadosd$cat)=niveis}
     df.summary <-  
         na.omit(dadosd) %>% group_by(factor(cat)) %>% dplyr::summarise(sd = sd(cont, 
             na.rm = TRUE), mean = mean(cont))
