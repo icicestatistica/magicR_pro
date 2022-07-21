@@ -43,12 +43,13 @@ if(texto==T){
 return(list("result"=d,"texto"=tex,"grafico"=grafico))}
 
 
-graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2){
+graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT"){
   d <- data.frame(var=as.numeric(unlist(var)))
   excess <- round((max(d$var, na.rm=T)-min(d$var, na.rm=T))/8,0)
   min <- min(d$var, na.rm=T)-excess; max <- max(d$var, na.rm=T)+excess
   dp <- sd(d$var,na.rm=T)
   media=mean(d$var,na.rm=T)
+  if(idioma=="PT") medianomegraf="Média=" else medianomegraf="Mean="
   box <- ggplot(d) + geom_boxplot(aes(x=var),fill=lighten(cor,0.2)) + theme_clean() + ggtitle(paste0(nome," (n=",length(d$var[!is.na(d$var)]),")")) + xlab("") + ylab("")+
     theme(
       axis.text.y = element_blank(),
@@ -83,6 +84,6 @@ graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2){
       panel.grid.major.x=element_line(colour="gray"),
       panel.grid.minor.x=element_line(colour="lightgray"),
       panel.grid.major.y=element_blank()) +
-      geom_label(x=summary(var)[4], y=0, label=paste0("Média=",round(summary(var)[4],digitos)),color="black")
+      geom_label(x=summary(var)[4], y=0, label=paste0(medianomegraf,round(summary(var)[4],digitos)),color="black")
   
   return(box / histo)}
