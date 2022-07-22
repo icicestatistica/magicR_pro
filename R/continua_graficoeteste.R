@@ -1,4 +1,4 @@
-desc_uni_continua <- function(vari,nome,bins=20,texto=T,grafico=T,cor='cyan4',digitos=2){
+desc_uni_continua <- function(vari,nome,bins=20,texto=T,grafico=T,cor='cyan4',digitos=2, idioma="PT"){
   nf=""
   vari=unlist(vari)
   if(length(summary(vari))==6) {N=length(vari); na=0} else {N=length(vari);na=summary(vari)[7]}
@@ -37,7 +37,7 @@ if(texto==T){
                 nf)
       tex=paste(tex,collapse="")} else tex=NULL
   
-  if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos) else grafico=NULL
+  if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos,idioma) else grafico=NULL
 
   
 return(list("result"=d,"texto"=tex,"grafico"=grafico))}
