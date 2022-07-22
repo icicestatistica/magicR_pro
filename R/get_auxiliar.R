@@ -12,8 +12,8 @@ get_auxiliar <- function(dados){
       niv <- c("c(")
       nomes=names(table(dados[,i]))
       n=length(nomes)
-      if (n>1) for (j in 1:(n-1)) {niv <- c(niv,paste("'",nomes[j],"',",sep=""))}
-      niveis[i] <- paste(c(niv,"'",nomes[n],"')"),collapse="",sep="")}}
+      if (n>1) for (j in 1:(n-1)) {niv <- c(niv,paste('"',nomes[j],'",',sep=""))}
+      niveis[i] <- paste(c(niv,'"',nomes[n],'")'),collapse="",sep="")}}
 
   auxiliar <- data.frame(auxiliar,niveis,"n"=n_porcol)
   row.names(auxiliar) <- 1:length(auxiliar$linha)
