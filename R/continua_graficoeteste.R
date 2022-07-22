@@ -50,7 +50,7 @@ graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT
   dp <- sd(d$var,na.rm=T)
   media=mean(d$var,na.rm=T)
   if(idioma=="PT") medianomegraf="Média=" else medianomegraf="Mean="
-  box <- ggplot(d) + geom_boxplot(aes(x=var),fill=lighten(cor,0.2)) + theme_clean() + ggtitle(paste0(nome," (n=",length(d$var[!is.na(d$var)]),")")) + xlab("") + ylab("")+
+  box <- ggplot(d) + geom_boxplot(aes(x=var),fill=lighten(cor,0.2)) + theme_clean() + ggtitle(vetor_comsep_c(paste0(nome," (n=",length(d$var[!is.na(d$var)]),")"),40)) + xlab("") + ylab("")+
     theme(
       axis.text.y = element_blank(),
       axis.ticks.y = element_blank(),
