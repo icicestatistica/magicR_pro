@@ -31,7 +31,7 @@ niveis = names(table(cat))
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
             sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
-            dig))) + ylab(nomecont) + xlab(nomecat) + theme(plot.background = element_rect(colour = NA, 
+            dig))) + ylab(nomecont) + xlab(nomecat) + ylim(0,max(dadosd$cont)) + theme(plot.background = element_rect(colour = NA, 
         fill = "transparent"), panel.background = element_rect(fill = "transparent", 
         color = NA), plot.title = element_text(hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5))
@@ -56,7 +56,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
     geom_boxplot(fill=cor) +
     ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
-    ggtitle(vetor_comsep_c(titulo,40),subtitle = teste) +
+    ggtitle(vetor_comsep_c(titulo,40),subtitle = teste) + ylim(0,max(dadosd$cont)) +
     theme(plot.background = element_rect(colour=NA, fill = "transparent"),
   panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))} else
    {plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
@@ -64,7 +64,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
     geom_dotplot(binaxis='y', stackdir='center', alpha=0.5) +
     ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
     #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
-    ggtitle(vetor_comsep_c(titulo,40),subtitle = teste) +
+    ggtitle(vetor_comsep_c(titulo,40),subtitle = teste) + ylim(0,max(dadosd$cont)) +
     theme(plot.background = element_rect(colour=NA, fill = "transparent"),
   panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))}
 return(plot)}
