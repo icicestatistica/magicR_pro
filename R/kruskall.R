@@ -1,4 +1,4 @@
-kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T,excluirtotal=T,cor="cyan4",ordenar=F, idioma="PT", ordinal=F){
+kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T,excluirtotal=T,cor="cyan4",ordenar=F, idioma="PT", ordinal=F,labels=T){
   
 supos=T
   
@@ -63,7 +63,7 @@ if(is.null(tabela)==TRUE) texto=paste(texto,collapse="") else texto=list(paste(t
 a1=a$parameter  ; a2=round(a$statistic,dig) ; a3=ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3))
 textograf <- substitute(paste("Kruskall-Wallis (",chi^2,"(",a1,") =",a2,",p=",a3,")",collapse=""),list(a1=a1,a2=a2,a3=a3))
 if(ordinal==F) grafico = grafico_comp_box(dad$continua,nomeresp,dad$categorica,nomefator,cor=cor,textograf,dig,ordenar, idioma) else
-grafico = grafico_catcat(dad2$categorica,nomefator,dad2$continua,nomeresp, cor=cor, textograf,idioma) + coord_flip()
+grafico = grafico_catcat(dad2$categorica,nomefator,dad2$continua,nomeresp, cor=cor, textograf,idioma,labels=labels) + coord_flip()
   
 return(list("sup"=supos,
             "result"=res,
