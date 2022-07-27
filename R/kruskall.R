@@ -20,7 +20,7 @@ else {
 
 texto=c("* **",ref,"**: O teste de Kruskall-Wallis mostrou que há diferença entre os grupos (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). O post-hoc de Dunn mostrou que")
 
-dunn <- dunn.test(dad$continua, dad$categorica,method = "bonferroni",kw=F,table=F,list=F)
+dunn <- dunn.test(as.numeric(dad$continua), dad$categorica,method = "bonferroni",kw=F,table=F,list=F)
 b <- data.frame(dunn$comparisons,dunn$P.adjusted)
 
 ordem <- dad %>% group_by(categorica) %>% 
