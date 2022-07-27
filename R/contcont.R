@@ -1,4 +1,4 @@
-contcont <- function(y,x,nomey,nomex,dig=2,cor="cyan4"){
+contcont <- function(y,x,nomey,nomex,dig=2,cor="cyan4",idioma="PT){
   
     method="spearman"
     
@@ -56,11 +56,12 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=c(" A suposição de normalidade d
     round(a$estimate,dig),", p-valor=",pvalor(a$p.value),"), indicando uma relação ",direcao," ",mag,coefdet,ictexto,sup,"\n"); significativo=T} else {texto=c("* **",nomex,"**: Não encontramos evidências através do teste de correlação de ",method, " para rejeitar a hipótese de nulidade de correlação (",greg,"=",round(a$estimate,dig),", p-valor=",pvalor(a$p.value),"). De fato, ",mag,coefdet,ictexto,sup," \n"); significativo=F}
     
    rhoprint=round(rho,dig) ; pvalorprint= ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3)) ; methodprint=method
-textograf=substitute(paste("Correlação de ",methodprint," (",rho,"=",rhoprint,", p-valor=",pvalorprint,")"), list(rhoprint=rhoprint,pvalorprint=pvalorprint,methodprint=method))
+if(idioma=="PT") textograf=substitute(paste("Correlação de ",methodprint," (",rho,"=",rhoprint,", p-valor=",pvalorprint,")"), list(rhoprint=rhoprint,pvalorprint=pvalorprint,methodprint=method))
+else textograf=substitute(paste(methodprint,"correlation (",rho,"=",rhoprint,", p=",pvalorprint,")"), list(rhoprint=rhoprint,pvalorprint=pvalorprint,methodprint=method))
     
     result <- data.frame("Variável"=nomex,"p-valor"=p,"rho"=rho,"rho2"=rho2,"IC"=IC)
     names(result)=c("Variável","p-valor","Estatística","Variância compartilhada","IC (95%)")
   
-    grafico = grafico_correl(y,nomey,cor,x,nomex,textograf)
+    grafico = grafico_correl(y,nomey,cor,x,nomex,textograf,idioma)
     return(list("result"=result,"texto"=paste0(texto,sep="",collapse=""),"grafico"=grafico))
 }
