@@ -71,38 +71,44 @@ return(plot)}
 
 
 grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto="", idioma="PT", labels=T){
-help=data.frame(x,y)
-names(help) = c("x","y")
+help = data.frame(x, y)
+names(help) = c("x", "y")
 tabela <- table(help$x, help$y)
-d_completo <- data.frame(tabela,prop.table(tabela,1))
-d_completo$lab = paste0(d_completo$Freq," (",round(100*d_completo$Freq.1,1),"%)")
+d_completo <- data.frame(tabela, prop.table(tabela, 1))
+d_completo$lab = paste0(d_completo$Freq, " (", round(100 * 
+        d_completo$Freq.1, 1), "%)")
 d_completo$Var1 <- factor(d_completo$Var1)
-levels(d_completo$Var1) = paste0(levels(d_completo$Var1),"\n n=",table(help$x))
-  
-titulo = ifelse(idioma=="PT",paste0("Associação entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(help))[1],")"),
-paste0("Association between \'",nomex,"\' and \'",nomey,"\' (n=",dim(na.omit(help))[1],")"))
-nome_eixo_y=ifelse(idioma=="PT","Frequência","Frequency")
-
-if(labels==T) plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity", position = position_stack(reverse=T)) +
-theme_clean() + scale_y_continuous(labels = scales::percent) +
-  geom_text(label=ifelse(d_completo$lab=="0 (0%)","",d_completo$lab), position = position_stack(vjust = 0.5, reverse=T)) +
-labs(title=vetor_comsep_c(titulo,40),subtitle=texto,y=nome_eixo_y, x=vetor_comsep(nomex,8), fill="") +
-scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0,(1-1/(length(table(help$y)))),1/(length(table(help$y)))))) +
-theme(plot.title = element_text(hjust = 0.5),
-  plot.subtitle = element_text(hjust = 0.5),
-  legend.background = element_rect(color = NA, fill = "transparent"),
-  plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent", color=NA)) 
-  else
-  plot=ggplot(d_completo,aes(x=Var1, y=Freq.1, fill=Var2)) + geom_bar(stat="identity", position = position_stack(reverse=T)) +
-theme_clean() + scale_y_continuous(labels = scales::percent) +
-labs(title=vetor_comsep_c(titulo,40),subtitle=texto,y=nome_eixo_y, x=vetor_comsep(nomex,8), fill="") +
-scale_fill_manual(labels = vetor_comsep(names(table(y)),3),values=lighten(cor,seq(0,(1-1/(length(table(help$y)))),1/(length(table(help$y)))))) +
-theme(plot.title = element_text(hjust = 0.5),
-  plot.subtitle = element_text(hjust = 0.5),
-  legend.background = element_rect(color = NA, fill = "transparent"),
-  plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent", color=NA))
+levels(d_completo$Var1) = paste0(levels(d_completo$Var1), "\n n=", table(help$x))
+titulo = ifelse(idioma == "PT", paste0("Associação entre '",nomex, "' e '", nomey, "' (n=", dim(na.omit(help))[1], 
+ ")"), paste0("Association between '", nomex, "' and '", nomey, "' (n=", dim(na.omit(help))[1], ")"))
+  nome_eixo_y = ifelse(idioma == "PT", "Frequência", "Frequency")
+ if(length(cor)==1) palette = colorRampPalette(colors=c(darken(cor,0.5),cor,"white")) else palette = colorRampPalette(colors=cor)
+ if (labels == T){
+     plot = ggplot(d_completo, aes(x = Var1, y = Freq.1, fill = Var2)) + 
+            geom_bar(stat = "identity", position = position_stack(reverse = T)) + 
+            theme_clean() + scale_y_continuous(labels = scales::percent) + 
+            geom_text(label = ifelse(d_completo$lab == "0 (0%)", 
+                "", d_completo$lab), position = position_stack(vjust = 0.5, 
+                reverse = T)) + labs(title = vetor_comsep_c(titulo, 
+            40), subtitle = texto, y = nome_eixo_y, x = vetor_comsep(nomex, 
+            8), fill = "") + scale_fill_manual(labels = vetor_comsep(names(table(y)), 
+            3), values = palette(length(table(y)))) + theme(plot.title = element_text(hjust = 0.5), 
+            plot.subtitle = element_text(hjust = 0.5), legend.background = element_rect(color = NA, 
+                fill = "transparent"), plot.background = element_rect(colour = NA, 
+                fill = "transparent"), panel.background = element_rect(fill = "transparent", 
+                color = NA))}
+      else {
+        plot = ggplot(d_completo, aes(x = Var1, y = Freq.1, 
+        fill = Var2)) + geom_bar(stat = "identity", position = position_stack(reverse = T)) + 
+        theme_clean() + scale_y_continuous(labels = scales::percent) + 
+        labs(title = vetor_comsep_c(titulo, 40), subtitle = texto, 
+            y = nome_eixo_y, x = vetor_comsep(nomex, 8), fill = "") + 
+        scale_fill_manual(labels = vetor_comsep(names(table(y)), 
+            3), values = palette(length(table(y)))) + theme(plot.title = element_text(hjust = 0.5), 
+        plot.subtitle = element_text(hjust = 0.5), legend.background = element_rect(color = NA, 
+            fill = "transparent"), plot.background = element_rect(colour = NA, 
+            fill = "transparent"), panel.background = element_rect(fill = "transparent", 
+            color = NA))}
 return(plot)}
 
 grafico_teste_t_3 <- function(cont,nomecont,cores,cat,nomecat,niveis){
