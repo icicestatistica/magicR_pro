@@ -10,11 +10,11 @@ if(niveis=="auto") niveis = names(table(fator))
 fator <- factor(fator,levels=niveis)
 
 dad <- data.frame("continua"=resp,"categorica"=fator)
-a <- kruskal.test(dad$continua, dad$categorica)
-c=round(kruskal_effsize(dad, continua ~ categorica)$effsize,dig)
+a <- kruskal.test(as.numeric(dad$continua), dad$categorica)
+c=round(kruskal_effsize(dad, as.numeric(continua) ~ categorica)$effsize,dig)
 p=paste0(pvalor(a$p.value),"f ($\\eta^2$=",c,")")
 
-if (kruskal.test(dad$continua, dad$categorica)$p.value > 0.05) {tabela=NULL
+if (kruskal.test(as.numeric(dad$continua), dad$categorica)$p.value > 0.05) {tabela=NULL
   texto=c("* **",ref,"**: Não encontramos com o teste de Kruskall Wallis evidência de diferença entre os grupos (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). \n")}
 else {
 
