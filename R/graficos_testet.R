@@ -83,8 +83,8 @@ titulo = ifelse(idioma == "PT", paste0("Associação entre '",nomex, "' e '", no
  ")"), paste0("Association between '", nomex, "' and '", nomey, "' (n=", dim(na.omit(help))[1], ")"))
   nome_eixo_y = ifelse(idioma == "PT", "Frequência", "Frequency")
  if(length(cor)==1){
-    if(length(table(y))<4) palette = colorRampPalette(colors=c(cor,lighten(cor,0.5)) else palette=colorRampPalette(colors=c(darken(cor,0.5),cor,"gray"))}
-else palette = colorRampPalette(colors=cor)
+   if(length(table(y))<4) palette = colorRampPalette(colors=c(cor,lighten(cor,0.5))) else palette=colorRampPalette(colors=c(darken(cor,0.5),cor,"gray"))}
+ else palette = colorRampPalette(colors=cor)
  if (labels == T){
      plot = ggplot(d_completo, aes(x = Var1, y = Freq.1, fill = Var2)) + 
             geom_bar(stat = "identity", position = position_stack(reverse = T)) + 
