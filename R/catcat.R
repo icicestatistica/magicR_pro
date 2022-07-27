@@ -1,4 +1,4 @@
-catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirtotal=T,cor="cyan4",idioma="PT"){
+catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirtotal=T,cor="cyan4",idioma="PT",labels=T){
   
 ref=nomex
 if(respcol==T) linhacol=1 else linhacol=2
@@ -105,7 +105,7 @@ if(doispordois==T & signif==T){
 
 if(respcol==F) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomedep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomedep=nomey}
 
-grafico = grafico_catcat(indep,nomeindep,dep,nomedep,cor=cor,textograf,idioma)
+grafico = grafico_catcat(indep,nomeindep,dep,nomedep,cor=cor,textograf,idioma,labels)
 
 }
 
