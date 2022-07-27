@@ -24,7 +24,7 @@ dunn <- dunn.test(as.numeric(dad$continua), dad$categorica,method = "bonferroni"
 b <- data.frame(dunn$comparisons,dunn$P.adjusted)
 
 ordem <- dad %>% group_by(categorica) %>% 
-  get_summary_stats(continua, type = "median_iqr")
+  get_summary_stats(as.numeric(continua), type = "median_iqr")
 
 ord = c(ordem[order(ordem$median),1])$categorica
 
