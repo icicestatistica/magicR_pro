@@ -1,7 +1,8 @@
-grafico_correl <- function(conty,nomey,cor="cyan4",contx,nomex,text=""){
+grafico_correl <- function(conty,nomey,cor="cyan4",contx,nomex,text="",idioma="PT"){
 dadosd <- data.frame(conty,contx)
+if(idioma=="PT") titulo=c("Correlação entre \'","\' e \'") else titulo=c("Correlation between \'","\' and \'")
 plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geom_smooth(color=cor,method="gam", fullrange=T, span=1) + xlab(nomex) + ylab(nomey) +
-  ggtitle(vetor_comsep_c(paste0("Correlação entre \'",nomex,"\' e \'",nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40), subtitle=text) +
+  ggtitle(vetor_comsep_c(paste0(titulo[1],nomex,titulo[2],nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40), subtitle=text) +
   theme(plot.background = element_rect(colour=NA, fill = "transparent"),
   panel.background = element_rect(fill = "transparent", color=NA),
   plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
