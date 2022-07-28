@@ -16,11 +16,12 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
                         tex=res$texto
                         grafico=res$grafico}
   } else
-    if(tipoy=="numeric" | tipoy=="ordinal") {res=contcont(as.numeric(unlist(y)),x,nomey,nomex,dig,cor)
-                          correl=1
-                          result=res$resul
-                          tex=res$texto
-                          grafico=res$grafico}
+    if(tipoy=="numeric" | tipoy=="ordinal") {ordinaly=ifelse(tipoy=="numeric",F,T) ; ordinalx=ifelse(tipox=="numeric",F,T)
+                                             res=contcont(as.numeric(unlist(y)),x,nomey,nomex,dig,cor,ordinalx=ordinalx,ordinaly=ordinaly)
+                                             correl=1
+                                             result=res$resul
+                                             tex=res$texto
+                                             grafico=res$grafico}
   } else {
   if(tipox=="factor") {
     if(tipoy=="numeric" | tipoy=="ordinal") {
