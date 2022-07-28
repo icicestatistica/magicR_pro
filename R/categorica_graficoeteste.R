@@ -1,4 +1,4 @@
-desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=T,label=T,ordenar=T,acumula=T,teste=T,grafico=T,cor="cyan4",digitos=2){
+desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordenar=T,acumula=T,teste=F,grafico=T,cor="cyan4",digitos=2){
   variavel=unlist(variavel)
   if (niveis=='auto') niveis = names(table(variavel))
   if (niveis[1] != F) variavel <- factor(variavel, levels = niveis)
