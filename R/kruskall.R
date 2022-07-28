@@ -17,10 +17,9 @@ c=round(kruskal_effsize(dad, continua ~ categorica)$effsize,dig)
 p=paste0(pvalor(a$p.value),"f ($\\eta^2$=",c,")")
 
 if (kruskal.test(dad$continua, dad$categorica)$p.value > 0.05) {tabela=NULL
-  texto=c("* **",ref,"**: Não encontramos com o teste de Kruskall Wallis evidência de diferença entre os grupos (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). \n")}
-else {
+  texto=c("* **",ref,"**: Não encontramos com o teste de Kruskall Wallis evidência de diferença entre os grupos (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). \n")} else {
 
-texto=c("* **",ref,"**: O teste de Kruskall-Wallis mostrou que há diferença entre os grupos (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). O post-hoc de Dunn mostrou que")
+texto=c("* **",ref,"**: O teste de Kruskall-Wallis mostrou que há diferença entre os grupos (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),").")
 
 dunn <- dunn.test(dad$continua, dad$categorica,method = "bonferroni",kw=F,table=F,list=F)
 b <- data.frame(dunn$comparisons,dunn$P.adjusted)
@@ -33,22 +32,38 @@ ord = c(ordem[order(ordem$median),1])$categorica
 d <- c(b$dunn.P.adjusted)
 names(d) <- str_replace(b$dunn.comparisons, " - ","-")
 
-mult = multcompLetters(d)
+#mult = multcompLetters(d)
+#new <- rep("",dim(dad)[1])
+#for (i in 1:length(mult$Letters)){
+#new[dad$categorica==names(mult$Letters)[i]] <- mult$Letters[i]}
 
-new <- rep("",dim(dad)[1])
+tabela=data.frame("Comparações"=dunn$comparisons,"Estatística"=round(dunn$Z,dig),"p-valor ajustado"=pvetor(dunn$P.adjusted))
+names(tabela)=c("Comparações","Estatística Z","p-valor ajustado")
 
-for (i in 1:length(mult$Letters)){
-new[dad$categorica==names(mult$Letters)[i]] <- mult$Letters[i]}
 
-print <- c()
-for (i in 1:length(mult$Letters)){
-  print=c(print,"O grupo ",c(ordem[i,1])$categorica," (mediana = ",c(ordem[i,4])$median," e intervalo interquartil = ",ordem[i,5]$iqr,") ")}
+difs = matrix(unlist(str_split(tabela$Comparações," - ")),ncol=2,byrow=T)
 
-texto <- c(texto,print,"\n")
+ncomps=dim(tabela)[1]
 
-tabela=data.frame("Comparações"=dunn$comparisons,"Estatística"=round(dunn$Z,dig),"p-valor"=pvetor(dunn$P),"p-valor ajustado"=pvetor(dunn$P.adjusted))
-}
-  
+r=rep("",ncomps)
+for (i in 1:ncomps){
+if(b$dunn.P.adjusted[i]>0.05) r[i] = "Não" else
+  if(tabela$`Estatística Z`[i]>0) r[i]="Maior" else r[i]="Menor"}
+
+resumo = factor(r, levels=c("Maior","Menor","Não"))
+
+tex <- c()
+difs = data.frame(cbind(difs,as.character(resumo)))
+
+if(prop.table(table(resumo))[3]==1) tex=c(tex,"Apesar de termos encontrado diferença pela anova, ao realizar o teste de tukey de comparação par-a-par, nenhuma das comparações de grupos teve diferença estatisticamente significativa.  \n") else
+  if(sum(prop.table(table(resumo))[1:2])==1) tex=c(tex,"O teste de comparações múltiplas de tukey apontou diferenças entre todos os grupos estudados") else {
+    tex=c(tex," O teste de comparações múltiplas de Dunn apontou as seguintes diferenças:  \n")
+      for (j in which(resumo!="Não")){
+        if(r[j]=="Menor") tex=c(tex,c("  + \"",difs[j,2], "\" é maior que \"",difs[j,1],"\";"),"\n")
+        if(r[j]=="Maior") tex=c(tex,c("  + \"",difs[j,1], "\" é maior que \"",difs[j,2],"\";"),"\n")}
+    tex=c(tex, "\n  Podemos verificar esses resultados na seguinte tabela:")}
+texto = c(texto,tex)}
+
 if(ordinal==F) res=desc_bi_cont(dad$continua,dad$categorica,F,respcol,F,dig) else 
    {if(respcol==F) res=desc_bi_cat(linha=dad2$continua,col=dad2$categorica,respcol=F) else res=desc_bi_cat(linha=dad2$categorica,col=dad2$continua,respcol=T)}
 
