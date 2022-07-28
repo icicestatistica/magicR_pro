@@ -20,7 +20,7 @@ if (kruskal.test(dad$continua, dad$categorica)$p.value > 0.05) {tabela=NULL
   texto=c("* **",ref,"**: Não encontramos com o teste de Kruskall Wallis evidência de diferença entre os grupos (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). \n")}
 else {
 
-texto=c("* **",ref,"**: O teste de Kruskall-Wallis mostrou que há diferença entre os grupos (","X2(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). O post-hoc de Dunn mostrou que")
+texto=c("* **",ref,"**: O teste de Kruskall-Wallis mostrou que há diferença entre os grupos (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). O post-hoc de Dunn mostrou que")
 
 dunn <- dunn.test(dad$continua, dad$categorica,method = "bonferroni",kw=F,table=F,list=F)
 b <- data.frame(dunn$comparisons,dunn$P.adjusted)
