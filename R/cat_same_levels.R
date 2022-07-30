@@ -1,6 +1,7 @@
 cat_same_levels <- function(dad,nomes='auto',niveis='auto',nas=F,dig=2,cor="cyan4",invertercores=F, idioma="PT"){
   
 if(nomes[1]=='auto') nomes=names(dad)
+names(dad)=nomes
 if(niveis=="auto") niveis=names(table(matrix(unlist(dad))))
 cont=1
 df = data.frame("Variável"=nomes[1],t(desc_uni_categorica(dad[,1],"",niveis,nas,T,F,F,F,F,F,dig)$result[,4]))
