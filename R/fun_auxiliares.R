@@ -23,7 +23,7 @@ caixadeselecao <- function(vetor,sep=","){
   return(m)}
    
 nivcatsame = function(niveisoriginal){
-   possi = unique(unlist(str_split(paste0(eval(parse(text=auxiliar$niveis[25])),sep=", ",collapse=""),", ")))
+   possi = unique(unlist(str_split(paste0(eval(parse(text=niveisoriginal)),sep=", ",collapse=""),", ")))
    possi = possi[which(possi!="")]
    niveiscerto = vec_to_string(possi)
    return(niveiscerto)}
@@ -83,13 +83,11 @@ df = data.frame("Nome"=nome,"analises"=paste("list(c('desc'=",vetortestes[1],",'
 return(df)}
    
 transpordf <- function(tab){
-
 nova=data.frame(t(tab))
 nova <- cbind(names(tab),nova)
 names(nova)=c(names(tab)[1],tab[,1])
 nova <- nova[-1,]
 row.names(nova)<-NULL
-
 return(nova)}
 
 vec_to_string <- function(vec){
