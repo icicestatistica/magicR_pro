@@ -97,3 +97,6 @@ return(nova)}
 vec_to_string <- function(vec){
    str = paste0("c(",paste(paste("'",vec,"'",sep=""),collapse=","),")",collapse="")
    return(str)}
+      
+turn_into_factor=function(vec,niveis_str){
+  return(unname(factor(unlist(vec),levels=eval(parse(text=niveis_str)))))}
