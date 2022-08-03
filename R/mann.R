@@ -51,7 +51,7 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
 labc = ifelse(length(table(d$y))>4,F,T)
  if (ordinal == F) grafico = grafico_comp_box(d$y,nomey,d$x,nomex,cor=cor,textograf,dig, idioma=idioma) else 
    if(respcol == T) grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf, idioma=idioma, labels=labc) + coord_flip() else
-      grafico = grafico_catcat(d$y, nomey, d$x, nomex, cor=cor, textograf, idioma=idioma, labels=labc)
+      grafico = grafico_catcat(d$y, nomey, d$x, nomex, cor=cor, textograf, idioma=idioma, labels=ifelse(length(table(d$x))>4,F,T))
 
 return(list("result"=res,
             "texto"=list("tex"=paste(texto,collapse="")),
