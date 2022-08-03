@@ -80,7 +80,7 @@ d_completo <- data.frame(tabela, prop.table(tabela, 1))
 d_completo$lab = paste0(d_completo$Freq, " (", round(100 * 
         d_completo$Freq.1, 1), "%)")
 d_completo$Var1 <- factor(d_completo$Var1)
-levels(d_completo$Var1) = vetor_comsep_c(paste0(levels(d_completo$Var1), "\n n=", table(help$x)),floor(50/length(levels(d_completo$Var1)))
+levels(d_completo$Var1) = vetor_comsep_c(paste0(levels(d_completo$Var1), "\n n=", table(help$x)),floor(50/length(levels(d_completo$Var1))))
 titulo = ifelse(idioma == "PT", paste0("Associação entre '",nomex, "' e '", nomey, "' (n=", dim(na.omit(help))[1], 
  ")"), paste0("Association between '", nomex, "' and '", nomey, "' (n=", dim(na.omit(help))[1], ")"))
   nome_eixo_y = ifelse(idioma == "PT", "Frequência", "Frequency")
