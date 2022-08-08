@@ -1,4 +1,4 @@
-orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,analises,prazoprop=3,prazorelat=7){
+orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,analises,prazoprop=3,prazorelat=7,nomepesquisador="nome",cpfpesquisador="123.456.789-00"){
 mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
 
 n_analises = dim(analises)[1]
@@ -100,5 +100,27 @@ A nota fiscal será enviada até 3 dias após o pagamento. \n", invest2,"
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
 * O trabalho que desenvolvemos é único e exclusivamente para a realização da análise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.
 
-\\newpage
-Campinas, ",mday(Sys.Date())," de ",mês[month(Sys.Date())]," de ",year(Sys.Date()), sep="\n", collapse="")}
+\\newpage",
+paste0("Campinas, ",mday(Sys.Date())," de ",mês[month(Sys.Date())]," de ",year(Sys.Date()),sep=""),"
+
+<br> <br>
+
+------------------------------------------------------------------------ \n
+
+###### **Estatística Responsável:** Isabelle Cristina Idalgo Carnielli \n
+
+###### CONRE: 10734 \n
+
+<br>
+
+------------------------------------------------------------------------ \n
+
+###### **Pesquisador(a):**",nomepesquisador," \n
+
+###### CPF: ",cpfpesquisador," \n
+
+\newpage
+
+# Bibliografia
+
+",sep="\n", collapse="")}
