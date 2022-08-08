@@ -114,12 +114,12 @@ paste0("Campinas, ",mday(Sys.Date())," de ",mês[month(Sys.Date())]," de ",year(
 <br>
 
 ------------------------------------------------------------------------ \n
+",
+paste0("###### **Pesquisador(a):**",nomepesquisador," \n",sep=""),
 
-###### **Pesquisador(a):**",nomepesquisador," \n
+paste0("###### CPF: ",cpfpesquisador," \n",sep=""),"
 
-###### CPF: ",cpfpesquisador," \n
-
-\newpage
+\\newpage
 
 # Bibliografia
 
