@@ -82,4 +82,18 @@ Estas estatísticas medem o grau da correlação (e a direção dessa correlaç�
 
 A magnitude do efeito foi classificada com @cohen92, sendo uma das medidas mais usuais na literatura, que os separa em ‘grande’ (de 0,50 a 1,00); ‘moderada’ (de 0,30 a 0,49), ‘pequena’ (de 0,10 a 0,29) e ‘irrisória’ (menor que 0,1). @field também sugere o cálculo do coeficiente de determinação, que consiste no quadrado da correlação e indica a proporção de variabilidade compartilhada entre as variáveis, no caso da correlação de Pearson e entre os ranks, no caso da correlação de Spearman. O mesmo autor também indica o cálculo de Intervalos de confiança, em que *bootstrap* (BCa) com 1000 reamostragens foi utilizado para o cômputo do IC da correlação de Spearman, uma vez que não há uma fórmula fechada para esta estatística. \n")}
 
+texto = c(texto,"# Sobre as análises \n","
+
+As presentes análises foram feitas através do software livre R (",R.version.string,"). Você pode citá-lo da seguinte forma:
+
+R Core Team (2021). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL <https://www.R-project.org/>.
+
+A confecção de gráficos pode ser solicitada por 6 meses e o prazo de entrega é de 5 dias úteis. \n
+
+Neste relatório, foi utilizado como padrão o arredondamento de ",dig," casas decimais. Os números com menos que ",dig," dígitos apenas omitem 'zeros' à direita, e portanto correspondem ao valor exato. \n
+
+Qualquer dúvida sobre o conteúdo deste relatório pode ser tirada via e-mail ou whatsapp. Lembrando que também está inclusa uma reunião de 30 minutos para tirar dúvidas. Recomendo realizar o agendamento da reunião apenas depois de uma leitura minuciosa do relatório para seu melhor aproveitamento. \n
+
+Fico à disposição!")
+
 return(texto)}
