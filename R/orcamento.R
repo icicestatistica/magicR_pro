@@ -115,7 +115,7 @@ paste0("Campinas, ",mday(Sys.Date())," de ",mês[month(Sys.Date())]," de ",year(
 
 ------------------------------------------------------------------------ \n
 ",
-paste0("###### **Pesquisador(a):**",nomepesquisador," \n",sep=""),
+paste0("###### **Pesquisador(a):** ",nomepesquisador," \n",sep=""),
 
 paste0("###### CPF: ",cpfpesquisador," \n",sep=""),"
 
