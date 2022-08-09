@@ -17,29 +17,27 @@ if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=nivei
                           tabela=NULL
                           grafico=resulta$grafico}
 result1=data.frame(result1)
-result1 = cbind(c(nomesx,rep("",dim(result1)[1]-1)),result1)
-names(result1) = c("Variável","Característica","Estatística")
+if(is.null(result1)==F) {result1 = cbind(c(nomesx,rep("",dim(result1)[1]-1)),result1)
+                         names(result1) = c("Variável","Característica","Estatística")}
   
 result2=data.frame(result2)
-result2 = cbind(c(nomesx,rep("",dim(result2)[1]-1)),result2)
-names(result2) = c("Variável","Característica","Estatística")
+if(is.null(result2)==F) {result2 = cbind(c(nomesx,rep("",dim(result2)[1]-1)),result2)
+                         names(result2) = c("Variável","Característica","Estatística")}
   
 return(list("result1"=result1,"result2"=result2,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
 get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2,idioma="PT"){
   xdim <- dim(x)[2]
   resulta <- escolha_summary_para_juntar(data.frame(x[,1]),nomesx[1],tipox[1],niveisx[1],nas,teste,grafico,cor,bins,dig,idioma)
-  result1=resulta$result1
-  result2=resulta$result2
+  if(is.null(resulta$result1)==F) result1=resulta$result1
+  if(is.null(resulta$result2)==F) result2=resulta$result2
   complem=list("grafico"=resulta$grafico,"\n","texto"=resulta$texto,"tabela"=resulta$tabela,"\n")
   if (xdim>1){
   for (i in 2:xdim){
     resulta=escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],nas,teste,grafico,cor,bins,dig,idioma)
-    result1 <- rbind(result1,resulta$result1)
-    result2 <- rbind(result2,resulta$result2)
+    if(is.null(resulta$result1)==F) {result1 <- rbind(result1,resulta$result1); row.names(result1) <- 1:dim(result1)[1]}
+    if(is.null(resulta$result2)==F) {result2 <- rbind(result2,resulta$result2); row.names(result2) <- 1:dim(result2)[1]}
     complem <- list.append(complem,resulta$grafico,"\n",resulta$texto,resulta$tabela,"\n")}}
-row.names(result1) <- 1:dim(result1)[1]
-row.names(result2) <- 1:dim(result2)[1]
 testes=data.frame("Nome1"=nomesx,"Nome2"="","tipo"=tipox,"sig_ou_não"="","resumo"="")
 return(list("testes"=testes,
             "result1"=result1,
