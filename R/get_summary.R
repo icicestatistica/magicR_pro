@@ -28,7 +28,7 @@ if(is.null(result2)==F) {result2=data.frame(result2)
 return(list("result1"=result1,"result2"=result2,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
 get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2,idioma="PT"){
-  complem=list()
+  result1=NULL; result2=NULL; complem=list()
   xdim <- dim(x)[2]
   for (i in 1:xdim){
     resulta=escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],nas,teste,grafico,cor,bins,dig,idioma)
