@@ -28,6 +28,7 @@ if(is.null(result2)==F) {result2=data.frame(result2)
 return(list("result1"=result1,"result2"=result2,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
 get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2,idioma="PT"){
+  complem=list()
   xdim <- dim(x)[2]
   for (i in 1:xdim){
     resulta=escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],nas,teste,grafico,cor,bins,dig,idioma)
@@ -37,7 +38,7 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cy
     if(is.null(resulta$result2)==F) {
         if(is.null(result2)==F) {result2 <- rbind(result2,resulta$result2); row.names(result2) <- 1:dim(result2)[1]} else
               {result2=resulta$result2; row.names(result2) <- 1:dim(result2)[1]}}
-    complem <- list.append(complem,resulta$grafico,"\n",resulta$texto,resulta$tabela,"\n")}}
+    complem <- list.append(complem,resulta$grafico,"\n",resulta$texto,resulta$tabela,"\n")}
 testes=data.frame("Nome1"=nomesx,"Nome2"="","tipo"=tipox,"sig_ou_não"="","resumo"="")
 return(list("testes"=testes,
             "result1"=result1,
