@@ -42,7 +42,7 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cy
 testes=data.frame("Nome1"=nomesx,"Nome2"="","tipo"=tipox,"sig_ou_não"="","resumo"="")
 return(list("testes"=testes,
             "result1"=result1,
-            "result2"=transpordf(result2),
+            "result2"=result2,
             "complem"=complem))}
 
 get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
