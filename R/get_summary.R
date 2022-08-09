@@ -37,7 +37,7 @@ return(list("testes"=c("desc"=cont,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"cor
             "result"=result,
             "complem"=complem))}
 
-get_summary <- function(dados,auxiliar,gr='auto',nas=T,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
+get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
 if(gr=='auto') gr = which(auxiliar$tipo %in% c("factor","numeric","ordinal"))
 x <- data.frame(dados[,gr])
 nomesx <- auxiliar[gr,2]
