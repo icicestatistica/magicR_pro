@@ -19,7 +19,7 @@ result = cbind(c(nomesx,rep("",dim(result)[1]-1)),result)
 names(result) = c("Variável","Característica","Estatística")
 return(list("result"=result,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
-get_summary_2 <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,bins,dig,idioma="PT"){
+get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2,idioma="PT"){
   cont=0
   xdim <- dim(x)[2]
   cont=cont+1
@@ -37,7 +37,8 @@ return(list("testes"=c("desc"=cont,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"cor
             "result"=result,
             "complem"=complem))}
 
-get_summary <- function(dados,gr,auxiliar,nas=T,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
+get_summary <- function(dados,auxiliar,gr='auto',nas=T,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
+if(gr=='auto') gr = which(auxiliar$tipo %in% c("factor","numeric","ordinal"))
 x <- data.frame(dados[,gr])
 nomesx <- auxiliar[gr,2]
 tipox <- auxiliar[gr,3]
