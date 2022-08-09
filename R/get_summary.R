@@ -12,7 +12,7 @@ if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=nivei
                         tabela=resulta$tabela
                         grafico=resulta$grafico} else
     if (tipox=="numeric") {resulta=desc_uni_continua(x,nomesx,bins,teste,grafico,cor,dig,idioma)
-                          result2=resulta$result
+                          result2=resulta$result[-c(1:2),]
                           texto=resulta$texto
                           tabela=NULL
                           grafico=resulta$grafico}
