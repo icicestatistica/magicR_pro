@@ -1,4 +1,6 @@
 escolha_summary_para_juntar <- function(x,nomesx,tipox,niveisx,nas,teste,grafico,cor,bins,dig,idioma){
+result1=NULL
+result2=NULL
 if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=niveisx)),nas,T,T,F,teste,grafico,cor,dig)
                       result1=resulta$result[,c(1,4)]
                       texto=resulta$texto
