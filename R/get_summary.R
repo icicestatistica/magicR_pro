@@ -21,8 +21,9 @@ if(is.null(result1)==F) {result1=data.frame(result1)
                         result1 = cbind(c(nomesx,rep("",dim(result1)[1]-1)),result1)
                         names(result1) = c("Variável","Característica","Frequência","Freq. Relativa")}
   
-if(is.null(result2)==F) {result2 = data.frame(cbind(nomesx,t(result2[,2])))
-                         names(result2) = c("Variável",result2$Característica)}
+if(is.null(result2)==F) {nomes = result2$Característica
+                         result2 = data.frame(cbind(nomesx,t(result2[,2])))
+                         names(result2) = c("Variável",nomes)}
   
 return(list("result1"=result1,"result2"=result2,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
