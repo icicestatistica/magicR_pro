@@ -2,12 +2,12 @@ escolha_summary_para_juntar <- function(x,nomesx,tipox,niveisx,nas,teste,grafico
 result1=NULL
 result2=NULL
 if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=niveisx)),nas,T,T,T,teste,grafico,cor,dig)
-                      result1=resulta$result[,c(1:3,5)]
+                      result1=resulta$result[,c(1:3)]
                       texto=resulta$texto
                       tabela=resulta$tabela
                       grafico=resulta$grafico} else
   if (tipox=="ordinal") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=niveisx)),nas,T,F,T,teste,grafico,cor,dig)
-                        result1=resulta$result[,c(1:3,5)]
+                        result1=resulta$result[,c(1:3)]
                         texto=resulta$texto
                         tabela=resulta$tabela
                         grafico=resulta$grafico} else
@@ -19,11 +19,11 @@ if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=nivei
 
 if(is.null(result1)==F) {result1=data.frame(result1)
                         result1 = cbind(c(nomesx,rep("",dim(result1)[1]-1)),result1)
-                        names(result1) = c("Variável","Característica","Frequência","Freq. Relativa","Freq. Acumulada")}
+                        names(result1) = c("Variável","Característica","Frequência","Freq. Relativa")}
   
 if(is.null(result2)==F) {result2=data.frame(result2)
-                         result2 = cbind(c(nomesx,rep("",dim(result2)[1]-1)),result2)
-                         names(result2) = c("Variável","Característica","Estatística")}
+                         result2 = cbind(nomesx,t(result2[,2])
+                         names(result2) = c("Variável","Total","N/A", "N","Min-Máx", "Q1-Q3", "Mediana", "Média", "DP","CV","SW")}
   
 return(list("result1"=result1,"result2"=result2,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
