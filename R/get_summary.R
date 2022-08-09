@@ -16,12 +16,13 @@ if (tipox=="factor") {resulta=desc_uni_categorica(x,nomesx,eval(parse(text=nivei
                           texto=resulta$texto
                           tabela=NULL
                           grafico=resulta$grafico}
-result1=data.frame(result1)
-if(is.null(result1)==F) {result1 = cbind(c(nomesx,rep("",dim(result1)[1]-1)),result1)
-                         names(result1) = c("Variável","Característica","Estatística")}
+
+if(is.null(result1)==F) {result1=data.frame(result1)
+                        result1 = cbind(c(nomesx,rep("",dim(result1)[1]-1)),result1)
+                        names(result1) = c("Variável","Característica","Estatística")}
   
-result2=data.frame(result2)
-if(is.null(result2)==F) {result2 = cbind(c(nomesx,rep("",dim(result2)[1]-1)),result2)
+if(is.null(result2)==F) {result2=data.frame(result2)
+                         result2 = cbind(c(nomesx,rep("",dim(result2)[1]-1)),result2)
                          names(result2) = c("Variável","Característica","Estatística")}
   
 return(list("result1"=result1,"result2"=result2,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
