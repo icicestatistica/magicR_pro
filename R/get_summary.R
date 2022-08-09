@@ -20,20 +20,18 @@ names(result) = c("Variável","Característica","Estatística")
 return(list("result"=result,"texto"=texto,"tabela"=tabela,"grafico"=grafico))}
 
 get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2,idioma="PT"){
-  cont=0
   xdim <- dim(x)[2]
-  cont=cont+1
   resulta <- escolha_summary_para_juntar(data.frame(x[,1]),nomesx[1],tipox[1],niveisx[1],nas,teste,grafico,cor,bins,dig,idioma)
   result=resulta$result
   complem=list("grafico"=resulta$grafico,"\n","texto"=resulta$texto,"tabela"=resulta$tabela,"\n")
   if (xdim>1){
   for (i in 2:xdim){
-    cont=cont+1
     resulta=escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],nas,teste,grafico,cor,bins,dig,idioma)
     result <- rbind(result,resulta$result)
     complem <- list.append(complem,resulta$grafico,"\n",resulta$texto,resulta$tabela,"\n")}}
 row.names(result) <- 1:dim(result)[1]
-return(list("testes"=c("desc"=cont,"catsame"=0,"t"=0,"mw"=0,"aov1"=0,"kw"=0,"correl"=0,"cc"=0,"t_par"=0,"wilc"=0,"aovmr"=0,"fried"=0,"mcnem"=0,"qcoch"=0),
+    testes=data.frame("Nome1"=nomesx,"Nome2"="","tipo"=tipox,"sig_ou_não"="","resumo"="")
+return(list("testes"=testes,
             "result"=result,
             "complem"=complem))}
 
