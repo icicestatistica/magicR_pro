@@ -1,3 +1,17 @@
+pvalor <- function(p){
+  if(is.numeric(p)==F) res="" else
+    if(is.na(p)==T) res="" else
+      if(p>0.05) res = p=formatC(round(p,3), format='f', digits=3) else
+        if(p>0.01) res=paste0(formatC(round(p,3), format='f', digits=3),"\\*") else
+          if(p>=0.001) res=paste0(formatC(round(p,3), format='f', digits=3),"\\*\\*") else res = "<0.001\\*\\*\\*"
+      return(res)}
+
+pvetor <- function(vetor){
+  pvalores <- c()
+  for (i in 1:length(vetor))
+    pvalores <- c(pvalores,pvalor(vetor[i]))
+  return(pvalores)}
+
 printvetor <- function(vetor, idioma="PT"){
 size=length(vetor)
 conec = ifelse(idioma=="PT","' e '","' and '")
@@ -78,7 +92,6 @@ if(class(a[[i]])[1]=="data.frame") print(kable(a[[i]], row.names=F)) else
   if(class(a[[i]])[1]=="list") relatorio(a[[i]],F) else
       if(class(a[[i]])[1]=="character") cat(a[[i]], sep="\n") else
         print(a[[i]])}}}
-
    
 cont_analises <- function(nome,vetortestes,vars){
 df = data.frame("Nome"=nome,"analises"=paste("list(c('desc'=",vetortestes[1],",'catsame'=",vetortestes[2],",'t'=",vetortestes[3],
