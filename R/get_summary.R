@@ -33,11 +33,15 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cy
   for (i in 1:xdim){
     resulta=escolha_summary_para_juntar(x[,i],nomesx[i],tipox[i],niveisx[i],nas,teste,grafico,cor,bins,dig,idioma)
     if(is.null(resulta$result1)==F) {
-        if(is.null(result1)==F) {result1 <- rbind(result1,resulta$result1); row.names(result1) <- 1:dim(result1)[1]} else
-              {result1=resulta$result1; row.names(result1) <- 1:dim(result1)[1]}}
+        if(is.null(result1)==F) {result1 <- rbind(result1,resulta$result1)
+                                 row.names(result1) <- 1:dim(result1)[1]} else
+              {result1=resulta$result1
+               row.names(result1) <- 1:dim(result1)[1]}}
     if(is.null(resulta$result2)==F) {
-        if(is.null(result2)==F) {result2 <- rbind(result2,resulta$result2); row.names(result2) <- 1:dim(result2)[1]} else
-              {result2=resulta$result2; row.names(result2) <- 1:dim(result2)[1]}}
+        if(is.null(result2)==F) {result2 <- rbind(result2,resulta$result2)
+                                 row.names(result2) <- 1:dim(result2)[1]} else
+              {result2=resulta$result2
+               row.names(result2) <- 1:dim(result2)[1]}}
     complem <- list.append(complem,resulta$grafico,"\n",resulta$texto,resulta$tabela,"\n")}
 testes=data.frame("Nome1"=nomesx,"Nome2"="","tipo"=tipox,"sig_ou_não"="","resumo"="")
 return(list("testes"=testes,
