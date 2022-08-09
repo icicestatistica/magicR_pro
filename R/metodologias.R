@@ -10,7 +10,8 @@ totaltab = apply(matanalises[,-1],2,sum)
 texto=c()
   
 if(totaltab[1]>0) {
-texto=c(texto,"
+texto=c(texto,"# Metodologias \n
+
 **Estatísticas Descritivas:**
 
 Medidas-resumo ou estatísticas descritivas são usadas para resumir um conjunto de observações, a fim de comunicar a maior quantidade de informações da forma mais simples possível [@estatdesc]. Para variáveis numéricas, usaremos as seguintes medidas:
