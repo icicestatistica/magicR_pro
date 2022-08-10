@@ -42,7 +42,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
                           tex=res$texto
                           grafico=res$grafico}
   }}
-  testes=data.frame(Nome1 = y, Nome2 = x, tipo = nometeste, sig_ou_não = "", resumo = "")
+  testes=data.frame(Nome1 = nomey, Nome2 = nomex, tipo = nometeste, sig_ou_não = "", resumo = "")
   return(list("testes"=testes,
               "result"=result,
               "texto"=list("grafico"=grafico,"tex"=tex)))}
