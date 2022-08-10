@@ -1,13 +1,13 @@
 orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,analises,prazoprop=3,prazorelat=7,nomepesquisador="nome",cpfpesquisador="123.456.789-00"){
 mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
 
-n_analises = dim(analises)[1]
 matanalises = c()
-for (i in 1:n_analises)
-matanalises= rbind(matanalises, unlist(eval(parse(text=analises$analises[i]))))
-matanalises <- data.frame("Nome"=analises$Nome,matanalises, "Variáveis"=analises$Variáveis)
+sessoes=unique(analises$Sessão)
+n_analises = length(sessoes)
+for (i in 1:n_analises){
+matanalises <- rbind(matanalises,data.frame("Nome"=sessoes[i],t(unname(c(table(factor(analises[analises$Sessão==sessoes[i],]$tipo, levels=c("numeric","factor", "catsame", "t", "mw", "aov1", "kw", "correl", "cc","t_par","wilc","aovmr","fried","mcnem","qcoch")))))), "Variáveis"=printvetor(analises[analises$Sessão==sessoes[i],]$Nome1)))}
 
-totaltab = apply(matanalises[,c(-1,-16)],2,sum)
+totaltab = apply(matanalises[,c(-1,-17)],2,sum)
 
 descricaobanco <- c()
 for (i in 1:dim(auxiliar)[1]){
@@ -23,14 +23,7 @@ for (i in 1:dim(auxiliar)[1]){
                   descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))} else
                    {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise. \n",sep=""))}}
 descricaobanco = paste(descricaobanco, sep="",collapse="")
-  
-matanalises = c()
-sessoes=unique(analises$Sessão)
-n_analises = length(sessoes)
-for (i in 1:n_analises){
-matanalises <- rbind(matanalises,data.frame("Nome"=sessoes[i],t(unname(c(table(factor(analises[analises$Sessão==sessoes[i],]$tipo, levels=c("numeric","factor", "catsame", "t", "mw", "aov1", "kw", "correl", "cc","t_par","wilc","aovmr","fried","mcnem","qcoch")))))), "Variáveis"=printvetor(analises[analises$Sessão==sessoes[i],]$Nome1)))}
-
-totaltab = apply(matanalises[,c(-1,-17)],2,sum)
+ 
 
 descricaoanalises <- c()
 for (i in 1:n_analises){
