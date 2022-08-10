@@ -1,4 +1,4 @@
-escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=F,respcol=T,cor="cyan4",idioma="PT"){
+escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=T,respcol=T,cor="cyan4",idioma="PT"){
   result<-data.frame() ; tex="" ; grafico=NULL
   if(tipox=="numeric" | tipox=="ordinal") {
     transform_ord = ifelse(tipox=="ordinal",T,F)
@@ -49,7 +49,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
 
 
 
-get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=F,respcol=T,cor="cyan4",idioma="PT"){
+get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=T,respcol=T,cor="cyan4",idioma="PT"){
   xdim = ifelse(is.null(dim(xmat)),1,dim(xmat)[2])
   texto=c() ; textocont=c()
   testes=c()
@@ -72,7 +72,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
 return(lista)}
 
 
-get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy="",dig=2,excluirtotal=F,respcol=T,cor='cyan4', idioma="PT"){
+get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy="",dig=2,excluirtotal=T,respcol=T,cor='cyan4', idioma="PT"){
 
   if(is.numeric(y)==T & length(y)==1) {
     tipoy=auxiliar$tipo[y]
