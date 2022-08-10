@@ -19,14 +19,24 @@ for (i in 1:dim(auxiliar)[1]){
               descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise. \n", sep=""))} else
               if(auxiliar$tipo[i]=="catsame"){
               descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n", sep=""))} else
-                {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))}}
+                if(auxiliar$tipo[i]=="numeric"){
+                  descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))} else
+                   {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise. \n",sep=""))}}
 descricaobanco = paste(descricaobanco, sep="",collapse="")
   
+matanalises = c()
+sessoes=unique(analises$Sessão)
+n_analises = length(sessoes)
+for (i in 1:n_analises){
+matanalises <- rbind(matanalises,data.frame("Nome"=sessoes[i],t(unname(c(table(factor(analises[analises$Sessão==sessoes[i],]$tipo, levels=c("numeric","factor", "catsame", "t", "mw", "aov1", "kw", "correl", "cc","t_par","wilc","aovmr","fried","mcnem","qcoch")))))), "Variáveis"=printvetor(analises[analises$Sessão==sessoes[i],]$Nome1)))}
+
+totaltab = apply(matanalises[,c(-1,-17)],2,sum)
+
 descricaoanalises <- c()
 for (i in 1:n_analises){
-  if(matanalises[i,2]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com cálculos das frequências absoluta (n) e relativa (%) para as variáveis categóricas ou análise descritiva (N, Mínimo, Máximo, Quartis, Média, Mediana, Desvio Padrão, Coeficiente de variação e teste de Normalidade de Shapiro-Wilk) para variáveis numéricas. As ",matanalises[i,2]," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}
-  if(matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com descrições das variáveis categóricas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis. As ",matanalises[i,3]," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}  
-  if(sum(matanalises[i,-c(1:3,16)])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com testes de comparação (podendo ser Qui-quadrado, Exato de Fisher, Teste de correlação, Teste-t, Mann-Whitney, Anova ou Kruskall Wallis, a depender da natureza e características dos dados) e suas devidas análises post-hoc e, quando necessário, tamanho de efeito. As ",sum(matanalises[i,-c(1:3,16)])," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}}
+  if(matanalises[i,2]+matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com cálculos das frequências absoluta (n) e relativa (%) para as variáveis categóricas ou análise descritiva (N, Mínimo, Máximo, Quartis, Média, Mediana, Desvio Padrão, Coeficiente de variação e teste de Normalidade de Shapiro-Wilk) para variáveis numéricas. As ",matanalises[i,2]+matanalises[i,3]," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}
+  if(matanalises[i,4]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com descrições das variáveis categóricas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis. As ",matanalises[i,4]," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}  
+  if(sum(matanalises[i,-c(1:4,17)])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com testes de comparação (podendo ser Qui-quadrado, Exato de Fisher, Teste de correlação, Teste-t, Mann-Whitney, Anova ou Kruskall Wallis, a depender da natureza e características dos dados) e suas devidas análises post-hoc e, quando necessário, tamanho de efeito. As ",sum(matanalises[i,-c(1:4,17)])," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}}
 
   
 crono = paste("Entrega do relatório no dia ",format(Sys.Date()+prazorelat, "%d/%m/%Y"),".",sep="",collapse="")
