@@ -32,7 +32,8 @@ if(mat_analises["factor"]>0) {texto=c(texto,"Para variáveis categóricas, usare
 * Frequência Relativa: Divide a frequência pelo total. Representa a ocorrência em valor percentual. \n")}
 
 
-if(sum(mat_analises)>(mat_analises["factor"] + mat_analises["numeric"])) texto=c(texto,"**P-valor:**
+if(sum(mat_analises)>(mat_analises["factor"] + mat_analises["numeric"])) texto=c(texto,"
+**P-valor:**
 
 Todos os testes estatísticos aqui apresentados serão avaliados, entre outras estatísticas, pelo p-valor. Para cada teste, há a definição de duas hipóteses:
 
@@ -44,7 +45,8 @@ O p-valor é a probabilidade de se obter os dados que você obteve considerando 
 
 Adotaremos neste trabalho a significância de 5%. P-valores menores que 5% serão considerados significantes e destacados com um \\* (significante a 5%). Dois asteriscos (\\*\\*) indicam significância a 1% e três (\\*\\*\\*) indicam significância a 0,1%. \n")
 
-if(sum(mat_analises[c("t","mw","aov1","correl")])>0) {texto=c(texto,"**Testes Estatísticos:**
+if(sum(mat_analises[c("t","mw","aov1","correl")])>0) {texto=c(texto,"
+**Testes Estatísticos:**
 
 * **Testes paramétricos e não paramétricos**
 
