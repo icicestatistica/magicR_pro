@@ -52,7 +52,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
 get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=F,respcol=T,cor="cyan4",idioma="PT"){
   xdim = ifelse(is.null(dim(xmat)),1,dim(xmat)[2])
   texto=c() ; textocont=c()
-  testes=data.frame()
+  testes=c()
   result=data.frame() ; resultcont=data.frame()
   temcont=F
   for (i in 1:xdim)
