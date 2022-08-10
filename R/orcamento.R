@@ -5,7 +5,7 @@ matanalises = c()
 sessoes=unique(analises$Sessão)
 n_analises = length(sessoes)
 for (i in 1:n_analises){
-matanalises <- rbind(matanalises,data.frame("Nome"=sessoes[i],t(unname(c(table(factor(analises[analises$Sessão==sessoes[i],]$tipo, levels=c("numeric","factor", "catsame", "t", "mw", "aov1", "kw", "correl", "cc","t_par","wilc","aovmr","fried","mcnem","qcoch")))))), "Variáveis"=printvetor(analises[analises$Sessão==sessoes[i],]$Nome1)))}
+matanalises <- rbind(matanalises,data.frame("Nome"=sessoes[i],t(unname(c(table(factor(analises[analises$Sessão==sessoes[i],]$tipo, levels=c("numeric","factor", "catsame", "t", "mw", "aov1", "kw", "correl", "cc","t_par","wilc","aovmr","fried","mcnem","qcoch")))))), "Variáveis"=printvetor(analises[analises$Sessão==sessoes[i],]$Nome2)))}
 
 totaltab = apply(matanalises[,c(-1,-17)],2,sum)
 
@@ -39,20 +39,20 @@ dataprop=format(Sys.Date(), "%d/%m/%Y")
 dataparcela2 = format(Sys.Date()+30, "%d/%m/%Y")
 
 gs4_deauth()
-aumentoprazo=read_sheet("https://docs.google.com/spreadsheets/d/1Adw20p6zDahYIx3a-L_LBZj0bAQZZliO5tYNh6SVFBY/edit?usp=sharing")
-preçotestes=read_sheet("https://docs.google.com/spreadsheets/d/1VAuR_iQHx-pazZvWJCR_2qHhXPNI6pB3IlGl4Qo4WSU/edit?usp=sharing")
-
-total=sum(totaltab)
-if(total<30) col=2 else
-  if(total<100) col=3 else col=4
-
-p1=sum(preçotestes[,col]*unlist(totaltab))
-preço=unlist(aumentoprazo[which(aumentoprazo$Prazo==prazorelat),2])*p1
-preço = preço + 0.5*297
-preço=preço/(1-0.17)
-precocheio = preço/0.95
-parcela2=round(precocheio/2,2)
-parcela1=precocheio-parcela2
+aumentoprazo = read_sheet("https://docs.google.com/spreadsheets/d/1Adw20p6zDahYIx3a-L_LBZj0bAQZZliO5tYNh6SVFBY/edit?usp=sharing")
+preçotestes = read_sheet("https://docs.google.com/spreadsheets/d/1VAuR_iQHx-pazZvWJCR_2qHhXPNI6pB3IlGl4Qo4WSU/edit?usp=sharing")
+total = sum(totaltab)
+    if (total < 30) 
+        col = 2 else
+          if (total < 100) col = 3 else col = 4
+    p1 = sum(preçotestes[, col] * unlist(totaltab))
+    preço = unlist(aumentoprazo[which(aumentoprazo$Prazo == prazorelat), 
+        2]) * p1
+    preço = preço + 0.5 * 297
+    preço = preço/(1 - 0.17)
+    precocheio = preço/0.95
+    parcela2 = round(precocheio/2, 2)
+    parcela1 = precocheio - parcela2
 
   
 invest1 = paste("O investimento para consultoria é de: \n
@@ -97,7 +97,7 @@ A consultoria proposta inclui:
 * CNPJ - 41.986.330/0001-85
 
 A chave pix é o número do CNPJ. Pedimos a gentileza de envio do comprovante de pagamento através do e-mail icicestatistica@gmail.com.
-A nota fiscal será enviada até 3 dias após o pagamento. \n", invest2,"
+A nota fiscal será enviada até 3 dias após a conclusão do pagamento. \n", invest2,"
 
 ## OBSERVAÇÕES
 * Não nos cabe a conclusão e argumentação dos resultados, uma vez que não detemos a “inteligência” de cada trabalho e sua respectiva área de pesquisa.
