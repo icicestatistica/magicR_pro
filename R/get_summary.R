@@ -43,7 +43,7 @@ get_summary_2 <- function(x,nomesx,tipox,niveisx,nas=F,teste=F,grafico=T,cor="cy
               {result2=resulta$result2
                row.names(result2) <- 1:dim(result2)[1]}}
     complem <- list.append(complem,resulta$grafico,"\n",resulta$texto,resulta$tabela,"\n")}
-testes=data.frame("Nome1"=nomesx,"Nome2"="","tipo"=tipox,"sig_ou_não"="","resumo"="")
+testes=data.frame("Nome1"="","Nome2"=nomesx,"tipo"=tipox,"sig_ou_não"="","resumo"="")
 return(list("testes"=testes,
             "result1"=result1,
             "result2"=result2,
