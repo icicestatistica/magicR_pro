@@ -69,7 +69,7 @@ result$label = paste0(result$Frequência," (",round(as.numeric(str_sub(result$`F
 grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa`,end=-2))/100)) + xlab(tituloeixox) + ggtitle(vetor_comsep_c(paste(nomey," (n=",dim(na.omit(x))[1],")",sep=""),50)) + ylab("") + theme_minimal() +
   geom_bar(stat="identity", fill=cor) +
   geom_errorbar(aes(xmax = ICmax, xmin = ICmin), color="gray", width=0.2) +
-  geom_label(aes(label=label), hjust=0.5, alpha=0.8) +
+  geom_label(aes(label=label), alpha=0.8,hjust="inward") +
   scale_x_continuous(labels = scales::percent) + theme(plot.title = element_text(hjust = 0.3))
 
 testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","resumo"=vec_to_string(levels))
