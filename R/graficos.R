@@ -32,7 +32,7 @@ niveis = names(table(cat))
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
             sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
-            dig))) + ylab(nomecont) + xlab(nomecat) + ylim(0,max(dadosd$cont)) + theme(plot.background = element_rect(colour = NA, 
+            dig))) + ylab(nomecont) + xlab(nomecat) + ylim(0,max(dadosd$cont+sd)) + theme(plot.background = element_rect(colour = NA, 
         fill = "transparent"), panel.background = element_rect(fill = "transparent", 
         color = NA), plot.title = element_text(hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5))
