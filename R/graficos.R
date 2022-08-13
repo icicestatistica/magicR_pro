@@ -1,3 +1,5 @@
+theme_icic = ggthemes::theme_clean() + ggplot2::theme(plot.background = element_rect(colour = NA), panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),legend.background = element_rect(color = NA))
+
 grafico_correl <- function(conty,nomey,cor="cyan4",contx,nomex,text="",idioma="PT"){
 dadosd <- data.frame(conty,contx)
 if(idioma=="PT") titulo=c("Correlação entre \'","\' e \'") else titulo=c("Correlation between \'","\' and \'")
