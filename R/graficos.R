@@ -8,7 +8,7 @@ plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geo
   plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
-grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste="",dig=2, ordenar=T, idioma="PT", printn=T) 
+grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste=NULL,dig=2, ordenar=T, idioma="PT", printn=T) 
 {
 niveis = names(table(cat))
     dadosd = data.frame(cont = cont, cat = cat)
