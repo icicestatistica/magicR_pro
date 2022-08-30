@@ -15,7 +15,7 @@ desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordena
     testec=quiqua_aderencia(variavel,nome,niveis,ordenar,digitos)
     if(length(testec)==1) {testectexto=testec$texto ; testectabela=NULL} else  {testectexto=testec$texto ; testectabela=testec$tabela}}
   if(grafico==T) {
-      if(sum(nchar(niveis)) < 50) {graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,cor)} else graficoc=NULL}
+      if(sum(nchar(niveis)) < 50) {graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar)} else {graficoc = grafico_categorica_vert(variavel,nome,cor)}} else graficoc=NULL}
   
   resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
