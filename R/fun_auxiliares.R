@@ -62,24 +62,33 @@ for (i in 1:length(vec)){
 return(res)}
    
 vetor_comsep_c <- function(vec,corteinicial){
-  res=c()
-  for (vetor in vec){
-  a=T
-  espacos = c(str_locate_all(vetor," ")[[1]][,1],nchar(vetor)+1)
-  inicio=1
-  corte=corteinicial
-  fim= ifelse(espacos[1]>corte,espacos[1]-1,espacos[max(which(espacos-1<=corte))]-1)
-  newvec <- c()
-  while (a){
-    newvec = c(newvec,str_sub(vetor,inicio,fim))
-    inicio = fim + 2
-      if(inicio>nchar(vetor)) a=F
-    corte=inicio+corteinicial
-    fim=espacos[max(which(espacos-1<=corte))]-1
-    if(fim<inicio) {fim=espacos[max(which(espacos-1<=corte))+1]-1}
-  }
-  newvec = paste0(newvec, collapse="\n")
-  res = c(res,newvec)}
+res = c()
+    for (vetor in vec) {
+        a = T
+        espacos = c(str_locate_all(vetor, " ")[[1]][, 1], 
+            nchar(vetor) + 1)
+        inicio = 1
+        corte = corteinicial
+        fim = ifelse(espacos[1] > corte, espacos[1] - 1, espacos[max(which(espacos - 
+            1 <= corte))] - 1)
+        newvec <- NULL
+        while (a) {
+            if(is.na(vetor)==T) {newvec=NA; a=F} else {
+            newvec = c(newvec, str_sub(vetor, inicio, fim))
+            inicio = fim + 2
+            if (inicio > nchar(vetor)) 
+                a = F
+            corte = inicio + corteinicial
+            fim = espacos[max(which(espacos - 1 <= corte))] - 
+                1
+            if (fim < inicio) {
+                fim = espacos[max(which(espacos - 1 <= corte)) + 
+                  1] - 1
+            }
+        }}
+        newvec = paste0(newvec, collapse = "\n")
+        res = c(res, newvec)
+    }
 return(res)}
 
 #vetor_comsep_c(names(dados),50)
