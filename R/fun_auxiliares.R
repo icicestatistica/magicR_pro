@@ -72,6 +72,7 @@ res = c()
         fim = ifelse(espacos[1] > corte, espacos[1] - 1, espacos[max(which(espacos - 
             1 <= corte))] - 1)
         newvec <- NULL
+        ena=FALSE
         while (a) {
             if(is.na(vetor)==T) {ena = T; a=F} else {
             newvec = c(newvec, str_sub(vetor, inicio, fim))
