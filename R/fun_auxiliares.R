@@ -73,7 +73,7 @@ res = c()
             1 <= corte))] - 1)
         newvec <- NULL
         while (a) {
-            if(is.na(vetor)==T) {newvec=NA; a=F} else {
+            if(is.na(vetor)==T) {ena = T; a=F} else {
             newvec = c(newvec, str_sub(vetor, inicio, fim))
             inicio = fim + 2
             if (inicio > nchar(vetor)) 
@@ -86,7 +86,7 @@ res = c()
                   1] - 1
             }
         }}
-        newvec = paste0(newvec, collapse = "\n")
+        if(ena) newvec=NA else newvec = paste0(newvec, collapse = "\n")
         res = c(res, newvec)
     }
 return(res)}
