@@ -53,7 +53,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
         resulta = escolha_summary_para_juntar(x[, i], nomesx[i], 
             tipox[i], niveisx[i], nas, teste, grafico, cor, bins, 
             dig, idioma)
-            if(vert==F) result <- rbind(result, resulta$result) else result = cbind(result, resulta$result)
+            if(vert==F) result <- rbind(result, resulta$result) else result = cbind(result, resulta$result[,2])
             complem <- list.append(complem, resulta$grafico, "\n", 
             resulta$texto, resulta$tabela, "\n")}
     row.names(result) <- 1:dim(result)[1]
