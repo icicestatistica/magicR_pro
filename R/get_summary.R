@@ -52,10 +52,10 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
         resulta = escolha_summary_para_juntar(x[, i], nomesx[i], 
             tipox[i], niveisx[i], nas, teste, grafico, cor, bins, 
             dig, idioma)
-            result <- rbind(result, resulta$result)}
-        row.names(result) <- 1:dim(result)[1]
-        complem <- list.append(complem, resulta$grafico, "\n", 
-            resulta$texto, resulta$tabela, "\n")
+            result <- rbind(result, resulta$result)
+            complem <- list.append(complem, resulta$grafico, "\n", 
+            resulta$texto, resulta$tabela, "\n")}
+    row.names(result) <- 1:dim(result)[1]
     testes = data.frame(Nome1 = "", Nome2 = nomesx, tipo = tipox, 
         sig_ou_não = "", resumo = "")
     return(list(testes = testes, result = result, complem = complem))}
