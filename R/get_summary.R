@@ -48,7 +48,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     result = NULL
     complem = list()
     xdim <- dim(x)[2]
-    if(sum(niveisx=="numeric") == xdim) vert=T else vert=F
+    if(sum(tipox=="numeric") == xdim) vert=T else vert=F
     for (i in 1:xdim) {
         resulta = escolha_summary_para_juntar(x[, i], nomesx[i], 
             tipox[i], niveisx[i], nas, teste, grafico, cor, bins, 
