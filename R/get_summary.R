@@ -34,8 +34,8 @@ escolha_summary_para_juntar = function (x, nomesx, tipox, niveisx, nas, teste, g
     if (is.null(result) == F) {
         result = data.frame(result)
         result = rbind(c(paste0("*",nomesx," (n=",length(na.omit(x)),")*"),""), result)
-        names(result) = c("Característica", 
-            "Frequência")
+        names(result) = c("Variável", 
+            "Estatística")
     }
     return(list(result = result, texto = texto, 
         tabela = tabela, grafico = grafico))}
@@ -48,11 +48,12 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     result = NULL
     complem = list()
     xdim <- dim(x)[2]
+    if(sum(niveisx=="numeric") == xdim) vert=T
     for (i in 1:xdim) {
         resulta = escolha_summary_para_juntar(x[, i], nomesx[i], 
             tipox[i], niveisx[i], nas, teste, grafico, cor, bins, 
             dig, idioma)
-            result <- rbind(result, resulta$result)
+            if(vert==F) result <- rbind(result, resulta$result) else result = rbind(result, t(resulta$result))
             complem <- list.append(complem, resulta$grafico, "\n", 
             resulta$texto, resulta$tabela, "\n")}
     row.names(result) <- 1:dim(result)[1]
