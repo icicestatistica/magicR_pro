@@ -15,7 +15,7 @@ desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordena
     testec=quiqua_aderencia(variavel,nome,niveis,ordenar,digitos)
     if(length(testec)==1) {testectexto=testec$texto ; testectabela=NULL} else  {testectexto=testec$texto ; testectabela=testec$tabela}}
   if(grafico==T) {
-      if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,cor)} else graficoc=NULL
+      if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,niveis,cor,ordenar)} else graficoc=NULL
   
   resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
@@ -55,11 +55,27 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
 return(result)}
 
-grafico_categorica_vert = function(lesoes,nome,cor="cyan4"){
-lesoes = unlist(lesoes)  
-theme_icic = ggthemes::theme_clean() + ggplot2::theme(plot.background = element_rect(colour = NA), panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5),legend.background = element_rect(color = NA),panel.grid.major.x=element_line(linetype=3, color="gray"),panel.grid.major.y=element_blank())
-plot = ggplot()+ geom_bar(aes(y=fct_rev(fct_infreq(vetor_comsep_c(lesoes,40))),x=(..count..)/sum(..count..)),stat="count", fill=cor) + geom_label(aes(y=vetor_comsep_c(names(table(lesoes)),40),x=as.numeric(table(lesoes))/length(lesoes)),label=paste0(round(100*table(lesoes)/length(lesoes),1),"%")) + theme_icic + scale_x_continuous(labels = scales::percent_format(),expand = expansion(mult = c(0,0.07))) + labs(y=NULL,x="Proporção",title=paste(nome," (n=",length(lesoes),")",sep=""))
-return(plot)}
+grafico_categorica_vert = function (lesoes, nome,niveis='auto',cor = "cyan4",ordenar=T) 
+{
+    lesoes = unlist(lesoes)
+    if(niveis[1]=='auto') niveis=names(table(lesoes))
+    theme_icic = ggthemes::theme_clean() + ggplot2::theme(plot.background = element_rect(colour = NA), 
+        panel.background = element_rect(fill = "transparent", 
+            color = NA), plot.title = element_text(hjust = 0.5), 
+        plot.subtitle = element_text(hjust = 0.5), legend.background = element_rect(color = NA), 
+        panel.grid.major.x = element_line(linetype = 3, color = "gray"), 
+        panel.grid.major.y = element_blank())
+        if(ordenar==T) ny="fct_rev(fct_infreq(vetor_comsep_c(lesoes,40)))" else ny="factor(vetor_comsep_c(lesoes, 40),levels=vetor_comsep_c(niveis,40))"
+    plot = ggplot() + geom_bar(aes(y = eval(parse(text=ny)), x = (..count..)/sum(..count..)), stat = "count", 
+        fill = cor) + geom_label(aes(y = vetor_comsep_c(names(table(lesoes)), 
+        40), x = as.numeric(table(lesoes))/length(lesoes)), label = paste0(round(100 * 
+        table(lesoes)/length(lesoes), 1), "%")) + theme_icic + 
+        scale_x_continuous(labels = scales::percent_format(), 
+            expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
+        x = "Proporção", title = paste(nome, " (n=", 
+            length(lesoes), ")", sep = ""))
+    return(plot)
+}
 
 quiqua_aderencia <- function(vetor,nomecat,niveis='auto',ordenar=T,dig=2){
 vetor = unlist(vetor)
