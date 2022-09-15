@@ -46,7 +46,7 @@ grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=
   dadosd$cat <- factor(dadosd$cat)
   if(printn == T) levels(dadosd$cat) = paste(niveis, "\n n=", n,sep = "")
   df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75, na.rm=T))
-  if(ordenar==F) x_c="vetor_comsep_c(cat,floor(40/length(n)))" else x_c="vetor_comsep_c(reorder(cat,cont,FUN=median),floor(40/length(n)))"
+  if(ordenar==F) x_c="vetor_comsep_c(cat,floor(80/length(n)))" else x_c="vetor_comsep_c(reorder(cat,cont,FUN=median),floor(80/length(n)))"
   if(dot=='auto') dot=ifelse(sum(n)>200,F,T)
     
     titulo = ifelse(idioma=="PT",paste0("Comparação de distribuições de '", nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""),
