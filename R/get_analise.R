@@ -16,7 +16,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
                         grafico=res$grafico}
   } else
     if(tipoy=="numeric" | tipoy=="ordinal") {ordinaly=ifelse(tipoy=="numeric",F,T) ; ordinalx=ifelse(tipox=="numeric",F,T)
-                                             res=contcont(as.numeric(unlist(y)),x,nomey,nomex,dig,cor,ordinalx=ordinalx,ordinaly=ordinaly)
+                                             res=contcont(y,x,nomey,nomex,dig,cor,ordinalx=ordinalx,ordinaly=ordinaly)
                                              nometeste="correl"
                                              result=res$resul
                                              tex=res$texto
