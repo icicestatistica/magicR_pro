@@ -75,7 +75,7 @@ Teste representado pela letra “e” ao lado do p-valor. Neste teste paramétri
 
 Ao comparar as médias para os níveis de um fator em uma análise de variância (anova), uma comparação simples usando testes t aumentará a probabilidade de declarar uma diferença significativa quando ela não está de fato presente. Tukey introduziu intervalos com base no intervalo das médias da amostra, e não nas diferenças individuais. Os intervalos retornados por esta função são baseados nas estatísticas de intervalo estudentizado, e são úteis para avaliar quais os grupos cujas médias diferem. \n")}
 
-if(mat_analises["aov1"]>0) {texto <- c(texto, "
+if(mat_analises["kw"]>0) {texto <- c(texto, "
 * **Kruskall-Wallis:**
 
 Teste representado pela letra “f” ao lado do p-valor. Neste teste não paramétrico, temos uma variável nominal que divide a população em três ou mais categorias. O objetivo do teste é verificar se há pelo menos uma categoria que difere das demais. Sendo assim, a hipótese nula é que todas as categorias são iguais e a alternativa, que há pelo menos uma categoria diferente das demais. Ao nível de significância de 5%, rejeita-se a hipótese de igualdade entre todos os grupos se o p-valor encontrado for menor que 0,05. O tamanho do efeito para o teste de Kruskal-Wallis é o eta-quadrado, que assume valores de 0 a 1 e multiplicada por 100 indica a porcentagem de variância na variável dependente explicada pela variável independente. Os valores de interpretação comumente encontrados na literatura publicada são: 0,01-0,06 (efeito pequeno), 0,06-0,14 (efeito moderado) e >= 0,14 (efeito grande). \n
