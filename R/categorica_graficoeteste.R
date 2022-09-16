@@ -47,7 +47,8 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
               geom_text(aes(label = prop), color = "white", position = position_stack(vjust = 0.5)) +
               scale_fill_manual(labels = vetor_comsep_c(niveis,11),values=lighten(cor,seq(0,0.3,(0.3/(length(tab$var)-1)))))}}
   if(ordenar==F) {
-    result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep_c(nome,50)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+    result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") +
+ ggtitle(paste0(vetor_comsep_c(nome,50)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
     theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
@@ -72,8 +73,7 @@ grafico_categorica_vert = function (lesoes, nome,niveis='auto',cor = "cyan4",ord
         table(lesoes)/length(lesoes), 1), "%")) + theme_icic + 
         scale_x_continuous(labels = scales::percent_format(), 
             expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
-        x = "Proporção", title = paste(nome, " (n=", 
-            length(lesoes), ")", sep = ""))
+        x = "Proporção", title = vetor_comsep_c(paste(nome, " (n=", length(lesoes), ")", sep = ""),50))
     return(plot)
 }
 
