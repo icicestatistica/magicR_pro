@@ -38,37 +38,52 @@ niveis = names(table(cat))
     return(plot)
 }
 
-grafico_comp_box <- function(cont,nomecont,cat,nomecat,cor="cyan4",teste="",dig=2,ordenar=T, idioma="PT", dot='auto',printn=T){
-  dadosd <- data.frame(cont=cont,cat=cat)
-  dadosd <- na.omit(dadosd)
-  niveis=names(table(cat))
-  n=table(dadosd$cat)
-  dadosd$cat <- factor(dadosd$cat)
-  if(printn == T) levels(dadosd$cat) = paste(niveis, "\n n=", n,sep = "")
-  df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise("med"=median(cont, na.rm=T),"q3"=quantile(cont,0.75, na.rm=T))
-  if(ordenar==F) x_c="vetor_comsep_c(cat,floor(80/length(n)))" else x_c="vetor_comsep_c(reorder(cat,cont,FUN=median),floor(80/length(n)))"
-  if(dot=='auto') dot=ifelse(sum(n)>200,F,T)
-    
-    titulo = ifelse(idioma=="PT",paste0("Comparação de distribuições de '", nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""),
-     paste0("Comparison of '", nomecont, "' distributions by '", nomecat, "' (n=", dim(na.omit(dadosd))[1], ")", collapse = ""))
-  
-  if(dot==F) {
-  plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
-    geom_boxplot(fill=cor) +
-    ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
-    #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
-    ggtitle(vetor_comsep_c(titulo,40),subtitle = teste) + ylim(0,max(dadosd$cont)) +
-    theme(plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))} else
-   {plot=ggplot(dadosd  %>% filter(!is.na(cat)),mapping=aes(y=cont,x=eval(parse(text=x_c)))) + 
-    geom_boxplot(fill=cor, outlier.alpha = 0) +
-    geom_dotplot(binaxis='y', stackdir='center', alpha=0.5) +
-    ylab(vetor_comsep_c(nomecont,40)) + xlab(vetor_comsep_c(nomecat,50)) + theme_clean() +
-    #geom_text(df.summary, mapping=aes(y=q3,x=cat,label="letrinhas"))+
-    ggtitle(vetor_comsep_c(titulo,40),subtitle = teste) + ylim(0,max(dadosd$cont)) +
-    theme(plot.background = element_rect(colour=NA, fill = "transparent"),
-  panel.background = element_rect(fill = "transparent", color=NA), plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))}
-return(plot)}
+grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", 
+    teste = NULL, dig = 2, ordenar = T, idioma = "PT", 
+    dot = "auto", printn = T) 
+{
+    dadosd <- data.frame(cont = cont, cat = cat)
+    dadosd <- na.omit(dadosd)
+    niveis = names(table(cat))
+    n = table(dadosd$cat)
+    dadosd$cat <- factor(dadosd$cat)
+    if (printn == T) 
+        levels(dadosd$cat) = paste(niveis, "\n n=", n, 
+            sep = "")
+    df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise(med = median(cont, 
+        na.rm = T), q3 = quantile(cont, 0.75, na.rm = T))
+    if (ordenar == F) x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))), levels=vetor_comsep_c(levels(dadosd$cat),floor(80/length(n))))" else x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))),levels=vetor_comsep_c(levels(reorder(cat,cont,FUN=median)),floor(80/length(n))))"
+    if (dot == "auto") 
+        dot = ifelse(sum(n) > 200, F, T)
+    titulo = ifelse(idioma == "PT", paste0("Comparação de distribuições de '", 
+        nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], 
+        ")", collapse = ""), paste0("Comparison of '", 
+        nomecont, "' distributions by '", nomecat, "' (n=", 
+        dim(na.omit(dadosd))[1], ")", collapse = ""))
+    if (dot == F) {
+        plot = ggplot(dadosd %>% filter(!is.na(cat)), mapping = aes(y = cont, 
+            x = eval(parse(text = x_c)))) + geom_boxplot(fill = cor) + 
+            ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
+            50)) + theme_clean() + ggtitle(vetor_comsep_c(titulo, 
+            40), subtitle = teste) + ylim(0, max(dadosd$cont)) + 
+            theme(plot.background = element_rect(colour = NA, 
+                fill = "transparent"), panel.background = element_rect(fill = "transparent", 
+                color = NA), plot.title = element_text(hjust = 0.5), 
+                plot.subtitle = element_text(hjust = 0.5))
+    } else {
+        plot = ggplot(dadosd %>% filter(!is.na(cat)), mapping = aes(y = cont, 
+            x = eval(parse(text = x_c)))) + geom_boxplot(fill = cor, 
+            outlier.alpha = 0) + geom_dotplot(binaxis = "y", 
+            stackdir = "center", alpha = 0.5) + ylab(vetor_comsep_c(nomecont, 
+            40)) + xlab(vetor_comsep_c(nomecat, 50)) + theme_clean() + 
+            ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
+            ylim(0, max(dadosd$cont)) + theme(plot.background = element_rect(colour = NA, 
+            fill = "transparent"), panel.background = element_rect(fill = "transparent", 
+            color = NA), plot.title = element_text(hjust = 0.5), 
+            plot.subtitle = element_text(hjust = 0.5))
+    }
+    return(plot)
+}
 
 
 grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto="", idioma="PT", labels=T){
