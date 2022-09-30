@@ -7,8 +7,7 @@ contcont <- function(y,x,nomey,nomex,dig=2,cor="cyan4",idioma="PT",ordinalx='aut
     if(ordinaly=='auto') ordinaly=ifelse(length(table(d$y))>10,F,T)
     bootcor <- function(data, indices, met) {
         df = data[indices, ]
-        return(cor.test(unlist(df[, 1]), unlist(df[, 2]), method = met, 
-            exact = F)$estimate)
+        return(cor.test(unlist(df[, 1]), unlist(df[, 2]), method = met)$estimate)
     }
     if(ordinalx==T | ordinaly==T){sup=" A escolha pelo teste não paramétrico de correlação de spearman se deve a natureza ordinal da(s) variável(is)."} else {
     if (length(x) - sum(is.na(x)) < 3 || length(x) - sum(is.na(x)) > 
