@@ -44,7 +44,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
 {
     dadosd <- data.frame(cont = cont, cat = cat)
     dadosd <- na.omit(dadosd)
-    niveis = names(table(cat))
+    niveis = names(table(dadosd$cat))
     n = table(dadosd$cat)
     dadosd$cat <- factor(dadosd$cat)
     if (printn == T) 
@@ -52,7 +52,8 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
             sep = "")
     df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise(med = median(cont, 
         na.rm = T), q3 = quantile(cont, 0.75, na.rm = T))
-    if (ordenar == F) x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))), levels=vetor_comsep_c(levels(dadosd$cat),floor(80/length(n))))" else x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))),levels=vetor_comsep_c(levels(reorder(cat,cont,FUN=median)),floor(80/length(n))))"
+    if (ordenar == F) 
+        x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))), levels=vetor_comsep_c(levels(dadosd$cat),floor(80/length(n))))" else x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))),levels=vetor_comsep_c(levels(reorder(cat,cont,FUN=median)),floor(80/length(n))))"
     if (dot == "auto") 
         dot = ifelse(sum(n) > 200, F, T)
     titulo = ifelse(idioma == "PT", paste0("Comparação de distribuições de '", 
