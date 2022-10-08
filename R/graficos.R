@@ -44,8 +44,9 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
 {
     dadosd <- data.frame(cont = cont, cat = cat)
     dadosd <- na.omit(dadosd)
-    niveis = names(table(dadosd$cat))
     n = table(dadosd$cat)
+    n=n[n>0]
+    niveis=names(n)
     dadosd$cat <- factor(dadosd$cat)
     if (printn == T) 
         levels(dadosd$cat) = paste(niveis, "\n n=", n, 
