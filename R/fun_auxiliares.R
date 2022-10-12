@@ -22,18 +22,18 @@ format_real <- function(valor) {
    res=format(round(valor,2),nsmall = 2, decimal.mark = ",", big.mark = ".")
 return(res)}
 
-caixadeselecao = function (vetor, sep = ",",opcoes='auto') 
+caixadeselecao = function (vetor, sep = ",", opcoes = "auto") 
 {
     vetor = unlist(vetor)
     if (opcoes[1] == "auto") 
         opcoes = unique(trim(unlist(str_split(vetor, sep))))
-        opcoes = opcoes[is.na(opcoes)==F]
+    opcoes = opcoes[is.na(opcoes) == F]
     matrix <- matrix(c(rep("", length(opcoes) * length(vetor))), 
         ncol = length(opcoes))
-    for (i in 1:length(opcoes))
+    for (i in 1:length(opcoes)) 
       for (j in 1:length(vetor))
         if (is.na(vetor[j]) == T) matrix[j, i] = NA else {
-        if (str_detect(vetor[j], fixed(opcoes[i])) == T) matrix[j, i] = "Sim" else matrix[j, i] = "Não"}
+            if (opcoes[i] %in% trim(str_split(vetor[j],sep)[[1]]))  matrix[j, i] = "Sim"  else matrix[j, i] = "Não"}
     m <- data.frame(matrix)
     colnames(m) <- opcoes
     m <- m[, names(m) != "NA"]
