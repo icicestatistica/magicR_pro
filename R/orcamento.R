@@ -1,4 +1,4 @@
-orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,analises,prazoprop=3,prazorelat=7,nomepesquisador="nome",cpfpesquisador="123.456.789-00"){
+orcamento <- function(dataenviobancobruto,bancobruto,auxiliar,analises,prazoprop=3,prazorelat=7,nomepesquisador="nome",cpfpesquisador="123.456.789-00",somar=0){
 mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
 
 matanalises = c()
@@ -49,6 +49,7 @@ total = sum(totaltab)
     preço = unlist(aumentoprazo[which(aumentoprazo$Prazo == prazorelat), 
         2]) * p1
     preço = preço + 0.5 * 297
+    preço = preço + soma
     preço = preço/(1 - 0.17)
     precocheio = preço/0.95
     parcela2 = round(precocheio/2, 2)
