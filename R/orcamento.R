@@ -49,7 +49,7 @@ total = sum(totaltab)
     preço = unlist(aumentoprazo[which(aumentoprazo$Prazo == prazorelat), 
         2]) * p1
     preço = preço + 0.5 * 297
-    preço = preço + soma
+    preço = preço + somar
     preço = preço/(1 - 0.17)
     precocheio = preço/0.95
     parcela2 = round(precocheio/2, 2)
