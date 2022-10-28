@@ -121,3 +121,8 @@ vec_to_string <- function(vec){
       
 turn_into_factor=function(vec,niveis_str){
   return(unname(factor(unlist(vec),levels=eval(parse(text=niveis_str)))))}
+
+Transformar = function(vec,original,novo){
+a=factor(vec,levels=original)
+levels(a)=novo
+return(a)}
