@@ -5,7 +5,7 @@ tabela=NULL
   
 continua=unlist(continua)
 categorica=unlist(categorica)
-if(niveis=="auto") niveis = names(table(categorica))
+if(niveis[1]=="auto") niveis = names(table(categorica))
 categorica <- factor(categorica,levels=niveis)
 
 d <- data.frame(continua,categorica)
