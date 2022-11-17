@@ -1,6 +1,6 @@
 get_auxiliar <- function(dados){
 
-  auxiliar <- data.frame(linha = 1:(dim(dados)[2]),nomes = names(dados),tipo=unlist(sapply(lapply(dados, class),"[[",1))
+  auxiliar <- data.frame(linha = 1:(dim(dados)[2]),nomes = names(dados),tipo=unlist(sapply(lapply(dados, class),"[[",1)))
   auxiliar[auxiliar$tipo=="character" | auxiliar$tipo=="logical",3] <- "factor"
   auxiliar[auxiliar$tipo=="integer",3] <- "numeric"
 
