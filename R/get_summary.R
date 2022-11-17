@@ -63,7 +63,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     return(list(testes = testes, result = result, complem = complem))}
 
 get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
-    if (gr == "auto") 
+    if (gr[1] == "auto") 
         gr = which(auxiliar$tipo %in% c("factor", "numeric", 
             "ordinal"))
     x <- data.frame(dados[, gr])
