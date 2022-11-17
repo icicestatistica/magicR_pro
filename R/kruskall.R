@@ -6,7 +6,7 @@ if(respcol==T) ref=nomefator else ref=nomeresp
   
 resp=unlist(resp)
 fator=unlist(fator)
-if(niveis=="auto") niveis = names(table(fator))
+if(niveis[1]=="auto") niveis = names(table(fator))
 fator <- factor(fator,levels=niveis)
 
 dad <- data.frame("continua"=as.numeric(resp),"categorica"=fator)
