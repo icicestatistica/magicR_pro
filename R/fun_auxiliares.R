@@ -26,14 +26,14 @@ caixadeselecao = function (vetor, sep = ",", opcoes = "auto")
 {
     vetor = unlist(vetor)
     if (opcoes[1] == "auto") 
-        opcoes = unique(gdata::trim(unlist(str_split(vetor, sep))))
+        opcoes = unique(gdata::trim(unlist(stringr::str_split(vetor, sep))))
     opcoes = opcoes[is.na(opcoes) == F]
     matrix <- matrix(c(rep("", length(opcoes) * length(vetor))), 
         ncol = length(opcoes))
     for (i in 1:length(opcoes)) 
       for (j in 1:length(vetor))
         if (is.na(vetor[j]) == T) matrix[j, i] = NA else {
-            if (opcoes[i] %in% gdata::trim(str_split(vetor[j],sep)[[1]]))  matrix[j, i] = "Sim"  else matrix[j, i] = "Não"}
+            if (opcoes[i] %in% gdata::trim(stringr::str_split(vetor[j],sep)[[1]]))  matrix[j, i] = "Sim"  else matrix[j, i] = "Não"}
     m <- data.frame(matrix)
     colnames(m) <- opcoes
     m <- m[, names(m) != "NA"]
