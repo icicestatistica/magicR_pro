@@ -47,7 +47,7 @@ nivcatsame = function(niveisoriginal){
    return(niveiscerto)}
 
 vetor_comsep <- function(vec,corte){
-mat = str_split(vec," ")
+mat = stringr::str_split(vec," ")
 res=c()
 for (i in 1:length(vec)){
   if (length(mat[[i]]) <= corte) res <- c(res, paste(mat[[i]],collapse=" ",sep="")) else {
@@ -65,7 +65,7 @@ vetor_comsep_c <- function(vec,corteinicial){
 res = c()
     for (vetor in vec) {
         a = T
-        espacos = c(str_locate_all(vetor, " ")[[1]][, 1], 
+        espacos = c(stringr::str_locate_all(vetor, " ")[[1]][, 1], 
             nchar(vetor) + 1)
         inicio = 1
         corte = corteinicial
@@ -75,7 +75,7 @@ res = c()
         ena=FALSE
         while (a) {
             if(is.na(vetor)==T) {ena = T; a=F} else {
-            newvec = c(newvec, str_sub(vetor, inicio, fim))
+            newvec = c(newvec, stringr::str_sub(vetor, inicio, fim))
             inicio = fim + 2
             if (inicio > nchar(vetor)) 
                 a = F
