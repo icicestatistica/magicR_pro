@@ -8,6 +8,6 @@ names(res)=c("Fonte","Coeficiente (B)","OR","IC95%","Valor z","p-valor")
 
 library("sjPlot")
 
-plot = plot_model(st, grid=FALSE,show.values=T,vline.color="darkgray") + theme_icic + theme(legend.position = "top", plot.title=element_text(hjust=0.5))
+plot = plot_model(st, grid=FALSE,show.values=T,vline.color="darkgray") + theme_icic() + theme(legend.position = "top", plot.title=element_text(hjust=0.5))
 
 return(list(res,plot))}
