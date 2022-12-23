@@ -44,7 +44,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
 {
     dadosd <- data.frame(cont = cont, cat = cat)
     dadosd <- na.omit(dadosd)
-    if(min(dadosd$cont)<0) limites=ylim(min(dadosd$cont), max(dadosd$cont)) else ylim(0, max(dadosd$cont))
+    if(min(dadosd$cont)<0) limites="ylim(min(dadosd$cont), max(dadosd$cont))" else limites="ylim(0, max(dadosd$cont))"
     n = table(dadosd$cat)
     n=n[n>0]
     niveis=names(n)
@@ -68,7 +68,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
             x = eval(parse(text = x_c)))) + geom_boxplot(fill = cor) + 
             ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
             50)) + theme_clean() + ggtitle(vetor_comsep_c(titulo, 
-            40), subtitle = teste) + limites + 
+            40), subtitle = teste) + eval(parse(text=limites)) + 
             theme(plot.background = element_rect(colour = NA, 
                 fill = "transparent"), panel.background = element_rect(fill = "transparent", 
                 color = NA), plot.title = element_text(hjust = 0.5), 
