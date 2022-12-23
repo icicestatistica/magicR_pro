@@ -80,14 +80,13 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
             stackdir = "center", alpha = 0.5) + ylab(vetor_comsep_c(nomecont, 
             40)) + xlab(vetor_comsep_c(nomecat, 50)) + theme_clean() + 
             ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
-            ylim(0, max(dadosd$cont)) + theme(plot.background = element_rect(colour = NA, 
+             eval(parse(text=limites)) + theme(plot.background = element_rect(colour = NA, 
             fill = "transparent"), panel.background = element_rect(fill = "transparent", 
             color = NA), plot.title = element_text(hjust = 0.5), 
             plot.subtitle = element_text(hjust = 0.5))
     }
     return(plot)
 }
-
 
 grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto="", idioma="PT", labels=T){
   help = na.omit(data.frame(x, y))
