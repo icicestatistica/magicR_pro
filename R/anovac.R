@@ -13,7 +13,9 @@ names(d) <- c("resp","fator")
 
 homog = leveneTest(resp ~ fator, data=d)
 
-if(homog$`Pr(>F)`[1]<0.05 | is.na(homog$`Pr(>F)`[1])) {
+if(is.na(homog$`Pr(>F)`[1])) {supos=F; res=NULL;texto=NULL;grafico=NULL} else {
+  
+if(homog$`Pr(>F)`[1]<0.05) {
   corr=" com correção de Welch para variâncias diferentes"
   homogtext=c(" A correção de Welch foi utilizada em decorrência do teste de Levene, que com p-valor menor que 0.05 (p=",pvalor(homog$`Pr(>F)`[1]),") rejeitou a hipótese de igualdade de variâncias. ");
   whiteadj=T;
@@ -123,7 +125,8 @@ res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]))
 a1=a$DFn  ; a2=round(a$DFd,dig) ; a3=ifelse(pv<0.001,"<0.001",paste("=",round(pv,3))) ; a4=round(a$F,dig)
 textograf <- substitute(paste("ANOVA one-way F(",a1,",",a2,") = ",a4,", p",a3,collapse=""),list(a1=a1,a2=a2,a3=a3,a4=a4))
 grafico=grafico_comp_bar(d$resp,nomecont,d$fator,nomecat,cor=cor,teste=textograf,dig=dig, idioma=idioma)
-
+}
+             
 return(list("sup"=supos,
             "result"=res,
             "texto"=texto,
