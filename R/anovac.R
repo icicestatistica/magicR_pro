@@ -13,7 +13,7 @@ names(d) <- c("resp","fator")
 
 homog = leveneTest(resp ~ fator, data=d)
 
-if(homog$`Pr(>F)`[1]<0.05) {
+if(homog$`Pr(>F)`[1]<0.05 | is.na(homog$`Pr(>F)`[1])) {
   corr=" com correção de Welch para variâncias diferentes"
   homogtext=c(" A correção de Welch foi utilizada em decorrência do teste de Levene, que com p-valor menor que 0.05 (p=",pvalor(homog$`Pr(>F)`[1]),") rejeitou a hipótese de igualdade de variâncias. ");
   whiteadj=T;
