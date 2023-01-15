@@ -25,8 +25,8 @@ desc_uni_continua <- function(vari,nome,bins=20,texto=T, grafico=T,cor='cyan4',d
   
   missings = as.numeric(d$Estatística[1])-as.numeric(d$Estatística[3])
   
-  texto_outliers = ifelse(outl==0,"Não há outliers.", paste("Há ",outl," outliers.",sep=""))
-  texto_missings = ifelse(missings==0,"Não há perda de dados.", paste("Há ",missings," missings, ou seja, linhas com perda de dados.",sep=""))
+  texto_outliers = ifelse(outl==0,"Não há outliers.", paste("Há ",outl," outlier(s).",sep=""))
+  texto_missings = ifelse(missings==0,"Não há perda de dados.", paste("Há ",missings," missing(s), ou seja, linha(s) com perda de dados.",sep=""))
   
   interpretacao = paste(" + A variável **'",nome,"'**, variou entre ",round(summary(vari)[1],digitos)," e ",round(summary(vari)[6],digitos),". Sua média foi ",round(summary(vari)[4],digitos),", com desvio padrão de ",round(sd(vari,na.rm=T),digitos),". A mediana é ",round(summary(vari)[3],digitos)," e o intervalo interquartil é ",iqr," (Q1=",round(summary(vari)[2],digitos),"-Q3=",round(summary(vari)[5],digitos),"). ",texto_missings," ",texto_outliers,sep="")
   
