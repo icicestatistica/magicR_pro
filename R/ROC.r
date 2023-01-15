@@ -1,6 +1,8 @@
-library("pROC")
 
-ROC_icic = function(df$CPSUWA,df$Grupo){
+
+ROC_icic = function(){
+  
+library("pROC")
 df_na = na.omit(data.frame(df$CPSUWA,df$Grupo))
 fit1 = glm(df.Grupo ~ df.CPSUWA, data=df_na, family=binomial(link="logit"))
 
