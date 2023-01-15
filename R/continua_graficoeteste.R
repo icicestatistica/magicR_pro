@@ -1,10 +1,11 @@
-desc_uni_continua <- function(vari,nome,bins=20,texto=T,grafico=T,cor='cyan4',digitos=2, idioma="PT"){
+desc_uni_continua <- function(vari,nome,bins=20,texto=T, grafico=T,cor='cyan4',digitos=2, idioma="PT"){
   nf=""
   vari=unlist(vari)
   if(length(summary(vari))==6) {N=length(vari); na=0} else {N=length(vari);na=summary(vari)[7]}
   if(length(vari)-sum(is.na(vari))<3 | length(vari)-sum(is.na(vari))>3000 | min(vari,na.rm=T)==max(vari,na.rm=T)) {p = "N/A";nf="Não foi possível realizar o teste shapiro-wilk para normalidade, uma vez que não há observações suficientes para fazê-lo.  \n"} else {shap = shapiro.test(vari) ; p=pvalor(shap$p.value); if(shap$p.value <0.05) rej <- "menor que 0.05, rejeitou" else rej="maior ou igual a 0.05, não rejeitou"}
   cv=round(sd(vari,na.rm=T)/summary(vari)[4]*100,digitos)
   parametros <- c("Total","N/A","N","Min-Máx","Q1-Q3","Mediana","Média","DP","CV", "SW")
+  iqr = round(summary(vari)[5]-summary(vari)[2],digitos)
   if(sum(is.na(vari))==length(vari)) variavel=c(N,paste0(na," (100%)"),0,"-","-","-","-","-","-","-") else {
     variavel <- c(N,
                   paste0(na," (",round(100*na/N,digitos),"%)"),
@@ -18,6 +19,17 @@ desc_uni_continua <- function(vari,nome,bins=20,texto=T,grafico=T,cor='cyan4',di
                   p)}
   d <- data.frame("Característica"=parametros,"Estatística"=unlist(variavel))
   tex=NULL
+  
+  
+  outl = length(boxplot.stats(na.omit(vari))$out)
+  
+  missings = as.numeric(d$Estatística[1])-as.numeric(d$Estatística[3])
+  
+  texto_outliers = ifelse(outl==0,"Não há outliers.", paste("Há ",outl," outliers.",sep=""))
+  texto_missings = ifelse(missings==0,"Não há perda de dados.", paste("Há ",missings," missings, ou seja, linhas com perda de dados.",sep=""))
+  
+  interpretacao = paste(" + A variável **'",nome,"'** possui ",d$Estatística[3]," observações que variaram entre ",round(summary(vari)[1],digitos)," e ",round(summary(vari)[6],digitos),". Sua média foi ",round(summary(vari)[4],digitos),", com desvio padrão de ",round(sd(vari,na.rm=T),digitos),". A mediana é ",round(summary(vari)[3],digitos)," e o intervalo interquartil é ",iqr," (Q1=",round(summary(vari)[2],digitos),"-Q2=",round(summary(vari)[5],digitos),"). ",texto_missings," ",texto_outliers,sep="")
+  
 if(texto==T){
   if(nf=="") nf=c("  + O teste de shapiro wilk, com p-valor ",rej," a hipótese de normalidade dos dados (W=",round(shap$statistic,digitos),", p-valor=",pvalor(shap$p.value),"). \n") else shaptexto=nf
     if(cv>50) cvtexto = " Como isso não ocorreu, valores próximos à média podem não ter sido tão frequentes nos dados. \n" else cvtexto = " Como isso ocorreu, os dados tendem a se concentrar perto da média. \n"
@@ -40,8 +52,7 @@ if(texto==T){
   if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos,idioma) else grafico=NULL
 
   
-return(list("result"=d,"texto"=tex,"grafico"=grafico))}
-
+return(list("result"=d,"texto"=tex,"interp"=interpretacao,"grafico"=grafico))}
 
 graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT"){
   d <- data.frame(var=as.numeric(unlist(var)))
