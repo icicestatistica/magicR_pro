@@ -28,7 +28,7 @@ desc_uni_continua <- function(vari,nome,bins=20,texto=T, grafico=T,cor='cyan4',d
   texto_outliers = ifelse(outl==0,"Não há outliers.", paste("Há ",outl," outliers.",sep=""))
   texto_missings = ifelse(missings==0,"Não há perda de dados.", paste("Há ",missings," missings, ou seja, linhas com perda de dados.",sep=""))
   
-  interpretacao = paste(" + Em relação à variável **'",nome,"'**, variou entre ",round(summary(vari)[1],digitos)," e ",round(summary(vari)[6],digitos),". Sua média foi ",round(summary(vari)[4],digitos),", com desvio padrão de ",round(sd(vari,na.rm=T),digitos),". A mediana é ",round(summary(vari)[3],digitos)," e o intervalo interquartil é ",iqr," (Q1=",round(summary(vari)[2],digitos),"-Q2=",round(summary(vari)[5],digitos),"). ",texto_missings," ",texto_outliers,sep="")
+  interpretacao = paste(" + Em relação à variável **'",nome,"'**, houve variação entre ",round(summary(vari)[1],digitos)," e ",round(summary(vari)[6],digitos),". Sua média foi ",round(summary(vari)[4],digitos),", com desvio padrão de ",round(sd(vari,na.rm=T),digitos),". A mediana é ",round(summary(vari)[3],digitos)," e o intervalo interquartil é ",iqr," (Q1=",round(summary(vari)[2],digitos),"-Q2=",round(summary(vari)[5],digitos),"). ",texto_missings," ",texto_outliers,sep="")
   
 if(texto==T){
   if(nf=="") nf=c("  + O teste de shapiro wilk, com p-valor ",rej," a hipótese de normalidade dos dados (W=",round(shap$statistic,digitos),", p-valor=",pvalor(shap$p.value),"). \n") else shaptexto=nf
