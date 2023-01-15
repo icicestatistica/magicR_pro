@@ -50,6 +50,10 @@ for (i in 2:dim(x)[2]){
 names(df)=c("Variável",'Frequência',"Freq. Relativa", "ICmin","ICmax")
 df = df[order(as.numeric(str_sub(df$`Freq. Relativa`,end=-2)), decreasing=T),]
 
+freqs_aux = paste0(df$Variável," (",df$`Freq. Relativa`,")")
+
+interp = paste0("Com relação a **",nomey,"**, tivemos maior frequência de ",freqs_aux[1], ", seguido(a) de " ,printvetor(freqs_aux[-1]),". Podemos ver mais detalhes na tabela a seguir: \n")
+
 df_printar=data.frame(df[,1:3],paste("(",round(100*df$ICmin,dig),"%, ",round(100*df$ICmax,dig),"%)",sep=""))
 names(df_printar)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
 
@@ -75,6 +79,7 @@ grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa
 testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","resumo"=vec_to_string(levels))
 
 return(list("testes"=testes,
+            "interp"=interp,
             "result"=df_printar,
             "texto"=texto,
             "gráfico"=grafico))}
