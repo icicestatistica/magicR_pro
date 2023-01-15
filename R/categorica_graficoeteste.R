@@ -2,8 +2,19 @@ desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordena
   variavel=unlist(variavel)
   if (niveis[1]=='auto') niveis = names(table(variavel))
   variavel <- factor(variavel, levels = niveis)
-  if (nas==FALSE) {d<-data.frame(t(rbind(round(table(variavel),0),paste0(round(100*prop.table(table(variavel)),digitos),"%"))))} else
-  {d<-t(rbind(round(table(variavel),0),paste0(round(100*table(variavel)/length(variavel),digitos),"%")))
+  
+  tablevar = table(variavel)
+  if(ordenar==T) tablevar = table(factor(variavel,levels=names(tablevar)[order(tablevar,decreasing=T)]))
+  prop = 100*round(prop.table(tablevar),3)
+  
+  res=c()
+  for (i in 1:(length(tablevar)-1)) res = c(res, paste(names(tablevar)[i]," (",prop[i],"%)",sep=""))
+descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(tablevar)]," (",prop[length(tablevar)],"%).",sep=""))
+
+  interpretacao = paste(" + Em relação à variável **'",nome,"'**, tivemos os grupos ",descri,sep="")
+  
+  if (nas==FALSE) {d<-data.frame(t(rbind(round(tablevar,0),paste0(round(100*prop.table(tablevar),digitos),"%"))))} else
+  {d<-t(rbind(round(tablevar,0),paste0(round(100*tablevar/length(variavel),digitos),"%")))
    d <- rbind(d, "N/A"=c(sum(is.na(variavel)),paste0(round(100*sum(is.na(variavel))/length(variavel),digitos),"%")))}
   if (ordenar==TRUE) {d <- d[order(as.numeric(d[,1]),decreasing = T),]}
   if (label==TRUE) {d <- data.frame(d, "Freq."=paste0(d[,1]," (",d[,2],")"))}
@@ -17,7 +28,7 @@ desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordena
   if(grafico==T) {
       if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,niveis,cor,ordenar)} else graficoc=NULL
   
-  resultados=list("result"=d,"texto"=testectexto,"tabela"=testectabela,"grafico"=graficoc)
+    resultados=list("result"=d,"texto"=testectexto,"interp"=interpretacao,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
 
 grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
