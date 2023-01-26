@@ -38,9 +38,9 @@ return(list("testes"=testes,
 
 cat_same_levels_2 <- function(x,nomes="auto",nomey,levels="auto",dig=2,cor="cyan4",sepvec=50,idioma="PT"){
 
-if(nomes=="auto") nomes = names(x)
+if(nomes[1]=="auto") nomes = names(x)
 names(x)=nomes
-if (levels=='auto') levels = c("Sim","Não")
+if (levels[1]=='auto') levels = c("Sim","Não")
 prop=prop.test(table(factor(unlist(x[,1]),levels=levels)))
 df = data.frame("Variável"=nomes[1],desc_uni_categorica(x[,1],"",levels,F,F,F,F,F,F,F,dig)$result[1,c(2,3)],prop$conf.int[1],prop$conf.int[2])
 for (i in 2:dim(x)[2]){
