@@ -54,8 +54,8 @@ freqs_aux = paste0(df$Variável," (",df$`Freq. Relativa`,")")
 
 interp = paste0("Com relação a **",nomey,"**, tivemos maior frequência de ",freqs_aux[1], ", seguido(a) de " ,printvetor(freqs_aux[-1]),". Podemos ver mais detalhes na tabela a seguir: \n")
 
-df_printar=data.frame(df[,1:3],paste("(",round(100*df$ICmin,dig),"%, ",round(100*df$ICmax,dig),"%)",sep=""))
-names(df_printar)=c("Variável",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
+df_printar=data.frame(df[,1:4],paste("(",round(100*df$ICmin,dig),"%, ",round(100*df$ICmax,dig),"%)",sep=""))
+names(df_printar)=c("Variável","n",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
 
 texto=list(paste("Podemos avaliar esta tabela comparando os intervalos de confiança de cada ítem. Caso os intervalos de confiança de dois ítens se sobreponham, isso significa que não rejeitamos a diferença entre as proporções nesses dois ao nível de 5% de significância. Portanto, interpretamos da seguinte forma:"," \n",sep=""))
 for (i in 1:(dim(df)[1])){
