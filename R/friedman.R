@@ -29,10 +29,10 @@ texto = paste(" - A variável '",nomex,"' foi estatisticamente diferente nos mom
 
 pwc <- pwc %>% add_xy_position(x = "time")
 grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
-  stat_pvalue_manual(pwc, hide.ns = TRUE) +
+  ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
   labs(
     subtitle = textograf,
-    caption = get_pwc_label(pwc),
+    caption = ggpubr::get_pwc_label(pwc),
     y=nomex)
 
 res=desc_bi_cont(df_long$num,df_long$time,respcol=F)[-1,-2]
