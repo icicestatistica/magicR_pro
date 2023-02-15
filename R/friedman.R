@@ -32,7 +32,7 @@ grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
   ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
   labs(
     subtitle = textograf,
-    caption = ggpubr::get_pwc_label(pwc),
+    caption = get_pwc_label(pwc),
     y=nomex)
 
 res=desc_bi_cont(df_long$num,df_long$time,respcol=F)[-1,-2]
