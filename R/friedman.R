@@ -10,9 +10,9 @@ df_long = tidyr::pivot_longer(df_wide,2:4,values_to = "num",names_to="time")
 df_long$time=factor(df_long$time)
 df_long$id = factor(df_long$id)
 
-res.fried <- friedman_test(num ~ time |id, data=df_long)
+res.fried <- rstatix::friedman_test(num ~ time |id, data=df_long)
 
-es = friedman_effsize(num ~ time |id,data=df_long)
+es = rstatix::friedman_effsize(num ~ time |id,data=df_long)
 
 pwc <- df_long %>%
   wilcox_test(num ~ time, paired = TRUE, p.adjust.method = "bonferroni")
@@ -27,9 +27,8 @@ desc_pw = paste(pwc$group1," e ",pwc$group2," (p=",pvetor(pwc$p.adj),")",sep="")
 
 texto = paste(" - A variável '",nomex,"' foi estatisticamente diferente nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequena",ifelse(es$magnitude=="moderate","moderada","grande")),". \n O teste de posto sinalizado de Wilcoxon pareado entre os grupos revelou diferenças estatisticamente significativas entre os momentos ",paste0(paste(desc_pw[-length(desc_pw)],collapse=", ")," e ",desc_pw[length(desc_pw)]),".",sep="")
 
-library(ggpubr)
 pwc <- pwc %>% add_xy_position(x = "time")
-grafico = ggboxplot(df_long, x = "time", y = "num") +
+grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
   stat_pvalue_manual(pwc, hide.ns = TRUE) +
   labs(
     subtitle = textograf,
