@@ -1,28 +1,38 @@
-mc <- function(i,prim,posim){
+mc_icic = function(id,time,cat,moms,nomex){
 
-tab = as.data.frame.matrix(table(prim[,i],posim[,i]))
-teste = mcnemar.test(prim[,i], y = posim[,i], correct = TRUE)
-tab <- data.frame(tab,c(pvalor(teste$p.value),""))
+df=data.frame(id,time,cat)
 
-if(teste$p.value<0.05) res = c("Testamos a diferença entre a proporção de acertos antes e imediatamente após a aplicação da intervenção através do teste de McNemar com correção de continuidade, que  não rejeitou a igualdade de acertos (McNemar's ", paste("$\\chi^2$",collapse=NULL),"(",teste$parameter,") = ",round(teste$statistic,dig),", p-value = ",pvalor(teste$p.value),"). \n") else
-  res = c("Testamos a diferença entre a proporção de acertos antes e imediatamente após a aplicação da intervenção através do teste de McNemar com correção de continuidade, que  rejeitou a igualdade de acertos (McNemar's ", paste("$\\chi^2$",collapse=NULL),"(",teste$parameter,") = ",round(teste$statistic,dig),", p-value = ",pvalor(teste$p.value),"). \n")
+df = df[df$time %in% moms,]
 
-return(list("tab"=tab,"res"=res))}
+df_wide = tidyr::pivot_wider(df,names_from = time,values_from = cat)
 
-#tab = as.data.frame.matrix(table(catprim[1:50],catposim[1:50]))
-#teste = mcnemar.test(catprim[1:50],catposim[1:50], correct = TRUE)
-#tab <- data.frame(tab,c(pvalor(teste$p.value),""))
-#kable(tab)
+df_wide=na.omit(df_wide)
 
-#if(teste$p.value<0.05) res = c("Testamos a diferença entre a proporção de acertos antes e imediatamente após a aplicação da intervenção através do teste de McNemar com correção de continuidade, que  não rejeitou a igualdade de acertos (McNemar's ", paste("$\\chi^2$",collapse=NULL),"(",teste$parameter,") = ",round(teste$statistic,dig),", p-value = ",pvalor(teste$p.value),"). \n") else
-#  res = c("Testamos a diferença entre a proporção de acertos antes e imediatamente após a aplicação da intervenção através do teste de McNemar com correção de continuidade, que  rejeitou a igualdade de acertos (McNemar's ", paste("$\\chi^2$",collapse=NULL),"(",teste$parameter,") = ",round(teste$statistic,dig),", p-value = ",pvalor(teste$p.value),"). \n")
-#cat(res,sep="")
+df_long = tidyr::pivot_longer(df_wide,2:(dim(df_wide)[2]),values_to = "cat",names_to="time")
+df_long$time=factor(df_long$time)
+df_long$id = factor(df_long$id)
+df_long$cat = factor(df_long$cat)
 
-#tab <- data.frame()
-#res <- c()
-#for (i in 1:12) {
-#  tab <- rbind(tab,mc(i,prim,posim)$tab)
-#  res <- c(res,mc(i,prim,posim)$res)}
+mc = rstatix::mcnemar_test(table(df_wide[,moms]))
 
-#kable(tab)
-#cat(res,sep="")
+a1 = unname(mc$df)
+a2 = unname(round(mc$statistic, dig))
+a3 = ifelse(mc$p < 0.001, "<0.001", paste0("=",round(mc$p,3)))
+
+textograf <- substitute(paste("Teste de McNemar (", chi^2, 
+"(", a1, ") =", a2, ",p", a3, ")", collapse = ""), list(a1 = a1, a2 = a2, a3 = a3))
+
+dif = ifelse(mc$p<0.05," teve proporções estatisticamente diferentes"," não teve proporções estatisticamente diferentes")
+
+texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de McNemar ($\\chi^2$ (", a1, ") =", a2, ",p", a3, ").",sep="",collapse="")
+
+
+grafico = grafico_catcat(df_long$time,"Momento",df_long$cat,nomex, texto=textograf) + labs(title=vetor_comsep_c(paste0("Diferença de proporções de ",nomex," nos momentos"),40))
+
+res=desc_bi_cat(df_long$cat,col=df_long$time,)[-1,-2]
+
+res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], ")", sep = ""), 
+        rep("", dim(res)[2])), res), `p-valor` = c("", paste0(pvalor(mc$p),"k"), rep("", 
+        dim(res)[1] - 1)))
+
+return(list("result"=res,"texto"=texto,"grafico"=grafico))}
