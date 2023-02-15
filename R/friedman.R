@@ -25,7 +25,9 @@ textograf <- substitute(paste("Teste de Friedman (", chi^2,
 "(", a1, ") =", a2, ",p", a3, ")", collapse = ""), list(a1 = a1, a2 = a2, a3 = a3))
 desc_pw = paste(pwc$group1," e ",pwc$group2," (p=",pvetor(pwc$p.adj),")",sep="")
 
-texto = paste(" - A variável '",nomex,"' foi estatisticamente diferente nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequena",ifelse(es$magnitude=="moderate","moderada","grande")),". \n O teste de posto sinalizado de Wilcoxon pareado com correção de bonferroni entre os grupos revelou diferenças estatisticamente significativas entre os momentos ",paste0(paste(desc_pw[-length(desc_pw)],collapse=", ")," e ",desc_pw[length(desc_pw)]),".",sep="")
+dif = ifelse(res.fried$p<0.05," foi estatisticamente diferente"," não foi estatisticamente diferente")
+
+texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequena",ifelse(es$magnitude=="moderate","moderada","grande")),". \n O teste de posto sinalizado de Wilcoxon pareado com correção de bonferroni entre os grupos revelou diferenças estatisticamente significativas entre os momentos ",paste0(paste(desc_pw[-length(desc_pw)],collapse=", ")," e ",desc_pw[length(desc_pw)]),".",sep="")
 
 pwc <- pwc %>% add_xy_position(x = "time")
 grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
