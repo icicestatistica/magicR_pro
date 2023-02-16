@@ -36,7 +36,7 @@ if(res.fried$p<0.05) comp = ifelse(sum(pwc$p.adj<0.05)==0,
 
 dif = ifelse(res.fried$p<0.05," foi estatisticamente diferente"," não foi estatisticamente diferente")
 
-texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequeno",ifelse(es$magnitude=="moderate","moderado","grande")),". \n",comp,sep="")
+texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequeno",ifelse(es$magnitude=="moderate","moderado","grande")),". ",comp,sep="")
 
 pwc <- pwc %>% add_xy_position(x = "time")
 grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
