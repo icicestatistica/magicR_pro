@@ -18,6 +18,8 @@ es = rstatix::friedman_effsize(num ~ time |id,data=df_long)
 pwc <- df_long %>%
   wilcox_test(num ~ time, paired = TRUE, p.adjust.method = "bonferroni")
 
+n=length(pwc$p)
+
 a1 = res.fried$df
 a2 = unname(round(res.fried$statistic, dig))
 a3 = ifelse(res.fried$p < 0.001, "<0.001", paste0("=",round(res.fried$p, 
@@ -26,9 +28,15 @@ textograf <- substitute(paste("Teste de Friedman (", chi^2,
 "(", a1, ") =", a2, ",p", a3, ")", collapse = ""), list(a1 = a1, a2 = a2, a3 = a3))
 desc_pw = paste(pwc$group1," e ",pwc$group2," (p=",pvetor(pwc$p.adj),")",sep="")
 
+if(res.fried$p<0.05) comp = ifelse(sum(pwc$p.adj<0.05)==0,
+                            paste0("Apesar disso, os testes de postos sinalizados de wilcoxon com correção de bonferroni não detectaram nenhum momento diferindo dos demais (",printvetor(desc_pw,aspas=F),")."),
+       ifelse(sum(pwc$p.adj<0.05)==n,paste0("Os testes de postos sinalizados de wilcoxon com correção de bonferroni detectaram diferenças de proporções em todos os momentos (",printvetor(desc_pw,aspas=F),")."),
+            paste0("Os momentos que diferiram pelos testes de postos sinalizados de wilcoxon com correção de bonferroni foram ",printvetor(desc_pw[pwc$p.adj<0.05],aspas=F)," e os que não diferiram foram ",printvetor(desc_pw[pwc$p.adj>=0.05],aspas=F),". \n"))) else comp=NULL
+
+
 dif = ifelse(res.fried$p<0.05," foi estatisticamente diferente"," não foi estatisticamente diferente")
 
-texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequeno",ifelse(es$magnitude=="moderate","moderado","grande")),". \n O teste de posto sinalizado de Wilcoxon pareado com correção de bonferroni entre os grupos revelou diferenças estatisticamente significativas entre os momentos ",paste0(paste(desc_pw[-length(desc_pw)],collapse=", ")," e ",desc_pw[length(desc_pw)]),".",sep="")
+texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequeno",ifelse(es$magnitude=="moderate","moderado","grande")),". \n",comp,sep="")
 
 pwc <- pwc %>% add_xy_position(x = "time")
 grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
@@ -41,7 +49,7 @@ grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
 res=desc_bi_cont(df_long$num,df_long$time,respcol=F)[-1,-2]
 
 res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], ")", sep = ""), 
-        rep("", dim(res)[2])), res), `p-valor` = c("", paste0(a3,"i"), rep("", 
+        rep("", dim(res)[2]-1)), res), `p-valor` = c("", paste0(a3,"i"), rep("", 
         dim(res)[1] - 1)))
 
 return(list("result"=res,"texto"=texto,"grafico"=grafico))}
