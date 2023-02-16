@@ -4,7 +4,7 @@ result<-data.frame() ; tex="" ; grafico=NULL
 
 n=length(moms)
 if(n==2){
-  if(tipox=="numeric") {res=wilcox(id,time,unlist(x),nomex,moms)
+  if(tipox=="numeric" | tipox="ordinal") {res=wilcox(id,time,unlist(x),nomex,moms)
     nometeste="wilc"
     result=res$result
     tex=res$texto
