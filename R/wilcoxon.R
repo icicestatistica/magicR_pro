@@ -45,7 +45,7 @@ texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% 
     grafico = grafico_catcat(df_long$time, "Momento", df_long$num, 
         nomex, texto = textograf) + labs(title = vetor_comsep_c(paste0("Diferença de proporções de ", 
         nomex, " nos momentos"), 40))
-    res = desc_bi_cat(df_long$num, col = df_long$time, )[-1, 
+    res = desc_bi_cat(df_long$num, col = df_long$time, respcol=F)[-1, 
         -2]
     res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], 
         ")", sep = ""), rep("", dim(res)[2]-1)), res), `p-valor` = c("", 
