@@ -10,7 +10,7 @@ if(n==2){
     tex=res$texto
     grafico=res$grafico}
   else{
-    if(tipox=="factor" | tipox=="character") {res=mc_icic(id,time,unlist(x),moms,nomex)
+    if(tipox=="factor" | tipox=="character") {res=mc_icic(id,time,unlist(x),moms,nomex,tipox)
     nometeste="mcnem"
     result=res$result
     tex=res$texto
