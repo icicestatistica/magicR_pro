@@ -12,10 +12,13 @@ pvetor <- function(vetor){
     pvalores <- c(pvalores,pvalor(vetor[i]))
   return(pvalores)}
 
-printvetor <- function(vetor, idioma="PT"){
+printvetor <- function(vetor, idioma="PT",aspas=T){
 size=length(vetor)
-conec = ifelse(idioma=="PT","' e '","' and '")
-if(size==1) print=paste0("'",vetor[1],"'") else print=paste(paste("'",vetor[1:(size-1)],collapse="', ",sep=""),conec,vetor[size],"'",collapse=NULL,sep="")
+if(aspas=T) {
+  conec = ifelse(idioma=="PT","' e '","' and '")
+  if(size==1) print=paste0("'",vetor[1],"'") else print=paste(paste("'",vetor[1:(size-1)],collapse="', ",sep=""),conec,vetor[size],"'",collapse=NULL,sep="")} else {
+    conec = ifelse(idioma=="PT"," e "," and ")
+    if(size==1) print=paste0(vetor[1]) else print=paste(paste(vetor[1:(size-1)],collapse=", ",sep=""),conec,vetor[size],collapse=NULL,sep="")}
 return(print)}
 
 format_real <- function(valor) {
