@@ -49,7 +49,7 @@ grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
 res=desc_bi_cont(df_long$num,df_long$time,respcol=F)[-1,-2]
 
 res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], ")", sep = ""), 
-        rep("", dim(res)[2]-1)), res), `p-valor` = c("", paste0(a3,"i"), rep("", 
+        rep("", dim(res)[2]-1)), res), `p-valor` = c("", paste0(pvalor(a3),"i"), rep("", 
         dim(res)[1] - 1)))
 
 return(list("result"=res,"texto"=texto,"grafico"=grafico))}
