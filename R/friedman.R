@@ -6,7 +6,7 @@ df_wide = tidyr::pivot_wider(df,names_from = time,values_from = num)
 
 df_wide=na.omit(df_wide)
 
-df_long = tidyr::pivot_longer(df_wide,2:4,values_to = "num",names_to="time")
+df_long = tidyr::pivot_longer(df_wide,2:dim(df_wide)[2],values_to = "num",names_to="time")
 df_long$time=factor(df_long$time)
 df_long$id = factor(df_long$id)
 
