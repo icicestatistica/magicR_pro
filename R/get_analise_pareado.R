@@ -4,13 +4,13 @@ result<-data.frame() ; tex="" ; grafico=NULL
 
 n=length(moms)
 if(n==2){
-  if(tipox=="numeric" | tipox=="ordinal") {res=wilcox(id,time,unlist(x),nomex,moms)
+  if(tipox=="numeric" | tipox=="ordinal") {res=wilcox(id,time,unlist(x),nomex,moms,tipox)
     nometeste="wilc"
     result=res$result
     tex=res$texto
     grafico=res$grafico}
   else{
-    if(tipox=="factor" | tipox=="character") {res=mc_icic(id,time,unlist(x),moms,nomex,tipox)
+    if(tipox=="factor" | tipox=="character") {res=mc_icic(id,time,unlist(x),moms,nomex)
     nometeste="mcnem"
     result=res$result
     tex=res$texto
