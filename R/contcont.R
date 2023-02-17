@@ -130,5 +130,8 @@ contcont <- function(y,x,nomey,nomex,dig=2,cor="cyan4",idioma="PT",ordinalx='aut
       if(ordinalx==F & ordinaly==T) grafico = grafico_comp_box(as.numeric(x),nomex,y,nomey,cor,textograf,dig,ordenar=F,idioma,dot=T) else
         if(ordinalx==T & ordinaly==F) grafico = grafico_comp_box(as.numeric(y),nomey,x,nomex,cor,textograf,dig,ordenar=F,idioma,dot=T) else
           grafico = grafico_catcat(x,nomex,y,nomey,cor,textograf,idioma)
-    return(list(result = result, texto = paste0(texto, sep = "", 
+            
+    testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "correl", sig_ou_não = ifelse(a$p.value < 0.05, T, F), resumo = paste0(greg, "=", round(a$estimate, dig), ", p-valor=", 
+            pvalor(a$p.value), collapse = ""), sup = NA)
+    return(list(testes=testes, result = result, texto = paste0(texto, sep = "", 
         collapse = ""), grafico = grafico))}
