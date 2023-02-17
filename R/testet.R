@@ -55,11 +55,13 @@ tot=dim(na.omit(d))[1]
   
 if(excluirtotal==T) res=res[-1,]
   
-res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
+res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]-1)),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
  
 grafico=grafico_comp_box(d$resp,nomecont,d$fator,nomecat,cor=cor,textograf,dig)
+ 
+testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "t", sig_ou_não = ifelse(teste$p.value<0.05,T,F), resumo = paste0("t(",round(teste$parameter,0),") = ",round(teste$statistic,2),"; p=",ifelse(teste$p.value<0.001,"<0.001",round(teste$p.value,3)),collapse=""),sup=supos)
 
-return(list("sup"=supos,
+return(list("testes"=testes,
             "result"=res,
             "grafico"=grafico,
             "texto"=paste(texto,collapse="")))}
