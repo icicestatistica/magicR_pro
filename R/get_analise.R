@@ -1,48 +1,39 @@
 escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=T,respcol=T,cor="cyan4",idioma="PT"){
-  result<-data.frame() ; tex="" ; grafico=NULL
-  if(tipox=="numeric" | tipox=="ordinal") {
-    transform_ord = ifelse(tipox=="ordinal",T,F)
-    if(tipoy=="factor") {
-      if(length(niveisy)==2) 
-           {res = testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
-           if(res$sup==F | tipox=="ordinal") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisx) ; nometeste="mw"} else {nometeste="t"}
-           result=res$resul
-           tex=res$texto
-           grafico=res$grafico} else
-                        {res = anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,idioma)
-                        if(res$sup==F | tipox=="ordinal") {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord);nometeste="kw"} else {nometeste="aov1"}
-                        result=res$result
-                        tex=res$texto
-                        grafico=res$grafico}
-  } else
-    if(tipoy=="numeric" | tipoy=="ordinal") {ordinaly=ifelse(tipoy=="numeric",F,T) ; ordinalx=ifelse(tipox=="numeric",F,T)
-                                             res=contcont(y,x,nomey,nomex,dig,cor,ordinalx=ordinalx,ordinaly=ordinaly)
-                                             nometeste="correl"
-                                             result=res$resul
-                                             tex=res$texto
-                                             grafico=res$grafico}
-  } else {
-  if(tipox=="factor") {
-    if(tipoy=="numeric" | tipoy=="ordinal") {
-      transform_ord = ifelse(tipoy=="ordinal",T,F)
+  testes=data.frame() ; result<-data.frame() ; tex="" ; grafico=NULL
+  if(tipox=="numeric" | tipox=="ordinal")
+    {transform_ord = ifelse(tipox=="ordinal",T,F)
+    if(tipoy=="factor")
+      {if(length(niveisy)==2)
+        {res = testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
+         if(res$testes$sup==F | tipox=="ordinal") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisx)}
+        } else
+          {res = anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,idioma)
+           if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord)}
+          }
+       } else
+    if(tipoy=="numeric" | tipoy=="ordinal")
+      {ordinaly=ifelse(tipoy=="numeric",F,T) ; ordinalx=ifelse(tipox=="numeric",F,T)
+       res=contcont(y,x,nomey,nomex,dig,cor,ordinalx=ordinalx,ordinaly=ordinaly)}
+    }
+  else
+  {if(tipox=="factor")
+    {if(tipoy=="numeric" | tipoy=="ordinal")
+      {transform_ord = ifelse(tipoy=="ordinal",T,F)
       if(length(niveisx)==2)
         {res = testet(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor)
-        if(res$sup==F | tipoy=="ordinal") {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisy) ; nometeste="mw"} else {nometeste="t"}
-                        result=res$resul
-                        tex=res$texto
-                        grafico=res$grafico} else
-                                          {res = anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,idioma)
-                                           if(res$sup==F | tipoy=="ordinal") {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma,transform_ord);nometeste="kw"} else {nometeste="aov1"}
-                                           result=res$result
-                                           tex=res$texto
-                                           grafico=res$grafico}} else
-     if(tipoy=="factor") {res=catcat(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal,cor,idioma)
-                          nometeste="cc"
-                          result=res$result
-                          tex=res$texto
-                          grafico=res$grafico}
-  }}
-  testes=data.frame(Nome1 = nomey, Nome2 = nomex, tipo = nometeste, sig_ou_não = "", resumo = "")
+        if(res$testes$sup==F | tipoy=="ordinal") {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisy)}
+        } else
+        {res = anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,idioma)
+        if(res$testes$sup==F | tipoy=="ordinal") {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma,transform_ord)}
+        }
+      } else
+          if(tipoy=="factor") {res=catcat(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal,cor,idioma)}
+    }
+  }
+  result=res$result
+  tex=res$texto
+  grafico=res$grafico
+  testes=res$testes
   return(list("testes"=testes,
               "result"=result,
               "texto"=list("grafico"=grafico,"tex"=tex)))}
