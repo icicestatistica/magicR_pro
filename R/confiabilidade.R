@@ -17,4 +17,4 @@ texto=paste0("Calculamos o alpha de cronbach para a escala ",nomescala,", com ",
 
 result=data.frame("Escala"=nomescala,"n"=a$n,"itens"=a$p,"alpha"=round(a$alpha,3),"IC95"=paste0("[",paste0(round(a$ci,3),collapse=", "),"]"),"interpretação"=interp)
 
-return(list(result,texto))}
+return(list("result"=result,"texto"=texto))}
