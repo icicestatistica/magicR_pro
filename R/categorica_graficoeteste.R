@@ -28,7 +28,10 @@ descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(table
   if(grafico==T) {
       if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,niveis,cor,ordenar)} else graficoc=NULL
   
-    resultados=list("result"=d,"texto"=testectexto,"interp"=interpretacao,"tabela"=testectabela,"grafico"=graficoc)
+    testes = data.frame(Nome1 = "", Nome2 = nome, tipo = ifelse(ordenar==T,"factor","ordinal"), 
+        sig_ou_não = NA, resumo = NA, sup = NA)
+    
+    resultados=list("testes"=testes,"result"=d,"texto"=testectexto,"interp"=interpretacao,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
 
 grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
