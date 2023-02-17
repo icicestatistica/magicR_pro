@@ -51,8 +51,9 @@ if(texto==T){
   
   if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos,idioma) else grafico=NULL
 
+ testes = data.frame(Nome1 = "", Nome2 = nome, tipo = "numeric", sig_ou_não = NA, resumo = NA, sup = NA)
   
-return(list("result"=d,"texto"=tex,"interp"=interpretacao,"grafico"=grafico))}
+return(list("testes"=testes,"result"=d,"texto"=tex,"interp"=interpretacao,"grafico"=grafico))}
 
 graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT"){
   d <- data.frame(var=as.numeric(unlist(var)))
