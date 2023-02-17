@@ -23,6 +23,7 @@ if(dim(tabela)[1]==2 & dim(tabela)[2]==2) doispordois=TRUE else doispordois=FALS
 
 if(sum(quiqua2$expected<5)/(nrow(tabela)*ncol(tabela))>0.2 | sum(quiqua2$expected<1)>0)
   {pvalorc=fisher.test(help$x, help$y,simulate.p.value = T)$p.value
+   resumotestes=pvalor(pvalorc)
   method="fisher" ; pvalorgraf=ifelse(pvalorc < 0.001, "<0.001", round(pvalorc,3)); metodograf=ifelse(idioma=="PT","Exato de Fisher ","Fisher's Exact Test")
     textograf=substitute(paste(metodograf," (p=", pvalorgraf,")"), list(metodograf=metodograf,pvalorgraf=pvalorgraf))
   p=paste0(pvalor(pvalorc),"b")
@@ -36,6 +37,8 @@ if(fisher.test(help$x, help$y,simulate.p.value = T)$p.value>0.05) {result=NULL
   texto=c(" * **",ref,":** A associação entre as variáveis foi testada através do teste Exato de Fisher, que encontrou evidências para rejeitar a hipótese de ausência de associação. As categorias que apresentaram diferenças estatisticamente significativas foram.","\n")
   }}   else{
     metodograf="Qui-quadrado "
+    pvalorc=quiqua2$p.value
+    resumotestes=paste0(paste("$\\chi^2$",collapse=NULL),"(",quiqua2$parameter,") = ", round(quiqua2$statistic,dig)," p=", pvalor(quiqua2$p.value),collapse="",sep="")
     para=round(quiqua2$parameter,dig) ; stat=round(quiqua2$statistic,dig) ; pvalorgraf=ifelse(quiqua2$p.value < 0.001, "<0.001", round(quiqua2$p.value,3))
     textograf=substitute(paste(metodograf," (",chi^2,"(",para,") = ",stat ," p=", pvalorgraf,")"), list(metodograf=metodograf,para=para,stat=stat,pvalorgraf=pvalorgraf))
                          
@@ -118,6 +121,9 @@ if(excluirtotal==T) res=res[-1,]
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 
-return(list("result"=res,
+testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "cc", sig_ou_não = ifelse(pvalorc < 0.05, T, F), resumo = resumotestes, sup = NA)
+  
+return(list("testes"=testes,
+            "result"=res,
             "grafico"=grafico,
             "texto"=texto))}
