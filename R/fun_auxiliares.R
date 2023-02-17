@@ -129,3 +129,8 @@ Transformar = function(vec,original,novo){
 a=factor(vec,levels=original)
 levels(a)=novo
 return(a)}
+     
+quiet <- function(x) { 
+  sink(tempfile()) 
+  on.exit(sink()) 
+  invisible(force(x))} 
