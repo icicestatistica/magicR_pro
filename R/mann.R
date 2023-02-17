@@ -47,12 +47,15 @@ if(ordinal==F) res=desc_bi_cont(d$y,d$x,F,respcol,F,dig) else
 if(excluirtotal==T) res=res[-1,]
 textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")
   
-res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2])),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
+res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]-1)),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 labc = ifelse(length(table(d$y))>4,F,T)
  if (ordinal == F) grafico = grafico_comp_box(d$y,nomey,d$x,nomex,cor=cor,textograf,dig, idioma=idioma) else 
    if(respcol == T) grafico = grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf, idioma=idioma, labels=labc) + coord_flip() else
       grafico = grafico_catcat(d$y, nomey, d$x, nomex, cor=cor, textograf, idioma=idioma, labels=ifelse(length(table(d$x))>4,F,T))
 
-return(list("result"=res,
+testes=data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "mw", sig_ou_não = ifelse(a$p.value<0.05,T,F), resumo = paste0("W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),collapse=""),sup=NA)
+
+return(list("testes"=testes,
+            "result"=res,
             "texto"=list("tex"=paste(texto,collapse="")),
             "grafico"=grafico))}
