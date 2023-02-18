@@ -14,11 +14,12 @@ pvetor <- function(vetor){
 
 printvetor <- function(vetor, idioma="PT",aspas=T){
 size=length(vetor)
+if(size==0) print="" else {
 if(aspas==T) {
   conec = ifelse(idioma=="PT","' e '","' and '")
   if(size==1) print=paste0("'",vetor[1],"'") else print=paste(paste("'",vetor[1:(size-1)],collapse="', ",sep=""),conec,vetor[size],"'",collapse=NULL,sep="")} else {
     conec = ifelse(idioma=="PT"," e "," and ")
-    if(size==1) print=paste0(vetor[1]) else print=paste(paste(vetor[1:(size-1)],collapse=", ",sep=""),conec,vetor[size],collapse=NULL,sep="")}
+    if(size==1) print=paste0(vetor[1]) else print=paste(paste(vetor[1:(size-1)],collapse=", ",sep=""),conec,vetor[size],collapse=NULL,sep="")}}
 return(print)}
 
 format_real <- function(valor) {
