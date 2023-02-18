@@ -28,7 +28,7 @@ newmat$Coluna = factor(newmat$Coluna, levels=oc)
 plot=ggplot(newmat, aes(y=Coluna, x=Freq/n, fill=Resultado)) + geom_bar(stat="identity", position = position_stack(reverse = T)) + labs(title = "Frequência e Frequência Relativa por resultado", y=NULL,x=NULL) + theme_minimal() + theme(plot.title=element_text(hjust=0.5)) + scale_x_continuous(labels = scales::percent) +
   geom_text(label=ifelse(newmat$label=="0 (0%)","",newmat$label), position = position_stack(reverse = T, vjust=0.5), check_overlap = T, hjust=0.5) + scale_fill_manual(values  = eval(parse(text=cores)))
 
-testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","resumo"=vec_to_string(niveis))
+testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","resumo"=vec_to_string(niveis),sup="")
   
 return(list("testes"=testes,
             "t1"="A análise detalhada das variáveis está na tabela a seguir: \n","result"=df,"t2"="\n Podemos visualizar esses resultados no seguinte gráfico: \n","grafico"=plot))}
@@ -76,7 +76,7 @@ grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa
   geom_label(aes(label=label), alpha=0.8,hjust=0.5) +
   scale_x_continuous(labels = scales::percent,expand = expansion(mult = 0.1)) + theme(plot.title = element_text(hjust = 0.3))
 
-testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","resumo"=vec_to_string(levels))
+testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","resumo"=vec_to_string(levels),"sup"="")
 
 return(list("testes"=testes,
             "interp"=interp,
