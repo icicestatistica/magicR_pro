@@ -38,7 +38,8 @@ escolha_summary_para_juntar = function (x, nomesx, tipox, niveisx, nas, teste, g
         names(result) = c("Variável", 
             "Estatística")
     }
-    return(list(result = result, texto = texto, 
+    testes = resulta$testes
+    return(list(testes=testes,result = result, texto = texto, 
         tabela = tabela, grafico = grafico, interp = interp))}
 
 
@@ -60,8 +61,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
             textointerp = c(textointerp, resulta$interp)}
     if(vert==T) {result = data.frame(t(result)) ; names(result)=c("Variável","Min-Máx","Q1-Q2","Mediana","Média (DP)")}
     row.names(result) <- 1:dim(result)[1]
-    testes = data.frame(Nome1 = "", Nome2 = nomesx, tipo = tipox, 
-        sig_ou_não = "", resumo = "")
+    testes=resulta$testes
     return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, complem = complem))}
 
 get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
