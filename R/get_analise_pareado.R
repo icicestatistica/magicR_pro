@@ -4,31 +4,18 @@ result<-data.frame() ; tex="" ; grafico=NULL
 
 n=length(moms)
 if(n==2){
-  if(tipox=="numeric" | tipox=="ordinal") {res=wilcox(id,time,unlist(x),nomex,moms,tipox)
-    nometeste="wilc"
-    result=res$result
-    tex=res$texto
-    grafico=res$grafico}
+  if(tipox=="numeric" | tipox=="ordinal") {res=wilcox(id,time,unlist(x),nomex,moms,tipox)}
   else{
     if(tipox=="factor" | tipox=="character") {res=mc_icic(id,time,unlist(x),moms,nomex)
-    nometeste="mcnem"
+}}} else {
+      if(tipox=="numeric") {res=friedman_icic(id,time,unlist(x),nomex,moms)}
+      else{
+        if(tipox=="factor" | tipox=="character") {res=coch_icic(id,time,unlist(x),moms,nomex)}}
+    }
+    testes=res$testes
     result=res$result
     tex=res$texto
-    grafico=res$grafico}}} else {
-      if(tipox=="numeric") {res=friedman_icic(id,time,unlist(x),nomex,moms)
-        nometeste="fried"
-        result=res$result
-        tex=res$texto
-        grafico=res$grafico}
-      else{
-        if(tipox=="factor" | tipox=="character") {res=coch_icic(id,time,unlist(x),moms,nomex)
-          nometeste="qcoch"
-          result=res$result
-          tex=res$texto
-          grafico=res$grafico}}
-    }
-
-  testes=data.frame(Nome1 = "Momento", Nome2 = nomex, tipo = nometeste, sig_ou_não = "", resumo = "")
+    grafico=res$grafico
   return(list("testes"=testes,
               "result"=result,
               "texto"=list("grafico"=grafico,"tex"=tex)))}
