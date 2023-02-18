@@ -49,6 +49,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     result = NULL
     complem = list()
     textointerp = c()
+    testes=c()
     xdim <- dim(x)[2]
     if(sum(tipox=="numeric") == xdim) vert=T else vert=F
     for (i in 1:xdim) {
@@ -58,10 +59,11 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
             if(vert==F) result <- rbind(result, resulta$result) else {result = cbind(result, resulta$result[,2]); result[1,i]=resulta$result[1,1]}
             complem <- list.append(complem, resulta$grafico, "\n", 
             resulta$texto, resulta$tabela, "\n")
-            textointerp = c(textointerp, resulta$interp)}
+            textointerp = c(textointerp, resulta$interp)
+            testes=rbind(testes,resulta$testes)}
     if(vert==T) {result = data.frame(t(result)) ; names(result)=c("Variável","Min-Máx","Q1-Q2","Mediana","Média (DP)")}
     row.names(result) <- 1:dim(result)[1]
-    testes=resulta$testes
+    
     return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, complem = complem))}
 
 get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
