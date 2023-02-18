@@ -51,5 +51,7 @@ res=desc_bi_cont(df_long$num,df_long$time,respcol=F)[-1,-2]
 res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], ")", sep = ""), 
         rep("", dim(res)[2]-1)), res), `p-valor` = c("", paste0(pvalor(res.fried$p),"i"), rep("", 
         dim(res)[1] - 1)))
+  
+ testes = data.frame(Nome1 = "Momento", Nome2 = nomex, tipo = "fried", sig_ou_não = ifelse(res.fried$p < 0.05, T, F), resumo = paste("$\\chi^2$ (", a1, ") =", a2, ",p", a3, collapse = ""), sup = NA)
 
-return(list("result"=res,"texto"=texto,"grafico"=grafico))}
+return(list("testes"=testes,"result"=res,"texto"=texto,"grafico"=grafico))}
