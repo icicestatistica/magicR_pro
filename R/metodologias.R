@@ -1,6 +1,9 @@
 metodologias <- function(analises){
 
-mat_analises = table(factor(analises$tipo, levels=c("numeric","factor","catsame","t","mw","aov1","kw","correl","cc")))
+gs4_deauth()
+preçotestes = read_sheet("https://docs.google.com/spreadsheets/d/1VAuR_iQHx-pazZvWJCR_2qHhXPNI6pB3IlGl4Qo4WSU/edit?usp=sharing")
+
+mat_analises = table(factor(analises$tipo, levels=preçotestes$cod))
 
 texto=c("# Metodologias \n","
 
