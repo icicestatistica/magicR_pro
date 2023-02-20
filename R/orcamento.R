@@ -34,9 +34,9 @@ orcamento <- function(dataenviobancobruto="10/11/2022",
   descricaobanco = paste(descricaobanco, sep="",collapse="\n")
   
   descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
-As variáveis presentes no banco são: \n",sep="",collapse="")
+As variáveis presentes no banco são:",sep="",collapse="")
   
-  result = paste(c(descbase, "", descricaobanco),sep="\n",collapse="")
+  result = paste(c(descbase, descricaobanco),sep="\n",collapse="\n")
   return(result)}
 
   descritivacompleta = c()
