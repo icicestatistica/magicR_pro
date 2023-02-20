@@ -1,4 +1,4 @@
-orcamento <- function(dataenviobancobruto="10/11/2022",
+orcamento <- function(dataenviobancobruto="01/02/2023",
                       bancobruto=dados,
                       auxiliar=auxiliar,
                       analises=analises,
@@ -31,7 +31,7 @@ orcamento <- function(dataenviobancobruto="10/11/2022",
                     if(auxiliar$tipo[i]=="numeric"){
                       descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável numérica.",sep=""))} else
                       {descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise.",sep=""))}}
-  descricaobanco = paste0(descricaobanco, sep="\n",collapse="\n")
+  descricaobanco = paste0(descricaobanco, sep="",collapse="\n")
   
   descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
 As variáveis presentes no banco são:",sep="",collapse="")
