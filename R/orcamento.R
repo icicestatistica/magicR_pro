@@ -21,22 +21,22 @@ orcamento <- function(dataenviobancobruto="10/11/2022",
   descricaobanco <- c()
   for (i in 1:dim(auxiliar)[1]){
     if(auxiliar$tipo[i]=="factor"){
-      descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else 
+      descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),").",sep=""))} else 
         if(auxiliar$tipo[i]=="ordinal"){
-          descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
+          descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),").",sep=""))} else
             if(auxiliar$tipo[i]=="ID"){
-              descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise. \n", sep=""))} else
+              descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise.", sep=""))} else
                 if(auxiliar$tipo[i]=="catsame"){
-                  descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n", sep=""))} else
+                  descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),").", sep=""))} else
                     if(auxiliar$tipo[i]=="numeric"){
-                      descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))} else
-                      {descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise. \n",sep=""))}}
-  descricaobanco = paste(descricaobanco, sep="",collapse="\n")
+                      descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável numérica.",sep=""))} else
+                      {descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise.",sep=""))}}
+  descricaobanco = paste0(descricaobanco, sep="\n",collapse="\n")
   
   descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
 As variáveis presentes no banco são:",sep="",collapse="")
   
-  result = paste(c(descbase, descricaobanco),sep="\n",collapse="\n")
+  result = paste0(c(descbase, descricaobanco),sep="\n",collapse="\n")
   return(result)}
 
   descritivacompleta = c()
