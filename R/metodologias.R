@@ -111,4 +111,4 @@ Qualquer dúvida sobre o conteúdo deste relatório pode ser tirada via e-mail o
 
 Fico à disposição!")
 
-return(texto)}
+return(list("texto"=texto,"bib"=bib)}
