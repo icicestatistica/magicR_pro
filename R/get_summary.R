@@ -84,7 +84,7 @@ intro_desc = function(){
 
 texto=c("# Metodologias \n","
 **Estatísticas Descritivas:**
-Medidas-resumo ou estatísticas descritivas são usadas para resumir um conjunto de observações, a fim de comunicar a maior quantidade de informações da forma mais simples possível [@estatdesc]. ")
+\n Medidas-resumo ou estatísticas descritivas são usadas para resumir um conjunto de observações, a fim de comunicar a maior quantidade de informações da forma mais simples possível [@estatdesc]. ")
 
 bib = "@article{estatdesc,
   title = {Descriptive statistics and normality tests for statistical data},
@@ -100,7 +100,7 @@ return(list("texto"=texto,"bib"=bib))}
 
 numeric_meta = function() {
 
-texto=c(texto,"Para variáveis numéricas, usaremos as seguintes medidas:
+texto="\n Para variáveis numéricas, usaremos as seguintes medidas:
 *	N: Número de respostas
 *	NA’s: Número de não respostas, também chamados missings ou informações faltantes
 **Medidas de tendência central:** Nos fornecem um valor que busca representar toda a distribuição.
@@ -109,18 +109,17 @@ texto=c(texto,"Para variáveis numéricas, usaremos as seguintes medidas:
 **Medidas de dispersão:** Medidas de dispersão é outra medida usada para mostrar como se espalhou (variação) em um conjunto de dados.
 *	Min – Máx: Valores mínimo e máximo encontrados
 *	1Q – 3Q: Desprezando os 25% menores valores e os 25% maiores valores, encontramos este intervalo de dados. Ou seja, a metade 'central' dos dados está neste intervalo.
-*	DP: Desvio padrão. Medida de variabilidade dos dados: quanto maior, mais longe os dados estão da média.")
+*	DP: Desvio padrão. Medida de variabilidade dos dados: quanto maior, mais longe os dados estão da média."
 
 bib=NULL
 
 return(list("texto"=texto,"bib"=bib))}
 
-
 categoric_meta = function(){
   
-  texto=c(texto,"Para variáveis categóricas nominais e ordinais, usaremos:
+  texto="Para variáveis categóricas nominais e ordinais, usaremos:
 * Frequência: Simplesmente contam o número de vezes que ocorre em cada variável;
-* Frequência Relativa: Divide a frequência pelo total. Representa a ocorrência em valor percentual. \n")
+* Frequência Relativa: Divide a frequência pelo total. Representa a ocorrência em valor percentual. \n"
   
   
 bib=NULL
