@@ -15,7 +15,7 @@ if(mat_analises["factor"] + mat_analises["ordinal"]>0) {texto=c(texto,categoric_
                                                        bib=c(bib,categoric_meta()$bib)}
 
 
-if(sum(mat_analises)>(mat_analises["factor"] + mat_analises["numeric"])) texto=c(texto,"
+if(sum(mat_analises)>(mat_analises["factor"] + mat_analises["numeric"] + mat_analises["ordinal"])) texto=c(texto,"
 **P-valor:**
 
 Todos os testes estatísticos aqui apresentados serão avaliados, entre outras estatísticas, pelo p-valor. Para cada teste, há a definição de duas hipóteses:
