@@ -9,10 +9,10 @@ texto=c(intro_desc()$texto)
 bib=c(intro_desc()$bib)
 
 if(mat_analises["numeric"]>0) {texto=c(texto,numeric_meta()$texto)
-                              bib=c(bib,numeric_meta()$bib}
+                              bib=c(bib,numeric_meta()$bib)}
 
 if(mat_analises["factor"] + mat_analises["ordinal"]>0) {texto=c(texto,categoric_meta()$texto)
-                                                       bib=c(bib,categoric_meta()$bib}
+                                                       bib=c(bib,categoric_meta()$bib)}
 
 
 if(sum(mat_analises)>(mat_analises["factor"] + mat_analises["numeric"])) texto=c(texto,"
