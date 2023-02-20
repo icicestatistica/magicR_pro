@@ -101,15 +101,15 @@ return(list("texto"=texto,"bib"=bib))}
 numeric_meta = function() {
 
 texto="\n Para variáveis numéricas, usaremos as seguintes medidas:
-*	N: Número de respostas
-*	NA’s: Número de não respostas, também chamados missings ou informações faltantes
-**Medidas de tendência central:** Nos fornecem um valor que busca representar toda a distribuição.
-* Média: Soma de todos os valores dividido pelo número de indivíduos avaliados
-*	Mediana: Valor central do conjunto de valores ordenados, ou seja, metade dos dados estão acima deste valor e a outra metade, abaixo.
-**Medidas de dispersão:** Medidas de dispersão é outra medida usada para mostrar como se espalhou (variação) em um conjunto de dados.
-*	Min – Máx: Valores mínimo e máximo encontrados
-*	1Q – 3Q: Desprezando os 25% menores valores e os 25% maiores valores, encontramos este intervalo de dados. Ou seja, a metade 'central' dos dados está neste intervalo.
-*	DP: Desvio padrão. Medida de variabilidade dos dados: quanto maior, mais longe os dados estão da média."
+\n+ N: Número de respostas
+\n+ NA’s: Número de não respostas, também chamados missings ou informações faltantes
+\n**Medidas de tendência central:** Nos fornecem um valor que busca representar toda a distribuição.
+\n+ Média: Soma de todos os valores dividido pelo número de indivíduos avaliados
+\n+ Mediana: Valor central do conjunto de valores ordenados, ou seja, metade dos dados estão acima deste valor e a outra metade, abaixo.
+\n**Medidas de dispersão:** Medidas de dispersão é outra medida usada para mostrar como se espalhou (variação) em um conjunto de dados.
+\n+ Min – Máx: Valores mínimo e máximo encontrados
+\n+ 1Q – 3Q: Desprezando os 25% menores valores e os 25% maiores valores, encontramos este intervalo de dados. Ou seja, a metade 'central' dos dados está neste intervalo.
+\n+ DP: Desvio padrão. Medida de variabilidade dos dados: quanto maior, mais longe os dados estão da média."
 
 bib=NULL
 
@@ -117,9 +117,9 @@ return(list("texto"=texto,"bib"=bib))}
 
 categoric_meta = function(){
   
-  texto="Para variáveis categóricas nominais e ordinais, usaremos:
-* Frequência: Simplesmente contam o número de vezes que ocorre em cada variável;
-* Frequência Relativa: Divide a frequência pelo total. Representa a ocorrência em valor percentual. \n"
+  texto="\n Para variáveis categóricas nominais e ordinais, usaremos:
+\n+ Frequência: Simplesmente contam o número de vezes que ocorre em cada variável;
+\n+ Frequência Relativa: Divide a frequência pelo total. Representa a ocorrência em valor percentual. \n"
   
   
 bib=NULL
