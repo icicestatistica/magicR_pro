@@ -124,4 +124,4 @@ categoric_meta = function(){
   
 bib=NULL
   
-return(list("texto"=texto,"bib"=bib))}
+return(list("texto"=paste0(texto,collapse="\n"),"bib"=bib))}
