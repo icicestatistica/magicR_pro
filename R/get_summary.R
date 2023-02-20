@@ -99,9 +99,10 @@ return(list("texto"=texto,"bib"=bib))}
 
 numeric_meta = function() {
 
-texto="Para variáveis numéricas, usaremos as seguintes medidas: \n
+texto="
+Para variáveis numéricas, usaremos as seguintes medidas: \n
 + N: Número de respostas
-+ NA’s: Número de não respostas, também chamados missings ou informações faltantes
++ NA’s: Número de não respostas, também chamados missings ou informações faltantes.
 
 **Medidas de tendência central:** Nos fornecem um valor que busca representar toda a distribuição. \n
 + Média: Soma de todos os valores dividido pelo número de indivíduos avaliados
@@ -118,7 +119,8 @@ return(list("texto"=texto,"bib"=bib))}
 
 categoric_meta = function(){
   
-  texto="Para variáveis categóricas nominais e ordinais, usaremos: \n
+  texto="
+Para variáveis categóricas nominais e ordinais, usaremos: \n
 + Frequência: Simplesmente contam o número de vezes que ocorre em cada variável;
 + Frequência Relativa: Divide a frequência pelo total. Representa a ocorrência em valor percentual. \n"
   
