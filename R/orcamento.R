@@ -14,41 +14,89 @@ orcamento <- function(dataenviobancobruto="10/11/2022",
                       cpfpesquisador="123.456.789-00"){
   
   mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
+
+  ##### DESCRITIVA DE UM OU MAIS BANCOS #####
+  
+  fun_descritiva_banco = function(bancobruto,auxiliar){
+  descricaobanco <- c()
+  for (i in 1:dim(auxiliar)[1]){
+    if(auxiliar$tipo[i]=="factor"){
+      descricaobanco=c(descricaobanco,paste("\n + **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else 
+        if(auxiliar$tipo[i]=="ordinal"){
+          descricaobanco=c(descricaobanco,paste("\n + **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
+            if(auxiliar$tipo[i]=="ID"){
+              descricaobanco=c(descricaobanco,paste("\n + **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise. \n", sep=""))} else
+                if(auxiliar$tipo[i]=="catsame"){
+                  descricaobanco=c(descricaobanco,paste("\n + **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n", sep=""))} else
+                    if(auxiliar$tipo[i]=="numeric"){
+                      descricaobanco <- c(descricaobanco,paste("\n + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))} else
+                      {descricaobanco <- c(descricaobanco,paste("\n + **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise. \n",sep=""))}}
+  descricaobanco = paste(descricaobanco, sep="\n",collapse="")
+  
+  descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
+As variáveis presentes no banco são: \n",sep="",collapse="")
+  
+  result = paste(c(descbase, "", descricaobanco),sep="\n",collapse="")
+  return(result)}
+
+  descritivacompleta = c()
+  if(is.null(dim(bancobruto))) {
+    for (i in 1:length(bancobruto)) descritivacompleta = c(descritivacompleta,fun_descritiva_banco(bancobruto[[i]],auxiliar[[i]]))
+  descritivacompleta = paste0(descritivacompleta, sep="\n")} else descritivacompleta = fun_descritiva_banco(bancobruto,auxiliar)
+  
+  ## descritivacompleta guarda a descrição de um ou mais bancos enviados ###
+  
   
   gs4_deauth()
   preçotestes = read_sheet("https://docs.google.com/spreadsheets/d/1VAuR_iQHx-pazZvWJCR_2qHhXPNI6pB3IlGl4Qo4WSU/edit?usp=sharing")
   
-  matanalises = c()
+  codigos = preçotestes$cod
+  
+  analises$tipo = factor(analises$tipo, levels=codigos)
+  
   sessoes=unique(analises$Sessão)
   n_analises = length(sessoes)
-  for (i in 1:n_analises){
-    matanalises <- rbind(matanalises,data.frame("Nome"=sessoes[i],t(unname(c(table(factor(analises[analises$Sessão==sessoes[i],]$tipo, levels=preçotestes$cod))))), "Variáveis"=printvetor(analises[analises$Sessão==sessoes[i],]$Nome2)))}
+  
+  resumoanalises = analises %>% group_by(`Sessão`,tipo) %>% dplyr::summarise(nome2=printvetor(unique(Nome2),aspas=F),nome1=printvetor(unique(Nome1),aspas=F))
+
+
+descricaoanalises <- c()
+
+for (i in 1:n_analises){
+resumo_sessaoi = resumoanalises %>% filter(Sessão==sessoes[i])
+desc_i = c()
+
+## numéricas
+  if(c("numeric") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Para as variáveis numéricas, a saber, ",resumo_sessaoi[resumo_sessaoi$tipo=="numeric",]$nome2,", cálculo do Mínimo, Máximo, Quartis, Média, Mediana, Desvio Padrão e teste de Normalidade de Shapiro-Wilk."))
+## ordinais e fatores
+  if(sum(c("ordinal","factor") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + Para as variáveis categóricas nominais e/ou categóricas ordinais, a saber, ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("ordinal","factor"),]$nome2,aspas=F),", cálculos de frequências absoluta (n) e relativa (%)."))
+## catsame (caixa de resposta)
+  if(c("catsame") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Para os itens contidos em perguntas do tipo \"caixa de respostas\", em que cada item pode ser respondido em uma das categorias apresentadas, a saber, ",resumo_sessaoi[resumo_sessaoi$tipo=="catsame",]$nome2,", cálculo da frequência, frequência relativa e, para as respostas dicotômicas, intervalo de confiança para uma das proporções, incluindo todas as comparações entre as proporções de respostas das variáveis."))
+## Teste-t e Mann-Whitney
+  if(sum(c("t","mw") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + Teste-t independente de comparação de duas médias, no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados nos dois grupos de ",unique(resumo_sessaoi[resumo_sessaoi$tipo %in% c("t","mw"),]$nome2)," e com o teste correspondente não paramétrico (Mann-whitney) caso contrário, bem como o cálculo do tamanho do efeito. Variáveis a serem testadas: ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("t","mw"),]$nome1,aspas=F),"."))
+## Anova e Kruskall Wallis
+if(sum(c("aov1","kw") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + One-way anova de comparação de mais de duas médias, no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados nos grupos de ",unique(resumo_sessaoi[resumo_sessaoi$tipo %in% c("aov1","kw"),]$nome2)," e com o teste correspondente não paramétrico (Kruskall-Wallis) caso contrário, bem como as devidas análises post-hoc (Tukey e Dunn, respectivamente) e cálculo de tamanho de efeito. Variáveis a serem testadas: ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("aov1","kw"),]$nome1,aspas=F),"."))
+## correlação de spearman e pearson
+if(c("correl") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Cálculo da correlação de pearson, no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados e correlação de spearman (não paramétrica), caso contrário, para testar a correlação entre a(s) variável(is) ",resumo_sessaoi[resumo_sessaoi$tipo=="correl",]$nome1," e ",resumo_sessaoi[resumo_sessaoi$tipo=="correl",]$nome2,"."))
+## cc - exato de fisher ou qui-quadrado
+if(c("cc") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Realização do teste Qui-quadrado, se a suposição de até 20% das caselas da tabela de contingência com valor esperado menor que 5 e nenhuma com valor esperado menor que 1 e do teste Exato de Fisher caso contrário, para verificação da independência/homogeneidade entre a(s) variável(is) ",resumo_sessaoi[resumo_sessaoi$tipo=="cc",]$nome1," e ",resumo_sessaoi[resumo_sessaoi$tipo=="cc",]$nome2,"."))
+
+#### PAREADOS
+
+## Teste-t pareado e wilcoxon
+if(sum(c("t_par","wilk") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + Teste-t pareado de comparação de duas médias pareadas (em dois momentos ou por dois avaliadores diferentes, por exemplo), no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados e o teste correspondente não paramétrico (Wilcoxon) caso contrário, bem como o cálculo do tamanho do efeito. Variáveis a serem testadas: ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("t","mw"),]$nome1,aspas=F),"."))
+## Anova de medidas repetidas e Friedman
+if(sum(c("aovmr","fried") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + Anova de medidas repetidas de comparação de mais de duas médias pareadas (em mais de dois momentos ou por mais de dois avaliadores diferentes, por exemplo), no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados e o teste correspondente não paramétrico (Friedman) caso contrário, bem como as devidas análises post-hoc (Teste-t pareado e Wilcoxon, respectivamentem, ambos com correção de bonferroni) e cálculo de tamanho de efeito. Variáveis a serem testadas: ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("aovmr","fried"),]$nome2,aspas=F),"."))
+## McNemar: medidas categóricas repetidas em dois momentos
+if(c("mcnem") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Teste de McNemar, utilizado para testar diferenças nas proporções de uma variável categórica medida de forma pareada (em dois momentos ou por dois avaliadores diferentes, por exemplo). Variáveis a serem testadas: ",resumo_sessaoi[resumo_sessaoi$tipo=="mcnem",]$nome1,"."))
+##Q de Cochran: medidas categóricas repetidas em mais de dois momentos
+if(c("qcoch") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Teste Q de Cochran, utilizado para testar diferenças nas proporções de uma variável categórica medida de forma pareada (em mais de dois momentos ou por mais de dois avaliadores diferentes, por exemplo). Variáveis a serem testadas: ",resumo_sessaoi[resumo_sessaoi$tipo=="qcoch",]$nome1,"."))
+
+descricaoanalises = c(descricaoanalises, paste0("\n **",unique(resumo_sessaoi$Sessão),"** \n",paste0(desc_i, collapse="\n",sep="\n")))
+}
   
   totaltab = table(factor(analises$tipo,levels=preçotestes$cod))
   valorbruto=sum(totaltab*preçotestes$preço)
-  
-  descricaobanco <- c()
-  for (i in 1:dim(auxiliar)[1]){
-    if(auxiliar$tipo[i]=="factor"){
-      descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else 
-        if(auxiliar$tipo[i]=="ordinal"){
-          descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
-            if(auxiliar$tipo[i]=="ID"){
-              descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise. \n", sep=""))} else
-                if(auxiliar$tipo[i]=="catsame"){
-                  descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n", sep=""))} else
-                    if(auxiliar$tipo[i]=="numeric"){
-                      descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))} else
-                      {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise. \n",sep=""))}}
-  descricaobanco = paste(descricaobanco, sep="",collapse="")
-  
-  
-  descricaoanalises <- c()
-  for (i in 1:n_analises){
-    if(matanalises[i,2]+matanalises[i,3]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com cálculos das frequências absoluta (n) e relativa (%) para as variáveis categóricas ou análise descritiva (N, Mínimo, Máximo, Quartis, Média, Mediana, Desvio Padrão, Coeficiente de variação e teste de Normalidade de Shapiro-Wilk) para variáveis numéricas. As ",matanalises[i,2]+matanalises[i,3]," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}
-    if(matanalises[i,4]>0) {descricaoanalises <- c(descricaoanalises,paste(" + **",matanalises[i,1],"**, com descrições das variáveis categóricas em termos de frequência, frequência relativa e intervalo de confiança para a proporção, incluindo  todas as comparações entre as proporções de respostas das variáveis. As ",matanalises[i,4]," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}  
-    if(sum(matanalises[i,-c(1:4,dim(matanalises)[2])])>0) {descricaoanalises <- c(descricaoanalises,paste(" + **", matanalises[i,1],"**, com testes de comparação (podendo ser Qui-quadrado, Exato de Fisher, Teste de correlação, Teste-t, Mann-Whitney, Anova ou Kruskall Wallis, a depender da natureza e características dos dados) e suas devidas análises post-hoc e, quando necessário, tamanho de efeito. As ",sum(matanalises[i,-c(1:4,dim(matanalises)[2])])," variáveis utilizadas na análise serão: ",matanalises$Variáveis[i],"; \n",sep=""))}}
-  
   
   crono = paste("Entrega do relatório no dia ",format(Sys.Date()+prazo, "%d/%m/%Y"),".",sep="",collapse="")
   
@@ -114,8 +162,6 @@ OU \n
   
   invest2 =  paste("Proposta válida até ",datavalido,".",sep="",collapse="")
   
-  descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
-As variáveis presentes no banco são: \n",sep="",collapse="")
   
   cat("
 \\newpage
@@ -123,8 +169,8 @@ As variáveis presentes no banco são: \n",sep="",collapse="")
 # ORÇAMENTO
 
 ## BASE DE DADOS
-", descbase, "", descricaobanco,"
-Qualquer alteração no banco após o aceite da proposta poderá gerar retrabalho por parte da estatística e, portanto, poderá ser cobrado. Por este motivo, pedimos que tenha certeza sobre o presente banco de dados.
+",descritivacompleta,"
+Qualquer alteração no(s) banco(s) após o aceite da proposta poderá gerar retrabalho por parte da estatística e, portanto, poderá ser cobrado. Por este motivo, pedimos que tenha certeza sobre o envio do material.
 
 ## OBJETIVOS DA CONSULTORIA
 O objetivo da presente consultoria é a entrega dos seguintes resultados:
@@ -182,4 +228,3 @@ A nota fiscal será enviada até 3 dias após a conclusão do pagamento. \n", in
 # Bibliografia
 
 ",sep="\n", collapse="")}
-
