@@ -5,34 +5,14 @@ preçotestes = read_sheet("https://docs.google.com/spreadsheets/d/1VAuR_iQHx-paz
 
 mat_analises = table(factor(analises$tipo, levels=preçotestes$cod))
 
-texto=c("# Metodologias \n","
+texto=c(intro_desc()$texto)
+bib=c(intro_desc()$bib)
 
-**Estatísticas Descritivas:**
+if(mat_analises["numeric"]>0) {texto=c(texto,numeric_meta()$texto)
+                              bib=c(bib,numeric_meta()$bib}
 
-Medidas-resumo ou estatísticas descritivas são usadas para resumir um conjunto de observações, a fim de comunicar a maior quantidade de informações da forma mais simples possível [@estatdesc]. ")
-  
-if(mat_analises["numeric"]>0) {
-texto=c(texto,"Para variáveis numéricas, usaremos as seguintes medidas:
-
-*	N: Número de respostas
-*	NA’s: Número de não respostas, também chamados missings ou informações faltantes
-
-**Medidas de tendência central:** Nos fornecem um valor que busca representar toda a distribuição.
-
-* Média: Soma de todos os valores dividido pelo número de indivíduos avaliados
-*	Mediana: Valor central do conjunto de valores ordenados, ou seja, metade dos dados estão acima deste valor e a outra metade, abaixo.
-
-**Medidas de dispersão:** Medidas de dispersão é outra medida usada para mostrar como se espalhou (variação) em um conjunto de dados.
-
-*	Min – Máx: Valores mínimo e máximo encontrados
-*	1Q – 3Q: Desprezando os 25% menores valores e os 25% maiores valores, encontramos este intervalo de dados. Ou seja, a metade 'central' dos dados está neste intervalo.
-*	DP: Desvio padrão. Medida de variabilidade dos dados: quanto maior, mais longe os dados estão da média.
-* CV: Coeficiente de Variação: O CV considera a interpretação do DP em relação a magnitude da média (em porcentagem), onde CV = 100 × (DP / média).")}
-
-if(mat_analises["factor"]>0) {texto=c(texto,"Para variáveis categóricas, usaremos:
-
-* Frequência: Simplesmente contam o número de vezes que ocorre em cada variável;
-* Frequência Relativa: Divide a frequência pelo total. Representa a ocorrência em valor percentual. \n")}
+if(mat_analises["factor"] + mat_analises["ordinal"]>0) {texto=c(texto,categoric_meta()$texto)
+                                                       bib=c(bib,categoric_meta()$bib}
 
 
 if(sum(mat_analises)>(mat_analises["factor"] + mat_analises["numeric"])) texto=c(texto,"
