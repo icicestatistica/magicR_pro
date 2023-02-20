@@ -26,11 +26,12 @@ Todos os testes estatísticos aqui apresentados serão avaliados, entre outras e
 Exemplo: Se eu quero provar que há diferença entre dois grupos, a hipótese nula será que a diferença é 0 e a hipótese alternativa é que a diferença é diferente de 0.
 O p-valor é a probabilidade de se obter os dados que você obteve considerando que a hipótese NULA é verdadeira. Se essa probabilidade for pequena (menor que o nível de significância adotado), rejeitaremos a hipótese nula em favor da hipótese alternativa.
 
-Adotaremos neste trabalho a significância de 5%. P-valores menores que 5% serão considerados significantes e destacados com um \\* (significante a 5%). Dois asteriscos (\\*\\*) indicam significância a 1% e três (\\*\\*\\*) indicam significância a 0,1%. \n")
+Adotaremos neste trabalho a significância de 5%. P-valores menores que 5% serão considerados significantes e destacados com um \\* (significante a 5%). Dois asteriscos (\\*\\*) indicam significância a 1% e três (\\*\\*\\*) indicam significância a 0,1%. \n
 
-if(sum(mat_analises[c("t","mw","aov1","correl")])>0) {texto=c(texto,"
 **Testes Estatísticos:**
+")
 
+if(sum(mat_analises[c("t","mw","aov1","kw","correl","t_par","wilc","aovmr","fried")])>0) {texto=c(texto,"
 * **Testes paramétricos e não paramétricos**
 
 Os testes chamados \"paramétricos\" requerem suposições importantes, principalmente a de normalidade da distribuição das médias da amostra. No entanto, o teste paramétrico pode ser enganoso quando essa suposição não é satisfeita. Esse é um dos erros estatísticos mais comuns encontrados em periódicos. @parounaopar argumenta que as técnicas estatísticas não paramétricas têm a vantagem de ser mais conservadoras, com estatísticas não muito afetadas por outliers e poder ser utilizado mesmo em amostras pequenas. Por outro lado, há uma dificuldade em encontrar as diferenças reais em uma população através dessas técnicas e seus resultados são difíceis de interpretar do ponto de vista prático. Defendemos que quando os métodos paramétricos são selecionados, os pesquisadores devem garantir que todas as suposições exigidas sejam satisfeitas. Se este não for o caso, é mais válido usar métodos não paramétricos porque eles são \"sempre válidos, mas nem sempre eficientes\", enquanto os métodos paramétricos são \"sempre eficientes, mas nem sempre válidos\".
