@@ -13,7 +13,8 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
   
   homog = leveneTest(resp ~ fator, data=d)
   
-  if(is.na(homog$`Pr(>F)`[1])) {supos=F; res=NULL;texto=NULL;grafico=NULL; teste=c()} else {
+  if(is.na(homog$`Pr(>F)`[1])) {supos=F; res=NULL;texto=NULL;grafico=NULL; testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "-", sig_ou_não = NA, resumo = NA,sup=F)
+} else {
     
     if(homog$`Pr(>F)`[1]<0.05) {
       corr=" com correção de Welch para variâncias diferentes"
