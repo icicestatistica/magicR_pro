@@ -1,6 +1,7 @@
 testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,respcol=T,excluirtotal=T, cor="cyan4"){
   
-  testes=NULL
+  testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "", sig_ou_não = NA, resumo = NA,sup=F)
+
   if(niveis[1]=="auto") niveis = names(table(categorica))
   
   supos=F
