@@ -53,7 +53,8 @@ labc = ifelse(length(table(d$y))>4,F,T)
    if(respcol == T) grafico = grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf, idioma=idioma, labels=labc) + coord_flip() else
       grafico = grafico_catcat(d$y, nomey, d$x, nomex, cor=cor, textograf, idioma=idioma, labels=ifelse(length(table(d$x))>4,F,T))
 
-testes=data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "mw", sig_ou_não = ifelse(a$p.value<0.05,T,F), resumo = paste0("W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),collapse=""),sup=NA)
+resumo=ifelse(a$p.value<0.05,paste0("Quanto a ",nomex,", ",niveis[1]," apresentou ",nomey," ",dif," ",niveis[2], paste0(" (Mann Whitney W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")),paste0("Quanto a ",nomex,", não há diferença entre ",nomey, " de ",niveis[1]," e ",niveis[2], paste0(" (Mann Whitney W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")))
+testes=data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "mw", sig_ou_não = ifelse(a$p.value<0.05,T,F), resumo = resumo,sup=NA)
 
 return(list("testes"=testes,
             "result"=res,
