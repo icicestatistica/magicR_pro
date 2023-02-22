@@ -14,7 +14,7 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
   homog = leveneTest(resp ~ fator, data=d)
   
   if(is.na(homog$`Pr(>F)`[1])) {supos=F; res=NULL;texto=NULL;grafico=NULL; testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "-", sig_ou_não = NA, resumo = NA,sup=F)
-} else {
+  } else {
     
     if(homog$`Pr(>F)`[1]<0.05) {
       corr=" com correção de Welch para variâncias diferentes"
@@ -67,20 +67,23 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     
     p=paste0(pvalor(pv),"e ($\\eta^2$=",eta,")")
     
+    ordem <- d %>% group_by(fator) %>% get_summary_stats(resp, type = "mean_sd")
+    if(is.na(ordem[dim(ordem)[1],1])) ordem = ordem[-dim(ordem)[1],]
+    ord = c(ordem[order(ordem$mean),1])$fator
+    
     #post hoc
     
     if(pv<0.05) {tex=c("As médias, em ordem crescente foram:")
     
-    ordem <- d %>% group_by(fator) %>% 
-      get_summary_stats(resp, type = "mean_sd")
-    
-    if(is.na(ordem[dim(ordem)[1],1])) ordem = ordem[-dim(ordem)[1],]
-    
-    ord = c(ordem[order(ordem$mean),1])$fator
-    
     fit <- aov(data=d,resp ~ fator)
     
     t=TukeyHSD(fit)$fator
+    n = dim(t)[1]
+    
+    comp = ifelse(sum(t[,4]<0.05)==0,"Apesar disso, o teste de comparações múltiplas HSD de tukey não detectou difereças entre nenhum dos grupos.",
+                  ifelse(sum(t[,4]<0.05)==n,"O teste de comparações múltiplas HSD de tukey detectou difereças entre todos os grupos.",
+                         paste0("Os grupos que diferiram pelo teste de comparações múltiplas HSD de tukey foram ",printvetor(names(t[,4])[t[,4]<0.05],aspas=F)," e os que não diferiram foram ",printvetor(names(t[,4])[t[,4]>=0.05],aspas=F),". \n")))
+    
     
     tabela<- data.frame("Comparação"=row.names(t),"Diferença"=round(t[,1],1), 
                         "IC 95%"=paste0("(",round(t[,2],1),", ",round(t[,3],1),")"),
@@ -106,12 +109,14 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
           if(r[j]=="Maior") tex=c(tex,c("  + \"",difs[j,1], "\" é maior que \"",difs[j,2],"\";"),"\n")}
         tex=c(tex, "\n  Podemos verificar esses resultados na seguinte tabela:")}
     
-    print <- c()
+    texto_print <- c()
     for (i in ord){
-      if (i==ord[length(ord)]) print=c(print," ",i," (média=",round(mean(d$resp[d$fator==i], na.rm=T),2),", DP=",round(sd(d$resp[d$fator==i], na.rm=T),2),").")
-      else print=c(print," ",i," (média=",round(mean(d$resp[d$fator==i], na.rm=T),2),", DP=",round(sd(d$resp[d$fator==i], na.rm=T),2),"),")}
+      if (i==ord[length(ord)]) texto_print=c(texto_print,paste0(i," (média=",round(mean(d$resp[d$fator==i], na.rm=T),2),", DP=",round(sd(d$resp[d$fator==i], na.rm=T),2),")"))
+      else texto_print=c(texto_print,paste0(i," (média=",round(mean(d$resp[d$fator==i], na.rm=T),2),", DP=",round(sd(d$resp[d$fator==i], na.rm=T),2),")"))}
+    texto_print=printvetor(texto_print, aspas=F)
+  
     
-    texto <- c(texto,print,tex,"\n")
+    texto <- c(texto,texto_print,tex,"\n")
     }
     
     res=desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
@@ -126,8 +131,15 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     a1=a$DFn  ; a2=round(a$DFd,dig) ; a3=ifelse(pv<0.001,"<0.001",paste("=",round(pv,3))) ; a4=round(a$F,dig)
     textograf <- substitute(paste("ANOVA one-way F(",a1,",",a2,") = ",a4,", p",a3,collapse=""),list(a1=a1,a2=a2,a3=a3,a4=a4))
     grafico=grafico_comp_bar(d$resp,nomecont,d$fator,nomecat,cor=cor,teste=textograf,dig=dig, idioma=idioma)
-  
-  testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "aov1", sig_ou_não = ifelse(pv<0.05,T,F), resumo = paste0("F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),", $\\eta^2$ = ",eta),sup=supos)
+    
+    
+    diferencas_resumo = ifelse(pv<0.05,"Houve","Não houve")
+    
+    inicio_resumo = paste0(diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",printvetor(paste0(ordem$fator," (M=",round(ordem$mean,2),", DP=",round(ordem$sd,2),")"),aspas=F),")",".")
+    
+    resumo = ifelse(pv<0.05,paste0(inicio_resumo," ",comp),inicio_resumo)
+    
+    testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "aov1", sig_ou_não = ifelse(pv<0.05,T,F), resumo = resumo,sup=supos)
   }
   
   return(list("testes"=testes,
