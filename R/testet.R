@@ -53,7 +53,7 @@ testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,re
                                                       " ).",mag," Apesar disso, cabe considerar a relevância clínica ou prática da diferença. ",sup,"\n")
     }
   
-   resumo = paste0(ifelse(teste$p.value<0.05,"Há","Não há")," diferença na média de ",nomecont," por ",nomecat,paste0(" (t(",round(teste$parameter,0),") = ",round(teste$statistic,2),"; p=",ifelse(teste$p.value<0.001,"<0.001",round(teste$p.value,3))," - ",niveis[1],": M=",round(mean(resp1, na.rm=T),dig),", DP=",round(sd(resp1, na.rm=T),dig), " e ",niveis[2],": M=",round(mean(resp2, na.rm=T),dig),", DP=",round(sd(resp2, na.rm=T),dig),")",collapse=""))
+   resumo = paste0(ifelse(teste$p.value<0.05,"Há","Não há")," diferença na média de '",nomecont,"' por '",nomecat,paste0("' (t(",round(teste$parameter,0),") = ",round(teste$statistic,2),"; p=",ifelse(teste$p.value<0.001,"<0.001",round(teste$p.value,3))," - ",niveis[1],": M=",round(mean(resp1, na.rm=T),dig),", DP=",round(sd(resp1, na.rm=T),dig), " e ",niveis[2],": M=",round(mean(resp2, na.rm=T),dig),", DP=",round(sd(resp2, na.rm=T),dig),")",collapse=""))
    testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "t", sig_ou_não = ifelse(teste$p.value<0.05,T,F), resumo = resumo ,sup=supos)
     
   }
