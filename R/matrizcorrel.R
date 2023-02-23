@@ -1,5 +1,6 @@
 matrizcorrel <- function(x,nomes,metodo){
-  
+
+library(corrplot)
 m=cor(x, method=metodo,use="na.or.complete")
 a=cor.mtest(x,method=metodo,use="na.or.complete")
 n=length(nomes)
@@ -14,8 +15,11 @@ for (i in 1:n)
 
 result=data.frame(nomes,sig)
 names(result)=c("",nomes)
+names(x)=nomes           
+grafico = corrplot(cor(x, method=metodo), type="lower")        
+
 testes = data.frame(Nome1 = "", Nome2 = printvetor(nomes, aspas=F),tipo = "matcorrel", sig_ou_não = NA, resumo = NA, sup = NA)
-return(list("testes"=testes,"result"=result))}
+return(list("testes"=testes,"result"=result,"grafico"=grafico))}
         
 matcorrel_meta = function(){
   texto="- **Matriz de correlação**:
