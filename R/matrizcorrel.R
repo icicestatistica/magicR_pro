@@ -13,6 +13,7 @@ for (i in 1:n)
           if(a$p[i,j]<0.01) sig[i,j]=paste0(round(m[i,j],3),"**") else if(a$p[i,j]<0.05) sig[i,j]=paste0(round(m[i,j],3),"*") else sig[i,j]=paste0(round(m[i,j],3))
 
 result=data.frame(nomes,sig)
+names(result)=c("",nomes)
 testes = data.frame(Nome1 = "", Nome2 = printvetor(nomes, aspas=F),tipo = "matcorrel", sig_ou_não = NA, resumo = NA, sup = NA)
 return(list("testes"=testes,"result"=result))}
         
