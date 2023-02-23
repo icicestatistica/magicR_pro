@@ -17,5 +17,6 @@ testes = data.frame(Nome1 = "", Nome2 = printvetor(nomes, aspas=F),tipo = "matco
 return(list("testes"=testes,"result"=result))}
         
 matcorrel_meta = function(){
-  texto="- **Matriz de correlação**: Uma matriz de correlação consiste em linhas e colunas que mostram as correlações entre duas variáveis de cada vez, sendo uma especificada na linha e uma na coluna, de modo que cada célula da tabela contém o coeficiente de correlação. É uma ferramenta poderosa para resumir um grande conjunto de dados e para identificar e visualizar padrões nos dados fornecidos. \n"
-  }
+  texto="- **Matriz de correlação**:
+Uma matriz de correlação consiste em linhas e colunas que mostram as correlações entre duas variáveis de cada vez, sendo uma especificada na linha e uma na coluna, de modo que cada célula da tabela contém o coeficiente de correlação. É uma ferramenta poderosa para resumir um grande conjunto de dados e para identificar e visualizar padrões nos dados fornecidos. \n"
+  return(list("texto"=texto,"bib"=NULL))}
