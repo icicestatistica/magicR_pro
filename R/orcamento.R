@@ -66,13 +66,15 @@ for (i in 1:n_analises){
 resumo_sessaoi = resumoanalises %>% filter(Sessão==sessoes[i])
 desc_i = c()
 
+  ###### DESCRITIVAS
 ## numéricas
   if(c("numeric") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Para as variáveis numéricas, a saber, ",resumo_sessaoi[resumo_sessaoi$tipo=="numeric",]$nome2,", cálculo do Mínimo, Máximo, Quartis, Média, Mediana, Desvio Padrão e teste de Normalidade de Shapiro-Wilk."))
 ## ordinais e fatores
   if(sum(c("ordinal","factor") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + Para as variáveis categóricas nominais e/ou categóricas ordinais, a saber, ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("ordinal","factor"),]$nome2,aspas=F),", cálculos de frequências absoluta (n) e relativa (%)."))
-## catsame (caixa de resposta)
-  if(c("catsame") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Para os itens contidos em perguntas do tipo \"caixa de respostas\", em que cada item pode ser respondido em uma das categorias apresentadas, a saber, ",resumo_sessaoi[resumo_sessaoi$tipo=="catsame",]$nome2,", cálculo da frequência, frequência relativa e, para as respostas dicotômicas, intervalo de confiança para uma das proporções, incluindo todas as comparações entre as proporções de respostas das variáveis."))
-## Teste-t e Mann-Whitney
+
+  #### BIVARIADOS INDEPENDENTES
+  
+  ## Teste-t e Mann-Whitney
   if(sum(c("t","mw") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + Teste-t independente de comparação de duas médias, no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados nos dois grupos de ",unique(resumo_sessaoi[resumo_sessaoi$tipo %in% c("t","mw"),]$nome2)," e com o teste correspondente não paramétrico (Mann-whitney) caso contrário, bem como o cálculo do tamanho do efeito. Variáveis a serem testadas: ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("t","mw"),]$nome1,aspas=F),"."))
 ## Anova e Kruskall Wallis
 if(sum(c("aov1","kw") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + One-way anova de comparação de mais de duas médias, no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados nos grupos de ",unique(resumo_sessaoi[resumo_sessaoi$tipo %in% c("aov1","kw"),]$nome2)," e com o teste correspondente não paramétrico (Kruskall-Wallis) caso contrário, bem como as devidas análises post-hoc (Tukey e Dunn, respectivamente) e cálculo de tamanho de efeito. Variáveis a serem testadas: ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("aov1","kw"),]$nome1,aspas=F),"."))
@@ -81,7 +83,7 @@ if(c("correl") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Cálculo d
 ## cc - exato de fisher ou qui-quadrado
 if(c("cc") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Realização do teste Qui-quadrado, se a suposição de até 20% das caselas da tabela de contingência com valor esperado menor que 5 e nenhuma com valor esperado menor que 1 e do teste Exato de Fisher caso contrário, para verificação da independência/homogeneidade entre a(s) variável(is) ",resumo_sessaoi[resumo_sessaoi$tipo=="cc",]$nome1," e ",resumo_sessaoi[resumo_sessaoi$tipo=="cc",]$nome2,"."))
 
-#### PAREADOS
+#### BIVARIADOS PAREADOS
 
 ## Teste-t pareado e wilcoxon
 if(sum(c("t_par","wilk") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\n + Teste-t pareado de comparação de duas médias pareadas (em dois momentos ou por dois avaliadores diferentes, por exemplo), no caso das variáveis numéricas cujo teste de Shapiro-Wilk não rejeitou a normalidade dos dados e o teste correspondente não paramétrico (Wilcoxon) caso contrário, bem como o cálculo do tamanho do efeito. Variáveis a serem testadas: ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo %in% c("t","mw"),]$nome1,aspas=F),"."))
@@ -91,6 +93,14 @@ if(sum(c("aovmr","fried") %in% resumo_sessaoi$tipo)>0) desc_i=c(desc_i,paste0("\
 if(c("mcnem") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Teste de McNemar, utilizado para testar diferenças nas proporções de uma variável categórica medida de forma pareada (em dois momentos ou por dois avaliadores diferentes, por exemplo). Variáveis a serem testadas: ",resumo_sessaoi[resumo_sessaoi$tipo=="mcnem",]$nome1,"."))
 ##Q de Cochran: medidas categóricas repetidas em mais de dois momentos
 if(c("qcoch") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Teste Q de Cochran, utilizado para testar diferenças nas proporções de uma variável categórica medida de forma pareada (em mais de dois momentos ou por mais de dois avaliadores diferentes, por exemplo). Variáveis a serem testadas: ",resumo_sessaoi[resumo_sessaoi$tipo=="qcoch",]$nome1,"."))
+  
+##### OUTROS
+  
+## catsame (caixa de resposta)
+  if(c("catsame") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Para os itens contidos em perguntas do tipo \"caixa de respostas\", em que cada item pode ser respondido em uma das categorias apresentadas, a saber, ",resumo_sessaoi[resumo_sessaoi$tipo=="catsame",]$nome2,", cálculo da frequência, frequência relativa e, para as respostas dicotômicas, intervalo de confiança para uma das proporções, incluindo todas as comparações entre as proporções de respostas das variáveis."))
+  
+ ## Análise de sensibilidade
+if(c("sensi") %in% resumo_sessaoi$tipo) desc_i=c(desc_i,paste0("\n + Realização da análise de sensibilidade, com cálculo da acurácia, sensibilidade, especificidade, Valor Predito Positivo (VPP) e Valor Predito Negativo (VPN) dos testes ",printvetor(resumo_sessaoi[resumo_sessaoi$tipo=="sensi",]$nome2, aspas=F),", tomando como padrão ouro o teste",resumo_sessaoi[resumo_sessaoi$tipo=="sensi",]$nome1,"."))
 
 descricaoanalises = c(descricaoanalises, paste0("\n **",unique(resumo_sessaoi$Sessão),"** \n",paste0(desc_i, collapse="\n",sep="\n")))
 }
