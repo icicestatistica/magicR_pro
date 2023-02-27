@@ -24,3 +24,22 @@ texto=paste0(" - Calculamos o alpha de cronbach para a escala ",nomescala,", com
 result=data.frame("Escala"=nomescala,"n"=a$n,"itens"=a$p,"alpha"=round(a$alpha,3),"IC95"=paste0("[",paste0(round(a$ci,3),collapse=", "),"]"),"interpretação"=interp)
 
 return(list("result"=result,"texto"=texto))}
+
+
+#Kappa de cohen
+
+kappa_cohen_icic = function(aval1,aval2,niveis){
+
+aval1 = factor(aval1, levels=niveis)
+aval2 = factor(aval2, levels=niveis)
+
+dadoskappa <- cbind(aval1,aval2)
+comp = irr::kappa2(dadoskappa)
+
+interp = cut(comp$value,c(-1,0,0.2,0.4,0.6,0.8,1),right=T,labels=c("ruim","pequena","razoável","moderada","substancial","perfeita"))
+
+sn=ifelse(comp$p.value<0.05,"rejeitamos","não rejeitamos")
+
+texto = paste0("A medida kappa (de Cohen) de concordância entre ",comp$raters," avaliações à respeito de ",comp$subjects," sujeitos foi igual a ",round(comp$value,2),", o que Landis, J.R., Koch, G.G. (1997) sugerem interpretar como uma concordância ",interp, ". Segundo o teste z (",comp$stat.name,"=",round(comp$statistic,2),", p-valor=",pvalor(comp$p.value)," ,",sn," a nulidade de concordância entre as avaliações","\n")
+
+return(list("texto"=texto))}
