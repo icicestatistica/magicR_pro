@@ -25,8 +25,6 @@ testes = data.frame(Nome1 = nomepadraoouro, Nome2 = nomepredito, tipo = "sensi",
 
 return(list("testes"=testes,"resultado"=res,"grafico"=grafico,"texto"=texto))}
 
-analise_sensibilidade(padrao_ouro,Teste_sorologico_anticorpos,"Padrão ouro","Sorologico anticorpos")
-
 analise_sensibilidade_meta = function(){
   texto="Essas são medidas de avaliação comuns usadas em estatística para análise de adequabilidade de um método de diagnóstico com relação a um método já estabelecido, tido como padrão-ouro:
 
