@@ -97,6 +97,9 @@ if(mat_analises["catsame"]>0) {texto <- c(texto,"
 * **Teste Z para igualdade de proporções:**
 
 O teste-Z para igualdade de proporções é utilizado para comparar a frequência de uma certa resposta em dois grupos. Utilizando a aproximação normal, como um teste bicaudal (que testa a diferença entre dois grupos), podemos concluir se as proporções diferem ou não e também calcular um intervalo de confiança para cada proporção obtida, extrapolando um intervalo de valores plausíveis para a proporção verdadeira. \n")}
+  
+if(mat_analises["sensi"]>0) {texto <- c(texto,"
+* **Análise de sensibilidade do teste:** ",analise_sensibilidade_meta()$texto," \n")}
 
 texto = c(texto,"\n","# Sobre as análises \n","
 
