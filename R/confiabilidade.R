@@ -11,10 +11,9 @@ return(list("texto"=texto))}
 
 #Cronbach
 
-#library("ltm")
 cronbach_icic = function(dad,nomescala){
 
-a=cronbach.alpha(dad, standardized = FALSE, CI = TRUE, 
+a=ltm::cronbach.alpha(dad, standardized = FALSE, CI = TRUE, 
     probs = c(0.025, 0.975), B = 1000, na.rm = FALSE)
 
 interp = cut(a$alpha,c(-0.1,0.21,0.41,0.61,0.8,1),labels=c("pequena","razoável","moderada","substancial","quase perfeita"))
