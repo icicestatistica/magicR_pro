@@ -13,8 +13,8 @@ y2=as.numeric(d$y[d$x==niveis[2]])
   
 if(ordinal==F) a=wilcox.test(as.numeric(d$y) ~ d$x , paired=F) else a=wilcox.test(as.numeric(factor(d$y, levels=niveis_ord)) ~ d$x , paired=F)
  
-if(length(na.omit(y1))>3 & length(na.omit(y1))<5000 & length(table(y1))>1) str1=shapiro.test(y1) else str1="Não"
-if(length(na.omit(y2))>3 & length(na.omit(y2))<5000 & length(table(y2))>1) str2=shapiro.test(y2) else str2="Não"
+if(length(na.omit(y1))>3 & length(na.omit(y1))<5000 & length(table(na.omit(y1)))>1) str1=shapiro.test(y1) else str1="Não"
+if(length(na.omit(y2))>3 & length(na.omit(y2))<5000 & length(table(na.omit(y2)))>1) str2=shapiro.test(y2) else str2="Não"
 
 if (ordinal==F) r=rcompanion::wilcoxonR(as.numeric(d$y), g = d$x, ci = F) else r=rcompanion::wilcoxonR(as.numeric(factor(d$y, levels=niveis_ord)), g = d$x, ci = F)
 
