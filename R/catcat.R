@@ -23,7 +23,7 @@ catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirto
     
     if(sum(quiqua2$expected<5)/(nrow(tabela)*ncol(tabela))>0.2 | sum(quiqua2$expected<1)>0)
     {pvalorc=fisher.test(help$x, help$y,simulate.p.value = T)$p.value
-    resumotestes=pvalor(pvalorc)
+    resumotestes=ifelse(pvalorc<0.05, paste0("Encontramos associação estatisticamente significativa entre ",nomex," e ",nomey," (Exato de Fisher, ",pvalor(pvalorc)),paste0("Não encontramos associação estatisticamente significativa entre ",nomex," e ",nomey," (Exato de Fisher, ",pvalor(pvalorc)))
     method="fisher" ; pvalorgraf=ifelse(pvalorc < 0.001, "<0.001", round(pvalorc,3)); metodograf=ifelse(idioma=="PT","Exato de Fisher ","Fisher's Exact Test")
     textograf=substitute(paste(metodograf," (p=", pvalorgraf,")"), list(metodograf=metodograf,pvalorgraf=pvalorgraf))
     p=paste0(pvalor(pvalorc),"b")
@@ -38,7 +38,7 @@ catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirto
     }}   else{
       metodograf="Qui-quadrado "
       pvalorc=quiqua2$p.value
-      resumotestes=paste0(paste("$\\chi^2$",collapse=NULL),"(",quiqua2$parameter,") = ", round(quiqua2$statistic,dig)," p=", pvalor(quiqua2$p.value),collapse="",sep="")
+      resumotestes=ifelse(quiqua2$p.value<0.05,paste0("Encontramos associação estatisticamente significativa entre ",nomex," e ",nomey," (",paste("$\\chi^2$",collapse=NULL),"(",quiqua2$parameter,") = ", round(quiqua2$statistic,dig)," p=", pvalor(quiqua2$p.value),")",collapse="",sep=""),paste0("Não encontramos associação estatisticamente significativa entre ",nomex," e ",nomey," (",paste("$\\chi^2$",collapse=NULL),"(",quiqua2$parameter,") = ", round(quiqua2$statistic,dig)," p=", pvalor(quiqua2$p.value),")",collapse="",sep=""))
       para=round(quiqua2$parameter,dig) ; stat=round(quiqua2$statistic,dig) ; pvalorgraf=ifelse(quiqua2$p.value < 0.001, "<0.001", round(quiqua2$p.value,3))
       textograf=substitute(paste(metodograf," (",chi^2,"(",para,") = ",stat ," p=", pvalorgraf,")"), list(metodograf=metodograf,para=para,stat=stat,pvalorgraf=pvalorgraf))
       
