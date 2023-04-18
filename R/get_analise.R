@@ -48,7 +48,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
   temcont=F
   for (i in 1:xdim)
     {if(is.null(dim(xmat))==T) xmat_c = data.frame(xmat) else xmat_c = xmat[,i]
-    if(((tipox[i]=="numeric" | tipox[i]=="ordinal") & (tipoy=="numeric"|tipoy=="ordinal)) {
+    if((tipox[i]=="numeric" | tipox[i]=="ordinal") & (tipoy=="numeric"|tipoy=="ordinal")) {
         temcont=T
         res=escolhateste(xmat_c,y,tipox[i],tipoy,nomex[i],nomey,eval(parse(text=niveisx[i])),eval(parse(text=niveisy)),dig,excluirtotal,respcol,cor,idioma)
         resultcont=rbind(resultcont,res$result)
