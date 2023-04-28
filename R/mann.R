@@ -35,7 +35,7 @@ if(str1$p.value<0.05 & str2$p.value<0.05) sup=paste0(" Através do teste de Shap
 if(a$p.value < 0.05) {texto=c(" * **",ref,":** Realizando o teste de Mann Whitney (W=",as.numeric(c(a$statistic)),", p=",pvalor(a$p.value),"), rejeitamos a hipótese de igualdade de distribuições de ",nomey," entre os grupos. ")
 if(ordinal==F) texto = c(texto,
 "O grupo ",niveis[1]," (mediana=",round(median(y1, na.rm=T),dig)," e intervalo interquartil = [",
-round(quantile(y1,0.25,na.rm=T),dig),",",round(quantile(y1,0.75,na.rm=T),dig),"]) é ",dif," o grupo ",niveis[2]," (mediana=",round(median(y2, na.rm=T),dig)," e intervalo interquartil = [",
+round(quantile(y1,0.25,na.rm=T),dig),",",round(quantile(y1,0.75,na.rm=T),dig),"]) tem ",nomey," ",dif," que o grupo ",niveis[2]," (mediana=",round(median(y2, na.rm=T),dig)," e intervalo interquartil = [",
 round(quantile(y2,0.25,na.rm=T),dig),",",round(quantile(y2,0.75,na.rm=T),dig),"]).",mag,sup,"\n")} else
   texto= c(" * **",ref,":** Não encontramos evidência estatística através do teste de Mann Whitney para rejeitar diferenças entre as distribuições de ",nomey," dos grupos (W=",as.numeric(c(a$statistic)),", p=",pvalor(a$p.value),").",sup,"\n")
 
