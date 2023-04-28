@@ -15,10 +15,10 @@ kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T
   p=paste0(pvalor(a$p.value),"f ($\\eta^2$=",c,")")
   
   if (a$p.value > 0.05) {tabela=NULL
-  texto=c("* **",ref,"**: Não encontramos com o teste de Kruskall Wallis evidência de diferença entre os grupos (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). \n"); resumo=paste0("Não encontramos com o teste de Kruskall Wallis evidência de diferença de ",nomeresp," entre os grupos de ",nomefator," (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,")=",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),").")
+  texto=c("* **",ref,"**: Não encontramos com o teste de Kruskall Wallis evidência de diferença entre os grupos (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),"). \n"); resumo_final=paste0("Não encontramos com o teste de Kruskall Wallis evidência de diferença de ",nomeresp," entre os grupos de ",nomefator," (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,")=",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),").")
 } else {
     texto=c("* **",ref,"**: O teste de Kruskall-Wallis mostrou que há diferença entre os grupos (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,") =",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),").")
-    resumo=paste0("O teste de Kruskall-Wallis mostrou que há diferença de ",nomeresp," entre os grupos de ",nomefator," (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,")=",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),").")
+    resumo_final=paste0("O teste de Kruskall-Wallis mostrou que há diferença de ",nomeresp," entre os grupos de ",nomefator," (",paste("$\\chi^2$",collapse=NULL),"(",a$parameter,")=",round(a$statistic,dig),",p-valor=",pvalor(a$p.value),").")
     dunn <- quiet(dunn.test(dad$continua, dad$categorica,method = "bonferroni",kw=F,table=F,list=F))
     b <- data.frame(dunn$comparisons,dunn$P.adjusted)
     
@@ -78,7 +78,7 @@ kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T
   if(ordinal==F) grafico = grafico_comp_box(dad$continua,nomeresp,dad$categorica,nomefator,cor=cor,textograf,dig,ordenar, idioma) else
     grafico = grafico_catcat(dad2$categorica,nomefator,dad2$continua,nomeresp, cor=cor, textograf,idioma,labels=labels) + coord_flip()
   
-  testes=data.frame(Nome1 = nomeresp, Nome2 = nomefator, tipo = "kw", sig_ou_não = ifelse(a$p.value<0.05,T,F), resumo = resumo,sup=NA)
+  testes=data.frame(Nome1 = nomeresp, Nome2 = nomefator, tipo = "kw", sig_ou_não = ifelse(a$p.value<0.05,T,F), resumo = resumo_final,sup=NA)
   
   return(list("testes"=testes,
               "result"=res,
