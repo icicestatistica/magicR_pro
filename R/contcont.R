@@ -116,6 +116,7 @@ contcont = function (y, x, nomey, nomex, dig = 2, cor = "cyan4", idioma = "PT",
             pvalor(a$p.value), "), indicando uma relação ", 
             direcao, " ", mag, coefdet, ictexto, sup, "\n")
         significativo = T
+        resumo_final = paste0("Encontramos uma correlação ",ifelse(a$estimate>0,"positiva","negativa")," e estatísticamente significativa entre ",nomey," e ",nomex, " com o teste de correlação de ",method, " (",greg, "=", round(a$estimate, dig), ", p-valor=",pvalor(a$p.value),"; 95% IC=", IC,").")
     }
     else {
         texto = c("* **", nomex, "**: Não encontramos evidências através do teste de correlação de ", 
@@ -124,6 +125,7 @@ contcont = function (y, x, nomey, nomex, dig = 2, cor = "cyan4", idioma = "PT",
             pvalor(a$p.value), "). De fato, ", mag, coefdet, 
             ictexto, sup, " \n")
         significativo = F
+        resumo_final = paste0("Não encontramos correlação estatísticamente significativa entre ",nomey," e ",nomex, " com o teste de correlação de ",method, " (",greg, "=", round(a$estimate, dig), ", p-valor=",pvalor(a$p.value),"; 95% IC=", IC,").")
     }
     rhoprint = round(rho, dig)
     pvalorprint = ifelse(a$p.value < 0.001, "<0.001", round(a$p.value, 
@@ -153,9 +155,7 @@ contcont = function (y, x, nomey, nomex, dig = 2, cor = "cyan4", idioma = "PT",
     else grafico = grafico_catcat(x, nomex, y, nomey, cor, textograf, 
         idioma)
     testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "correl", 
-        sig_ou_não = ifelse(a$p.value < 0.05, T, F), resumo = paste0(greg, 
-            "=", round(a$estimate, dig), ", p-valor=", pvalor(a$p.value), 
-            collapse = ""), sup = NA)
+        sig_ou_não = ifelse(a$p.value < 0.05, T, F), resumo = resumo_final, sup = NA)
     return(list(testes = testes, result = result, texto = paste0(texto, 
         sep = "", collapse = ""), grafico = grafico))
 }
