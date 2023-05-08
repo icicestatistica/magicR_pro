@@ -5,10 +5,12 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
     if(tipoy=="factor")
       {if(length(niveisy)==2)
         {res = try(testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor))
-         if(res$testes$sup==F | tipox=="ordinal") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisx)}
+          if(class(res)=="try-error") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisx)} else
+            if(res$testes$sup==F | tipox=="ordinal") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisx)}
         } else
           {res = try(anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,idioma))
-           if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord)}
+            if(class(res)=="try-error") {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord)} else
+              if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord)}
           }
        } else
     if(tipoy=="numeric" | tipoy=="ordinal")
@@ -21,10 +23,12 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
       {transform_ord = ifelse(tipoy=="ordinal",T,F)
       if(length(niveisx)==2)
         {res = try(testet(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor))
-        if(res$testes$sup==F | tipoy=="ordinal") {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisy)}
+          if(class(res)=="try-error") {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisy)} else
+            if(res$testes$sup==F | tipoy=="ordinal") {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisy)}
         } else
         {res = try(anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,idioma))
-        if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma,transform_ord)}
+          if(class(res)=="try-error") {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma,transform_ord)} else
+            if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma,transform_ord)}
         }
       } else
           if(tipoy=="factor") {res=catcat(x,y,nomex,nomey,niveisx,niveisy,dig,respcol,excluirtotal,cor,idioma)}
