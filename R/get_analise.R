@@ -4,10 +4,10 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
     {transform_ord = ifelse(tipox=="ordinal",T,F)
     if(tipoy=="factor")
       {if(length(niveisy)==2)
-        {res = testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor)
+        {res = try(testet(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor))
          if(res$testes$sup==F | tipox=="ordinal") {res=mann(y,x,nomey,nomex,niveisy,dig,F,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisx)}
         } else
-          {res = anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,idioma)
+          {res = try(anovac(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,idioma))
            if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(as.numeric(unlist(x)),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord)}
           }
        } else
@@ -20,10 +20,10 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
     {if(tipoy=="numeric" | tipoy=="ordinal")
       {transform_ord = ifelse(tipoy=="ordinal",T,F)
       if(length(niveisx)==2)
-        {res = testet(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor)
+        {res = try(testet(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor))
         if(res$testes$sup==F | tipoy=="ordinal") {res=mann(x,y,nomex,nomey,niveisx,dig,T,excluirtotal,cor,idioma,transform_ord,niveis_ord=niveisy)}
         } else
-        {res = anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,idioma)
+        {res = try(anovac(as.numeric(unlist(y)),x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,idioma))
         if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(y,x,nomey,nomex,niveisx,dig,T,excluirtotal,cor,T,idioma,transform_ord)}
         }
       } else
