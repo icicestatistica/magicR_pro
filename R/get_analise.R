@@ -15,7 +15,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
        } else
     if(tipoy=="numeric" | tipoy=="ordinal")
       {ordinaly=ifelse(tipoy=="numeric",F,T) ; ordinalx=ifelse(tipox=="numeric",F,T)
-       res=contcont(y,x,nomey,nomex,dig,cor,ordinalx=ordinalx,ordinaly=ordinaly)}
+       res=contcont(y,x,nomey,nomex,dig,cor,ordinalx=ordinalx,ordinaly=ordinaly,respcol=respcol)}
     }
   else
   {if(tipox=="factor")
