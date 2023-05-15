@@ -143,9 +143,9 @@ contcont = function (y, x, nomey, nomex, dig = 2, cor = "cyan4", idioma = "PT",
         rho2 = rho2, IC = IC)
     names(result) = c("Variável", "p-valor", "Estatística", 
         "Variância compartilhada", "IC (95%)")
-    if (ordinalx == F & ordinaly == F) 
-        grafico = grafico_correl(as.numeric(y), nomey, cor, as.numeric(x), 
-            nomex, textograf, idioma)
+    if (ordinalx == F & ordinaly == F) {
+        if(respcol==T) grafico = grafico_correl(as.numeric(y), nomey, cor, as.numeric(x),nomex, textograf, idioma)
+        else grafico = grafico_correl(x, nomex, cor, as.numeric(y),nomey, textograf, idioma)}       
     else if (ordinalx == F & ordinaly == T) 
         grafico = grafico_comp_box(as.numeric(x), nomex, y, nomey, 
             cor, textograf, dig, ordenar = F, idioma, dot = "auto")
