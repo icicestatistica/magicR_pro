@@ -70,24 +70,21 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
 return(result)}
 
-grafico_categorica_vert = function (lesoes, nome,niveis='auto',cor = "cyan4",ordenar=T) 
+grafico_categorica_vert = function (lesoes, nome, niveis = "auto", cor = "cyan4", ordenar = T) 
 {
     lesoes = unlist(lesoes)
-    if(niveis[1]=='auto') niveis=names(table(lesoes))
-    theme_icic = ggthemes::theme_clean() + ggplot2::theme(plot.background = element_rect(colour = NA), 
-        panel.background = element_rect(fill = "transparent", 
-            color = NA), plot.title = element_text(hjust = 0.5), 
-        plot.subtitle = element_text(hjust = 0.5), legend.background = element_rect(color = NA), 
-        panel.grid.major.x = element_line(linetype = 3, color = "gray"), 
-        panel.grid.major.y = element_blank())
-        if(ordenar==T) ny="fct_rev(fct_infreq(vetor_comsep_c(lesoes,40)))" else ny="factor(vetor_comsep_c(lesoes, 40),levels=vetor_comsep_c(niveis,40))"
-    plot = ggplot() + geom_bar(aes(y = eval(parse(text=ny)), x = (..count..)/sum(..count..)), stat = "count", 
-        fill = cor) + geom_label(aes(y = vetor_comsep_c(names(table(lesoes)), 
-        40), x = as.numeric(table(lesoes))/length(lesoes)), label = paste0(round(100 * 
-        table(lesoes)/length(lesoes), 1), "%")) + theme_icic + 
-        scale_x_continuous(labels = scales::percent_format(), 
-            expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
-        x = "Proporção", title = vetor_comsep_c(paste(nome, " (n=", length(lesoes), ")", sep = ""),50))
+    if (niveis[1] == "auto") 
+        niveis = names(table(lesoes))
+    df = table(lesoes) %>% data.frame()
+df$Freq_rel = prop.table(table(lesoes)) %>% data.frame() %>% select("Freq") %>% unlist()
+df$lesoes = vetor_comsep_c(df$lesoes,30)
+if(ordenar==T) df = df %>% arrange(desc(-Freq)) %>% mutate(lesoes=factor(lesoes,levels=unique(lesoes))) else
+  df = df %>% mutate(lesoes=factor(lesoes,levels=niveis))
+  plot = df %>% ggplot(aes(y=lesoes,x=Freq_rel)) + geom_bar(stat="identity", fill=cor) +theme_icic +
+  geom_text(aes(label=paste0(100*round(Freq_rel,2),"%")),nudge_x=0.01) + scale_x_continuous(labels = scales::percent_format(), 
+        expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
+        x = "Proporção", title = vetor_comsep_c(paste(nome, 
+            " (n=", length(lesoes), ")", sep = ""), 50))
     return(plot)
 }
 
