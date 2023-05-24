@@ -80,7 +80,7 @@ df$Freq_rel = prop.table(table(lesoes)) %>% data.frame() %>% select("Freq") %>% 
 df$lesoes = vetor_comsep_c(df$lesoes,30)
 if(ordenar==T) df = df %>% arrange(desc(-Freq)) %>% mutate(lesoes=factor(lesoes,levels=unique(lesoes))) else
   df = df %>% mutate(lesoes=factor(lesoes,levels=niveis))
-  plot = df %>% ggplot(aes(y=lesoes,x=Freq_rel)) + geom_bar(stat="identity", fill=cor) +theme_icic +
+  plot = df %>% ggplot(aes(y=lesoes,x=Freq_rel)) + geom_bar(stat="identity", fill=cor) +theme_icic("v") +
   geom_text(aes(label=paste0(100*round(Freq_rel,2),"%")),nudge_x=0.01) + scale_x_continuous(labels = scales::percent_format(), 
         expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
         x = "Proporção", title = vetor_comsep_c(paste(nome, 
