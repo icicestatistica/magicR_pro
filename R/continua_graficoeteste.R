@@ -30,6 +30,8 @@ desc_uni_continua <- function(vari,nome,bins=20,texto=T, grafico=T,cor='cyan4',d
   
   interpretacao = paste(" + A variável **'",nome,"'**, variou entre ",round(summary(vari)[1],digitos)," e ",round(summary(vari)[6],digitos),". Sua média foi ",round(summary(vari)[4],digitos),", com desvio padrão de ",round(sd(vari,na.rm=T),digitos),". A mediana é ",round(summary(vari)[3],digitos)," e o intervalo interquartil é ",iqr," (Q1=",round(summary(vari)[2],digitos),"-Q3=",round(summary(vari)[5],digitos),"). ",texto_missings," ",texto_outliers,sep="")
   
+  inter_resumo = paste0(nome,", variou entre ",round(summary(vari)[1],digitos)," e ",round(summary(vari)[6],digitos),", com média ",round(summary(vari)[4],digitos)," e desvio padrão ",round(sd(vari,na.rm=T),digitos),".")
+  
 if(texto==T){
   if(nf=="") nf=c("  + O teste de shapiro wilk, com p-valor ",rej," a hipótese de normalidade dos dados (W=",round(shap$statistic,digitos),", p-valor=",pvalor(shap$p.value),"). \n") else shaptexto=nf
     if(cv>50) cvtexto = " Como isso não ocorreu, valores próximos à média podem não ter sido tão frequentes nos dados. \n" else cvtexto = " Como isso ocorreu, os dados tendem a se concentrar perto da média. \n"
@@ -51,7 +53,7 @@ if(texto==T){
   
   if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos,idioma) else grafico=NULL
 
- testes = data.frame(Nome1 = "", Nome2 = nome, tipo = "numeric", sig_ou_não = NA, resumo = NA, sup = NA)
+ testes = data.frame(Nome1 = "", Nome2 = nome, tipo = "numeric", sig_ou_não = '-', resumo = inter_resumo, sup = NA)
   
 return(list("testes"=testes,"result"=d,"texto"=tex,"interp"=interpretacao,"grafico"=grafico))}
 
