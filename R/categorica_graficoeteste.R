@@ -12,6 +12,7 @@ desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordena
 descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(tablevar)]," (",prop[length(tablevar)],"%).",sep=""))
 
   interpretacao = paste(" + Em relação à variável **'",nome,"'**, tivemos os grupos ",descri,sep="")
+  interp_resumo = paste(nome," se dividiu nos grupos ",descri,sep="")
   
   if (nas==FALSE) {d<-data.frame(t(rbind(round(tablevar,0),paste0(round(100*prop.table(tablevar),digitos),"%"))))} else
   {d<-t(rbind(round(tablevar,0),paste0(round(100*tablevar/length(variavel),digitos),"%")))
@@ -29,7 +30,7 @@ descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(table
       if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,niveis,cor,ordenar)} else graficoc=NULL
   
     testes = data.frame(Nome1 = "", Nome2 = nome, tipo = ifelse(ordenar==T,"factor","ordinal"), 
-        sig_ou_não = '-', resumo = interpretacao, sup = NA)
+        sig_ou_não = '-', resumo = interp_resumo, sup = NA)
     
     resultados=list("testes"=testes,"result"=d,"texto"=testectexto,"interp"=interpretacao,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
