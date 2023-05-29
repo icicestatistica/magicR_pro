@@ -29,7 +29,7 @@ descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(table
       if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,niveis,cor,ordenar)} else graficoc=NULL
   
     testes = data.frame(Nome1 = "", Nome2 = nome, tipo = ifelse(ordenar==T,"factor","ordinal"), 
-        sig_ou_não = NA, resumo = interpretacao, sup = "-")
+        sig_ou_não = '-', resumo = interpretacao, sup = NA)
     
     resultados=list("testes"=testes,"result"=d,"texto"=testectexto,"interp"=interpretacao,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
