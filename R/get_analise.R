@@ -64,7 +64,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
           texto <- list.append(texto,res$texto)
           testes <- rbind(testes,res$testes)}}
   resumo = resumo_inner(testes)
-  if(temcont) lista=list("testes"=testes,"resumo" = paste0(resumo,". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,paste0(resumo,". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto)
+  if(temcont) lista=list("testes"=testes,"resumo" = paste0(resumo,". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"resumo"=paste0(resumo,". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto)
 return(lista)}
 
 
