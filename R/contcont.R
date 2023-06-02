@@ -1,5 +1,5 @@
 contcont = function (y, x, nomey, nomex, dig = 2, cor = "cyan4", idioma = "PT", 
-    ordinalx = "auto", ordinaly = "auto", respcol=T) 
+    ordinalx = "auto", ordinaly = "auto", respcol=T,virgula=F) 
 {
     method = "spearman"
     x = unlist(x)
@@ -144,16 +144,16 @@ contcont = function (y, x, nomey, nomex, dig = 2, cor = "cyan4", idioma = "PT",
     names(result) = c("Variável", "p-valor", "Estatística", 
         "Variância compartilhada", "IC (95%)")
     if (ordinalx == F & ordinaly == F) {
-        if(respcol==T) grafico = grafico_correl(as.numeric(y), nomey, cor, as.numeric(x),nomex, textograf, idioma)
-        else grafico = grafico_correl(x, nomex, cor, as.numeric(y),nomey, textograf, idioma)}       
+        if(respcol==T) grafico = grafico_correl(as.numeric(y), nomey, cor, as.numeric(x),nomex, textograf, idioma,virgula)
+        else grafico = grafico_correl(x, nomex, cor, as.numeric(y),nomey, textograf, idioma,virgula)}       
     else if (ordinalx == F & ordinaly == T) 
         grafico = grafico_comp_box(as.numeric(x), nomex, y, nomey, 
-            cor, textograf, dig, ordenar = F, idioma, dot = "auto")
+            cor, textograf, dig, ordenar = F, idioma, dot = "auto",virgula)
     else if (ordinalx == T & ordinaly == F) 
         grafico = grafico_comp_box(as.numeric(y), nomey, x, nomex, 
-            cor, textograf, dig, ordenar = F, idioma, dot = "auto")
+            cor, textograf, dig, ordenar = F, idioma, dot = "auto",virgula)
     else grafico = grafico_catcat(x, nomex, y, nomey, cor, textograf, 
-        idioma)
+        idioma,virgula)
     testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "correl", 
         sig_ou_não = ifelse(a$p.value < 0.05, T, F), resumo = resumo_final, sup = NA)
     return(list(testes = testes, result = result, texto = paste0(texto, 
