@@ -1,14 +1,14 @@
-grafico_correl <- function(conty,nomey,cor="cyan4",contx,nomex,text="",idioma="PT"){
+grafico_correl <- function(conty,nomey,cor="cyan4",contx,nomex,text="",idioma="PT",virgula=F){
 dadosd <- data.frame(conty,contx)
 if(idioma=="PT") titulo=c("Correlação entre \'","\' e \'") else titulo=c("Correlation between \'","\' and \'")
 plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geom_smooth(color=cor,method="gam", fullrange=T, span=1) + xlab(nomex) + ylab(nomey) +
-  ggtitle(vetor_comsep_c(paste0(titulo[1],nomex,titulo[2],nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40), subtitle=text) +
+  ggtitle(vetor_comsep_c(paste0(titulo[1],nomex,titulo[2],nomey,"\' (n=",dim(na.omit(dadosd))[1],")",collapse=""),40), subtitle=ponto_para_virgula(text,virgula)) +
   theme(plot.background = element_rect(colour=NA, fill = "transparent"),
   panel.background = element_rect(fill = "transparent", color=NA),
   plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
-grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste=NULL,dig=2, ordenar=T, idioma="PT", printn=T) 
+grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste=NULL,dig=2, ordenar=T, idioma="PT", printn=T,virgula=F) 
 {
 niveis = names(table(cat))
     dadosd = data.frame(cont = cont, cat = cat)
@@ -27,7 +27,7 @@ niveis = names(table(cat))
         nomecont, "' means by '", nomecat, "' (n=", 
         dim(na.omit(dadosd))[1], ")", collapse = ""))
     plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, 
-        mean), stat = "identity", fill = cor, width = 0.8) + ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
+        mean), stat = "identity", fill = cor, width = 0.8) + ggtitle(vetor_comsep_c(titulo, 40), subtitle = ponto_para_virgula(teste,virgula)) + 
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
             sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
@@ -40,7 +40,7 @@ niveis = names(table(cat))
 
 grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", 
     teste = NULL, dig = 2, ordenar = T, idioma = "PT", 
-    dot = "auto", printn = T) 
+    dot = "auto", printn = T,virgula=F) 
 {
     dadosd <- data.frame(cont = cont, cat = cat)
     dadosd <- na.omit(dadosd)
@@ -68,7 +68,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
             x = eval(parse(text = x_c)))) + geom_boxplot(fill = cor) + 
             ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
             50)) + theme_clean() + ggtitle(vetor_comsep_c(titulo, 
-            40), subtitle = teste) + eval(parse(text=limites)) + 
+            40), subtitle = ponto_para_virgula(teste,virgula)) + eval(parse(text=limites)) + 
             theme(plot.background = element_rect(colour = NA, 
                 fill = "transparent"), panel.background = element_rect(fill = "transparent", 
                 color = NA), plot.title = element_text(hjust = 0.5), 
@@ -79,7 +79,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
             outlier.alpha = 0) + geom_dotplot(binaxis = "y", 
             stackdir = "center", alpha = 0.5) + ylab(vetor_comsep_c(nomecont, 
             40)) + xlab(vetor_comsep_c(nomecat, 50)) + theme_clean() + 
-            ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
+            ggtitle(vetor_comsep_c(titulo, 40), subtitle = ponto_para_virgula(teste,virgula)) + 
              eval(parse(text=limites)) + theme(plot.background = element_rect(colour = NA, 
             fill = "transparent"), panel.background = element_rect(fill = "transparent", 
             color = NA), plot.title = element_text(hjust = 0.5), 
@@ -88,7 +88,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
     return(plot)
 }
 
-grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto="", idioma="PT", labels=T){
+grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto="", idioma="PT", labels=T,virgula=F){
   help = na.omit(data.frame(x, y))
   if(class(help$y)=="factor") help$y=factor(help$y,levels=names(table(help$y))[which(names(table(help$y)) %in% names(table(as.character(help$y))))])
   if(class(help$x)=="factor") help$x=factor(help$x,levels=names(table(help$x))[which(names(table(help$x)) %in% names(table(as.character(help$x))))])
@@ -110,14 +110,14 @@ grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto="", idioma="PT", la
       geom_bar(stat = "identity", position = position_stack(reverse = T)) + 
       theme_clean() + scale_y_continuous(labels = scales::percent) + 
       geom_text(label = ifelse(d_completo$lab == "0 (0%)","", d_completo$lab), position = position_stack(vjust = 0.5, reverse = T)) + 
-      labs(title = vetor_comsep_c(titulo,40), subtitle = texto, y = nome_eixo_y, x = vetor_comsep(nomex,8), fill = "") +
+      labs(title = vetor_comsep_c(titulo,40), subtitle = ponto_para_virgula(texto,virgula), y = nome_eixo_y, x = vetor_comsep(nomex,8), fill = "") +
       scale_fill_manual(labels = vetor_comsep(names(table(y)), 3), values = palette(length(table(y)))) +
       theme(plot.title = element_text(hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), legend.background = element_rect(color = NA, fill = "transparent"), plot.background = element_rect(colour = NA, fill = "transparent"), panel.background = element_rect(fill = "transparent", color = NA))}
   else {
     plot = ggplot(d_completo, aes(x = Var1, y = Freq.1, 
                                   fill = Var2)) + geom_bar(stat = "identity", position = position_stack(reverse = T)) + 
       theme_clean() + scale_y_continuous(labels = scales::percent) + 
-      labs(title = vetor_comsep_c(titulo, 40), subtitle = texto, 
+      labs(title = vetor_comsep_c(titulo, 40), subtitle = ponto_para_virgula(texto,virgula), 
            y = nome_eixo_y, x = vetor_comsep(nomex, 8), fill = "") + 
       scale_fill_manual(labels = vetor_comsep(names(table(y)), 3), values = palette(length(table(y)))) + theme(plot.title = element_text(hjust = 0.5), 
       plot.subtitle = element_text(hjust = 0.5), legend.background = element_rect(color = NA,fill = "transparent"), plot.background = element_rect(colour = NA, fill = "transparent"), panel.background = element_rect(fill = "transparent", color = NA))}
