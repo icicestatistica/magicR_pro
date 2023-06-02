@@ -134,4 +134,9 @@ return(a)}
 quiet <- function(x) { 
   sink(tempfile()) 
   on.exit(sink()) 
-  invisible(force(x))} 
+  invisible(force(x))}
+     
+ponto_para_virgula = function(vetor,virgula=F){
+  res=ifelse(virgula==T,str_replace_all(vetor,"\\.","\\,"),vetor)
+  return(res)
+}
