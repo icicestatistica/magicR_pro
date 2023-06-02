@@ -1,4 +1,4 @@
-testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,respcol=T,excluirtotal=T, cor="cyan4"){
+testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,respcol=T,excluirtotal=T, cor="cyan4",virgula=F){
   
   testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "", sig_ou_não = NA, resumo = NA,sup=F)
 
@@ -64,7 +64,7 @@ testet <- function(continua,categorica,nomecont,nomecat,niveis = "auto",dig=2,re
   
   res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]-1)),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
   
-  grafico=grafico_comp_box(d$resp,nomecont,d$fator,nomecat,cor=cor,textograf,dig)
+  grafico=grafico_comp_box(d$resp,nomecont,d$fator,nomecat,cor=cor,textograf,dig,virgula)
   
   
   return(list("testes"=testes,
