@@ -1,4 +1,4 @@
-desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordenar=T,acumula=T,teste=F,grafico=T,cor="cyan4",digitos=2){
+desc_uni_categorica <- function(variavel,nome,niveis='auto',nas=F,label=F,ordenar=T,acumula=T,teste=F,grafico=T,cor="cyan4",digitos=2,virgula=F){
   variavel=unlist(variavel)
   if (niveis[1]=='auto') niveis = names(table(variavel))
   variavel <- factor(variavel, levels = niveis)
@@ -27,7 +27,7 @@ descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(table
     testec=quiqua_aderencia(variavel,nome,niveis,ordenar,digitos)
     if(length(testec)==1) {testectexto=testec$texto ; testectabela=NULL} else  {testectexto=testec$texto ; testectabela=testec$tabela}}
   if(grafico==T) {
-      if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar) else graficoc = grafico_categorica_vert(variavel,nome,niveis,cor,ordenar)} else graficoc=NULL
+      if(sum(nchar(niveis)) < 80) graficoc=grafico_categorica(variavel,nome,niveis,cor,ordenar,virgula) else graficoc = grafico_categorica_vert(variavel,nome,niveis,cor,ordenar,virgula)} else graficoc=NULL
   
     testes = data.frame(Nome1 = "", Nome2 = nome, tipo = ifelse(ordenar==T,"factor","ordinal"), 
         sig_ou_não = '-', resumo = interp_resumo, sup = NA)
@@ -35,7 +35,7 @@ descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(table
     resultados=list("testes"=testes,"result"=d,"texto"=testectexto,"interp"=interpretacao,"tabela"=testectabela,"grafico"=graficoc)
   return(resultados)}
 
-grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
+grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T,virgula=F){
   var = unlist(var)
   if (niveis[1]=='auto') niveis = names(table(var))
   var = factor(var, levels=niveis)
@@ -46,7 +46,7 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
     if(length(niveis) > 2) {
     result <- na.omit(tab) %>% mutate(var=fct_reorder(var, desc(Freq))) %>%
   ggplot() + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + 
-    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep_c(nome,50)," (n=",length(na.omit(var)),")",collapse=""))+            geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+    ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") + ggtitle(paste0(vetor_comsep_c(nome,50)," (n=",length(na.omit(var)),")",collapse=""))+            geom_text(aes(x=var,y=Freq),label=ponto_para_virgula(tab$perc,virgula),vjust=-0.5) +
         theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
@@ -63,7 +63,7 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
               scale_fill_manual(labels = vetor_comsep_c(niveis,11),values=lighten(cor,seq(0,0.3,(0.3/(length(tab$var)-1)))))}}
   if(ordenar==F) {
     result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") +
- ggtitle(paste0(vetor_comsep_c(nome,50)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=tab$perc,vjust=-0.5) +
+ ggtitle(paste0(vetor_comsep_c(nome,50)," (n=",length(na.omit(var)),")",collapse=""))+ geom_text(aes(x=var,y=Freq),label=ponto_para_virgula(tab$perc,virgula),vjust=-0.5) +
     theme(
         plot.background = element_rect(colour="white"),
         axis.text.x=element_text(size=12),
@@ -71,7 +71,7 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T){
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
 return(result)}
 
-grafico_categorica_vert = function (lesoes, nome, niveis = "auto", cor = "cyan4", ordenar = T) 
+grafico_categorica_vert = function (lesoes, nome, niveis = "auto", cor = "cyan4", ordenar = T,virgula=F) 
 {
     lesoes = unlist(lesoes)
     if (niveis[1] == "auto") 
@@ -82,7 +82,7 @@ df$lesoes = vetor_comsep_c(df$lesoes,30)
 if(ordenar==T) df = df %>% arrange(desc(-Freq)) %>% mutate(lesoes=factor(lesoes,levels=unique(lesoes))) else
   df = df %>% mutate(lesoes=factor(lesoes,levels=niveis))
   plot = df %>% ggplot(aes(y=lesoes,x=Freq_rel)) + geom_bar(stat="identity", fill=cor) +theme_icic("v") +
-  geom_text(aes(label=paste0(100*round(Freq_rel,2),"%")),nudge_x=0.01) + scale_x_continuous(labels = scales::percent_format(), 
+  geom_text(aes(label=ponto_para_virgula(paste0(100*round(Freq_rel,2),"%")),virgula),nudge_x=0.01) + scale_x_continuous(labels = scales::percent_format(), 
         expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
         x = "Proporção", title = vetor_comsep_c(paste(nome, 
             " (n=", length(lesoes), ")", sep = ""), 50))
