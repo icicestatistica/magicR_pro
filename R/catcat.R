@@ -116,7 +116,7 @@ catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirto
   
   if(is.null(result)==T) texto = paste(c(texto,tex,contor),collapse="") else texto = list(paste(c(texto,tex,contor),collapse=""),result)
   
-  res=desc_bi_cat(help$x,F,help$y,F,F,dig,respcol,virgula)
+  res=desc_bi_cat(help$x,F,help$y,F,F,dig,respcol)
   tot=dim(na.omit(help))[1]
   
   if(excluirtotal==T) res=res[-1,]
