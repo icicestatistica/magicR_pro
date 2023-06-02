@@ -1,4 +1,4 @@
-kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T,excluirtotal=T,cor="cyan4",ordenar=F, idioma="PT", ordinal=F,labels=T){
+kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T,excluirtotal=T,cor="cyan4",ordenar=F, idioma="PT", ordinal=F,labels=T,virgula=F){
   
   if(respcol==T) ref=nomefator else ref=nomeresp
   
@@ -76,7 +76,7 @@ kruskall <- function(resp,fator,nomeresp,nomefator,niveis='auto',dig=2,respcol=T
   a1=a$parameter  ; a2=round(a$statistic,dig) ; a3=ifelse(a$p.value<0.001,"<0.001",round(a$p.value,3))
   textograf <- substitute(paste("Kruskall-Wallis (",chi^2,"(",a1,") =",a2,",p=",a3,")",collapse=""),list(a1=a1,a2=a2,a3=a3))
   if(ordinal==F) grafico = grafico_comp_box(dad$continua,nomeresp,dad$categorica,nomefator,cor=cor,textograf,dig,ordenar, idioma) else
-    grafico = grafico_catcat(dad2$categorica,nomefator,dad2$continua,nomeresp, cor=cor, textograf,idioma,labels=labels) + coord_flip()
+    grafico = grafico_catcat(dad2$categorica,nomefator,dad2$continua,nomeresp, cor=cor, textograf,idioma,labels=labels,virgula) + coord_flip()
   
   testes=data.frame(Nome1 = nomeresp, Nome2 = nomefator, tipo = "kw", sig_ou_não = ifelse(a$p.value<0.05,T,F), resumo = resumo_final,sup=NA)
   
