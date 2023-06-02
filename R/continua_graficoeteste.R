@@ -1,4 +1,4 @@
-desc_uni_continua <- function(vari,nome,bins=20,texto=T, grafico=T,cor='cyan4',digitos=2, idioma="PT"){
+desc_uni_continua <- function(vari,nome,bins=20,texto=T, grafico=T,cor='cyan4',digitos=2, idioma="PT",virgula=F){
   nf=""
   vari=unlist(vari)
   if(length(summary(vari))==6) {N=length(vari); na=0} else {N=length(vari);na=summary(vari)[7]}
@@ -51,13 +51,13 @@ if(texto==T){
                 nf)
       tex=paste(tex,collapse="")} else tex=NULL
   
-  if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos,idioma) else grafico=NULL
+  if(grafico==T) grafico=graficos_continua(vari,nome,20,cor,digitos,idioma,virgula) else grafico=NULL
 
  testes = data.frame(Nome1 = "", Nome2 = nome, tipo = "numeric", sig_ou_não = '-', resumo = inter_resumo, sup = NA)
   
 return(list("testes"=testes,"result"=d,"texto"=tex,"interp"=interpretacao,"grafico"=grafico))}
 
-graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT"){
+graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT",virgula=F){
   d <- data.frame(var=as.numeric(unlist(var)))
   excess <- round((max(d$var, na.rm=T)-min(d$var, na.rm=T))/8,0)
   min <- min(d$var, na.rm=T)-excess; max <- max(d$var, na.rm=T)+excess
@@ -77,11 +77,11 @@ graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT
       panel.grid.major.y=element_blank(),
       plot.title = element_text(hjust = 0.5),
       plot.background = element_rect(colour="white")) + xlim(min,max)+
-    geom_label(x=min(d$var,na.rm=T), y=-0.2,label=paste0("Min=",round(summary(d$var)[1],digitos)),color="black") +
-    geom_label(x=summary(var)[2], y=0.1, label=paste0("Q1=",round(summary(var)[2],digitos)),color="black") +
-    geom_label(x=summary(d$var)[3], y=-0.1, label=paste0("Med=",round(summary(var)[3],digitos)),color="black") +
-    geom_label(x=summary(var)[5], y=0.1, label=paste0("Q3=",round(summary(var)[5],digitos)),color="black") +
-    geom_label(x=summary(var)[6], y=-0.2, label=paste0("Max=",round(summary(var)[6],digitos)),color="black")
+    geom_label(x=min(d$var,na.rm=T), y=-0.2,label=ponto_para_virgula(paste0("Min=",round(summary(d$var)[1],digitos)),virgula),color="black") +
+    geom_label(x=summary(var)[2], y=0.1, label=ponto_para_virgula(paste0("Q1=",round(summary(var)[2],digitos)),virgula),color="black") +
+    geom_label(x=summary(d$var)[3], y=-0.1, label=ponto_para_virgula(paste0("Med=",round(summary(var)[3],digitos)),virgula),color="black") +
+    geom_label(x=summary(var)[5], y=0.1, label=ponto_para_virgula(paste0("Q3=",round(summary(var)[5],digitos)),virgula),color="black") +
+    geom_label(x=summary(var)[6], y=-0.2, label=ponto_para_virgula(paste0("Max=",round(summary(var)[6],digitos)),virgula),color="black")
   
   histo <- ggplot(d,aes(x=var)) + 
     geom_histogram(aes(y=..density..),bins = bins, fill=cor) +
@@ -98,6 +98,6 @@ graficos_continua <- function(var,nome,bins=20,cor='cyan4',digitos=2, idioma="PT
       panel.grid.major.x=element_line(colour="gray"),
       panel.grid.minor.x=element_line(colour="lightgray"),
       panel.grid.major.y=element_blank()) +
-      geom_label(x=summary(var)[4], y=0, label=paste0(medianomegraf,round(summary(var)[4],digitos)),color="black")
+      geom_label(x=summary(var)[4], y=0, label=ponto_para_virgula(paste0(medianomegraf,round(summary(var)[4],digitos)),virgula),color="black")
   
   return(box / histo)}
