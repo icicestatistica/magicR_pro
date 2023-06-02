@@ -27,7 +27,7 @@ niveis = names(table(cat))
         nomecont, "' means by '", nomecat, "' (n=", 
         dim(na.omit(dadosd))[1], ")", collapse = ""))
     plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, 
-        mean), stat = "identity", fill = cor, width = 0.8) + ggtitle(vetor_comsep_c(titulo, 40), subtitle = ponto_para_virgula(teste,virgula)) + 
+        mean), stat = "identity", fill = cor, width = 0.8) + ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
             sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
@@ -79,7 +79,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
             outlier.alpha = 0) + geom_dotplot(binaxis = "y", 
             stackdir = "center", alpha = 0.5) + ylab(vetor_comsep_c(nomecont, 
             40)) + xlab(vetor_comsep_c(nomecat, 50)) + theme_clean() + 
-            ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste)) + 
+            ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
              eval(parse(text=limites)) + theme(plot.background = element_rect(colour = NA, 
             fill = "transparent"), panel.background = element_rect(fill = "transparent", 
             color = NA), plot.title = element_text(hjust = 0.5), 
