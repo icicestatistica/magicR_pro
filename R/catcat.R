@@ -1,4 +1,4 @@
-catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirtotal=T,cor="cyan4",idioma="PT",labels=T){
+catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirtotal=T,cor="cyan4",idioma="PT",labels=T,virgula=F){
   
   ref=nomex
   if(respcol==T) linhacol=1 else linhacol=2
@@ -108,7 +108,7 @@ catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirto
     
     if(respcol==F) {indep=help$y ;  nomeindep=nomey ; dep=help$x ; nomedep=nomex} else {indep=help$x ;  nomeindep=nomex ; dep=help$y ; nomedep=nomey}
     
-    grafico = grafico_catcat(indep,nomeindep,dep,nomedep,cor=cor,textograf,idioma,labels)
+    grafico = grafico_catcat(indep,nomeindep,dep,nomedep,cor=cor,textograf,idioma,labels,virgula)
   
   testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "cc", sig_ou_não = ifelse(pvalorc < 0.05, T, F), resumo = resumotestes, sup = NA)
    
@@ -116,7 +116,7 @@ catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirto
   
   if(is.null(result)==T) texto = paste(c(texto,tex,contor),collapse="") else texto = list(paste(c(texto,tex,contor),collapse=""),result)
   
-  res=desc_bi_cat(help$x,F,help$y,F,F,dig,respcol)
+  res=desc_bi_cat(help$x,F,help$y,F,F,dig,respcol,virgula)
   tot=dim(na.omit(help))[1]
   
   if(excluirtotal==T) res=res[-1,]
