@@ -1,10 +1,10 @@
 escolha_summary_para_juntar = function (x, nomesx, tipox, niveisx, nas, teste, grafico, cor, 
-    bins, dig, idioma) 
+    bins, dig, idioma,virgula) 
 {
     result = NULL
     if (tipox == "factor") {
         resulta = desc_uni_categorica(x, nomesx, eval(parse(text = niveisx)), 
-            nas, T, T, T, teste, grafico, cor, dig)
+            nas, T, T, T, teste, grafico, cor, dig,virgula)
         result = resulta$result[, c(1,4)]
         result[,1]=paste("&ensp;",unlist(result[,1]))
         texto = resulta$texto
@@ -13,7 +13,7 @@ escolha_summary_para_juntar = function (x, nomesx, tipox, niveisx, nas, teste, g
         interp = resulta$interp
     } else if (tipox == "ordinal") {
         resulta = desc_uni_categorica(x, nomesx, eval(parse(text = niveisx)), 
-            nas, T, F, T, teste, grafico, cor, dig)
+            nas, T, F, T, teste, grafico, cor, dig,virgula)
         result = resulta$result[, c(1,4)]
         result[,1]=paste("&ensp;",unlist(result[,1]))
         texto = resulta$texto
@@ -22,7 +22,7 @@ escolha_summary_para_juntar = function (x, nomesx, tipox, niveisx, nas, teste, g
         interp = resulta$interp
     } else if (tipox == "numeric") {
         resulta = desc_uni_continua(x, nomesx, bins, teste, grafico, 
-            cor, dig, idioma)
+            cor, dig, idioma,virgula)
         result = resulta$result[-c(1:3,9,10), ]
         result[4,1]= "Média (DP)";result[4,2]=paste0(result[4,2]," (",result[5,2],")")
         result = result[-5,]
@@ -44,7 +44,7 @@ escolha_summary_para_juntar = function (x, nomesx, tipox, niveisx, nas, teste, g
 
 
 get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico = T, 
-    cor = "cyan4", bins = 20, dig = 2, idioma = "PT") 
+    cor = "cyan4", bins = 20, dig = 2, idioma = "PT",virgula=F) 
 {
     result = NULL
     complem = list()
@@ -55,7 +55,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     for (i in 1:xdim) {
         resulta = escolha_summary_para_juntar(x[, i], nomesx[i], 
             tipox[i], niveisx[i], nas, teste, grafico, cor, bins, 
-            dig, idioma)
+            dig, idioma,virgula)
             if(vert==F) result <- rbind(result, resulta$result) else {result = cbind(result, resulta$result[,2]); result[1,i]=resulta$result[1,1]}
             complem <- list.append(complem, resulta$grafico, "\n", 
             resulta$texto, resulta$tabela, "\n")
@@ -66,7 +66,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     
     return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, complem = complem))}
 
-get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT"){
+get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT",virgula=F){
     if (gr[1] == "auto") 
         gr = which(auxiliar$tipo %in% c("factor", "numeric", 
             "ordinal"))
@@ -75,7 +75,7 @@ get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cy
     tipox <- auxiliar[gr, 3]
     niveisx <- auxiliar[gr, 4]
     resultados = get_summary_2(x, nomesx, tipox, niveisx, nas, 
-        teste, grafico, cor, bins, dig, idioma)
+        teste, grafico, cor, bins, dig, idioma,virgula)
     return(list(testes = resultados$testes, interp=resultados$interp,result = resultados$result, complem = resultados$complem))}
 
 ### METODOLOGIA
