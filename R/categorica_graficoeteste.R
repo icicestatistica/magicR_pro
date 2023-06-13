@@ -59,7 +59,7 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T,v
               theme(plot.title = element_text(hjust = 0.5, size = ceiling(12 * 1.1), face = "bold"),
                        plot.subtitle = element_text(size = ceiling(12 * 1.05)),
               plot.background = element_rect(colour="white")) + 
-              geom_text(aes(label = prop), color = "white", position = position_stack(vjust = 0.5)) +
+              geom_text(aes(label = ponto_para_virgula(prop,virgula)), color = "white", position = position_stack(vjust = 0.5)) +
               scale_fill_manual(labels = vetor_comsep_c(niveis,11),values=lighten(cor,seq(0,0.3,(0.3/(length(tab$var)-1)))))}}
   if(ordenar==F) {
     result <- ggplot(tab) + geom_bar(aes(x=var,y=Freq),fill=cor,stat="identity")  + ylim(0,max(table(var))*1.1)+theme_clean()  + ylab("") + xlab("") +
