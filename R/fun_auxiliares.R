@@ -140,3 +140,8 @@ ponto_para_virgula = function (vetor, virgula = F) {
     if(virgula==T) res = str_replace_all(vetor, "\\.", 
         "\\,") else res=vetor
     return(res)}
+
+arruma_tabela_repetidos = function(vec) {
+  fica = unlist(lapply(1:length(unique(vec)),function(x) min(which(str_detect(vec, unique(vec)[x])==T))))
+  vec[-fica]=""
+  return(vec)}
