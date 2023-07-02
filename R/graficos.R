@@ -14,7 +14,7 @@ niveis = names(table(cat))
     dadosd = data.frame(cont = cont, cat = cat)
     n = table(dadosd$cat)
     dadosd$cat <- factor(dadosd$cat, levels=niveis)
-    if(printn == T) levels(dadosd$cat) = paste(niveis, "\n n=", n,sep = "")
+    if(printn == T) levels(dadosd$cat) = paste(niveis, "\nn=", n,sep = "")
     df.summary <- na.omit(dadosd) %>% group_by(factor(cat)) %>% 
         dplyr::summarise(sd = sd(cont, na.rm = TRUE), mean = mean(cont, na.rm=TRUE))
     names(df.summary) = c("cat", "sd", "mean")
