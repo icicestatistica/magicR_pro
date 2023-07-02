@@ -50,7 +50,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
     niveis=names(n)
     dadosd$cat <- factor(dadosd$cat)
     if (printn == T) 
-        levels(dadosd$cat) = paste(niveis, "\n n=", n, 
+        levels(dadosd$cat) = paste(niveis, "\nn=", n, 
             sep = "")
     df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise(med = median(cont, 
         na.rm = T), q3 = quantile(cont, 0.75, na.rm = T))
