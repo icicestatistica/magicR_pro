@@ -30,7 +30,7 @@ desc_pw = paste(pwc$group1," e ",pwc$group2," (p=",pvetor(pwc$p.adj),")",sep="")
 
 if(res.fried$p<0.05) comp = ifelse(sum(pwc$p.adj<0.05)==0,
                             paste0("Apesar disso, os testes de postos sinalizados de wilcoxon com correção de bonferroni não detectaram nenhum momento diferindo dos demais (",printvetor(desc_pw,aspas=F),")."),
-       ifelse(sum(pwc$p.adj<0.05)==n,paste0("Os testes de postos sinalizados de wilcoxon com correção de bonferroni detectaram diferenças de proporções em todos os momentos (",printvetor(desc_pw,aspas=F),")."),
+       ifelse(sum(pwc$p.adj<0.05)==n,paste0("Os testes de postos sinalizados de wilcoxon com correção de bonferroni detectaram diferenças de distribuições em todos os momentos (",printvetor(desc_pw,aspas=F),")."),
             paste0("Os momentos que diferiram pelos testes de postos sinalizados de wilcoxon com correção de bonferroni foram ",printvetor(desc_pw[pwc$p.adj<0.05],aspas=F)," e os que não diferiram foram ",printvetor(desc_pw[pwc$p.adj>=0.05],aspas=F),". \n"))) else comp=NULL
 
 
