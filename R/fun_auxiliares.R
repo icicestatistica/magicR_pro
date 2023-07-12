@@ -142,6 +142,6 @@ ponto_para_virgula = function (vetor, virgula = F) {
     return(res)}
 
 arruma_tabela_repetidos = function(vec) {
-  fica = unlist(lapply(1:length(unique(vec)),function(x) min(which(str_detect(vec, unique(vec)[x])==T))))
+  fica = unlist(lapply(1:length(unique(vec)),function(x) min(which(str_detect(vec, fixed(unique(vec)[x]))==T))))
   vec[-fica]=""
   return(vec)}
