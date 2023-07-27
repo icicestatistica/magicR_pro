@@ -71,19 +71,24 @@ grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T,v
         panel.grid.major = element_blank(), panel.grid.minor = element_blank())}
 return(result)}
 
-grafico_categorica_vert = function (lesoes, nome, niveis = "auto", cor = "cyan4", ordenar = T,virgula=F) 
+grafico_categorica_vert = function (lesoes, nome, niveis = "auto", cor = "cyan4", ordenar = T, 
+    virgula = F) 
 {
     lesoes = unlist(lesoes)
     if (niveis[1] == "auto") 
         niveis = names(table(lesoes))
     df = table(lesoes) %>% data.frame()
-df$Freq_rel = prop.table(table(lesoes)) %>% data.frame() %>% select("Freq") %>% unlist()
-df$lesoes = vetor_comsep_c(df$lesoes,30)
-if(ordenar==T) df = df %>% arrange(desc(-Freq)) %>% mutate(lesoes=factor(lesoes,levels=unique(lesoes))) else
-  df = df %>% mutate(lesoes=factor(lesoes,levels=niveis))
-  plot = df %>% ggplot(aes(y=lesoes,x=Freq_rel)) + geom_bar(stat="identity", fill=cor) +theme_icic("v") +
-  geom_text(aes(label=ponto_para_virgula(paste0(100*round(Freq_rel,2),"%"),virgula)),nudge_x=0.01) + scale_x_continuous(labels = scales::percent_format(), 
-        expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
+    df$Freq_rel = prop.table(table(lesoes)) %>% data.frame() %>% 
+        select("Freq") %>% unlist()
+    df$lesoes = vetor_comsep_c(df$lesoes, 25)
+    if (ordenar == T) 
+        df = df %>% arrange(desc(-Freq)) %>% mutate(lesoes = factor(lesoes, 
+            levels = unique(lesoes))) else df = df %>% mutate(lesoes = factor(lesoes, levels = vetor_comsep_c(niveis,25)))
+    plot = df %>% ggplot(aes(y = lesoes, x = Freq_rel)) + geom_bar(stat = "identity", 
+        fill = cor) + theme_icic("v") + geom_text(aes(label = ponto_para_virgula(paste0(100 * 
+        round(Freq_rel, 2), "%"), virgula)), nudge_x = 0.01) + 
+        scale_x_continuous(labels = scales::percent_format(), 
+            expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
         x = "Proporção", title = vetor_comsep_c(paste(nome, 
             " (n=", length(lesoes), ")", sep = ""), 50))
     return(plot)
