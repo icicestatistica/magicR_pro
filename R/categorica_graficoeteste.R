@@ -85,10 +85,10 @@ grafico_categorica_vert = function (lesoes, nome, niveis = "auto", cor = "cyan4"
         df = df %>% arrange(desc(-Freq)) %>% mutate(lesoes = factor(lesoes, 
             levels = unique(lesoes))) else df = df %>% mutate(lesoes = factor(lesoes, levels = vetor_comsep_c(niveis,25)))
     plot = df %>% ggplot(aes(y = lesoes, x = Freq_rel)) + geom_bar(stat = "identity", 
-        fill = cor) + theme_icic("v") + geom_text(aes(label = ponto_para_virgula(paste0(100 * 
-        round(Freq_rel, 2), "%"), virgula)), nudge_x = 0.01) + 
+        fill = cor) + theme_icic("v") + geom_text(aes(label = ponto_para_virgula(paste0(Freq," (",100 * 
+        round(Freq_rel, 2), "%)"), virgula),x=Freq_rel+0.07)) + 
         scale_x_continuous(labels = scales::percent_format(), 
-            expand = expansion(mult = c(0, 0.07))) + labs(y = NULL, 
+            expand = expansion(mult = c(0, 0.05)), limits=c(0,max(df$Freq_rel)+0.13)) + labs(y = NULL, 
         x = "Proporção", title = vetor_comsep_c(paste(nome, 
             " (n=", length(lesoes), ")", sep = ""), 50))
     return(plot)
