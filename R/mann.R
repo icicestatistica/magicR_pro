@@ -6,7 +6,8 @@ if(respcol==T) ref=nomex else ref=nomey
   
 d=data.frame("x"=x,"y"=y)
 if(niveis[1]=='auto') niveis = names(table(d$x))
-if(ordinal==T) {if(niveis_ord[1]=='auto') niveis_ord = names(table(d$y))}
+if(ordinal==T) {if(niveis_ord[1]=='auto') niveis_ord = names(table(d$y))
+                d$y = factor(d$y, levels=niveis_ord)}
  
 y1=as.numeric(d$y[d$x==niveis[1]])
 y2=as.numeric(d$y[d$x==niveis[2]])
@@ -43,15 +44,14 @@ p=paste0(pvalor(a$p.value),"d (r=",round(r,dig),")")
 tot=dim(na.omit(d))[1]
  
 if(ordinal==F) res=desc_bi_cont(d$y,d$x,F,respcol,F,dig) else 
-   {if(respcol==F) res=desc_bi_cat(linha=d$x,col=d$y,respcol=F) else res=desc_bi_cat(linha=d$x,col=d$y,respcol=T)}
+   {if(respcol==F) res=desc_bi_cat(linha=d$y,col=d$x,respcol=F) else res=desc_bi_cat(linha=d$x,col=d$y,respcol=T)}
 if(excluirtotal==T) res=res[-1,]
 textograf <- paste0("Mann Whitney (W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")
   
 res <- cbind(rbind(c(paste("**",ref,"** (", tot,")",sep=""),rep("",dim(res)[2]-1)),res),"p-valor"=c("",p,rep("",dim(res)[1]-1)))
 labc = ifelse(length(table(d$y))>4,F,T)
  if (ordinal == F) grafico = grafico_comp_box(d$y,nomey,d$x,nomex,cor=cor,textograf,dig, idioma=idioma,virgula=virgula) else 
-   if(respcol == T) grafico = grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf, idioma=idioma, labels=ifelse(length(table(d$x))>4,F,T),virgula=virgula) else
-      grafico = grafico_catcat(d$y, nomey, d$x, nomex, cor=cor, textograf, idioma=idioma, labels=labc,virgula=virgula) + coord_flip()
+   grafico = grafico_catcat(d$x, nomex, d$y, nomey, cor=cor, textograf, idioma=idioma, labels=ifelse(length(table(d$x))>4,F,T),virgula=virgula)
 
 resumo=ifelse(a$p.value<0.05,paste0("Quanto a '",nomex,"', '",niveis[1],"' apresentou '",nomey,"' ",dif," '",niveis[2], paste0("' (Mann Whitney W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")),paste0("Quanto a '",nomex,"', não há diferença entre '",nomey, "' de '",niveis[1],"' e '",niveis[2], paste0("' (Mann Whitney W=",as.numeric(c(a$statistic)),", p",ifelse(a$p.value<0.001,"<0.001",paste0("=",round(a$p.value,3),collapse="")),")",collapse="")))
 testes=data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "mw", sig_ou_não = ifelse(a$p.value<0.05,T,F), resumo = resumo,sup=NA)
