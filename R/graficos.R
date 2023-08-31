@@ -16,8 +16,8 @@ niveis = names(table(cat))
     dadosd$cat <- factor(dadosd$cat, levels=niveis)
     if(printn == T) levels(dadosd$cat) = paste(niveis, "\nn=", n,sep = "")
     df.summary <- na.omit(dadosd) %>% group_by(factor(cat)) %>% 
-        dplyr::summarise(sd = sd(cont, na.rm = TRUE), mean = mean(cont, na.rm=TRUE))
-    names(df.summary) = c("cat", "sd", "mean")
+        dplyr::summarise(sd = sd(cont, na.rm = TRUE), mean = mean(cont, na.rm=TRUE), n=length(na.omit(cont)))
+    names(df.summary) = c("cat", "sd", "mean","n")
     if (ordenar == T) {
         df.summary$cat <- factor(df.summary$cat, levels = df.summary$cat[order(df.summary$mean)])
     }
@@ -29,7 +29,7 @@ niveis = names(table(cat))
     plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, 
         mean), stat = "identity", fill = cor, width = 0.8) + ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
-            sd, ymax = mean + sd), width = 0.1, size = 1) + geom_label(df.summary, 
+            1.96*sd/sqrt(n), ymax = mean + 1.96*sd/sqrt(n)), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
             dig))) + ylab(nomecont) + xlab(nomecat) + ylim(0,max(df.summary$mean+df.summary$sd)) + theme(plot.background = element_rect(colour = NA, 
         fill = "transparent"), panel.background = element_rect(fill = "transparent", 
