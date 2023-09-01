@@ -21,6 +21,8 @@ niveis = names(table(cat))
     if (ordenar == T) {
         df.summary$cat <- factor(df.summary$cat, levels = df.summary$cat[order(df.summary$mean)])
     }
+    liminf = ifelse(min(df.summary$mean - 1.96*df.summary$sd/sqrt(df.summary$n), na.rm=T)<0,min(df.summary$mean - 1.96*df.summary$sd/sqrt(df.summary$n),na.rm=T),0)
+    limsup = ifelse(max(df.summary$mean + 1.96*df.summary$sd/sqrt(df.summary$n), na.rm=T)>0,max(df.summary$mean + 1.96*df.summary$sd/sqrt(df.summary$n),na.rm=T),0)
     titulo = ifelse(idioma == "PT", paste0("Comparação de médias de '", 
         nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], 
         ")", collapse = ""), paste0("Comparison of '", 
@@ -31,7 +33,7 @@ niveis = names(table(cat))
         geom_errorbar(df.summary, mapping = aes(x = cat, ymin = mean - 
             1.96*sd/sqrt(n), ymax = mean + 1.96*sd/sqrt(n)), width = 0.1, size = 1) + geom_label(df.summary, 
         mapping = aes(x = cat, y = mean, label = round(mean, 
-            dig))) + ylab(nomecont) + xlab(nomecat) + ylim(0,max(df.summary$mean+df.summary$sd)) + theme(plot.background = element_rect(colour = NA, 
+            dig))) + ylab(nomecont) + xlab(nomecat) + ylim(liminf,limsup) + theme(plot.background = element_rect(colour = NA, 
         fill = "transparent"), panel.background = element_rect(fill = "transparent", 
         color = NA), plot.title = element_text(hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5))
