@@ -61,7 +61,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
             resulta$texto, resulta$tabela, "\n")
             textointerp = c(textointerp, resulta$interp)
             testes=rbind(testes,resulta$testes)}
-    if(vert==T) {result = data.frame(t(result)) ; names(result)=c("Variável","Min-Máx","Q1-Q2","Mediana","Média (DP)")}
+    if(vert==T) {result = data.frame(t(result)) ; names(result)=c("Variável","Min-Máx","Q1-Q3","Mediana","Média (DP)")}
     row.names(result) <- 1:dim(result)[1]
     
     return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, complem = complem))}
