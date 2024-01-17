@@ -64,6 +64,7 @@ graficos_continua = function (var, nome, bins = 20, cor = "cyan4", digitos = 2, 
   require(ggplot2)
   require(colorspace)
   require(ggthemes)
+  require(patchwork)
     d <- data.frame(var = as.numeric(unlist(var)))
     excess <- round((max(d$var, na.rm = T) - min(d$var, na.rm = T))/8, 
         0)
