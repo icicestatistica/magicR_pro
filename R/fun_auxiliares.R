@@ -99,6 +99,7 @@ return(res)}
 #vetor_comsep_c(names(dados),50)
 
 relatorio <- function(a,pularprimeiro=T){
+  require(knitr)
 if (pularprimeiro==T) comeco=2 else comeco=1
 for (i in comeco:length(a)){
    if(is.null(a[[i]])==T) tantofaz=0 else {
