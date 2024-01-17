@@ -60,6 +60,9 @@ return(list("testes"=testes,"result"=d,"texto"=tex,"interp"=interpretacao,"grafi
 graficos_continua = function (var, nome, bins = 20, cor = "cyan4", digitos = 2, idioma = "PT", 
     virgula = F,xmin='auto',xmax='auto') 
 {
+  require(ggplot2)
+  require(colorspace)
+  require(ggthemes)
     d <- data.frame(var = as.numeric(unlist(var)))
     excess <- round((max(d$var, na.rm = T) - min(d$var, na.rm = T))/8, 
         0)
