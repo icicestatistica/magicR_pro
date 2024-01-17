@@ -37,6 +37,7 @@ descri = paste(paste(res,collapse=", ")," e ",paste(names(tablevar)[length(table
 
 grafico_categorica <- function(var,nome, niveis='auto', cor='cyan4', ordenar=T,virgula=F){
   require(dplyr)
+  require(forcats)
   var = unlist(var)
   if (niveis[1]=='auto') niveis = names(table(var))
   var = factor(var, levels=niveis)
