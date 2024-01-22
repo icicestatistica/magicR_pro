@@ -98,12 +98,12 @@ return(res)}
 
 #vetor_comsep_c(names(dados),50)
 
-relatorio <- function(a,pularprimeiro=T){
+relatorio <- function(a,pularprimeiro=T,dig=2){
   require(knitr)
 if (pularprimeiro==T) comeco=2 else comeco=1
 for (i in comeco:length(a)){
    if(is.null(a[[i]])==T) tantofaz=0 else {
-if(class(a[[i]])[1]=="data.frame") print(kable(a[[i]], row.names=F)) else
+if(class(a[[i]])[1]=="data.frame") print(kable(a[[i]], row.names=F,digits=dig)) else
   if(class(a[[i]])[1]=="list") relatorio(a[[i]],F) else
       if(class(a[[i]])[1]=="character") cat(a[[i]], sep="\n") else
         print(a[[i]])}}}
