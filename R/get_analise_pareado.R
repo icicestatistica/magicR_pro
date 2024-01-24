@@ -1,10 +1,10 @@
-escolhateste_pareado = function(id,time,x,tipox,nomex,moms){
+escolhateste_pareado = function(id,time,x,tipox,nomex,moms,nometime="Momento"){
 
 result<-data.frame() ; tex="" ; grafico=NULL
 
 n=length(moms)
 if(n==2){
-  if(tipox=="numeric" | tipox=="ordinal") {res=wilcox(id,time,unlist(x),nomex,moms,tipox)}
+  if(tipox=="numeric" | tipox=="ordinal") {res=wilcox(id,time,unlist(x),nomex,moms,tipox,nometime)}
   else{
     if(tipox=="factor" | tipox=="character") {res=mc_icic(id,time,unlist(x),moms,nomex)
 }}} else {
@@ -20,19 +20,19 @@ if(n==2){
               "result"=result,
               "texto"=list("grafico"=grafico,"tex"=tex)))}
 
-get_analise_pareado_2 = function(id,time,xmat,tiposx,nomesx,moms){
+get_analise_pareado_2 = function(id,time,xmat,tiposx,nomesx,moms,nometime){
   xdim = ifelse(is.null(dim(xmat)),1,dim(xmat)[2])
   texto=c();  testes=c() ; result=data.frame()
   if(is.null(dim(xmat))==T) xmat_c = data.frame(xmat) else xmat_c = xmat
   for (i in 1:xdim)
-    {res=escolhateste_pareado(id,time,unlist(xmat_c[,i]),tiposx[i],nomesx[i],moms)
+    {res=escolhateste_pareado(id,time,unlist(xmat_c[,i]),tiposx[i],nomesx[i],moms,nometime)
         result=rbind(result,res$result)
         texto=list.append(texto,res$texto)
         testes <- rbind(testes,res$testes)}
   return(list("testes"=testes,"result"=result,"texto"=texto))}
 
 
-get_analise_pareado <- function(data,auxiliar,n_id,n_time,cols,moms){
+get_analise_pareado <- function(data,auxiliar,n_id,n_time,cols,moms,nometime="Momento"){
 
   id=unlist(data[,n_id])
   time=unlist(data[,n_time])
