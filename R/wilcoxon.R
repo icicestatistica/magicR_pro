@@ -27,7 +27,7 @@ a3 = ifelse(stat.test$p < 0.001, "<0.001", paste0("=", round(stat.test$p,
 
 dif = ifelse(stat.test$p<0.05," foi estatisticamente diferente"," não foi estatisticamente diferente")
 
-texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de Wilcoxon (V=", a2, ",p", a3, "), com effect size =", round(unname(es$effsize), 2), ", que pode ser considerado um efeito ", ifelse(es$magnitude == "small", "pequeno", ifelse(es$magnitude ==  "moderate", "moderado", "grande")), ".", sep = "")
+texto = paste(" - A variável '", nomex, "'",dif," ao nível de 5% de significância  usando o teste de Wilcoxon (V=", a2, ",p", a3, "), com effect size =", round(unname(es$effsize), 2), ", que pode ser considerado um efeito ", ifelse(es$magnitude == "small", "pequeno", ifelse(es$magnitude ==  "moderate", "moderado", "grande")), ".", sep = "")
     
   if(tipox=="numeric"){
     grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") + 
