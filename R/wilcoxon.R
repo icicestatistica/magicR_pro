@@ -1,4 +1,4 @@
-wilcox = function(id,time,num,nomex,moms,tipox="numeric"){
+wilcox = function(id,time,num,nomex,moms,tipox="numeric", nometime="Momento"){
 
 id=factor(id)
 time=factor(time,levels=moms)
@@ -32,7 +32,7 @@ texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% 
   if(tipox=="numeric"){
     grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") + 
     labs(subtitle = get_test_label(stat.test, detailed= TRUE), 
-    y = nomex, x="Momento") + theme_icic("h") + ylim(0,max(df_long$num,na.rm=T))
+    y = nomex, x=nometime) + theme_icic("h") + ylim(0,max(df_long$num,na.rm=T))
     
     res = desc_bi_cont(df_long$num, df_long$time, respcol = F)[-1, 
         -2]
@@ -42,9 +42,9 @@ texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% 
     
     {
     textograf <- substitute(paste("Teste de Wilcoxon (V=", a2, ",p", a3, ")", collapse = ""), list(a2 = a2, a3 = a3))
-    grafico = grafico_catcat(df_long$time, "Momento", df_long$num, 
+    grafico = grafico_catcat(df_long$time, nometime, df_long$num, 
         nomex, texto = textograf) + labs(title = vetor_comsep_c(paste0("Diferença de proporções de ", 
-        nomex, " nos momentos"), 40))
+        nomex), 40))
     res = desc_bi_cat(df_long$num, col = df_long$time, respcol=F)[-1, 
         -2]
     res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], 
