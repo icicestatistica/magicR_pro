@@ -1,4 +1,4 @@
-escolhateste_pareado = function(id,time,x,tipox,nomex,moms,nometime="Momento"){
+escolhateste_pareado = function(id,time,x,tipox,nomex,moms,nometime){
 
 result<-data.frame() ; tex="" ; grafico=NULL
 
@@ -40,7 +40,7 @@ get_analise_pareado <- function(data,auxiliar,n_id,n_time,cols,moms,nometime="Mo
   tiposx=auxiliar$tipo[cols]
   nomesx=auxiliar$nomes[cols]
   
-  res = get_analise_pareado_2(id,time,xmat,tiposx,nomesx,moms)
+  res = get_analise_pareado_2(id,time,xmat,tiposx,nomesx,moms,nometime)
   
   lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto)
 return(lista)}
