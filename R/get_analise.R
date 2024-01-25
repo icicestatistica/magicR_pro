@@ -66,8 +66,9 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
   resumo = resumo_inner(testes)
 
   cap = rodape_tab(nometab,testes)
+  cap2=paste0(nometab,"; p-valores marcados pela letra 'g' indicam realização da correlação de Spearman; p-valores marcados pela letra 'h' indicam realização da correlação de Pearson; \\* significante a 5%; \\*\\* significante a 1%; \\*\\*\\* significante a 0.1%"
   
-  if(temcont) lista=list("testes"=testes,"resumo" = paste0(paste0(resumo, collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"resumo"=paste0(paste0(resumo,collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto)
+  if(temcont) lista=list("testes"=testes,"resumo" = paste0(paste0(resumo, collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"capcont"=cap2,"textocont"=textocont) else lista=list("testes"=testes,"resumo"=paste0(paste0(resumo,collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto)
 return(lista)}
 
 
@@ -83,6 +84,6 @@ get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy=""
   tipox=auxiliar$tipo[col]
   nomex=auxiliar$nomes[col]
   niveisx=auxiliar$niveis[col]
-  res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor,idioma,virgula)
-  if(length(res)>6) lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$cap,"texto"=res$texto)
+  res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor,idioma,virgula,nometab)
+  if(length(res)>6) lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$caption,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"capcont"=res$capcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$cap,"texto"=res$texto)
 return(lista)}
