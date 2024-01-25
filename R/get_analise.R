@@ -44,7 +44,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
 
 
 
-get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=T,respcol=T,cor="cyan4",idioma="PT",virgula=F){
+get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,excluirtotal=T,respcol=T,cor="cyan4",idioma="PT",virgula=F,nometab="Comparação"){
   xdim = ifelse(is.null(dim(xmat)),1,dim(xmat)[2])
   texto=c() ; textocont=c()
   testes=c()
@@ -64,11 +64,14 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
           texto <- list.append(texto,res$texto)
           testes <- rbind(testes,res$testes)}}
   resumo = resumo_inner(testes)
-  if(temcont) lista=list("testes"=testes,"resumo" = paste0(paste0(resumo, collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"resumo"=paste0(paste0(resumo,collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto)
+
+  cap = rodape_tab(nometab,testes)
+  
+  if(temcont) lista=list("testes"=testes,"resumo" = paste0(paste0(resumo, collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"textocont"=textocont) else lista=list("testes"=testes,"resumo"=paste0(paste0(resumo,collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto)
 return(lista)}
 
 
-get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy="",dig=2,excluirtotal=T,respcol=T,cor='cyan4', idioma="PT",virgula=F){
+get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy="",dig=2,excluirtotal=T,respcol=T,cor='cyan4', idioma="PT",virgula=F,nometab="Comparação"){
 
   if(is.numeric(y)==T & length(y)==1) {
     tipoy=auxiliar$tipo[y]
@@ -81,5 +84,5 @@ get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy=""
   nomex=auxiliar$nomes[col]
   niveisx=auxiliar$niveis[col]
   res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor,idioma,virgula)
-  if(length(res)>6) lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"texto"=res$texto)
+  if(length(res)>6) lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$cap,"texto"=res$texto)
 return(lista)}
