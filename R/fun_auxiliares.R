@@ -146,3 +146,28 @@ arruma_tabela_repetidos = function(vec) {
   fica = unlist(lapply(1:length(unique(vec)),function(x) min(which(str_detect(vec, fixed(unique(vec)[x]))==T))))
   vec[-fica]=""
   return(vec)}
+
+
+rodape_tabela = function(nometab,testes){
+
+ana = unique(testes$tipo)
+ana = factor(ana,levels=c("numeric","ordinal","factor","catsame","t","mw","aov","kw","cc","correl","t_par","fried","mcnem"))
+
+indicador = table(ana)>0
+
+cap = c("Q1-Q3 = Primeiro e terceiro quartis; DP=desvio padrão","","",
+  "IC95% = Intervalo de 95% de confiança para proporção",
+  "p-valores marcados pela letra 'c' indicam realização do Teste-t e tamanho de efeito d de cohen",
+  "p-valores marcados pela letra 'd' indicam realização do Mann-Whitney e tamanho de efeito r",
+  "p-valores marcados pela letra 'e' indicam realização do teste ANOVA e tamanho de efeito eta",
+  "p-valores marcados pela letra 'f' indicam realização do teste Kruskall-Wallis e tamanho de efeito eta",
+  "p-valores marcados pela letra 'a' indicam realização do teste Exato de Fisher; p-valores marcados pela letra 'b' indicam realização do teste Qui-quadrado, seguido do tamanho de efeito V de cramer",
+  "p-valores marcados pela letra 'g' indicam realização da correlação de Spearman; p-valores marcados pela letra 'h' indicam realização da correlação de Pearson")
+
+capt = paste0(cap[indicador], collapse="; ")
+
+if (sum(indicador[-c(1:4)])>0) capt = paste0(capt, "; \\* significante a 5%; \\*\\* significante a 1%; \\*\\*\\* significante a 0.1%")
+
+capt = paste0(nome,"; ",capt)
+
+return(capt)}
