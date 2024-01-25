@@ -161,10 +161,9 @@ cap = c("Q1-Q3 = Primeiro e terceiro quartis; DP=desvio padrão","","",
   "p-valores marcados pela letra 'd' indicam realização do Mann-Whitney e tamanho de efeito r",
   "p-valores marcados pela letra 'e' indicam realização do teste ANOVA e tamanho de efeito eta",
   "p-valores marcados pela letra 'f' indicam realização do teste Kruskall-Wallis e tamanho de efeito eta",
-  "p-valores marcados pela letra 'a' indicam realização do teste Exato de Fisher; p-valores marcados pela letra 'b' indicam realização do teste Qui-quadrado, seguido do tamanho de efeito V de cramer",
-  "p-valores marcados pela letra 'g' indicam realização da correlação de Spearman; p-valores marcados pela letra 'h' indicam realização da correlação de Pearson")
+  "p-valores marcados pela letra 'a' indicam realização do teste Exato de Fisher; p-valores marcados pela letra 'b' indicam realização do teste Qui-quadrado, seguido do tamanho de efeito V de cramer")
 
-capt = paste0(cap[indicador], collapse="; ")
+  capt = paste0(cap[indicador], collapse="; ")
 
 if (sum(indicador[-c(1:4)])>0) capt = paste0(capt, "; \\* significante a 5%; \\*\\* significante a 1%; \\*\\*\\* significante a 0.1%")
 
