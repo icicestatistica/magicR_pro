@@ -66,7 +66,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     
     return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, caption=rodape_tabela(nometab,testes),"\n",complem = complem))}
 
-get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT",virgula=F,nometab){
+get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT",virgula=F,nometab="Tabela descritiva"){
     if (gr[1] == "auto") 
         gr = which(auxiliar$tipo %in% c("factor", "numeric", 
             "ordinal"))
