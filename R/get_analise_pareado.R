@@ -20,7 +20,7 @@ if(n==2){
               "result"=result,
               "texto"=list("grafico"=grafico,"tex"=tex)))}
 
-get_analise_pareado_2 = function(id,time,xmat,tiposx,nomesx,moms,nometime){
+get_analise_pareado_2 = function(id,time,xmat,tiposx,nomesx,moms,nometime,nometab){
   xdim = ifelse(is.null(dim(xmat)),1,dim(xmat)[2])
   texto=c();  testes=c() ; result=data.frame()
   if(is.null(dim(xmat))==T) xmat_c = data.frame(xmat) else xmat_c = xmat
@@ -29,10 +29,12 @@ get_analise_pareado_2 = function(id,time,xmat,tiposx,nomesx,moms,nometime){
         result=rbind(result,res$result)
         texto=list.append(texto,res$texto)
         testes <- rbind(testes,res$testes)}
-  return(list("testes"=testes,"result"=result,"texto"=texto))}
+
+  capt = rodape_tabela(nometab,testes)
+  return(list("testes"=testes,"result"=result,"caption"=capt,"texto"=texto))}
 
 
-get_analise_pareado <- function(data,auxiliar,n_id,n_time,cols,moms,nometime="Momento"){
+get_analise_pareado <- function(data,auxiliar,n_id,n_time,cols,moms,nometime="Momento",nometab="Comparação"){
 
   id=unlist(data[,n_id])
   time=unlist(data[,n_time])
@@ -40,7 +42,7 @@ get_analise_pareado <- function(data,auxiliar,n_id,n_time,cols,moms,nometime="Mo
   tiposx=auxiliar$tipo[cols]
   nomesx=auxiliar$nomes[cols]
   
-  res = get_analise_pareado_2(id,time,xmat,tiposx,nomesx,moms,nometime)
+  res = get_analise_pareado_2(id,time,xmat,tiposx,nomesx,moms,nometime,nometab)
   
-  lista=list("testes"=res$testes,"result"=res$result,"texto"=res$texto)
+  lista=list("testes"=res$testes,"result"=res$result,"caption"=res$caption,"texto"=res$texto)
 return(lista)}
