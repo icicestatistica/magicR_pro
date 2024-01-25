@@ -66,7 +66,7 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
   resumo = resumo_inner(testes)
 
   cap = rodape_tab(nometab,testes)
-  cap2=paste0(nometab,"; p-valores marcados pela letra 'g' indicam realização da correlação de Spearman; p-valores marcados pela letra 'h' indicam realização da correlação de Pearson; \\* significante a 5%; \\*\\* significante a 1%; \\*\\*\\* significante a 0.1%"
+  cap2=paste0(nometab,"; p-valores marcados pela letra 'g' indicam realização da correlação de Spearman; p-valores marcados pela letra 'h' indicam realização da correlação de Pearson; \\* significante a 5%; \\*\\* significante a 1%; \\*\\*\\* significante a 0.1%")
   
   if(temcont) lista=list("testes"=testes,"resumo" = paste0(paste0(resumo, collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"capcont"=cap2,"textocont"=textocont) else lista=list("testes"=testes,"resumo"=paste0(paste0(resumo,collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto)
 return(lista)}
