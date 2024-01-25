@@ -167,6 +167,6 @@ cap = c("Q1-Q3 = Primeiro e terceiro quartis; DP=desvio padrão","","",
 
 if (sum(indicador[-c(1:4)])>0) capt = paste0(capt, "; \\* significante a 5%; \\*\\* significante a 1%; \\*\\*\\* significante a 0.1%")
 
-capt = paste0(nome,"; ",capt)
+capt = paste0(nome,"; ",capt,"\n")
 
 return(capt)}
