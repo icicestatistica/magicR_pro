@@ -44,7 +44,7 @@ escolha_summary_para_juntar = function (x, nomesx, tipox, niveisx, nas, teste, g
 
 
 get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico = T, 
-    cor = "cyan4", bins = 20, dig = 2, idioma = "PT",virgula=F) 
+    cor = "cyan4", bins = 20, dig = 2, idioma = "PT",virgula=F,nometab="Tabela descritiva") 
 {
     result = NULL
     complem = list()
@@ -64,9 +64,9 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     if(vert==T) {result = data.frame(t(result)) ; names(result)=c("Variável","Min-Máx","Q1-Q3","Mediana","Média (DP)")}
     row.names(result) <- 1:dim(result)[1]
     
-    return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, complem = complem))}
+    return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, caption=rodape_tabela(nometab,testes),complem = complem))}
 
-get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT",virgula=F){
+get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT",virgula=F,nometab){
     if (gr[1] == "auto") 
         gr = which(auxiliar$tipo %in% c("factor", "numeric", 
             "ordinal"))
@@ -75,8 +75,8 @@ get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cy
     tipox <- auxiliar[gr, 3]
     niveisx <- auxiliar[gr, 4]
     resultados = get_summary_2(x, nomesx, tipox, niveisx, nas, 
-        teste, grafico, cor, bins, dig, idioma,virgula)
-    return(list(testes = resultados$testes, interp=resultados$interp,result = resultados$result, complem = resultados$complem))}
+        teste, grafico, cor, bins, dig, idioma,virgula,nometab)
+    return(list(testes = resultados$testes, interp=resultados$interp,result = resultados$result, caption=resultados$caption, complem = resultados$complem))}
 
 ### METODOLOGIA
 
