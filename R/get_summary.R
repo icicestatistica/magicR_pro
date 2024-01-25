@@ -64,7 +64,7 @@ get_summary_2 = function (x, nomesx, tipox, niveisx, nas = F, teste = F, grafico
     if(vert==T) {result = data.frame(t(result)) ; names(result)=c("Variável","Min-Máx","Q1-Q3","Mediana","Média (DP)")}
     row.names(result) <- 1:dim(result)[1]
     
-    return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, caption=rodape_tabela(nometab,testes),complem = complem))}
+    return(list(testes = testes, interp=c(textointerp,"\n Podemos ver esses resultados na tabela a seguir: \n"),result = result, caption=rodape_tabela(nometab,testes),"\n",complem = complem))}
 
 get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cyan4",bins=20,dig=2, idioma="PT",virgula=F,nometab){
     if (gr[1] == "auto") 
@@ -76,7 +76,7 @@ get_summary <- function(dados,auxiliar,gr='auto',nas=F,teste=F,grafico=T,cor="cy
     niveisx <- auxiliar[gr, 4]
     resultados = get_summary_2(x, nomesx, tipox, niveisx, nas, 
         teste, grafico, cor, bins, dig, idioma,virgula,nometab)
-    return(list(testes = resultados$testes, interp=resultados$interp,result = resultados$result, caption=resultados$caption, complem = resultados$complem))}
+    return(list(testes = resultados$testes, interp=resultados$interp,result = resultados$result, caption=resultados$caption, "\n", complem = resultados$complem))}
 
 ### METODOLOGIA
 
