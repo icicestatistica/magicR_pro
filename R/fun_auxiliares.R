@@ -148,7 +148,7 @@ arruma_tabela_repetidos = function(vec) {
   return(vec)}
 
 
-rodape_tabela = function(nometab,testes){
+rodape_tabela = function(nome,testes){
 
 ana = unique(testes$tipo)
 ana = factor(ana,levels=c("numeric","ordinal","factor","catsame","t","mw","aov","kw","cc","correl","t_par","fried","mcnem"))
