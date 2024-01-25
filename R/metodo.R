@@ -16,7 +16,7 @@ metodo = function(analises){
     cont=table(factor(parte$tipo,levels=c("numeric","ordinal","factor","catsame","t","mw","aov","kw","cc","correl","t_par")))>0
   
     if (cont[1]>0) {
-      if (contagem$numeric==F) {desc = c(desc,paste0("\n + Descrevemos as variáveis ", printvetor(parte$Nome2[parte$tipo=="numeric"], aspas=F), " com objetivo de representar a distribuição dos dados. Para isso, foram utilizadas medidas de tendência central (Média e mediana) e medidas de dispersão, como o desvio padrão, os quartis (Primeiro e Terceiro), o mínimo e o máximo. O número de outliers foi computado verificando observações 1.5 vezes o intervalo interquartil acima ou abaixo dos quartis, além de ser verificado o número de missings (perda de informações). Ressaltamos que segundo [@mishra_descriptive_2019], em casos de presença de outliers, assimetria ou não normalidade da distribuição, as medidas baseadas em posição (mediana, quartis, mínimo e máximo) são mais adequadas, enquanto para distribuições próximas da Gaussiana, medidas como a média e o desvio padrão representam melhor a distribuição dos dados e podem ser utilizadas em testes estatísticos.")) ; contagem$numeric=T} else
+      if (contagem$numeric==F) {desc = c(desc,paste0("\n + Descrevemos as variáveis ", printvetor(parte$Nome2[parte$tipo=="numeric"], aspas=F), " com objetivo de representar a distribuição dos dados. Para isso, foram utilizadas medidas de tendência central (Média e mediana) e medidas de dispersão, como o desvio padrão, os quartis (Primeiro e Terceiro), o mínimo e o máximo. O número de outliers foi computado verificando observações 1.5 vezes o intervalo interquartil acima ou abaixo dos quartis, além de ser verificado o número de missings (perda de informações). Ressaltamos que segundo @mishra_descriptive_2019, em casos de presença de outliers, assimetria ou não normalidade da distribuição, as medidas baseadas em posição (mediana, quartis, mínimo e máximo) são mais adequadas, enquanto para distribuições próximas da Gaussiana, medidas como a média e o desvio padrão representam melhor a distribuição dos dados e podem ser utilizadas em testes estatísticos.")) ; contagem$numeric=T} else
         desc = c(desc,paste0("\n + Descrevemos as variáveis ",printvetor(parte$Nome2[parte$tipo=="numeric"],aspas=F)," por meio das estatísticas descritivas de tendência central e dispersão, utilizando as mesmas medidas citadas anteriormente."))
     }
   
@@ -27,7 +27,7 @@ metodo = function(analises){
     
     ## Catsame
     
-    if (cont[4]>0) {desc = c(desc,paste0("\n+ Descrevemos as variáveis ",printvetor(parte$Nome2[parte$tipo %in% c("catsame")],aspas=F)," por meio do cálculo das frequências absoluta e relativa de cada categoria, seguido do intervalo de 95% de confiança para a estimativa percentual, segundo recomendado em [@vollset_confidence_1993]."))}
+    if (cont[4]>0) {desc = c(desc,paste0("\n+ Descrevemos as variáveis ",printvetor(parte$Nome2[parte$tipo %in% c("catsame")],aspas=F)," por meio do cálculo das frequências absoluta e relativa de cada categoria, seguido do intervalo de 95% de confiança para a estimativa percentual, segundo recomendado em @vollset_confidence_1993."))}
     
     ## Teste-t/Mann-whitney
     
