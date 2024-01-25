@@ -41,9 +41,9 @@ grafico = grafico_catcat(df_long$time,nometime,df_long$cat,nomex, texto=textogra
 res=desc_bi_cat(df_long$cat,col=df_long$time,)[-1,-2]
 
 res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], ")", sep = ""), 
-        rep("", dim(res)[2])), res), `p-valor` = c("", paste0(pvalor(cq$p),"k"), rep("", 
+        rep("", dim(res)[2])), res), `p-valor` = c("", paste0(pvalor(cq$p),"l"), rep("", 
         dim(res)[1] - 1)))
   
  testes = data.frame(Nome1 = nometime, Nome2 = nomex, tipo = "qcoch", sig_ou_não = ifelse(cq$p < 0.05, T, F), resumo = paste("$\\chi^2$ (", a1, ") =", a2, ",p", a3, collapse = ""), sup = NA)
 
-return(list("testes"=testes,"result"=res,"texto"=texto,"grafico"=grafico))}
+return(list("testes"=testes,"result"=res,"texto"=texto,"\n","grafico"=grafico))}
