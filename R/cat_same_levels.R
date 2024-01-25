@@ -96,6 +96,6 @@ testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","re
 return(list("testes"=testes,
             "interp"=interp,
             "result"=df_printar,
-            "caption"=rodape_tabela(nomey,testes),
+            "caption"=rodape_tabela(nomey,testes),"\n",
             "texto"=texto,
             "gráfico"=grafico))}
