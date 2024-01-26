@@ -151,7 +151,7 @@ arruma_tabela_repetidos = function(vec) {
 rodape_tabela = function(nome,testes){
 
 ana = unique(testes$tipo)
-ana = factor(ana,levels=c("numeric","ordinal","factor","catsame","t","mw","aov","kw","cc","correl","t_par","fried","mcnem","qcoch"))
+ana = factor(ana,levels=c("numeric","ordinal","factor","catsame","t","mw","aov","kw","cc_e","cc_q","correl_s","correl_p", "wilk","fried","mcnem","qcoch"))
 
 indicador = table(ana)>0
 
@@ -161,8 +161,10 @@ cap = c("Q1-Q3 = Primeiro e terceiro quartis; DP=desvio padrão","","",
   "p-valores marcados pela letra 'd' indicam realização do teste de Mann-Whitney e tamanho de efeito r",
   "p-valores marcados pela letra 'e' indicam realização do teste ANOVA e tamanho de efeito eta",
   "p-valores marcados pela letra 'f' indicam realização do teste Kruskall-Wallis e tamanho de efeito eta",
-  "p-valores marcados pela letra 'b' indicam realização do teste Exato de Fisher; p-valores marcados pela letra 'a' indicam realização do teste Qui-quadrado, seguido do tamanho de efeito V de cramer",
+  "p-valores marcados pela letra 'b' indicam realização do teste Exato de Fisher",
+  "p-valores marcados pela letra 'a' indicam realização do teste Qui-quadrado, seguido do tamanho de efeito V de cramer",
   "",
+  "",      
   "p-valores marcados pela letra 'j' indicam realização do teste Wilcoxon",
   "p-valores marcados pela letra 'i' indicam realização do teste de Friedman",
   "p-valores marcados pela letra 'k' indicam realização do teste de McNemar",
