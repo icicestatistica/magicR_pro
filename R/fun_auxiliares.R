@@ -151,7 +151,7 @@ arruma_tabela_repetidos = function(vec) {
 rodape_tabela = function(nome,testes){
 
 ana = unique(testes$tipo)
-ana = factor(ana,levels=c("numeric","ordinal","factor","catsame","t","mw","aov","kw","cc_e","cc_q","correl_s","correl_p", "wilk","fried","mcnem","qcoch"))
+ana = factor(ana,levels=c("numeric","ordinal","factor","catsame","t","mw","aov1","kw","cc_e","cc_q","correl_s","correl_p", "wilc","fried","mcnem","qcoch"))
 
 indicador = table(ana)>0
 
