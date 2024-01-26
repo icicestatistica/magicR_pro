@@ -110,7 +110,7 @@ catcat <- function(x,y,nomex,nomey,niveisx=F,niveisy=F,dig=2,respcol=T,excluirto
     
     grafico = grafico_catcat(indep,nomeindep,dep,nomedep,cor=cor,textograf,idioma,labels,virgula)
   
-  testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "cc", sig_ou_não = ifelse(pvalorc < 0.05, T, F), resumo = resumotestes, sup = NA)
+  testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = paste0("cc_",ifelse(method=="fisher","e","q")), sig_ou_não = ifelse(pvalorc < 0.05, T, F), resumo = resumotestes, sup = NA)
    
   }
   
