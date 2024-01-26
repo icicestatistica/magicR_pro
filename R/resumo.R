@@ -15,7 +15,7 @@ return(resumo)}
 
 resumo_geral = function(analises){
 
-res=c(paste0("# Resumo"))
+res=c()
 sessoes = unique(analises$Sessão)
 n_sess = length(sessoes)
 for (i in 1:n_sess)
