@@ -63,7 +63,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
           }
           }
         tex = paste0(comparacoes,collapse=" ")
-        texto = c(texto, tex)
+        texto = c(paste0(texto,collapse=""), tex)
     resumo_final=paste0("\n- ",texto)                                
     }
     if (ordinal == F) 
