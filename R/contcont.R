@@ -154,7 +154,7 @@ contcont = function (y, x, nomey, nomex, dig = 2, cor = "cyan4", idioma = "PT",
             cor, textograf, dig, ordenar = F, idioma, dot = "auto",virgula)
     else grafico = grafico_catcat(x, nomex, y, nomey, cor, textograf, 
         idioma,virgula)
-    testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = "correl", 
+    testes = data.frame(Nome1 = nomey, Nome2 = nomex, tipo = paste0("correl_",ifelse(method == "spearman","s","p")), 
         sig_ou_não = ifelse(a$p.value < 0.05, T, F), resumo = resumo_final, sup = NA)
     return(list(testes = testes, result = result, texto = paste0(texto, 
         sep = "", collapse = ""), grafico = grafico))
