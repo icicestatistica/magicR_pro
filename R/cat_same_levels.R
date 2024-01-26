@@ -67,7 +67,8 @@ df = df[order(as.numeric(str_sub(df$`Freq. Relativa`,end=-2)), decreasing=T),]
 
 freqs_aux = paste0(df$Variável," (",df$`Freq. Relativa`,")")
 
-interp = paste0("Com relação a **",nomey,"**, tivemos maior frequência de ",freqs_aux[1], ", seguido(a) de " ,printvetor(freqs_aux[-1]),". Podemos ver mais detalhes na tabela a seguir: \n")
+resumo = paste0("Com relação a **",nomey,"**, tivemos maior frequência de ",freqs_aux[1], ", seguido(a) de " ,printvetor(freqs_aux[-1]),".")  
+interp = paste0(interp," Podemos ver mais detalhes na tabela a seguir: \n")
 
 df_printar=data.frame(df[,1:4],paste("(",round(100*df$ICmin,dig),"%, ",round(100*df$ICmax,dig),"%)",sep=""))
 names(df_printar)=c("Variável","n",'Frequência',"Freq. Relativa", "IC 95% para Freq.")
@@ -91,7 +92,7 @@ grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa
   geom_label(aes(label=label), alpha=0.8,hjust=0.5) +
   scale_x_continuous(labels = scales::percent,expand = expansion(mult = 0.1)) + theme(plot.title = element_text(hjust = 0.3))
 
-testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="cat","resumo"=interp,"sup"="")
+testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="cat","resumo"=resumo,"sup"="")
 
 return(list("testes"=testes,
             "interp"=interp,
