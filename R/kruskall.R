@@ -41,6 +41,9 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
 
         jafoi=c()
 
+        ordenando = dad %>% group_by(categorica) %>% summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
+        ord = ordenando$categorica
+
         if(sum(b$dunn.P.adjusted<0.05)==length(b$dunn.P.adjusted)) {comparacoes = "Através das comparações múltiplas de Dunn, encontramos diferença entre todos os grupos."} else {
           if(sum(b$dunn.P.adjusted<0.05)==0) {comparacoes = "Apesar disso, através dos testes de comparação pareada de Dunn, não encontramos diferença estatística entre nenhum dos grupos estudados."} else {
             comparacoes = "Seguindo para as comparações múltiplas de Dunn com correção de Bonferroni, concluímos que "
