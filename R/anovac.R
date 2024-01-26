@@ -132,7 +132,7 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     
     inicio_resumo = paste0(diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",estats,")",".",collapse="")
     
-    resumo = ifelse(pv<0.05,paste0(inicio_resumo," ",comp),inicio_resumo)
+    resumo = ifelse(pv<0.05,paste0(inicio_resumo," ",comp,collapse=""),inicio_resumo)
     
     testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "aov1", sig_ou_não = ifelse(pv<0.05,T,F), resumo = resumo,sup=supos)
   }
