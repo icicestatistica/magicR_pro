@@ -12,10 +12,11 @@ if(sum(anali$sig_ou_não==F)>0) {
   resumo = c(resumo, paste0("\n - As demais variáveis (",paste0(printvetor(nomes_res[anali$sig_ou_não==F]), collapse="",sep=""),") não tiveram associações ou correlações estatisticamente significativas. \n"))}
 }}
 if(sum(anali$sig_ou_não=="-")>0) {resumo = paste0("\n - ",anali$resumo)}
-return(resumo)}
+
 if(sum(anali$sig_ou_não=="cat")>0) {
-  resumo = c(resumo,paste0("\n - ",unique(anali[anali$sig_ou_não=="cat",]$resumo)))
-}
+  resumo = c(resumo,paste0("\n - ",unique(anali[anali$sig_ou_não=="cat",]$resumo)))}
+return(resumo)}
+
 
 resumo_geral = function(analises){
 
