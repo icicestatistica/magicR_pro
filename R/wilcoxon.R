@@ -51,6 +51,6 @@ texto = paste(" - A variável '", nomex, "'",dif," ao nível de 5% de significâ
         ")", sep = ""), rep("", dim(res)[2]-1)), res), `p-valor` = c("", 
         paste0(pvalor(stat.test$p), "j"), rep("", dim(res)[1] - 1))) }
     
-  testes = data.frame(Nome1 = nometime, Nome2 = nomex, tipo = "wilk", sig_ou_não = ifelse(stat.test$p < 0.05, T, F), resumo = paste("V=", a2, ",p", a3, collapse = ""), sup = NA)
+  testes = data.frame(Nome1 = nometime, Nome2 = nomex, tipo = "wilc", sig_ou_não = ifelse(stat.test$p < 0.05, T, F), resumo = paste("V=", a2, ",p", a3, collapse = ""), sup = NA)
   
     return(list(testes=testes,result = res, grafico = grafico, texto = texto))}
