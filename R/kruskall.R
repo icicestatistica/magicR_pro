@@ -64,7 +64,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
           }
         tex = paste0(comparacoes,collapse=" ")
         texto = c(paste0(texto,collapse=""), tex)
-    resumo_final=paste0("\n- ",texto)                                
+    resumo_final=paste0(texto,collapse="")                                
     }
     if (ordinal == F) 
         res = desc_bi_cont(dad$continua, dad$categorica, F, respcol, 
@@ -99,7 +99,7 @@ texto = paste(texto, collapse = "")
     
   testes = data.frame(Nome1 = nomeresp, Nome2 = nomefator, 
         tipo = "kw", sig_ou_não = ifelse(a$p.value < 0.05, T, 
-            F), resumo = paste0(resumo_final,collapse=""), sup = NA)
+            F), resumo = resumo_final, sup = NA)
     return(list(testes = testes,
                 result = res,
                 texto = texto, 
