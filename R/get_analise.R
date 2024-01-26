@@ -88,5 +88,5 @@ get_analise <- function(dados,col,auxiliar,y,tipoy="numeric",nomey="",niveisy=""
   nomex=auxiliar$nomes[col]
   niveisx=auxiliar$niveis[col]
   res = get_analise_2(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig,excluirtotal,respcol,cor,idioma,virgula,nometab)
-  if(length(res)>6) lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$caption,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"capcont"=res$capcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$cap,"texto"=res$texto)
+  if(length(res)>7) lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$caption,"texto"=res$texto,"int"=res$int,"resultcont"=res$resultcont,"capcont"=res$capcont,"textocont"=res$textocont) else lista=list("testes"=res$testes,"resumo"=res$resumo,"result"=res$result,"caption"=res$cap,"texto"=res$texto)
 return(lista)}
