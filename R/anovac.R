@@ -71,53 +71,48 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     if(is.na(ordem[dim(ordem)[1],1])) ordem = ordem[-dim(ordem)[1],]
     ord = c(ordem[order(ordem$mean),1])$fator
     
-    #post hoc
+
     
-    if(pv<0.05) {tex=c("As médias, em ordem crescente foram:")
+    estats = printvetor(paste0(ordem$fator[ord]," (M=",round(ordem$mean[ord],2),", DP=",round(ordem$sd[ord],2),")"),aspas=F)
+    
+    texto = paste0(texto, paste0(" Sendo assim, é adequado descrever os dados através da média e do desvio padrão, como vemos a seguir: ",estats,". "))
+    
+        #post hoc
+    
+    if(pv<0.05){
     
     fit <- aov(data=d,resp ~ fator)
     
     t=TukeyHSD(fit)$fator
     n = dim(t)[1]
     
-    comp = ifelse(sum(t[,4]<0.05)==0,"Apesar disso, o teste de comparações múltiplas HSD de tukey não detectou difereças entre nenhum dos grupos.",
-                  ifelse(sum(t[,4]<0.05)==n,"O teste de comparações múltiplas HSD de tukey detectou difereças entre todos os grupos.",
-                         paste0("Os grupos que diferiram pelo teste de comparações múltiplas HSD de tukey foram ",printvetor(names(t[,4])[t[,4]<0.05],aspas=F)," e os que não diferiram foram ",printvetor(names(t[,4])[t[,4]>=0.05],aspas=F),". \n")))
-    
-    
     tabela<- data.frame("Comparação"=row.names(t),"Diferença"=round(t[,1],1), 
                         "IC 95%"=paste0("(",round(t[,2],1),", ",round(t[,3],1),")"),
                         "P-valor"=pvetor(t[,4]))
+    
     difs = matrix(unlist(str_split(row.names(t),"-")),ncol=2,byrow=T)
     
-    ncomps=dim(tabela)[1]
-    
-    r=rep("",ncomps)
-    for (i in 1:ncomps){
-      if(tabela$P.valor[i]>0.05) r[i] = "Não" else
-        if(tabela$Diferença[i]>0) r[i]="Maior" else r[i]="Menor"}
-    
-    resumo = factor(r, levels=c("Maior","Menor","Não"))
-    
-    tex <- c()
-    
-    if(prop.table(table(resumo))[3]==1) tex=c(tex,"Apesar de termos encontrado diferença pela anova, ao realizar o teste de tukey de comparação par-a-par, nenhuma das comparações de grupos teve diferença estatisticamente significativa.  \n") else
-      if(sum(prop.table(table(resumo))[1:2])==1) tex=c(tex,"O teste de comparações múltiplas de tukey apontou diferenças entre todos os grupos estudados") else {
-        tex=c(tex," O teste de comparações múltiplas de tukey apontou as seguintes diferenças:  \n")
-        for (j in which(resumo!="Não")){
-          if(r[j]=="Menor") tex=c(tex,c("  + \"",difs[j,2], "\" é maior que \"",difs[j,1],"\";"),"\n")
-          if(r[j]=="Maior") tex=c(tex,c("  + \"",difs[j,1], "\" é maior que \"",difs[j,2],"\";"),"\n")}
-        tex=c(tex, "\n  Podemos verificar esses resultados na seguinte tabela:")}
-    
-    texto_print <- c()
-    for (i in ord){
-      if (i==ord[length(ord)]) texto_print=c(texto_print,paste0(i," (média=",round(mean(d$resp[d$fator==i], na.rm=T),2),", DP=",round(sd(d$resp[d$fator==i], na.rm=T),2),")"))
-      else texto_print=c(texto_print,paste0(i," (média=",round(mean(d$resp[d$fator==i], na.rm=T),2),", DP=",round(sd(d$resp[d$fator==i], na.rm=T),2),")"))}
-    texto_print=printvetor(texto_print, aspas=F)
-  
-    
-    texto <- c(texto,texto_print,tex,"\n")
-    }
+    b <- data.frame(difs,t[,4])
+
+    jafoi=c()
+
+            comp = " Seguindo para as comparações múltiplas HSD de tukey com correção de Bonferroni, concluímos que "
+            
+              for (ni in niveis[as.numeric(ord)][-length(ord)]) {
+                  linhas = which((b$X1==ni | b$X2==ni) & ((b$X1 %in% jafoi)==F & (b$X2 %in% jafoi)==F))
+                  ger = b[linhas,]
+                  ger$grupo = apply(ger[,1:2],1,function(x) x[which(x!=ni)])
+                  signi = which(ger$t...4.<0.05)
+                  if(length(signi)==0) {comp = c(comp,paste0(ni," não difere de ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$t...4.),")"),aspas=F),"."))} else {
+                      if(length(signi)==length(ger$grupo) & length(ger$grupo>1)) {comp = c(comp,paste0(ni," é menor que ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$t...4.),")"),aspas=F),"."))} else {
+  maio = ger$grupo[signi]; pmaio = pvetor(ger$t...4.[signi])
+  naodif = ger$grupo[-signi] ; pnaodif = pvetor(ger$t...4.[-signi])
+  comp = c(comp,paste0(ni," é menor que ",printvetor(paste0(maio," (p=",pmaio,")"),aspas=F),", mas não difere de ",printvetor(paste0(naodif," (p=",pnaodif,")"),aspas=F),"."))}
+  }
+              jafoi=c(jafoi,ni)}
+        comp = paste0(comp,collapse=" ")    
+        texto = paste0(texto,comp)
+   }
     
     res=desc_bi_cont(d$resp,d$fator,F,respcol,F,dig)
     tot=dim(na.omit(d))[1]
@@ -135,7 +130,7 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     
     diferencas_resumo = ifelse(pv<0.05,"Houve","Não houve")
     
-    inicio_resumo = paste0(diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",printvetor(paste0(ordem$fator," (M=",round(ordem$mean,2),", DP=",round(ordem$sd,2),")"),aspas=F),")",".")
+    inicio_resumo = paste0(diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",estats,")",".")
     
     resumo = ifelse(pv<0.05,paste0(inicio_resumo," ",comp),inicio_resumo)
     
