@@ -91,7 +91,7 @@ grafico=ggplot(result, aes(y = Variável, x = as.numeric(str_sub(`Freq. Relativa
   geom_label(aes(label=label), alpha=0.8,hjust=0.5) +
   scale_x_continuous(labels = scales::percent,expand = expansion(mult = 0.1)) + theme(plot.title = element_text(hjust = 0.3))
 
-testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="","resumo"=vec_to_string(levels),"sup"="")
+testes=data.frame("Nome1"="","Nome2"=nomes,"tipo"="catsame","sig_ou_não"="cat","resumo"=interp,"sup"="")
 
 return(list("testes"=testes,
             "interp"=interp,
