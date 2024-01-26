@@ -70,8 +70,8 @@ get_analise_2 <- function(xmat,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,e
   if("correl_p" %in% testes$tipo) cap2 = paste0(cap2," p-valores marcados pela letra 'h' indicam realização da correlação de Pearson;")
   if("correl_s" %in% testes$tipo) cap2 = paste0(cap2," p-valores marcados pela letra 'g' indicam realização da correlação de Spearman;")
   cap2=paste0(cap2," \\* significante a 5%; \\*\\* significante a 1%; \\*\\*\\* significante a 0.1% \n")
-  if(is.null(result)) cap=NULL
-  if(is.null(resultcont)) capcont=NULL
+  if(dim(result)[1]==0) cap=NULL
+  if(dim(resultcont)[1]==0) capcont=NULL
   
   if(temcont) lista=list("testes"=testes,"resumo" = paste0(paste0(resumo, collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto,"int"=paste0("\n Agora, passamos a analisar as correlações entre as variáveis e a variável ",nomey,":  \n"),"resultcont"=resultcont,"capcont"=cap2,"textocont"=textocont) else lista=list("testes"=testes,"resumo"=paste0(paste0(resumo,collapse=""),". \n Podemos ver mais detalhes dos resultados na tabela a seguir: \n"),"result"=result,"caption"=cap,"texto"=texto)
 return(lista)}
