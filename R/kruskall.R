@@ -99,7 +99,7 @@ texto = paste(texto, collapse = "")
     
   testes = data.frame(Nome1 = nomeresp, Nome2 = nomefator, 
         tipo = "kw", sig_ou_não = ifelse(a$p.value < 0.05, T, 
-            F), resumo = resumo_final, sup = NA)
+            F), resumo = paste0(resumo_final,collapse=""), sup = NA)
     return(list(testes = testes,
                 result = res,
                 texto = texto, 
