@@ -1,6 +1,6 @@
 resumo_inner = function(anali){
 resumo = c()
-if(dim(anali)[1]==1) resumo = anali$resumo else {
+if(dim(anali)[1]==1) resumo = paste0("\n - ",anali$resumo) else {
 if(length(table(anali$Nome1))>1) {nomes_res=anali$Nome1; ref=unique(anali$Nome2)} else {nomes_res = anali$Nome2 ; ref=unique(anali$Nome1)}
 
 if(sum(anali$sig_ou_não==T)>0) {
