@@ -3,7 +3,8 @@ resumo = c()
 if(dim(anali)[1]==1) resumo = paste0("\n - ",anali$resumo) else {
 if(length(table(anali$Nome1))>1) {nomes_res=anali$Nome1; ref=unique(anali$Nome2)} else {nomes_res = anali$Nome2 ; ref=unique(anali$Nome1)}
 
-  
+if(sum(anali$sig_ou_não=="cat")>0) {
+  resumo = c(resumo,paste0("\n - ",unique(anali[anali$sig_ou_não=="cat",]$resumo)))}  else {
 if(sum(anali$sig_ou_não==T)>0) {
   resumo = c(resumo,paste0("\n - ",anali[anali$sig_ou_não==T,]$resumo))
 }
@@ -11,10 +12,8 @@ if(sum(anali$sig_ou_não==T)==0) {resumo = c(resumo, paste0("\n - Nenhuma das va
 if(sum(anali$sig_ou_não==F)>0) {
   resumo = c(resumo, paste0("\n - As demais variáveis (",paste0(printvetor(nomes_res[anali$sig_ou_não==F]), collapse="",sep=""),") não tiveram associações ou correlações estatisticamente significativas. \n"))}
 }}
-if(sum(anali$sig_ou_não=="-")>0) {resumo = paste0("\n - ",anali$resumo)}
+if(sum(anali$sig_ou_não=="-")>0) {resumo = paste0("\n - ",anali$resumo)}}
 
-if(sum(anali$sig_ou_não=="cat")>0) {
-  resumo = c(resumo,paste0("\n - ",unique(anali[anali$sig_ou_não=="cat",]$resumo)))}
 return(resumo)}
 
 
