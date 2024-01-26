@@ -31,11 +31,6 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
             paste("$\\chi^2$", collapse = NULL), "(", a$parameter, 
             ") =", round(a$statistic, dig), ",p-valor=", pvalor(a$p.value), 
             ").")
-        resumo_final = paste0("O teste de Kruskall-Wallis mostrou que há diferença de ", 
-            nomeresp, " entre pelo menos um dos grupos de ", nomefator, " (", 
-            paste("$\\chi^2$", collapse = NULL), "(", a$parameter, 
-            ")=", round(a$statistic, dig), ",p-valor=", pvalor(a$p.value), 
-            ").")
         dunn <- quiet(dunn.test(dad$continua, dad$categorica, 
             method = "bonferroni", kw = F, table = F, list = F))
 
@@ -66,6 +61,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
           }
         tex = paste0(comparacoes,collapse=" ")
         texto = c(texto, tex)
+    resumo_final=texto                                
     }
     if (ordinal == F) 
         res = desc_bi_cont(dad$continua, dad$categorica, F, respcol, 
