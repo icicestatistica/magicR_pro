@@ -130,7 +130,7 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     
     diferencas_resumo = ifelse(pv<0.05,"Houve","Não houve")
     
-    inicio_resumo = paste0("\n -",diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",estats,")",".")
+    inicio_resumo = paste0("\n -",diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",estats,")",".",collapse="")
     
     resumo = ifelse(pv<0.05,paste0(inicio_resumo," ",comp),inicio_resumo)
     
