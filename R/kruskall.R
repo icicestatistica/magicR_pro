@@ -44,16 +44,19 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
 
         b <- data.frame(difs,dunn$comparisons, dunn$Z,dunn$P.adjusted)
         b$signif = ifelse(b$dunn.P.adjusted<0.001,"***",ifelse(b$dunn.P.adjusted<0.01,"**",ifelse(b$dunn.P.adjusted<0.05,"*","")))
+
+        ordenando = dad %>% group_by(categorica) %>% summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
+        ord = ordenando$categorica
         
         stat.test = b
         names(stat.test)[1:2]=c("group1","group2")
         stat.test=stat.test[stat.test$dunn.P.adjusted<0.05,]
-        stat.test = stat.test %>% arrange(dunn.Z)
+        
+        stat.test.c = data.frame()
+        for (i in ord) {stat.test.c = rbind(stat.test.c, stat.test[str_detect(stat.test$dunn.comparisons,i),])}
+        stat.test = unique(stat.test.c)
         
         jafoi=c()
-        
-        ordenando = dad %>% group_by(categorica) %>% summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
-        ord = ordenando$categorica
 
         if(sum(b$dunn.P.adjusted<0.05)==length(b$dunn.P.adjusted)) {comparacoes = "Através das comparações múltiplas de Dunn, encontramos diferença entre todos os grupos."} else {
           if(sum(b$dunn.P.adjusted<0.05)==0) {comparacoes = "Apesar disso, através dos testes de comparação pareada de Dunn, não encontramos diferença estatística entre nenhum dos grupos estudados."} else {
