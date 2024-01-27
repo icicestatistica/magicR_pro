@@ -10,7 +10,7 @@ escolhateste <- function(x,y,tipox,tipoy,nomex,nomey,niveisx,niveisy,dig=2,exclu
         } else
           {res = try(anovac(unlist(x),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,idioma,virgula=virgula))
             if(class(res)=="try-error") {res=kruskall(unlist(x),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,T,idioma,transform_ord,virgula=virgula)} else
-              if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(unlist(x),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,F,idioma,transform_ord,virgula=virgula)}
+              if(res$testes$sup==F | tipox=="ordinal") {res=kruskall(unlist(x),y,nomex,nomey,niveisy,dig,F,excluirtotal,cor,T,idioma,transform_ord,virgula=virgula)}
           }
        } else
     if(tipoy=="numeric" | tipoy=="ordinal")
