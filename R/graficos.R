@@ -8,13 +8,19 @@ plot = ggplot(dadosd, aes(y=conty,x=contx)) + geom_point() + theme_clean() + geo
   plot.title = element_text(hjust = 0.5),plot.subtitle = element_text(hjust = 0.5))
 return(plot)}
 
-grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste=NULL,dig=2, ordenar=T, idioma="PT", printn=T,virgula=F) 
+grafico_comp_bar <- function (cont, nomecont, cat, nomecat,cor="cyan4",teste=NULL,dig=2, ordenar=T, idioma="PT", printn=T,virgula=F,stat.test=NULL) 
 {
 niveis = names(table(cat))
+if(is.null(stat.test)) {aumento=0} else {aumento = dim(stat.test)[1]*0.1}
     dadosd = data.frame(cont = cont, cat = cat)
     n = table(dadosd$cat)
     dadosd$cat <- factor(dadosd$cat, levels=niveis)
-    if(printn == T) levels(dadosd$cat) = paste(niveis, "\nn=", n,sep = "")
+    if(printn == T) {levels(dadosd$cat) = paste(niveis, "\nn=", n,sep = "");
+      if (is.null(stat.test)==F) {stat.test$group1=factor(stat.test$group1, levels=niveis);
+                                    stat.test$group2=factor(stat.test$group2, levels=niveis);
+                                    levels(stat.test$group1)=paste(niveis, "\nn=", n, sep = "");
+                                    levels(stat.test$group2)=paste(niveis, "\nn=", n, sep = "")}
+    }
     df.summary <- na.omit(dadosd) %>% group_by(factor(cat)) %>% 
         dplyr::summarise(sd = sd(cont, na.rm = TRUE), mean = mean(cont, na.rm=TRUE), n=length(na.omit(cont)))
     names(df.summary) = c("cat", "sd", "mean","n")
@@ -22,11 +28,11 @@ niveis = names(table(cat))
         df.summary$cat <- factor(df.summary$cat, levels = df.summary$cat[order(df.summary$mean)])
     }
     liminf = ifelse(min(df.summary$mean - 1.96*df.summary$sd/sqrt(df.summary$n), na.rm=T)<0,min(df.summary$mean - 1.96*df.summary$sd/sqrt(df.summary$n),na.rm=T),0)
-    limsup = ifelse(max(df.summary$mean + 1.96*df.summary$sd/sqrt(df.summary$n), na.rm=T)>0,max(df.summary$mean + 1.96*df.summary$sd/sqrt(df.summary$n),na.rm=T),0)
-    titulo = ifelse(idioma == "PT", paste0("Comparação de médias de '", 
-        nomecont, "' por '", nomecat, "' (n=", dim(na.omit(dadosd))[1], 
-        ")", collapse = ""), paste0("Comparison of '", 
-        nomecont, "' means by '", nomecat, "' (n=", 
+    limsup = ifelse(max(df.summary$mean + 1.96*df.summary$sd/sqrt(df.summary$n), na.rm=T)>0,max(df.summary$mean + 1.96*df.summary$sd/sqrt(df.summary$n),na.rm=T),0) * (1+aumento)
+    titulo = ifelse(idioma == "PT", paste0("Comparação de médias de ", 
+        nomecont, " por ", nomecat, " (n=", dim(na.omit(dadosd))[1], 
+        ")", collapse = ""), paste0("Comparison of ", 
+        nomecont, " means by ", nomecat, " (n=", 
         dim(na.omit(dadosd))[1], ")", collapse = ""))
     plot = ggplot() + theme_clean() + geom_bar(df.summary, mapping = aes(cat, 
         mean), stat = "identity", fill = cor, width = 0.8) + ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
@@ -37,9 +43,9 @@ niveis = names(table(cat))
         fill = "transparent"), panel.background = element_rect(fill = "transparent", 
         color = NA), plot.title = element_text(hjust = 0.5), 
         plot.subtitle = element_text(hjust = 0.5))
+    if(is.null(stat.test)==F) plot = plot + ggpubr::stat_pvalue_manual(stat.test, y.position = max(df.summary$mean)*1.1, step.increase = 0.15,label = "signif")
     return(plot)
 }
-
 grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", 
     teste = NULL, dig = 2, ordenar = T, idioma = "PT", 
     dot = "auto", printn = T,virgula=F,stat.test=NULL) 
