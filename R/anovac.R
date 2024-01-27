@@ -2,7 +2,7 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
   
   if(respcol==T) ref=nomecat else ref=nomecont
   tabela=NULL
-  
+  stat.test=NULL
   continua=unlist(continua)
   categorica=unlist(categorica)
   if(niveis[1]=="auto") niveis = names(table(categorica))
@@ -28,7 +28,7 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     a=anova_test(d,resp~fator,white.adjust = whiteadj,type=3)
     res = residuals((aov(lm(data=d,resp~fator))))
     pv=a$p
-    sig=ifelse(pv>0.05," NÃO "," ")
+    sig=ifelse(pv>0.05," NÃO"," ")
     if(is.null(a$ges)) eta = "-" else {eta=round(a$ges,(dig+1));
     tamanef = ifelse(eta<0.01,"insignificante. ",ifelse(eta<0.06,"pequeno. ",ifelse(eta<0.14,"médio. ","grande. ")))
     etatext=c("O tamanho de efeito $\\eta^2$ = ",eta," indica ",100*eta,"% de variabilidade de ",nomecont," explicada por ",nomecat,", o que Cohen(1988) classificou como um efeito ",tamanef)}
@@ -71,13 +71,11 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     if(is.na(ordem[dim(ordem)[1],1])) ordem = ordem[-dim(ordem)[1],]
     ord = c(ordem[order(ordem$mean),1])$fator
     
-
-    
     estats = printvetor(paste0(ordem$fator[ord]," (M=",round(ordem$mean[ord],2),", DP=",round(ordem$sd[ord],2),")"),aspas=F)
     
     texto = paste0(texto, paste0(" Sendo assim, é adequado descrever os dados através da média e do desvio padrão, como vemos a seguir: ",estats,". "))
     
-        #post hoc
+    #post hoc
     
     if(pv<0.05){
     
@@ -93,6 +91,16 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     difs = matrix(unlist(str_split(row.names(t),"-")),ncol=2,byrow=T)
     
     b <- data.frame(difs,t[,4])
+    
+    stat.test=cbind(b,t[,1])
+    names(stat.test)=c("group1","group2","p","dif")
+    stat.test$signif = ifelse(stat.test$p<0.001,"***",ifelse(stat.test$p<0.01,"**",ifelse(stat.test$p<0.05,"*","")))
+    stat.test=stat.test[stat.test$p<0.05,]
+    stat.test$comparisons = paste0(stat.test$group1,"-",stat.test$group2)
+        
+    stat.test.c = data.frame()
+        for (i in ord) {stat.test.c = rbind(stat.test.c, stat.test[str_detect(stat.test$comparisons,i),]  %>% arrange(abs(dif)))}
+    stat.test = unique(stat.test.c)
 
     jafoi=c()
 
@@ -125,14 +133,14 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
     
     a1=a$DFn  ; a2=round(a$DFd,dig) ; a3=ifelse(pv<0.001,"<0.001",paste("=",round(pv,3))) ; a4=round(a$F,dig)
     textograf <- substitute(paste("ANOVA one-way F(",a1,",",a2,") = ",a4,", p",a3,collapse=""),list(a1=a1,a2=a2,a3=a3,a4=a4))
-    grafico=grafico_comp_bar(d$resp,nomecont,d$fator,nomecat,cor=cor,teste=textograf,dig=dig, idioma=idioma,virgula=virgula)
+    grafico=grafico_comp_bar(d$resp,nomecont,d$fator,nomecat,cor=cor,teste=textograf,dig=dig, idioma=idioma,virgula=virgula,stat.test=stat.test)
     
     
     diferencas_resumo = ifelse(pv<0.05,"Houve","Não houve")
     
-    inicio_resumo = paste0(diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",estats,")",".",collapse="")
+    inicio_resumo = paste0(diferencas_resumo," diferença entre as médias de ",nomecont," por ",nomecat," (F(",a$DFn,",",round(a$DFd,dig),") = ",round(a$F,dig),", p = ",pvalor(pv),"), com estatísticas ",estats,")",".")
     
-    resumo = ifelse(pv<0.05,paste0(inicio_resumo," ",comp,collapse=""),inicio_resumo)
+    resumo = ifelse(pv<0.05,paste0(inicio_resumo," ",comp),inicio_resumo)
     
     testes=data.frame(Nome1 = nomecont, Nome2 = nomecat, tipo = "aov1", sig_ou_não = ifelse(pv<0.05,T,F), resumo = resumo,sup=supos)
   }
