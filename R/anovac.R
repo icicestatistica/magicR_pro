@@ -111,11 +111,11 @@ anovac <- function(continua,categorica,nomecont,nomecat,niveis="auto",dig=2,resp
                   ger = b[linhas,]
                   ger$grupo = apply(ger[,1:2],1,function(x) x[which(x!=ni)])
                   signi = which(ger$t...4.<0.05)
-                  if(length(signi)==0) {comp = c(comp,paste0("a média de ",nomecont," de ",ni," não difere da média de ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$t...4.),")"),aspas=F),"."))} else {
-                      if(length(signi)==length(ger$grupo) & length(ger$grupo>1)) {comp = c(comp,paste0("a média de ",nomecont," de ",ni," é menor que a de ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$t...4.),")"),aspas=F),"."))} else {
+                  if(length(signi)==0) {comp = c(comp,paste0("A média de ",nomecont," de ",ni," não difere da média de ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$t...4.),")"),aspas=F),"."))} else {
+                      if(length(signi)==length(ger$grupo) & length(ger$grupo>1)) {comp = c(comp,paste0("A média de ",nomecont," de ",ni," é menor que a de ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$t...4.),")"),aspas=F),"."))} else {
   maio = ger$grupo[signi]; pmaio = pvetor(ger$t...4.[signi])
   naodif = ger$grupo[-signi] ; pnaodif = pvetor(ger$t...4.[-signi])
-  comp = c(comp,paste0("a média de ",nomecont," de ",ni," é menor que a média de ",printvetor(paste0(maio," (p=",pmaio,")"),aspas=F),", mas não difere da média de ",printvetor(paste0(naodif," (p=",pnaodif,")"),aspas=F),"."))}
+  comp = c(comp,paste0("A média de ",nomecont," de ",ni," é menor que a média de ",printvetor(paste0(maio," (p=",pmaio,")"),aspas=F),", mas não difere da média de ",printvetor(paste0(naodif," (p=",pnaodif,")"),aspas=F),"."))}
   }
               jafoi=c(jafoi,ni)}
         comp = paste0(comp,collapse=" ")    
