@@ -2,8 +2,8 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
     dig = 2, respcol = T, excluirtotal = T, cor = "cyan4", ordenar = F, 
     idioma = "PT", ordinal = F, labels = T, virgula = F) 
 {
-    if (respcol == T) {
-        ref = nomefator} else ref = nomeresp
+    stat.test=NULL
+    if (respcol == T) {ref = nomefator} else ref = nomeresp
     resp = unlist(resp)
     fator = unlist(fator)
     if (niveis[1] == "auto") {niveis = names(table(fator))}
@@ -31,6 +31,11 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
             paste("$\\chi^2$", collapse = NULL), "(", a$parameter, 
             ") =", round(a$statistic, dig), ",p-valor=", pvalor(a$p.value), 
             ").")
+        resumo_final = paste0("O teste de Kruskall-Wallis mostrou que há diferença de ", 
+            nomeresp, " entre pelo menos um dos grupos de ", nomefator, " (", 
+            paste("$\\chi^2$", collapse = NULL), "(", a$parameter, 
+            ")=", round(a$statistic, dig), ",p-valor=", pvalor(a$p.value), 
+            ").")
         dunn <- quiet(dunn.test(dad$continua, dad$categorica, 
             method = "bonferroni", kw = F, table = F, list = F))
 
@@ -38,9 +43,14 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
             " - ")), ncol = 2, byrow = T)
 
         b <- data.frame(difs,dunn$comparisons, dunn$Z,dunn$P.adjusted)
+        b$signif = ifelse(b$dunn.P.adjusted<0.001,"***",ifelse(b$dunn.P.adjusted<0.01,"**",ifelse(b$dunn.P.adjusted<0.05,"*","")))
+        
+        stat.test = b
+        names(stat.test)[1:2]=c("group1","group2")
+        stat.test=stat.test[stat.test$dunn.P.adjusted<0.05,]
 
         jafoi=c()
-
+        
         ordenando = dad %>% group_by(categorica) %>% summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
         ord = ordenando$categorica
 
@@ -63,8 +73,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
           }
           }
         tex = paste0(comparacoes,collapse=" ")
-        texto = c(paste0(texto,collapse=""), tex)
-    resumo_final=paste0(texto,collapse="")                                
+        texto = c(texto, tex)
     }
     if (ordinal == F) 
         res = desc_bi_cont(dad$continua, dad$categorica, F, respcol, 
@@ -92,12 +101,11 @@ texto = paste(texto, collapse = "")
         a2 = a2, a3 = a3))
     if (ordinal == F) 
         grafico = grafico_comp_box(dad$continua, nomeresp, dad$categorica, 
-            nomefator, cor = cor, textograf, dig, ordenar, idioma)
+            nomefator, cor = cor, textograf, dig, ordenar, idioma,stat.test = stat.test)
     else grafico = grafico_catcat(dad2$categorica, nomefator, 
         dad2$continua, nomeresp, cor = cor, textograf, idioma, 
         labels = labels, virgula) + coord_flip()
-    
-  testes = data.frame(Nome1 = nomeresp, Nome2 = nomefator, 
+    testes = data.frame(Nome1 = nomeresp, Nome2 = nomefator, 
         tipo = "kw", sig_ou_não = ifelse(a$p.value < 0.05, T, 
             F), resumo = resumo_final, sup = NA)
     return(list(testes = testes,
