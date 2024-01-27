@@ -53,7 +53,8 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
         stat.test=stat.test[stat.test$dunn.P.adjusted<0.05,]
         
         stat.test.c = data.frame()
-        for (i in ord) {stat.test.c = rbind(stat.test.c, stat.test[str_detect(stat.test$dunn.comparisons,i),])}
+        for (i in ord) {stat.test.c = rbind(stat.test.c, stat.test[str_detect(stat.test$dunn.comparisons,i),]);
+                       stat.test.c = stat.test.c %>% sort(abs(dunn.Z))}
         stat.test = unique(stat.test.c)
         
         jafoi=c()
