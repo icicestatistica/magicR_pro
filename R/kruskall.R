@@ -48,7 +48,8 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
         stat.test = b
         names(stat.test)[1:2]=c("group1","group2")
         stat.test=stat.test[stat.test$dunn.P.adjusted<0.05,]
-
+        stat.test = stat.test %>% arrange(dunn.Z)
+        
         jafoi=c()
         
         ordenando = dad %>% group_by(categorica) %>% summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
