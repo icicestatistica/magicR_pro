@@ -58,7 +58,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
         
         jafoi=c()
 
-        if(sum(b$dunn.P.adjusted<0.05)==length(b$dunn.P.adjusted)) {comparacoes = "Através das comparações múltiplas de Dunn, encontramos diferença entre todos os grupos."} else {
+        if(sum(b$dunn.P.adjusted<0.05)==length(b$dunn.P.adjusted)) {comparacoes = paste0("Através das comparações múltiplas de Dunn, encontramos diferença entre todos as distribuições de ",nomeresp," de todos os grupos.",collapse="")} else {
           if(sum(b$dunn.P.adjusted<0.05)==0) {comparacoes = "Apesar disso, através dos testes de comparação pareada de Dunn, não encontramos diferença estatística entre nenhum dos grupos estudados."} else {
             comparacoes = "Seguindo para as comparações múltiplas de Dunn com correção de Bonferroni, concluímos que "
 
@@ -67,8 +67,8 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
                   ger = b[linhas,]
                   ger$grupo = apply(ger[,1:2],1,function(x) x[which(x!=ni)])
                   signi = which(ger$dunn.P.adjusted<0.05)
-                  if(length(signi)==0) {comparacoes = c(comparacoes,paste0(ni," não difere de ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$dunn.P.adjusted),")"),aspas=F),"."))} else {
-                      if(length(signi)==length(ger$grupo) & length(ger$grupo>1)) {comparacoes = c(comparacoes,paste0(ni," é menor que ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$dunn.P.adjusted),")"),aspas=F),"."))} else {
+                  if(length(signi)==0) {comparacoes = c(comparacoes,paste0("A distribuição de ",nomeresp," no grupo ",ni," não difere de ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$dunn.P.adjusted),")"),aspas=F),"."))} else {
+                      if(length(signi)==length(ger$grupo) & length(ger$grupo>1)) {comparacoes = c(comparacoes,paste0("A distribuição de ",nomeresp," no grupo ",ni," tem valores menores que ",printvetor(paste0(ger$grupo," (p=",pvetor(ger$dunn.P.adjusted),")"),aspas=F),"."))} else {
   maio = ger$grupo[signi]; pmaio = pvetor(ger$dunn.P.adjusted[signi])
   naodif = ger$grupo[-signi] ; pnaodif = pvetor(ger$dunn.P.adjusted[-signi])
   comparacoes = c(comparacoes,paste0(ni," é menor que ",printvetor(paste0(maio," (p=",pmaio,")"),aspas=F),", mas não difere de ",printvetor(paste0(naodif," (p=",pnaodif,")"),aspas=F),"."))}
