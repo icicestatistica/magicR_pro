@@ -103,6 +103,87 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4",
 }
 
 
+
+grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, cor = "cyan4", teste = NULL, 
+    dig = 2, idioma = "PT", dot = "auto", 
+    virgula = F) 
+{
+    dadosd <- data.frame(cont = cont, cat = cat,id=id)
+    dadosd <- na.omit(dadosd)
+    
+    dados_w = dadosd %>% tidyr::pivot_wider(names_from = cat, values_from = cont)
+    dados_w = na.omit(dados_w)
+    
+    if(length(table(dadosd$cat))==2) {dados_w$dif = dados_w[,3]-dados_w[,2]
+                                      p_leg = (max(unlist(dados_w$dif))-min(unlist(dados_w$dif)))/20
+                                      text_maior = paste0(sum(unlist(dados_w$dif)>0)," (",100*round(sum(unlist(dados_w$dif)>0)/length(unlist(dados_w$dif)),2),"%)")}
+    
+    if (min(dadosd$cont) < 0) 
+        limites = "ylim(min(dadosd$cont), max(dadosd$cont)*(1+aumento)" else limites = "ylim(0, max(dadosd$cont)*(1+aumento))"
+    n = table(dadosd$cat)
+    n = n[n > 0]
+    niveis = names(n)
+    dadosd$cat <- factor(dadosd$cat)
+
+    df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise(med = median(cont, 
+        na.rm = T), q3 = quantile(cont, 0.75, na.rm = T), media = mean(cont, 
+        na.rm = T))
+        x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))), levels=vetor_comsep_c(levels(dadosd$cat),floor(80/length(n))))"
+    if (dot == "auto") 
+        dot = ifelse(sum(n) > 100, F, T)
+    titulo = ifelse(idioma == "PT", paste0("Diferença de ", 
+        nomecont, " por ", nomecat, " (n=", dim(dados_w)[1], 
+        ")", collapse = ""), paste0("Difference of ", nomecont, 
+        " distributions by ", nomecat, " (n=", dim(dados_w)[1], 
+        ")", collapse = ""))
+    
+       if(length(table(dadosd$cat))==2) {tit=teste;sub=NULL} else {tit=titulo;sub=teste}
+    
+    if (dot == F) {
+        plot = ggplot(dadosd %>% filter(!is.na(cat)), mapping = aes(y = cont, 
+            x = eval(parse(text = x_c)))) + geom_violin(fill = cor, 
+            alpha = 0.2) + geom_boxplot(fill = cor, alpha = 0.7) + 
+            geom_point(data = df.summary, aes(y = media, x = cat), 
+                shape = 23, fill = "red", color = "red", size = 3) + 
+            ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
+            50)) + theme_clean() + ggtitle(vetor_comsep_c(titulo, 
+            40), subtitle = sub) + eval(parse(text = limites)) + 
+            theme(plot.background = element_rect(colour = NA, 
+                fill = "transparent"), panel.background = element_rect(fill = "transparent", 
+                color = NA), plot.title = element_text(hjust = 0.5), 
+                plot.subtitle = element_text(hjust = 0.5))
+    } else {
+        plot = ggplot(dadosd %>% filter(!is.na(cat)), mapping = aes(y = cont, 
+            x = eval(parse(text = x_c)))) + geom_boxplot(fill = cor, 
+            outlier.alpha = 0, alpha = 0.7) + geom_line(aes(group=id), color="darkgray") + geom_point(alpha = 0.3, size = 2)  +
+            geom_point(data = df.summary, aes(y = media, x = cat), 
+                shape = 23, fill = "red", color = "red", size = 3) + 
+            ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
+            50)) + theme_clean() + ggtitle(label=tit, subtitle=sub) + eval(parse(text = limites)) + 
+            theme(plot.background = element_rect(colour = NA, 
+                fill = "transparent"), panel.background = element_rect(fill = "transparent", 
+                color = NA), plot.title = element_text(hjust = 0.5, face="plain"), 
+                plot.subtitle = element_text(hjust = 0.5))
+    }
+    
+    if(length(table(dadosd$cat))==2) {
+      if(dot==T){
+      grafdif = ggplot(dados_w, aes(y=unlist(dif),x=0)) + geom_boxplot(fill = cor, 
+            outlier.alpha = 0, alpha = 0.7)  + geom_point(aes(x=0,y=unlist(dif)),alpha = 0.3, size = 2) + theme_icic("h") + theme(axis.title.x = element_blank(),axis.text.x = element_blank(), axis.ticks.x = element_blank()) + labs(y=paste0(names(dados_w)[3],"-",names(dados_w)[2])) + geom_abline(slope=0,intercept=,color="red") + geom_text(y=p_leg,x=0.25, label=text_maior, color="red") + geom_point(aes(y = mean(unlist(dados_w$dif),na.rm=T), x = 0), 
+                shape = 23, fill = "red", color = "red", size = 3)} else
+                  grafdif = ggplot(dados_w, aes(y=unlist(dif),x=0)) + geom_violin(fill = cor, 
+            alpha = 0.2) + geom_boxplot(fill = cor, 
+            outlier.alpha = 0, alpha = 0.7)  + theme_icic("h") + theme(axis.title.x = element_blank(),axis.text.x = element_blank(), axis.ticks.x = element_blank()) + labs(y=paste0(names(dados_w)[3],"-",names(dados_w)[2])) + geom_abline(slope=0,intercept=,color="red") + geom_text(y=p_leg,x=0.25, label=text_maior, color="red") + geom_point(aes(y = mean(unlist(dados_w$dif),na.rm=T), x = 0), 
+                shape = 23, fill = "red", color = "red", size = 3)
+      plot = plot + grafdif + 
+  plot_layout(widths = c(3, 1)) +
+  plot_annotation(titulo,theme=theme(plot.title=element_text(hjust=0.5, face="bold",size=14)))
+    }
+    
+    return(plot)
+}
+
+
 grafico_catcat <- function(x,nomex,y,nomey,cor="cyan4",texto="", idioma="PT", labels=T,virgula=F){
   help = na.omit(data.frame(x, y))
   if(class(help$y)=="factor") help$y=factor(help$y,levels=names(table(help$y))[which(names(table(help$y)) %in% names(table(as.character(help$y))))])
