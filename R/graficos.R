@@ -170,11 +170,13 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, cor = "cya
       if(dot==T){
       grafdif = ggplot(dados_w, aes(y=unlist(dif),x=0)) + geom_boxplot(fill = cor, 
             outlier.alpha = 0, alpha = 0.7)  + geom_point(aes(x=0,y=unlist(dif)),alpha = 0.3, size = 2) + theme_icic("h") + theme(axis.title.x = element_blank(),axis.text.x = element_blank(), axis.ticks.x = element_blank()) + labs(y=paste0(names(dados_w)[3],"-",names(dados_w)[2])) + geom_abline(slope=0,intercept=,color="red") + geom_text(y=p_leg,x=0.25, label=text_maior, color="red") + geom_point(aes(y = mean(unlist(dados_w$dif),na.rm=T), x = 0), 
-                shape = 23, fill = "red", color = "red", size = 3)} else
-                  grafdif = ggplot(dados_w, aes(y=unlist(dif),x=0)) + geom_violin(fill = cor, 
+                shape = 23, fill = "red", color = "red", size = 3) +
+        scale_y_continuous(limits=c(min(0,min(unlist(dados_w$dif),na.rm=T)),max(p_leg,max(unlist(dados_w$dif),na.rm=T))))} else
+      grafdif = ggplot(dados_w, aes(y=unlist(dif),x=0)) + geom_violin(fill = cor, 
             alpha = 0.2) + geom_boxplot(fill = cor, 
             outlier.alpha = 0, alpha = 0.7)  + theme_icic("h") + theme(axis.title.x = element_blank(),axis.text.x = element_blank(), axis.ticks.x = element_blank()) + labs(y=paste0(names(dados_w)[3],"-",names(dados_w)[2])) + geom_abline(slope=0,intercept=,color="red") + geom_text(y=p_leg,x=0.25, label=text_maior, color="red") + geom_point(aes(y = mean(unlist(dados_w$dif),na.rm=T), x = 0), 
-                shape = 23, fill = "red", color = "red", size = 3)
+                shape = 23, fill = "red", color = "red", size = 3) +
+        scale_y_continuous(limits=c(min(0,min(unlist(dados_w$dif),na.rm=T)),max(p_leg,max(unlist(dados_w$dif),na.rm=T))))
       plot = plot + grafdif + 
   plot_layout(widths = c(3, 1)) +
   plot_annotation(titulo,theme=theme(plot.title=element_text(hjust=0.5, face="bold",size=14)))
