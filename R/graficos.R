@@ -119,7 +119,7 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, cor = "cya
                                       text_maior = paste0(sum(unlist(dados_w$dif)>0)," (",100*round(sum(unlist(dados_w$dif)>0)/length(unlist(dados_w$dif)),2),"%)")}
     
     if (min(dadosd$cont) < 0) 
-        limites = "ylim(min(dadosd$cont), max(dadosd$cont)*(1+aumento)" else limites = "ylim(0, max(dadosd$cont)*(1+aumento))"
+        limites = "ylim(min(dadosd$cont), max(dadosd$cont)" else limites = "ylim(0, max(dadosd$cont))"
     n = table(dadosd$cat)
     n = n[n > 0]
     niveis = names(n)
