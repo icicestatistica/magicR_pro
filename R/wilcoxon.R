@@ -21,13 +21,21 @@ wilcox = function (id, time, num, nomex, moms, tipox = "numeric", nometime = "Mo
         3)))
     dif = ifelse(stat.test$p < 0.05, " foi estatisticamente diferente", 
         " não foi estatisticamente diferente")
-    texto = paste(" - A variável '", nomex, "'", dif, " ao nível de 5% de significância  usando o teste de Wilcoxon (V=", 
-        a2, ",p", a3, "), com effect size =", round(unname(es$effsize), 
-            2), ", que pode ser considerado um efeito ", ifelse(es$magnitude == 
+    
+    medias = apply(df_wide[,-1],2,function(x) mean(x, na.rm=T))
+    diferenca = medias[2]-medias[1]
+    if(stat.test$p < 0.05) {
+      if(diferenca>0) textodif = paste0(" um aumento em '",names(medias)[2],"' com relação a '",names(medias)[1],"'");
+      if(diferenca<0) textodif = paste0(" uma diminuição em '",names(medias)[2],"' com relação a '",names(medias)[1],"'")} else textodif=""
+    
+    texto = paste0(" - A variável '", nomex, "'", dif, ", com",textodif," ao nível de 5% de significância  usando o teste de Wilcoxon (V=", a2, ",p", a3, "), com effect size =", round(unname(es$effsize), 2), ", que pode ser considerado um efeito ", ifelse(es$magnitude == 
             "small", "pequeno", ifelse(es$magnitude == "moderate", 
             "moderado", "grande")), ".", sep = "")
     resumo = str_sub(texto,start=4)
     teste = paste0("Wilcoxon V =", a2, ", p", a3)
+    
+  
+    
     if (tipox == "numeric") {
         grafico = grafico_comp_box_pareado(id=df_long$id,cont=df_long$num,nomecont=nomex,cat=df_long$time,nomecat=nometime,cor=cor,teste=teste)
         res = desc_bi_cont(df_long$num, df_long$time, respcol = F)[-1, 
