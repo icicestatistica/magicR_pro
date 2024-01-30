@@ -38,13 +38,10 @@ dif = ifelse(res.fried$p<0.05," foi estatisticamente diferente"," não foi estat
 
 texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de Friedman ($\\chi^2$ (", a1, ") =", a2, ",p", a3, "), com efeito ",es$method,"=",round(unname(es$effsize),2),", que pode ser considerado um efeito ",ifelse(es$magnitude=="small","pequeno",ifelse(es$magnitude=="moderate","moderado","grande")),". ",comp,sep="")
 
+textoresumo = str_sub(texto,start=4)
+  
 pwc <- pwc %>% add_xy_position(x = "time")
-grafico = ggpubr::ggboxplot(df_long, x = "time", y = "num") +
-  ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE) +
-  labs(
-    subtitle = textograf,
-    caption = get_pwc_label(pwc),
-    y=nomex, x=nometime) + theme_icic("h")
+grafico = grafico_comp_box_pareado(df_long$id, df_long$num,nomex, factor(df_long$time, levels=moms), nometime,teste=textograf)
 
 res=desc_bi_cont(df_long$num,df_long$time,respcol=F)[-1,-2]
 
@@ -52,6 +49,6 @@ res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], ")", sep = ""),
         rep("", dim(res)[2]-1)), res), `p-valor` = c("", paste0(pvalor(res.fried$p),"i"), rep("", 
         dim(res)[1] - 1)))
   
- testes = data.frame(Nome1 = nometime, Nome2 = nomex, tipo = "fried", sig_ou_não = ifelse(res.fried$p < 0.05, T, F), resumo = paste("$\\chi^2$ (", a1, ") =", a2, ",p", a3, collapse = ""), sup = NA)
+ testes = data.frame(Nome1 = nometime, Nome2 = nomex, tipo = "fried", sig_ou_não = ifelse(res.fried$p < 0.05, T, F), resumo = textoresumo, sup = NA)
 
 return(list("testes"=testes,"result"=res,"texto"=texto,"grafico"=grafico))}
