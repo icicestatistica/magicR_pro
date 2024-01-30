@@ -115,8 +115,13 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, cor = "cya
     dados_w = na.omit(dados_w)
     
     if(length(table(dadosd$cat))==2) {dados_w$dif = dados_w[,3]-dados_w[,2]
+                                      if(mean(unlist(dados_w$dif))>0)  {
                                       p_leg = (max(unlist(dados_w$dif))-min(unlist(dados_w$dif)))/20
-                                      text_maior = paste0(sum(unlist(dados_w$dif)>0)," (",100*round(sum(unlist(dados_w$dif)>0)/length(unlist(dados_w$dif)),2),"%)")}
+                                      text_maior = paste0(sum(unlist(dados_w$dif)>0)," (",100*round(sum(unlist(dados_w$dif)>0)/length(unlist(dados_w$dif)),2),"%)")} else {
+                                      p_leg = -((max(unlist(dados_w$dif))-min(unlist(dados_w$dif)))/20)
+                                      text_maior = paste0(sum(unlist(dados_w$dif)<=0)," (",100*round(sum(unlist(dados_w$dif)<=0)/length(unlist(dados_w$dif)),2),"%)")  
+                                      }
+    }
     
     if (min(dadosd$cont) < 0) 
         limites = "ylim(min(dadosd$cont), max(dadosd$cont))" else limites = "ylim(0, max(dadosd$cont))"
@@ -175,7 +180,7 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, cor = "cya
             theme(axis.title.x = element_blank(),axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
             labs(y=paste0(names(dados_w)[3],"-",names(dados_w)[2])) +
             geom_abline(slope=0,intercept=,color="red") +
-            geom_text(y=p_leg,x=0.25, label=text_maior, color="red") +
+            geom_text(y=p_leg,x=0.20, label=text_maior, color="red") +
             geom_point(aes(y = mean(unlist(dados_w$dif),na.rm=T), x = 0), 
             shape = 23, fill = "red", color = "red", size = 3) +
             scale_y_continuous(limits=c(min(0,min(unlist(dados_w$dif),na.rm=T)),max(p_leg,max(unlist(dados_w$dif),na.rm=T))))} else
@@ -187,7 +192,7 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, cor = "cya
             theme(axis.title.x = element_blank(),axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
             labs(y=paste0(names(dados_w)[3],"-",names(dados_w)[2])) +
             geom_abline(slope=0,intercept=,color="red") +
-            geom_text(y=p_leg,x=0.25, label=text_maior, color="red") +
+            geom_text(y=p_leg,x=0.20, label=text_maior, color="red") +
             geom_point(aes(y = mean(unlist(dados_w$dif),na.rm=T), x = 0), shape = 23, fill = "red", color = "red", size = 3) +
             scale_y_continuous(limits=c(min(0,min(unlist(dados_w$dif),na.rm=T)),max(p_leg,max(unlist(dados_w$dif),na.rm=T))))
       
