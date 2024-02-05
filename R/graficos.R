@@ -46,59 +46,80 @@ if(is.null(stat.test)) {aumento=0} else {aumento = dim(stat.test)[1]*0.1}
     if(is.null(stat.test)==F) plot = plot + ggpubr::stat_pvalue_manual(stat.test, y.position = max(df.summary$mean)*1.1, step.increase = 0.15,label = "signif")
     return(plot)
 }
-grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", 
-    teste = NULL, dig = 2, ordenar = T, idioma = "PT", 
-    dot = "auto", printn = T,virgula=F,stat.test=NULL) 
+grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", teste = NULL, 
+    dig = 2, ordenar = T, idioma = "PT", dot = "auto", printn = T, 
+    virgula = F, stat.test = NULL) 
 {
     dadosd <- data.frame(cont = cont, cat = cat)
     dadosd <- na.omit(dadosd)
-    if(is.null(stat.test)) {aumento=0} else {aumento = dim(stat.test)[1]*0.05}
-    if(min(dadosd$cont)<0) limites="ylim(min(dadosd$cont), max(dadosd$cont)*(1+aumento)" else limites="ylim(0, max(dadosd$cont)*(1+aumento))"
+    if (is.null(stat.test)) {
+        aumento = 0
+    } else {
+        aumento = dim(stat.test)[1] * 0.05
+    }
+    if (min(dadosd$cont) < 0) 
+        limites = "ylim(min(dadosd$cont), max(dadosd$cont)*(1+aumento)" else limites = "ylim(0, max(dadosd$cont)*(1+aumento))"
     n = table(dadosd$cat)
-    n=n[n>0]
-    niveis=names(n)
+    n = n[n > 0]
+    niveis = names(n)
     dadosd$cat <- factor(dadosd$cat)
-    if (printn == T)  {
+    if (printn == T) {
         levels(dadosd$cat) = paste(niveis, "\nn=", n, sep = "")
-        if (is.null(stat.test)==F) {stat.test$group1=factor(stat.test$group1, levels=niveis);
-                                    stat.test$group2=factor(stat.test$group2, levels=niveis);
-                                    levels(stat.test$group1)=paste(niveis, "\nn=", n, sep = "");
-                                    levels(stat.test$group2)=paste(niveis, "\nn=", n, sep = "")}
+        if (is.null(stat.test) == F) {
+            stat.test$group1 = factor(stat.test$group1, levels = niveis)
+            stat.test$group2 = factor(stat.test$group2, levels = niveis)
+            levels(stat.test$group1) = paste(niveis, "\nn=", 
+                n, sep = "")
+            levels(stat.test$group2) = paste(niveis, "\nn=", 
+                n, sep = "")
         }
+    }
     df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise(med = median(cont, 
-        na.rm = T), q3 = quantile(cont, 0.75, na.rm = T),media=mean(cont, na.rm=T))
-    if (ordenar == F) 
-        x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))), levels=vetor_comsep_c(levels(dadosd$cat),floor(80/length(n))))" else x_c = "factor(vetor_comsep_c(cat,floor(80/length(n))),levels=vetor_comsep_c(levels(reorder(cat,cont,FUN=median)),floor(80/length(n))))"
+        na.rm = T), q3 = quantile(cont, 0.75, na.rm = T), media = mean(cont, 
+        na.rm = T))
+    levels(df.summary$cat)=eval(parse(text=lev))
+    if (ordenar == F) {
+      lev = "vetor_comsep_c(levels(dadosd$cat),floor(80/length(n)))"} else {lev = "vetor_comsep_c(levels(reorder(cat,cont,FUN=median)),floor(80/length(n)))"}
+    x_c = paste0("factor(vetor_comsep_c(cat,floor(80/length(n))), levels=",lev,")")
     if (dot == "auto") 
         dot = ifelse(sum(n) > 200, F, T)
     titulo = ifelse(idioma == "PT", paste0("Comparação de distribuições de ", 
         nomecont, " por ", nomecat, " (n=", dim(na.omit(dadosd))[1], 
-        ")", collapse = ""), paste0("Comparison of ", 
-        nomecont, " distributions by ", nomecat, " (n=", 
-        dim(na.omit(dadosd))[1], ")", collapse = ""))
+        ")", collapse = ""), paste0("Comparison of ", nomecont, 
+        " distributions by ", nomecat, " (n=", dim(na.omit(dadosd))[1], 
+        ")", collapse = ""))
     if (dot == F) {
         plot = ggplot(dadosd %>% filter(!is.na(cat)), mapping = aes(y = cont, 
-            x = eval(parse(text = x_c)))) + geom_violin(fill=cor, alpha=0.2) + geom_boxplot(fill = cor,alpha=0.7) + geom_point(data=df.summary,aes(y=media,x=cat), shape=23, fill="red",color="red",size=3) +
+            x = eval(parse(text = x_c)))) + geom_violin(fill = cor, 
+            alpha = 0.2) + geom_boxplot(fill = cor, alpha = 0.7) + 
+            geom_point(data = df.summary, aes(y = media, x = cat), 
+                shape = 23, fill = "red", color = "red", size = 3) + 
             ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
             50)) + theme_clean() + ggtitle(vetor_comsep_c(titulo, 
-            40), subtitle = teste) + eval(parse(text=limites)) + 
+            40), subtitle = teste) + eval(parse(text = limites)) + 
             theme(plot.background = element_rect(colour = NA, 
                 fill = "transparent"), panel.background = element_rect(fill = "transparent", 
                 color = NA), plot.title = element_text(hjust = 0.5), 
                 plot.subtitle = element_text(hjust = 0.5))
-    } else {
+    }
+    else {
         plot = ggplot(dadosd %>% filter(!is.na(cat)), mapping = aes(y = cont, 
             x = eval(parse(text = x_c)))) + geom_boxplot(fill = cor, 
-            outlier.alpha = 0,alpha=0.7) + geom_dotplot(binaxis = "y", 
-            stackdir = "center", alpha = 0.3,dotsize=0.9) + geom_point(data=df.summary,aes(y=media,x=cat), shape=23, fill="red",color="red",size=3) + ylab(vetor_comsep_c(nomecont, 
-            40)) + xlab(vetor_comsep_c(nomecat, 50)) + theme_clean() + 
-            ggtitle(vetor_comsep_c(titulo, 40), subtitle = teste) + 
-             eval(parse(text=limites)) + theme(plot.background = element_rect(colour = NA, 
-            fill = "transparent"), panel.background = element_rect(fill = "transparent", 
-            color = NA), plot.title = element_text(hjust = 0.5), 
-            plot.subtitle = element_text(hjust = 0.5))
+            outlier.alpha = 0, alpha = 0.7) + geom_dotplot(binaxis = "y", 
+            stackdir = "center", alpha = 0.3, dotsize = 0.9) + 
+            geom_point(data = df.summary, aes(y = media, x = cat), 
+                shape = 23, fill = "red", color = "red", size = 3) + 
+            ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
+            50)) + theme_clean() + ggtitle(vetor_comsep_c(titulo, 
+            40), subtitle = teste) + eval(parse(text = limites)) + 
+            theme(plot.background = element_rect(colour = NA, 
+                fill = "transparent"), panel.background = element_rect(fill = "transparent", 
+                color = NA), plot.title = element_text(hjust = 0.5), 
+                plot.subtitle = element_text(hjust = 0.5))
     }
-    if(is.null(stat.test)==F) plot = plot + ggpubr::stat_pvalue_manual(stat.test, y.position = max(dadosd$cont), step.increase = 0.05,label = "signif")
+    if (is.null(stat.test) == F) 
+        plot = plot + ggpubr::stat_pvalue_manual(stat.test, y.position = max(dadosd$cont), 
+            step.increase = 0.05, label = "signif")
     return(plot)
 }
 
