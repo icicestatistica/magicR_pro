@@ -37,7 +37,7 @@ wilcox = function (id, time, num, nomex, moms, tipox = "numeric", nometime = "Mo
   
     
     if (tipox == "numeric") {
-        grafico = grafico_comp_box_pareado(id=df_long$id,cont=df_long$num,nomecont=nomex,cat=df_long$time,nomecat=nometime,cor=cor,teste=teste)
+        grafico = grafico_comp_box_pareado(id=df_long$id,cont=df_long$num,nomecont=nomex,cat=df_long$time,nomecat=nometime,moms=moms,cor=cor,teste=teste)
         res = desc_bi_cont(df_long$num, df_long$time, respcol = F)[-1, 
             -2]
         res <- cbind(rbind(c(paste("**", nomex, "** (", dim(df_wide)[1], 
