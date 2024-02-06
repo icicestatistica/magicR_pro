@@ -151,7 +151,7 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, moms, cor 
     n = table(dadosd$cat)
     n = n[n > 0]
     niveis = names(n)
-    dadosd$cat <- factor(dadosd$cat)
+    dadosd$cat <- factor(dadosd$cat, levels=moms)
 
     df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise(med = median(cont, 
         na.rm = T), q3 = quantile(cont, 0.75, na.rm = T), media = mean(cont, 
