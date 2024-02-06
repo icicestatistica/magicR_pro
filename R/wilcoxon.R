@@ -22,7 +22,7 @@ wilcox = function (id, time, num, nomex, moms, tipox = "numeric", nometime = "Mo
     dif = ifelse(stat.test$p < 0.05, " foi estatisticamente diferente", 
         " não foi estatisticamente diferente")
     
-    medias = apply(df_wide[,-1],2,function(x) mean(x, na.rm=T))
+    medias = apply(df_wide[,moms],2,function(x) mean(x, na.rm=T))
     diferenca = medias[2]-medias[1]
     if(stat.test$p < 0.05) {
       if(diferenca>0) textodif = paste0(" um aumento em '",names(medias)[2],"' com relação a '",names(medias)[1],"'");
