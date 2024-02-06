@@ -45,7 +45,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
         b <- data.frame(difs,dunn$comparisons, dunn$Z,dunn$P.adjusted)
         b$signif = ifelse(b$dunn.P.adjusted<0.001,"***",ifelse(b$dunn.P.adjusted<0.01,"**",ifelse(b$dunn.P.adjusted<0.05,"*","")))
 
-        ordenando = dad %>% group_by(categorica) %>% summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
+        ordenando = dad %>% group_by(categorica) %>% dplyr::summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
         ord = ordenando$categorica
         
         stat.test = b
