@@ -78,7 +78,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", teste 
         na.rm = T), q3 = quantile(cont, 0.75, na.rm = T), media = mean(cont, 
         na.rm = T))
     if (ordenar == F) {
-      lev = "vetor_comsep_c(levels(dadosd$cat),floor(80/length(n)))"} else {lev = "vetor_comsep_c(levels(reorder(dadosd$cat,dadosd$cont,FUN=median)),floor(80/length(n)))"; lev2=levels(reorder(dadosd$cat,dadosd$cont,FUN=median))}
+      lev = "vetor_comsep_c(levels(dadosd$cat),floor(80/length(n)))"; lev2=levels(dadosd$cat)} else {lev = "vetor_comsep_c(levels(reorder(dadosd$cat,dadosd$cont,FUN=median)),floor(80/length(n)))"; lev2=levels(reorder(dadosd$cat,dadosd$cont,FUN=median))}
     x_c = paste0("factor(vetor_comsep_c(cat,floor(80/length(n))), levels=",lev,")")
     df.summary$cat = factor(df.summary$cat, levels=lev2)
     levels(df.summary$cat)=eval(parse(text=lev))
