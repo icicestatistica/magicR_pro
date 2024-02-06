@@ -203,7 +203,7 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, moms, cor 
             geom_point(aes(x=0,y=unlist(dif)),alpha = 0.3, size = 2) +
             theme_icic("h") +
             theme(axis.title.x = element_blank(),axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
-            labs(y=paste0(names(dados_w)[3],"-",names(dados_w)[2])) +
+            labs(y=paste0(moms[2],"-",moms[1])) +
             geom_abline(slope=0,intercept=,color="red") +
             geom_text(y=p_leg,x=0.20, label=text_maior, color="red") +
             geom_point(aes(y = mean(unlist(dados_w$dif),na.rm=T), x = 0), 
