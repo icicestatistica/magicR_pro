@@ -126,12 +126,13 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", teste 
 
 
 
-grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, cor = "cyan4", teste = NULL, 
+grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, moms, cor = "cyan4", teste = NULL, 
     dig = 2, idioma = "PT", dot = "auto", 
     virgula = F) 
 {
     dadosd <- data.frame(cont = cont, cat = cat,id=id)
     dadosd <- na.omit(dadosd)
+    dadosd$cat = factor(dadosd$cat, levels=moms)
     
     dados_w = dadosd %>% tidyr::pivot_wider(names_from = cat, values_from = cont)
     dados_w = na.omit(dados_w)
