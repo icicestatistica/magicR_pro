@@ -77,10 +77,10 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", teste 
     df.summary = dadosd %>% group_by(cat) %>% dplyr::summarise(med = median(cont, 
         na.rm = T), q3 = quantile(cont, 0.75, na.rm = T), media = mean(cont, 
         na.rm = T))
-    levels(df.summary$cat)=eval(parse(text=lev))
     if (ordenar == F) {
       lev = "vetor_comsep_c(levels(dadosd$cat),floor(80/length(n)))"} else {lev = "vetor_comsep_c(levels(reorder(cat,cont,FUN=median)),floor(80/length(n)))"}
     x_c = paste0("factor(vetor_comsep_c(cat,floor(80/length(n))), levels=",lev,")")
+    levels(df.summary$cat)=eval(parse(text=lev))
     if (dot == "auto") 
         dot = ifelse(sum(n) > 200, F, T)
     titulo = ifelse(idioma == "PT", paste0("Comparação de distribuições de ", 
