@@ -58,7 +58,7 @@ grafico_comp_box = function (cont, nomecont, cat, nomecat, cor = "cyan4", teste 
         aumento = dim(stat.test)[1] * 0.05
     }
     if (min(dadosd$cont) < 0) 
-        limites = "ylim(min(dadosd$cont), max(dadosd$cont)*(1+aumento)" else limites = "ylim(0, max(dadosd$cont)*(1+aumento))"
+        limites = "ylim(min(dadosd$cont), max(dadosd$cont)*(1+aumento))" else limites = "ylim(0, max(dadosd$cont)*(1+aumento))"
     n = table(dadosd$cat)
     n = n[n > 0]
     niveis = names(n)
