@@ -1,4 +1,4 @@
-friedman_icic = function(id,time,num,nomex,moms,nometime="Momento"){
+friedman_icic = function(id,time,num,nomex,moms,nometime="Momento",cor=cor){
 
 df=data.frame(id,time,num)
 df = df[df$time %in% moms,]
@@ -41,7 +41,7 @@ texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% 
 textoresumo = str_sub(texto,start=4)
   
 pwc <- pwc %>% add_xy_position(x = "time")
-grafico = grafico_comp_box_pareado(df_long$id, df_long$num,nomex, factor(df_long$time, levels=moms), nometime,moms=moms,teste=textograf) + scale_y_continuous(limits=c(0,max(pwc$y.position))) +
+grafico = grafico_comp_box_pareado(df_long$id, df_long$num,nomex, factor(df_long$time, levels=moms), nometime,moms=moms,teste=textograf, cor=cor) + scale_y_continuous(limits=c(0,max(pwc$y.position))) +
         ggpubr::stat_pvalue_manual(pwc, hide.ns = TRUE)
 
 res=desc_bi_cont(df_long$num,df_long$time,respcol=F)[-1,-2]
