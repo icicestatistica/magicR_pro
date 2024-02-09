@@ -9,7 +9,7 @@ metodo = function(analises){
     
     parte=analises[analises$Sessão==i,]
     
-    desc=paste0("\n **",i,"**: \n")
+    desc=paste0("\n\n **",i,"**: \n\n")
     
     ## Numéricas
     
