@@ -1,4 +1,4 @@
-mc_icic = function(id,time,cat,moms,nomex,nometime){
+mc_icic = function(id,time,cat,moms,nomex,nometime,cor="cyan4"){
 
 df=data.frame(id,time,cat)
 
@@ -27,7 +27,7 @@ dif = ifelse(mc$p<0.05," teve proporções estatisticamente diferentes"," não t
 texto = paste(" - A variável '", nomex, "'",dif," nos momentos ao nível de 5% de significância  usando o teste de McNemar ($\\chi^2$ (", a1, ") =", a2, ",p", a3, ").",sep="",collapse="")
 
 
-grafico = grafico_catcat(df_long$time,nometime,df_long$cat,nomex, texto=textograf) + labs(title=vetor_comsep_c(paste0("Diferença de proporções de ",nomex),40))
+grafico = grafico_catcat(df_long$time,nometime,df_long$cat,nomex, texto=textograf,cor=cor) + labs(title=vetor_comsep_c(paste0("Diferença de proporções de ",nomex),40))
 
 res=desc_bi_cat(df_long$cat,col=df_long$time,respcol=F)[-1,-2]
 
