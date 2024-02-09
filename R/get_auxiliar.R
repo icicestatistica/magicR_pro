@@ -18,5 +18,6 @@ get_auxiliar <- function(dados){
       n_cate[i]=n}}
 
   auxiliar <- data.frame(auxiliar,niveis,"n"=n_porcol,"n_cat"=n_cate)
+  auxiliar[auxiliar$n_cate>12,]$tipo = "texto"
   row.names(auxiliar) <- 1:length(auxiliar$linha)
   return(auxiliar)}
