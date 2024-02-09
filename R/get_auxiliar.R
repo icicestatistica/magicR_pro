@@ -18,6 +18,7 @@ get_auxiliar <- function(dados){
       n_cate[i]=n}}
 
   auxiliar <- data.frame(auxiliar,niveis,"n"=n_porcol,"n_cat"=n_cate)
-  try(auxiliar[auxiliar$n_cat > 20 & is.na(auxiliar$n_cat)==F, ]$tipo = "texto")
+      a=auxiliar[auxiliar$n_cat > 20 & is.na(auxiliar$n_cat) == F,]$tipo
+    if(length(a)>0) auxiliar[auxiliar$n_cat > 20 & is.na(auxiliar$n_cat) == F,]$tipo = "texto"
   row.names(auxiliar) <- 1:length(auxiliar$linha)
   return(auxiliar)}
