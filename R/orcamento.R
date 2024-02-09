@@ -235,6 +235,4 @@ A nota fiscal será enviada até 3 dias após a conclusão do pagamento. \n", in
 
 \\newpage
 
-# Bibliografia
-
 ",sep="\n", collapse="")}
