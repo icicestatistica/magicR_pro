@@ -176,7 +176,7 @@ grafico_comp_box_pareado = function (id,cont, nomecont, cat, nomecat, moms, cor 
             geom_point(data = df.summary, aes(y = media, x = cat), 
                 shape = 23, fill = "red", color = "red", size = 3) + 
             ylab(vetor_comsep_c(nomecont, 40)) + xlab(vetor_comsep_c(nomecat, 
-            50)) + theme_clean() + ggtitle(vetor_comsep_c(titulo, 
+            50)) + theme_clean() + ggtitle(vetor_comsep_c(tit, 
             40), subtitle = sub) + eval(parse(text = limites)) + 
             theme(plot.background = element_rect(colour = NA, 
                 fill = "transparent"), panel.background = element_rect(fill = "transparent", 
