@@ -3,16 +3,16 @@ mc_icic = function(id,time,cat,moms,nomex,nometime,cor="cyan4"){
 df=data.frame(id,time,cat)
 
 df = df[df$time %in% moms,]
-df$cat = factor(df$cat, levels=moms)        
+df$cat = factor(df$time, levels=moms)        
 
 df_wide = tidyr::pivot_wider(df,names_from = time,values_from = cat)
 
 df_wide=na.omit(df_wide)
 
 df_long = tidyr::pivot_longer(df_wide,2:(dim(df_wide)[2]),values_to = "cat",names_to="time")
-df_long$time=factor(df_long$time)
+df_long$time=factor(df_long$time, levels=moms)
 df_long$id = factor(df_long$id)
-df_long$cat = factor(df_long$cat, levels=moms)
+df_long$cat = factor(df_long$cat)
 
 mc = rstatix::mcnemar_test(table(df_wide[,moms]))
 
