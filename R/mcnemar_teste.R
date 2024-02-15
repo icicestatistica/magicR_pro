@@ -3,7 +3,7 @@ mc_icic = function(id,time,cat,moms,nomex,nometime,cor="cyan4"){
 df=data.frame(id,time,cat)
 
 df = df[df$time %in% moms,]
-df$cat = factor(df$time, levels=moms)        
+df$time = factor(df$time, levels=moms)        
 
 df_wide = tidyr::pivot_wider(df,names_from = time,values_from = cat)
 
