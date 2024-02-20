@@ -78,6 +78,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
           }
         tex = paste0(comparacoes,collapse=" ")
         texto = c(texto, tex)
+        resumo_final = paste0(resumo_final," ",tex)                            
     }
     if (ordinal == F) 
         res = desc_bi_cont(dad$continua, dad$categorica, F, respcol, 
