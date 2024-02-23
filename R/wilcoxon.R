@@ -3,7 +3,7 @@ wilcox = function (id, time, num, nomex, moms, tipox = "numeric", nometime = "Mo
     id = factor(id)
     time = factor(time, levels = moms)
     if (tipox == "ordinal") {
-        num = as.numeric(num)
+        niveisordi = names(table(num)); num = as.numeric(num)
     }
     df = data.frame(id, time, num)
     df = df %>% filter(time %in% moms)
@@ -47,7 +47,7 @@ wilcox = function (id, time, num, nomex, moms, tipox = "numeric", nometime = "Mo
     }
     else {
         df_long$num = factor(df_long$num)
-        levels(df_long$num) = moms
+        levels(df_long$num) = niveisordi
         textograf <- substitute(paste("Teste de Wilcoxon (V=", 
             a2, ",p", a3, ")", collapse = ""), list(a2 = a2, 
             a3 = a3))
