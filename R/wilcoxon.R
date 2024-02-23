@@ -63,6 +63,6 @@ wilcox = function (id, time, num, nomex, moms, tipox = "numeric", nometime = "Mo
     }
     testes = data.frame(Nome1 = nometime, Nome2 = nomex, tipo = "wilc", 
         sig_ou_não = ifelse(stat.test$p < 0.05, T, F), resumo = resumo, sup = NA)
-    return(list(testes = testes, result = res, grafico = grafico, 
+    return(list(testes = testes, result = res, grafico = grafico, "\n",
         texto = texto))
 }
