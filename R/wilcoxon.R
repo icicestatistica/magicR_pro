@@ -46,6 +46,8 @@ wilcox = function (id, time, num, nomex, moms, tipox = "numeric", nometime = "Mo
                 rep("", dim(res)[1] - 1)))
     }
     else {
+        df_long$num = factor(df_long$num)
+        levels(df_long$num) = moms
         textograf <- substitute(paste("Teste de Wilcoxon (V=", 
             a2, ",p", a3, ")", collapse = ""), list(a2 = a2, 
             a3 = a3))
