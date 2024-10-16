@@ -55,6 +55,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
         stat.test.c = data.frame()
         for (i in ord) {stat.test.c = rbind(stat.test.c, stat.test[str_detect(stat.test$dunn.comparisons,i),]  %>% arrange(abs(dunn.Z)))}
         stat.test = unique(stat.test.c)
+        if(dim(stat.test)[1]==0) stat.test=NULL
         
         jafoi=c()
 
