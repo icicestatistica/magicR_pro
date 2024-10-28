@@ -45,7 +45,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
         b <- data.frame(difs,dunn$comparisons, dunn$Z,dunn$P.adjusted)
         b$signif = ifelse(b$dunn.P.adjusted<0.001,"***",ifelse(b$dunn.P.adjusted<0.01,"**",ifelse(b$dunn.P.adjusted<0.05,"*","")))
 
-        ordenando = dad %>% group_by(categorica) %>% dplyr::summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana)
+        ordenando = dad %>% group_by(categorica) %>% dplyr::summarise("mediana"=median(continua,na.rm=T)) %>% arrange(mediana) %>% na.omit()
         ord = ordenando$categorica
         
         stat.test = b
@@ -54,7 +54,7 @@ kruskall = function (resp, fator, nomeresp, nomefator, niveis = "auto",
         
         stat.test.c = data.frame()
         for (i in ord) {stat.test.c = rbind(stat.test.c, stat.test[str_detect(stat.test$dunn.comparisons,i),]  %>% arrange(abs(dunn.Z)))}
-        stat.test = unique(stat.test.c)
+        stat.test = na.omit(unique(stat.test.c))
         if(dim(stat.test)[1]==0) stat.test=NULL
         
         jafoi=c()
