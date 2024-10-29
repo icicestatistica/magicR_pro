@@ -92,7 +92,7 @@ grafico_categorica_vert = function (lesoes, nome, niveis = "auto", cor = "cyan4"
         scale_x_continuous(labels = scales::percent_format(), 
             expand = expansion(mult = c(0, 0.05)), limits=c(0,max(df$Freq_rel)+0.13)) + labs(y = NULL, 
         x = "Proporção", title = vetor_comsep_c(paste(nome, 
-            " (n=", length(lesoes), ")", sep = ""), 50))
+            " (n=", length(na.omit(lesoes)), ")", sep = ""), 50))
     return(plot)
 }
 
