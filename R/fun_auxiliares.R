@@ -177,3 +177,6 @@ if (sum(indicador[-c(1:4)])>0) capt = paste0(capt, "; \\* significante a 5%; \\*
 capt = paste0(nome,"; ",capt,"\n")
 
 return(capt)}
+
+
+get_niveis = function(vec) {return(vec_to_string(names(table(vec))))}
