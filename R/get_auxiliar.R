@@ -3,19 +3,22 @@ get_auxiliar <- function(dados){
   auxiliar <- data.frame(linha = 1:(dim(dados)[2]),nomes = names(dados),tipo=unlist(sapply(lapply(dados, class),"[[",1)))
   auxiliar[auxiliar$tipo=="character" | auxiliar$tipo=="logical",3] <- "factor"
   auxiliar[auxiliar$tipo=="integer",3] <- "numeric"
+  n_cate = unlist(unname(apply(dados,2,function(x) length(table(x)))))
+  auxiliar[auxiliar$tipo=="numeric" & n_cate<7,3] <- "factor"
+  n_cate[auxiliar$tipo=="numeric"]=NA                             
 
   ntotal=dim(dados)[2]
   niveis=rep("",ntotal)
   n_porcol=apply(is.na(dados)==F,2,sum)
-  n_cate = rep(NA, ntotal)
   for (i in 1:ntotal){
-    if (auxiliar$tipo[i]=="factor"){
+    if (auxiliar$tipo[i]=="factor" | auxiliar$tipo[i]=="ordinal"){
       niv <- c("c(")
       nomes=names(table(dados[,i]))
       n=length(nomes)
       if (n>1) for (j in 1:(n-1)) {niv <- c(niv,paste('"',nomes[j],'",',sep=""))}
       niveis[i] <- paste(c(niv,'"',nomes[n],'")'),collapse="",sep="")
-      n_cate[i]=n}}
+      }
+  }
 
   auxiliar <- data.frame(auxiliar,niveis,"n"=n_porcol,"n_cat"=n_cate)
       a=auxiliar[auxiliar$n_cat > 20 & is.na(auxiliar$n_cat) == F,]$tipo
