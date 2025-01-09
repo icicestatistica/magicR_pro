@@ -50,6 +50,27 @@ nivcatsame = function(niveisoriginal){
    niveiscerto = vec_to_string(possi)
    return(niveiscerto)}
 
+
+arrumacaixadeselecao = function(cx,nomesnovo){
+
+nomesori = names(cx)
+novascats = names(table(nomesnovo))
+
+cx_novo = matrix(rep("",length(novascats)*dim(cx)[1]),ncol=length(novascats))
+
+for (i in 1:length(novascats)){
+  id = which(nomesnovo==novascats[i])
+  df = data.frame(cx[,id])
+  cx_novo[,i]=apply(df,1,function(x) ifelse(sum(x=="Sim",na.rm=T)>0,"Sim","Não"))
+}
+cx_novo = data.frame(cx_novo)
+names(cx_novo)=novascats
+
+vec_novo = apply(cx_novo,1,function(x) paste0(novascats[x=="Sim"],collapse=",")) %>% unlist() %>% unname()
+return(list(cx_novo,vec_novo))}
+
+                 
+
 vetor_comsep <- function(vec,corte){
 mat = stringr::str_split(vec," ")
 res=c()
