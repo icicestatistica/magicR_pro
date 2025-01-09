@@ -56,17 +56,18 @@ arrumacaixadeselecao = function(cx,nomesini,nomesagrup){
 names(cx) = nomesini
 novascats = names(table(nomesagrup))
 
-cx_novo = matrix(rep(NA,length(novascats)*dim(cx)[1]),ncol=length(novascats))
+cx_novo = matrix(rep("",length(novascats)*dim(cx)[1]),ncol=length(novascats))
 
 for (i in 1:length(novascats)){
   id = which(nomesagrup==novascats[i])
   df = data.frame(cx[,id])
-  cx_novo[,i]=apply(df,1,function(x) ifelse(sum(x=="Sim")>0,"Sim","Não"))
+  cx_novo[,i]=apply(df,1,function(x) ifelse(sum(x=="Sim",na.rm=T)>0,"Sim","Não"))
 }
 cx_novo = data.frame(cx_novo)
 names(cx_novo)=novascats
 
 vec_novo = apply(cx_novo,1,function(x) paste0(novascats[x=="Sim"],collapse=",")) %>% unlist() %>% unname()
+vec_novo[vec_novo==""]=NA
 return(list("cx_novo"=cx_novo,"vec_novo"=vec_novo))}
 
                  
