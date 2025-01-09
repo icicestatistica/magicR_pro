@@ -25,3 +25,20 @@ get_auxiliar <- function(dados){
     if(length(a)>0) auxiliar[auxiliar$n_cat > 20 & is.na(auxiliar$n_cat) == F,]$tipo = "texto"
   row.names(auxiliar) <- 1:length(auxiliar$linha)
   return(auxiliar)}
+
+
+
+arruma_dados_auxiliar = function(dados,auxiliar){
+  dadosnovo=dados
+for (i in 1:dim(auxiliar)[1]){
+  if(is.na(auxiliar$n_cat[i])==F) dadosnovo[,i]=Transformar(unlist(dados[,i]),eval(parse(text=auxiliar$niveis[i])),eval(parse(text=unlist(auxiliar[i,5]))))
+  
+  if(auxiliar$tipo[i]=="numeric") dadosnovo[,i] = as.numeric(as.character(unlist(dadosnovo[,i])))}
+  
+auxnovo = get_auxiliar(dadosnovo)
+auxnovo$tipo = auxiliar$tipo
+  
+return(list("dadosnovo"=dadosnovo,"auxnovo"=auxnovo))  
+}
+
+## Ainda falta o catsamelevels
