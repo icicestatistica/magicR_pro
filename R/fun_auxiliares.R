@@ -61,7 +61,7 @@ cx_novo = matrix(rep(NA,length(novascats)*dim(cx)[1]),ncol=length(novascats))
 for (i in 1:length(novascats)){
   id = which(nomesagrup==novascats[i])
   df = data.frame(cx[,id])
-  cx_novo[,i]=apply(df,1,function(x) ifelse(sum(x=="Sim",na.rm=T)>0,"Sim","Não"))
+  cx_novo[,i]=apply(df,1,function(x) ifelse(sum(x=="Sim")>0,"Sim","Não"))
 }
 cx_novo = data.frame(cx_novo)
 names(cx_novo)=novascats
