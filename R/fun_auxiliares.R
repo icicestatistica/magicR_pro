@@ -67,7 +67,7 @@ cx_novo = data.frame(cx_novo)
 names(cx_novo)=novascats
 
 vec_novo = apply(cx_novo,1,function(x) paste0(novascats[x=="Sim"],collapse=",")) %>% unlist() %>% unname()
-return(list(cx_novo,vec_novo))}
+return(list("cx_novo"=cx_novo,"vec_novo"=vec_novo))}
 
                  
 
