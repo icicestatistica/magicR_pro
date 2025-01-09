@@ -51,15 +51,15 @@ nivcatsame = function(niveisoriginal){
    return(niveiscerto)}
 
 
-arrumacaixadeselecao = function(cx,nomesnovo){
+arrumacaixadeselecao = function(cx,nomesini,nomesagrup){
 
-nomesori = names(cx)
-novascats = names(table(nomesnovo))
+names(cx) = nomesini
+novascats = names(table(nomesagrup))
 
 cx_novo = matrix(rep("",length(novascats)*dim(cx)[1]),ncol=length(novascats))
 
 for (i in 1:length(novascats)){
-  id = which(nomesnovo==novascats[i])
+  id = which(nomesagrup==novascats[i])
   df = data.frame(cx[,id])
   cx_novo[,i]=apply(df,1,function(x) ifelse(sum(x=="Sim",na.rm=T)>0,"Sim","Não"))
 }
