@@ -56,7 +56,7 @@ arrumacaixadeselecao = function(cx,nomesini,nomesagrup){
 names(cx) = nomesini
 novascats = names(table(nomesagrup))
 
-cx_novo = matrix(rep("",length(novascats)*dim(cx)[1]),ncol=length(novascats))
+cx_novo = matrix(rep(NA,length(novascats)*dim(cx)[1]),ncol=length(novascats))
 
 for (i in 1:length(novascats)){
   id = which(nomesagrup==novascats[i])
