@@ -31,7 +31,7 @@ get_auxiliar <- function(dados){
 arruma_dados_auxiliar = function(dados,auxiliar){
   dadosnovo=dados
 for (i in 1:dim(auxiliar)[1]){
-  if(is.na(auxiliar$n_cat[i])==F) dadosnovo[,i]=Transformar(unlist(dados[,i]),eval(parse(text=auxiliar$niveis[i])),eval(parse(text=unlist(auxiliar[i,5]))))
+  if(auxiliar$tipo[i] %in% c("ordinal","factor")) dadosnovo[,i]=Transformar(unlist(dados[,i]),eval(parse(text=auxiliar$niveis[i])),eval(parse(text=unlist(auxiliar[i,5]))))
   
   if(auxiliar$tipo[i]=="numeric") dadosnovo[,i] = as.numeric(as.character(unlist(dadosnovo[,i])))}
   
