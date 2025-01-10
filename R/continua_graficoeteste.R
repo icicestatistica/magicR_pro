@@ -59,55 +59,64 @@ if(texto==T){
 return(list("testes"=testes,"result"=d,"texto"=tex,"interp"=interpretacao,"grafico"=grafico))}
 
 graficos_continua = function (var, nome, bins = 20, cor = "cyan4", digitos = 2, idioma = "PT", 
-    virgula = F,xmin='auto',xmax='auto') 
+                              virgula = F,xmin='auto',xmax='auto') 
 {
   require(ggplot2)
   require(colorspace)
   require(ggthemes)
   require(patchwork)
-    d <- data.frame(var = as.numeric(unlist(var)))
-    excess <- round((max(d$var, na.rm = T) - min(d$var, na.rm = T))/8, 
-        0)
-    min <- ifelse(xmin=='auto',min(d$var, na.rm = T) - excess,xmin)
-    max <- ifelse(xmax=='auto',max(d$var, na.rm = T) + excess,xmax)
-    dp <- sd(d$var, na.rm = T)
-    media = mean(d$var, na.rm = T)
-    if (idioma == "PT") 
-        medianomegraf = "Média="
-    else medianomegraf = "Mean="
-    box <- ggplot(d) + geom_boxplot(aes(x = var), fill = lighten(cor, 
-        0.2)) + theme_clean() + ggtitle(vetor_comsep_c(paste0(nome, 
-        " (n=", length(d$var[!is.na(d$var)]), ")"), 40)) + xlab("") + 
-        ylab("") + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank(), 
-        axis.line.y = element_blank(), axis.text.x = element_blank(), 
-        axis.ticks.x = element_blank(), axis.line.x = element_blank(), 
-        panel.grid.major.x = element_line(colour = "gray"), panel.grid.minor.x = element_line(colour = "lightgray"), 
-        panel.grid.major.y = element_blank(), plot.title = element_text(hjust = 0.5), 
-        plot.background = element_rect(colour = "white")) + xlim(min, 
-        max) + geom_label(x = min(d$var, na.rm = T), y = -0.2, 
-        label = ponto_para_virgula(paste0("Min=", round(summary(d$var)[1], 
-            digitos)), virgula), color = "black") + geom_label(x = summary(var)[2], 
-        y = 0.1, label = ponto_para_virgula(paste0("Q1=", round(summary(var)[2], 
-            digitos)), virgula), color = "black") + geom_label(x = summary(d$var)[3], 
-        y = -0.1, label = ponto_para_virgula(paste0("Med=", round(summary(var)[3], 
-            digitos)), virgula), color = "black") + geom_label(x = summary(var)[5], 
-        y = 0.1, label = ponto_para_virgula(paste0("Q3=", round(summary(var)[5], 
-            digitos)), virgula), color = "black") + geom_label(x = summary(var)[6], 
-        y = -0.2, label = ponto_para_virgula(paste0("Max=", round(summary(var)[6], 
-            digitos)), virgula), color = "black")
-    histo <- ggplot(d, aes(x = var)) + geom_histogram(aes(y = ..density..), 
-        bins = bins, fill = cor) + geom_density(alpha = 0.5, 
-        colour = NA, fill = cor, alpha = 0.9) + geom_errorbarh(aes(xmax = media + 
-        dp, xmin = media - dp, y = 0), inherit.aes = F, height = max(density(d$var, 
-        na.rm = T)$y)/5) + theme_clean() + xlab(nome) + xlim(min, 
-        max) + ylab("") + geom_vline(xintercept = mean(var, na.rm = T), 
-        color = "black", size = 1) + theme(axis.text.y = element_blank(), 
-        axis.ticks.y = element_blank(), axis.line.y = element_blank(), 
-        plot.background = element_rect(colour = "white"), axis.title.y = element_blank(), 
-        axis.title.x = element_blank(), panel.grid.major.x = element_line(colour = "gray"), 
-        panel.grid.minor.x = element_line(colour = "lightgray"), 
-        panel.grid.major.y = element_blank()) + geom_label(x = summary(var)[4], 
-        y = 0, label = ponto_para_virgula(paste0(medianomegraf, 
-            round(summary(var)[4], digitos)), virgula), color = "black")
-    return(box/histo)
+  require(ggrepel)
+  d <- data.frame(var = as.numeric(unlist(var)))
+  excess <- round((max(d$var, na.rm = T) - min(d$var, na.rm = T))/8, 
+                  0)
+  min <- ifelse(xmin=='auto',min(d$var, na.rm = T) - excess,xmin)
+  max <- ifelse(xmax=='auto',max(d$var, na.rm = T) + excess,xmax)
+  dp <- sd(d$var, na.rm = T)
+  media = mean(d$var, na.rm = T)
+  if (idioma == "PT") medianomegraf = "Média=" else medianomegraf = "Mean="
+  box <- ggplot(d) +
+    geom_boxplot(aes(x = var), fill = lighten(cor,0.2)) +
+    theme_clean() +
+    ggtitle(vetor_comsep_c(paste0(nome," (n=", length(d$var[!is.na(d$var)]), ")"), 40)) +
+    labs(x="",y="") +
+    theme(axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(), 
+          axis.line.y = element_blank(),
+          axis.text.x = element_blank(), 
+          axis.ticks.x = element_blank(),
+          axis.line.x = element_blank(), 
+          panel.grid.major.x = element_line(colour = "gray"),
+          panel.grid.minor.x = element_line(colour = "lightgray"), 
+          panel.grid.major.y = element_blank(),
+          plot.title = element_text(hjust = 0.5), 
+          plot.background = element_rect(colour = "white")) +
+   xlim(min,max) +
+   geom_label_repel(data = data.frame("x" = c(summary(var)[c(1:3,5,6)]),
+                                 "y" = c(-0.2,0.1,-0.1,0.1,-0.2),
+                                 "label" = ponto_para_virgula(paste0(c("Min=","Q1=","Med=","Q3=","Max="), round(summary(var)[c(1:3,5,6)],digitos)), virgula)),
+                    aes(x = x, y = y, label = label),
+                    color = "black")
+  
+  
+  
+  
+  histo <- ggplot(d, aes(x = var)) +
+    geom_histogram(aes(y = ..density..), bins = bins, fill = cor) +
+    geom_density(alpha = 0.5, colour = NA, fill = cor, alpha = 0.9) +
+    geom_errorbarh(data=data.frame("mmax"=c(media+dp),"mmin"=c(media-dp),"y"=c(0),"h"=max(density(d$var,na.rm = T)$y)/5),aes(xmax = mmax, xmin = mmin, y = y, height = h),inherit.aes = FALSE) +
+    theme_clean() +
+    labs(x=nome,y="") +
+    xlim(min, max)+
+    geom_vline(xintercept = media,color = "black", size = 1) +
+    theme(axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          axis.line.y = element_blank(),
+          plot.background = element_rect(colour = "white"),
+          axis.title.y = element_blank(),
+          axis.title.x = element_blank(),
+          panel.grid.major.x = element_line(colour = "gray"),
+          panel.grid.minor.x = element_line(colour = "lightgray"),
+          panel.grid.major.y = element_blank()) +
+    geom_label(data=data.frame(x = media,y = 0, label = ponto_para_virgula(paste0(medianomegraf,round(summary(var)[4], digitos)), virgula)),aes(x=x,y=y,label=label), color = "black")
+  return(box/histo)
 }
