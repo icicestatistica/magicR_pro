@@ -215,7 +215,7 @@ A nota fiscal será enviada até 3 dias após a conclusão do pagamento. \n", in
 * O trabalho que desenvolvemos é único e exclusivamente para a realização da análise estatística, não é de nossa competência fazer a edição e formatação dos resultados conforme regimento de cada universidade e/ou revista.
 
 \\newpage",
-      paste0(mday(Sys.Date())," de ",mês[month(Sys.Date())]," de ",year(Sys.Date()),sep=""),"
+      paste0("Campinas, ",mday(Sys.Date())," de ",mês[month(Sys.Date())]," de ",year(Sys.Date()),sep=""),"
 
 <br> <br>
 
