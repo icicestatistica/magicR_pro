@@ -284,7 +284,7 @@ As variáveis presentes no banco são:",sep="",collapse="")
 
   descritivacompleta = c()
   if(is.null(dim(dados))) {
-    for (i in 1:length(dados)) descritivacompleta = c(descritivacompleta,paste0("\n### Banco de dados número",i,"\n), fun_descritiva_banco(dados[[i]],auxiliar[[i]]))
+    for (i in 1:length(dados)) descritivacompleta = c(descritivacompleta,paste0("\n### Banco de dados número",i,"\n"), fun_descritiva_banco(dados[[i]],auxiliar[[i]]))
   descritivacompleta = paste0(descritivacompleta, sep="\n")} else descritivacompleta = fun_descritiva_banco(dados,auxiliar)
   
   ## descritivacompleta guarda a descrição de um ou mais bancos enviados ###
