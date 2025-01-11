@@ -254,7 +254,7 @@ orcamento_personalizado <- function(dataenviobancobruto=Sys.Date(),
                       tempo = c('suporte'=T,'tempo_reuniao'=30,'outros'=0),
                       imposto=0.175,
                       nomepesquisador="nome",
-                      cpfpesquisador="123.456.789-00"){
+                      cpfpesquisador="000.000.000-00"){
   
   mês <- c("janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro")
 
@@ -284,7 +284,7 @@ As variáveis presentes no banco são:",sep="",collapse="")
 
   descritivacompleta = c()
   if(is.null(dim(dados))) {
-    for (i in 1:length(dados)) descritivacompleta = c(descritivacompleta,fun_descritiva_banco(dados[[i]],auxiliar[[i]]))
+    for (i in 1:length(dados)) descritivacompleta = c(descritivacompleta,paste0("\n### Banco de dados número",i,"\n), fun_descritiva_banco(dados[[i]],auxiliar[[i]]))
   descritivacompleta = paste0(descritivacompleta, sep="\n")} else descritivacompleta = fun_descritiva_banco(dados,auxiliar)
   
   ## descritivacompleta guarda a descrição de um ou mais bancos enviados ###
