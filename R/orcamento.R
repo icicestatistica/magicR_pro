@@ -239,7 +239,7 @@ A nota fiscal será enviada até 3 dias após a conclusão do pagamento. \n", in
 
 
 orcamento_personalizado <- function(dataenviobancobruto=Sys.Date(),
-                      bancobruto=dados,
+                      dados=dados,
                       auxiliar=auxiliar,
                       analises=analises,
                       preçotestes=preçotestes,
@@ -260,7 +260,7 @@ orcamento_personalizado <- function(dataenviobancobruto=Sys.Date(),
 
   ##### DESCRITIVA DE UM OU MAIS BANCOS #####
   
- fun_descritiva_banco = function(bancobruto,auxiliar){
+ fun_descritiva_banco = function(dados,auxiliar){
   descricaobanco <- c()
   for (i in 1:dim(auxiliar)[1]){
     if(auxiliar$tipo[i]=="factor"){
@@ -276,7 +276,7 @@ orcamento_personalizado <- function(dataenviobancobruto=Sys.Date(),
                       {descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise.",sep=""))}}
   descricaobanco = paste0(descricaobanco, sep="",collapse="\n")
   
-  descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
+  descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(dados)[1]," linhas e ",dim(dados)[2]," colunas.
 As variáveis presentes no banco são:",sep="",collapse="")
   
   result = paste0(c(descbase, descricaobanco),sep="\n",collapse="\n")
