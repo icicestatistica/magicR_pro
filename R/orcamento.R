@@ -260,32 +260,32 @@ orcamento_personalizado <- function(dataenviobancobruto=Sys.Date(),
 
   ##### DESCRITIVA DE UM OU MAIS BANCOS #####
   
-  fun_descritiva_banco = function(bancobruto,auxiliar){
+ fun_descritiva_banco = function(bancobruto,auxiliar){
   descricaobanco <- c()
   for (i in 1:dim(auxiliar)[1]){
     if(auxiliar$tipo[i]=="factor"){
-      descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else 
+      descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável categórica com ",length(eval(parse(text=auxiliar$niveis[i])))," grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),").",sep=""))} else 
         if(auxiliar$tipo[i]=="ordinal"){
-          descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n",sep=""))} else
+          descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável ordinal com ", length(eval(parse(text=auxiliar$niveis[i]))), " grupo(s) (",printvetor(eval(parse(text=auxiliar$niveis[i]))),").",sep=""))} else
             if(auxiliar$tipo[i]=="ID"){
-              descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise. \n", sep=""))} else
+              descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Coluna de identificação. Não será utilizada na análise.", sep=""))} else
                 if(auxiliar$tipo[i]=="catsame"){
-                  descricaobanco=c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),"). \n", sep=""))} else
+                  descricaobanco=c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável do tipo caixas de respostas (o respondente pode marcar mais de uma opção). Para realizar a análise, é necessário separar essa coluna em ",length(eval(parse(text=auxiliar$niveis[i]))),", sendo uma coluna para cada resposta possível (",printvetor(eval(parse(text=auxiliar$niveis[i]))),").", sep=""))} else
                     if(auxiliar$tipo[i]=="numeric"){
-                      descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável numérica. \n",sep=""))} else
-                      {descricaobanco <- c(descricaobanco,paste(" + **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise. \n",sep=""))}}
-  descricaobanco = paste(descricaobanco, sep="",collapse="")
+                      descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável numérica.",sep=""))} else
+                      {descricaobanco <- c(descricaobanco,paste("+ **",auxiliar$nomes[i],":** Variável textual ou não categorizada corretamente. Não será utilizada na análise.",sep=""))}}
+  descricaobanco = paste0(descricaobanco, sep="",collapse="\n")
   
   descbase = paste("A base de dados foi enviada na data ",dataenviobancobruto,", com ",dim(bancobruto)[1]," linhas e ",dim(bancobruto)[2]," colunas.
-As variáveis presentes no banco são: \n",sep="",collapse="")
+As variáveis presentes no banco são:",sep="",collapse="")
   
-  result = paste(c(descbase, "", descricaobanco),sep="\n",collapse="")
+  result = paste0(c(descbase, descricaobanco),sep="\n",collapse="\n")
   return(result)}
 
   descritivacompleta = c()
-  if(is.null(dim(bancobruto))) {
-    for (i in 1:length(bancobruto)) descritivacompleta = c(descritivacompleta,fun_descritiva_banco(bancobruto[[i]],auxiliar[[i]]))
-  descritivacompleta = paste0(descritivacompleta, sep="\n")} else descritivacompleta = fun_descritiva_banco(bancobruto,auxiliar)
+  if(is.null(dim(dados))) {
+    for (i in 1:length(dados)) descritivacompleta = c(descritivacompleta,fun_descritiva_banco(dados[[i]],auxiliar[[i]]))
+  descritivacompleta = paste0(descritivacompleta, sep="\n")} else descritivacompleta = fun_descritiva_banco(dados,auxiliar)
   
   ## descritivacompleta guarda a descrição de um ou mais bancos enviados ###
   
