@@ -1,6 +1,6 @@
 anova_mista = function(resp,nomeresp,entre,nomeentre,intra,nomeintra,id){
   
-df = data.frame(resp,entre,intra,id)
+df = data.frame(resp,entre,intra,id) %>% na.omit()
 
 mod.ANOVA <- ez::ezANOVA(data = df,
                      dv = .(resp),
