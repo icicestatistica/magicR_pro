@@ -202,3 +202,19 @@ return(capt)}
 
 
 get_niveis = function(vec) {return(vec_to_string(names(table(vec))))}
+
+###################
+                       
+preencher = function(vec,vazios=""){
+  
+if(is.na(vazios)) {vec[is.na(vec)]=""; vazios=""}
+
+id_vaz = which(vec==vazios)
+id_nvaz = which(vec!=vazios)
+
+mudar = sapply(id_vaz, function(x) max(id_nvaz[id_nvaz<x]))
+
+vec_novo = vec
+vec_novo[id_vaz] = vec[mudar]
+
+return(vec_novo)}                       
