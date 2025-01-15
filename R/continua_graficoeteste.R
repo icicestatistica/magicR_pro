@@ -101,7 +101,7 @@ graficos_continua = function (var, nome, bins = 20, cor = "cyan4", digitos = 2, 
   
   
   histo <- ggplot(d, aes(x = var)) +
-    geom_histogram(aes(y = after_stat(density), bins = bins, fill = cor) +
+    geom_histogram(aes(y = after_stat(density), bins = bins, fill = cor)) +
     geom_density(colour = NA, fill = cor, alpha = 0.9) +
     geom_errorbarh(data=data.frame("mmax"=c(media+dp),"mmin"=c(media-dp),"y"=c(0),"h"=max(density(d$var,na.rm = T)$y)/5),aes(xmax = mmax, xmin = mmin, y = y, height = h),inherit.aes = FALSE) +
     theme_clean() +
